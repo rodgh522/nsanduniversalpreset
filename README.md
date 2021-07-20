@@ -10,8 +10,8 @@ $ ng new [project name] --collection=@nativescript/schematics --shared --style=s
 $ ns migrate
 ```
 
-  - if there is no webpack.config.js on root directory
-  copy and paste file from .migration_backup folder
+  - if there is no webpack.config.js on root directory,
+  copy and paste the file from .migration_backup folder
 
   - change @nativescript/webpack version to ~4.1
 ```
@@ -40,7 +40,7 @@ new CopyWebpackPlugin(copyTargets)
   - create tsconfig.tns.json on root directory
 
   - modify src/polyfills.ts file 
->> import 'core-js/es7/reflect' => 'core-js/es/reflect'
+> import 'core-js/es7/reflect' => 'core-js/es/reflect'
 
   - upgrade typescript version to 4.1.0
 ```
@@ -60,7 +60,7 @@ npm i --only=dev @angular-devkit/build-angular@~0.1100
 ```
 
 
-## Error
+## Error Handle
   - cannot find module 'tslint'
 ```
 $ npm i -D @nativescript/schematics @angular/cli

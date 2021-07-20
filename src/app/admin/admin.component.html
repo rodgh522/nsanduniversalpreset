@@ -1,3 +1,10 @@
-<admin-header></admin-header>
-<router-outlet></router-outlet>
-<admin-footer></admin-footer>
+<div id="wrapper">
+    <as-split useTransition="true" gutterSize="0" unit="pixel">
+        <as-split-area size="100" minSize="50" order="1" visible="true">
+            <admin-sidebar></admin-sidebar>
+        </as-split-area>
+        <as-split-area size="*" order="2" visible="true">
+            <router-outlet></router-outlet>
+        </as-split-area>
+    </as-split>
+</div>

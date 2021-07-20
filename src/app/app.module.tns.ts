@@ -1,8 +1,12 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NativeScriptModule } from '@nativescript/angular';
 
-import { AppRoutingModule } from './app-routing.module.tns';
-import { AppComponent } from './app.component.tns';
+import { AppRoutingModule } from '@src/app/app-routing.module.tns';
+import { AppComponent } from '@src/app/app.component.tns';
+import { SidebarComponent } from '@src/app/admin/layout/sidebar/sidebar.component';
+import { ReservationComponent } from '@src/app/admin/reservation/reservation.component';
+import { UnitComponent } from '@src/app/admin/unit/unit.component';
+import { StockComponent } from '@src/app/admin/stock/stock.component';
 
 
 // Uncomment and add to NgModule imports if you need to use two-way binding and/or HTTP wrapper
@@ -11,6 +15,10 @@ import { AppComponent } from './app.component.tns';
 @NgModule({
   declarations: [
     AppComponent,
+    SidebarComponent,
+    ReservationComponent,
+    UnitComponent,
+    StockComponent,
   ],
   imports: [
     NativeScriptModule,

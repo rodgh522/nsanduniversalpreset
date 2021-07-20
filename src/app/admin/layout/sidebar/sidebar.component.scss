@@ -1,0 +1,14 @@
+.side-container{
+    height: 100%;
+    margin: 0;
+    background-color: #eee;
+    border-right: 1px solid #ddd;
+
+    .side-container-box{
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 95%;
+    }
+}
