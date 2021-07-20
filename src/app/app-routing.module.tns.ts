@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
+import { Routes } from '@angular/router';
 import { NativeScriptRouterModule } from '@nativescript/angular';
-import { routes } from '@src/app/app.routes';
 
+const routes: Routes = [
+  { path: '', loadChildren: () => import('./home/home.module.tns').then( m => m.HomeModule)},
+];
 @NgModule({
   imports: [NativeScriptRouterModule.forRoot(routes)],
   exports: [NativeScriptRouterModule]

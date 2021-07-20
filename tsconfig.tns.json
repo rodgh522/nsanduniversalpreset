@@ -12,6 +12,9 @@
       ]
     }
   },
+  "include": [
+    "src/**/*.tns.ts"
+  ],
   "files": [
     "src/main.tns.ts",
     "src/polyfills.ts"
