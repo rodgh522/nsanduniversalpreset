@@ -7,12 +7,15 @@
     "paths": {
       "@src/*": [
         "src/*.web",
-        "src/*"
+        "src/*.ts"
       ]
     }
   },
   "files": [
     "src/main.ts",
     "src/polyfills.ts"
+  ],
+  "exclude": [
+    "src/*.tns.ts"
   ]
 }
