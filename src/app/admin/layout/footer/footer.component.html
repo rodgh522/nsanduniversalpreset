@@ -1,1 +1,19 @@
-<p>footer works!</p>
+<div class="footer-container">
+    <ul>
+        <li class="footer-item">
+            <a routerLink="unit" [@highlight]="selected === 'unit' ? 'active' : 'deactive'" (click)="selected = 'unit'">
+                <i class="fa fa-key"></i><br>
+            </a>
+        </li>
+        <li class="footer-item">
+            <a routerLink="reserve" [@highlight]="selected === 'reserve' ? 'active' : 'deactive'" (click)="selected = 'reserve'">
+                <i class="fa fa-calendar"></i><br>
+            </a>
+        </li>
+        <li class="footer-item">
+            <a routerLink="stock" [@highlight]="selected === 'stock' ? 'active' : 'deactive'" (click)="selected = 'stock'">
+                <i class="fa fa-krw"></i><br>
+            </a>
+        </li>
+    </ul>
+</div>

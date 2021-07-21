@@ -1,10 +1,14 @@
-<div id="wrapper">
+<div id="wrapper" #wrapper>
     <as-split useTransition="true" gutterSize="0" unit="pixel">
-        <as-split-area [size]="sideSize" minSize="50" order="1" visible="true">
+        <as-split-area [size]="sideSize" minSize="0" order="1" visible="true">
             <admin-sidebar (onFolded)="changeSize($event)"></admin-sidebar>
         </as-split-area>
         <as-split-area size="*" order="2" visible="true">
-            <router-outlet></router-outlet>
+            <admin-header></admin-header>
+            <div class="content-wrapper">
+                <router-outlet></router-outlet>
+            </div>
+            <admin-footer *ngIf="sideSize === 0"></admin-footer>
         </as-split-area>
     </as-split>
 </div>

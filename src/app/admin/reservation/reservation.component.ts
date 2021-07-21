@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReservationComponent implements OnInit {
 
+  title = '예약관리';
   constructor() { }
 
   ngOnInit(): void {

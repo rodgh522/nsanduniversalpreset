@@ -1,0 +1,33 @@
+.header-container{
+    padding: 10px 30px;
+    position: relative;
+    .user-config{
+        float: right;
+        width: 40px;
+        height: 40px;
+        background-color: #eee;
+        border-radius: 2em;
+        cursor: pointer;
+    }
+    .config-board{
+        display: inline-block;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        position: fixed;
+        right: 70px;
+        top: 50px;
+        background-color: #fff;
+        z-index: 3;
+        
+        ul{
+            li{
+                padding: 10px;
+                margin-bottom: 5px;
+                cursor: pointer;
+                &:not(:last-of-type){
+                    border-bottom: 1px solid #ddd;
+                }
+            }
+        }
+    }
+}

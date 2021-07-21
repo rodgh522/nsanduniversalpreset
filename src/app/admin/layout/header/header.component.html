@@ -1,1 +1,11 @@
-<p>header works!</p>
+<div class="header-container">
+    <button class="user-config" (click)="showBoard = !showBoard">
+        사
+    </button>
+    <div class="config-board" *ngIf="showBoard">
+        <ul>
+            <li><a routerLink="">프로필</a></li>
+            <li><a routerLink="/login">로그아웃</a></li>
+        </ul>
+    </div>
+</div>

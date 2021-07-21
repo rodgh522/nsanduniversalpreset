@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from '@src/app/admin/admin-routing.module';
 import { AngularSplitModule } from 'angular-split';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTabsModule } from '@angular/material/tabs';
 
 /* Component */
 import { AdminComponent } from '@src/app/admin/admin.component';
@@ -31,7 +32,7 @@ import { StockComponent } from '@src/app/admin/stock/stock.component';
     CommonModule,
     AdminRoutingModule,
     AngularSplitModule,
-    MatTooltipModule
+    MatTooltipModule, MatTabsModule
   ]
 })
 export class AdminModule { }
