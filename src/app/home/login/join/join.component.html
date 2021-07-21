@@ -1,0 +1,39 @@
+<div class="content-wrapper">
+    <div class="login-container">
+        <h2>Movila 회원가입</h2>
+        <div class="login-content">
+            <form [formGroup]="joinform" class="flex-column">
+                <h4>이름
+                    <span *ngIf="checkValid('MemNm')" class="text-error"> * 필수정보 입니다.</span>
+                </h4>
+                <input type="text" formControlName="MemNm" placeholder="이름" [ngStyle]="{'borderColor': checkValid('MemNm') ? '#f00': '#ddd'}">
+                <h4>아이디
+                    <span *ngIf="checkValid('LoginId')" class="text-error"> * 필수정보 입니다.</span>
+                </h4>
+                <input type="text" formControlName="LoginId" placeholder="아이디" [ngStyle]="{'borderColor': checkValid('LoginId') ? '#f00': '#ddd'}">
+                <h4>
+                    비밀번호  
+                    <i class="fa fa-info-circle" [matTooltip]="pwdTip"></i>
+                    <span *ngIf="checkValid('Pwd')" class="text-error"> * 8 ~ 16자, 숫자 혹은 특수문자 1개 이상(필수)</span>
+                </h4>
+                <input type="text" formControlName="Pwd" placeholder="패스워드" [ngStyle]="{'borderColor': checkValid('Pwd') ? '#f00': '#ddd'}">
+                <input type="text" formControlName="rePwd" placeholder="패스워드 확인" [ngStyle]="{'borderColor': joinform.controls.rePwd.touched && checkPwd() ? '#f00': '#ddd'}">
+                <h4>휴대전화
+                    <span *ngIf="checkValid('Mobile')" class="text-error"> * 필수정보 입니다.</span>
+                </h4>
+                <div class="input-with-btn">
+                    <input type="text" formControlName="Mobile" placeholder="휴대폰번호" [ngStyle]="{'borderColor': checkValid('Mobile') ? '#f00': '#ddd'}">
+                    <button>인증번호 받기</button>
+                    <input type="text" placeholder="인증번호 입력" formControlName="sms">
+                    <button>인증번호 확인</button>
+                </div>
+                <h4>개인정보 수집 및 이용 동의
+                    <span *ngIf="checkValid('agreement')" class="text-error"> * 필수</span>
+                    <a>보기</a>
+                </h4>
+                <mat-checkbox color="primary" formControlName="agreement" [ngStyle]="{'color': checkValid('agreement') ? '#f00': '#000'}">동의합니다.</mat-checkbox>
+                <button class="join-submit" (click)="sumbit()">가입</button>
+            </form>
+        </div>
+    </div>
+</div>

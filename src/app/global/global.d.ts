@@ -1,0 +1,3 @@
+interface Validators{
+    checkPwd(): boolean;
+}
