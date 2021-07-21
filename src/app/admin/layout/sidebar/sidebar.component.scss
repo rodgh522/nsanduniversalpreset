@@ -12,3 +12,36 @@
         height: 95%;
     }
 }
+
+.side-item{
+    text-align: center;
+
+    a{
+        display: block;
+        font-size: 20px;
+        color: #a7a7aa;
+        padding: 5px 0;
+        margin: 5px 0;
+        span{
+            font-size: 14px;
+            font-weight: 600;
+        }
+    }
+}
+
+.menu-tooltip{
+    font-size: 13px;
+    padding: 10px;
+    font-weight: 600;
+    background: #333;
+    opacity: 0.8;
+}
+
+.toogle-btn{
+    font-size: 20px;
+    cursor: pointer;
+
+    &:hover{
+        color: #888;
+    }
+}

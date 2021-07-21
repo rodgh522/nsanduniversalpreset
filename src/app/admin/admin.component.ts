@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
+  sideSize: number = 100;
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  changeSize(e){
+    this.sideSize = e ? 70 : 100;    
+  }
+  
 }
