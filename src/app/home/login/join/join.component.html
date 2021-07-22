@@ -9,8 +9,12 @@
                 <input type="text" formControlName="MemNm" placeholder="이름" [ngStyle]="{'borderColor': checkValid('MemNm') ? '#f00': '#ddd'}">
                 <h4>아이디
                     <span *ngIf="checkValid('LoginId')" class="text-error"> * 필수정보 입니다.</span>
+                    <span *ngIf="joinform.controls['LoginId'].valid && isDuplicated" class="text-error"> * 중복된 ID가 존재합니다.</span>
                 </h4>
-                <input type="text" formControlName="LoginId" placeholder="아이디" [ngStyle]="{'borderColor': checkValid('LoginId') ? '#f00': '#ddd'}">
+                <input type="text" formControlName="LoginId" placeholder="아이디" 
+                    (focus)="isChecked = false"
+                    (focusout)="checkDuplication()"
+                    [ngStyle]="{'borderColor': checkValid('LoginId') || (joinform.controls['LoginId'].valid && !isChecked) ? '#f00': '#ddd'}">
                 <h4>
                     비밀번호  
                     <i class="fa fa-info-circle" [matTooltip]="pwdTip"></i>
@@ -22,7 +26,7 @@
                     <span *ngIf="checkValid('Mobile')" class="text-error"> * 필수정보 입니다.</span>
                 </h4>
                 <div class="input-with-btn">
-                    <input type="text" formControlName="Mobile" placeholder="휴대폰번호" [ngStyle]="{'borderColor': checkValid('Mobile') ? '#f00': '#ddd'}">
+                    <input type="text" formControlName="Mobile" placeholder="- 없이 번호만 입력" [ngStyle]="{'borderColor': checkValid('Mobile') ? '#f00': '#ddd'}">
                     <button>인증번호 받기</button>
                     <input type="text" placeholder="인증번호 입력" formControlName="sms">
                     <button>인증번호 확인</button>

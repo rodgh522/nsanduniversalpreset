@@ -7,6 +7,14 @@ import { join } from 'path';
 import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
+import { enableProdMode } from '@angular/core';
+
+// Polyfills required for Firebase
+(global as any).WebSocket = require('ws');
+(global as any).XMLHttpRequest = require('xhr2');
+
+// Faster renders in prod mode
+enableProdMode();
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {

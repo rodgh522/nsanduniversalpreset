@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { formToObj, ValidatorsExt, validCheck } from '@src/app/global/global';
+import { checkPwd, formToObj, validCheck } from '@src/app/global/global';
+import { PostApiService } from '@src/app/service/post-api.service';
+import { CONSTANT } from '@src/assets/global-constant';
 
 @Component({
   selector: 'app-join',
@@ -11,9 +13,12 @@ export class JoinComponent implements OnInit {
 
   joinform: FormGroup;
   pwdTip: string;
+  isChecked = false;
+  isDuplicated = false;
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private postApi: PostApiService
   ) { 
     this.joinform = fb.group({
       LoginId: ['', [
@@ -38,12 +43,13 @@ export class JoinComponent implements OnInit {
       ]],
       rePwd: ['', [
         Validators.required,
-        ValidatorsExt.checkPwd
       ]],
       agreement: ['', [
         Validators.required,
         Validators.requiredTrue
       ]],
+    }, {
+      validator: checkPwd('Pwd', 'rePwd')
     });
 
     this.pwdTip = '8 ~ 16자, 숫자 혹은 특수문자 1개 이상';
@@ -75,7 +81,53 @@ export class JoinComponent implements OnInit {
       return;
     }
     let data = formToObj(this.joinform.controls);
-    console.log(data);
+    if(this.isChecked){
+      this.sendRequest(data);
+    }
   }
   
+  sendRequest(data: any){
+
+    const attr = [
+      'keyId', 'LoginId', 'Pwd', 'MemNm', 'Mobile'
+    ];
+    data.attr = attr;
+    data.mapcode = 'movilaJoin';
+    data.idName = 'MemId';
+
+    this.postApi.login(data, (res)=> {
+      console.log(res);
+    },
+    (error)=> {
+      console.error('[Error]=> ' + error);
+    });
+  }
+
+  checkDuplication(){
+    const idCtrl = this.joinform.controls['LoginId'];
+    if(!idCtrl.valid){
+      return;
+    }
+
+    const data = {
+      id: idCtrl.value,
+      mapcode: 'duplicationCheck'
+    };
+
+    this.postApi.login(data, (res)=> {
+      if(res.header.status === CONSTANT.HttpStatus.OK){
+        if(res.body.docCnt > 0){
+          if(res.body.docs[0].resultCode === 0){
+            this.isChecked = true;
+            this.isDuplicated = false;
+          }else{
+            this.isDuplicated = true;
+          }
+        }
+      }
+    },
+    (error)=> {
+      console.error('[Error]=> ' + error);
+    });
+  }
 }
