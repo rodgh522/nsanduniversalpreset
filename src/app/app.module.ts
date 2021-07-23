@@ -10,6 +10,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { AppComponent } from '@src/app/app.component';
+import { PERSISTENCE } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,9 @@ import { AppComponent } from '@src/app/app.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule
   ],
-  providers: [],
+  providers: [
+    { provide: PERSISTENCE, useValue: 'session' },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

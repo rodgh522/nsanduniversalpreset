@@ -4,6 +4,9 @@ $ ng new [project name] --collection=@nativescript/schematics --shared --style=s
 ```
 
 # Basic Setting
+
+## node version
+> v12 +
 ## Merge to NS8
   - if @nativescript/core version in package.json is lower than 8
 ```

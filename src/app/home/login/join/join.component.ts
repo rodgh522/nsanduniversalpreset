@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { checkPwd, formToObj, validCheck } from '@src/app/global/global';
 import { PostApiService } from '@src/app/service/post-api.service';
+import { SessionService } from '@src/app/service/session.service';
 import { CONSTANT } from '@src/assets/global-constant';
 
 @Component({
@@ -18,7 +19,8 @@ export class JoinComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private postApi: PostApiService
+    private postApi: PostApiService,
+    private session: SessionService
   ) { 
     this.joinform = fb.group({
       LoginId: ['', [
@@ -96,7 +98,9 @@ export class JoinComponent implements OnInit {
     data.idName = 'MemId';
 
     this.postApi.login(data, (res)=> {
-      console.log(res);
+      if(res.header.status === CONSTANT.HttpStatus.OK){
+        this.session.signUp(data.LoginId, data.Pwd);
+      }
     },
     (error)=> {
       console.error('[Error]=> ' + error);
