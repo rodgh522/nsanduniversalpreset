@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { checkPwd, formToObj, validCheck } from '@src/app/global/global';
 import { PostApiService } from '@src/app/service/post-api.service';
 import { SessionService } from '@src/app/service/session.service';
@@ -20,7 +21,8 @@ export class JoinComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private postApi: PostApiService,
-    private session: SessionService
+    private session: SessionService,
+    private router: Router
   ) { 
     this.joinform = fb.group({
       LoginId: ['', [
@@ -89,7 +91,6 @@ export class JoinComponent implements OnInit {
   }
   
   sendRequest(data: any){
-
     const attr = [
       'keyId', 'LoginId', 'Pwd', 'MemNm', 'Mobile'
     ];
@@ -99,7 +100,9 @@ export class JoinComponent implements OnInit {
 
     this.postApi.login(data, (res)=> {
       if(res.header.status === CONSTANT.HttpStatus.OK){
-        this.session.signUp(data.LoginId, data.Pwd);
+        this.session.signUp(data.LoginId, data.Pwd).then(()=> {
+          this.router.navigateByUrl('/login');
+        });
       }
     },
     (error)=> {

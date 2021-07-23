@@ -11,22 +11,17 @@ export class SessionService {
   ) { }
 
   signUp(id: string, pwd: string){
-    this.auth.createUserWithEmailAndPassword(id + '@softzion.com', pwd).then((res)=>{
-      // this.user.next(res);
-    });
+    return this.auth.createUserWithEmailAndPassword(id + '@softzion.com', pwd);
   }
 
-  signIn(id: string, pwd: string){
-    this.auth.signInWithEmailAndPassword(id + '@softzion.com', pwd).then((res)=> {
-      // this.user.next(res);
+  signIn(id: string, pwd: string, stay: string){
+
+    return this.auth.setPersistence(stay).then(()=> {
+      this.auth.signInWithEmailAndPassword(id + '@softzion.com', pwd);
     });
   }
   
   signOut(){
-    this.auth.signOut().then((res)=>{
-      // this.auth.currentUser.then((user)=> {
-      //   console.log(user)
-      // });
-    });
+    return this.auth.signOut();
   }
 }
