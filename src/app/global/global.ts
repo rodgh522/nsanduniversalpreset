@@ -51,15 +51,8 @@ export namespace rootScope{
           sessionStorage[key] = data[key];
         }
       }
-      sessionStorage['isLoggedIn'] = 'Y';
-      sessionStorage['loginTenantId'] = data.TenantId == null ? 0 : data.TenantId;
-      sessionStorage['loginTenantDir'] = data.TenantDir == null ? null : data.TenantDir;
-      sessionStorage['noHeader'] = data.noHeader == null ? false : data.noHeader;
-      sessionStorage['mainPage'] = data.mainpage == null ? 'app.dashboard' : data.mainpage;
-      sessionStorage['mainPageSrch'] = data.mainpagesrch == null ? '' : data.mainpagesrch;
-      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+
       setSessionToRootScope();
-  
     }
   
     export function setSessionToRootScope() {
@@ -68,11 +61,23 @@ export namespace rootScope{
           rootScope.gVariable[key] = sessionStorage[key];
         }
       }
-      rootScope.gVariable.userkey = sessionStorage['userkey'] + '-' + sessionStorage['loginTenantId'];
     }
   
     export function setLocalStorageToLayout(type: string){
       localStorage.setItem('layoutBoardState', type);
+    }
+
+    export function sessionExpire() {
+      sessionStorage.clear();
+    }
+
+    export function sessionStroageToData(){
+      let data: any = {};
+      for(const key in sessionStorage){
+        data[key] = sessionStorage[key];
+      }
+      setSessionToRootScope();  
+      return data;
     }
   
     export function getLocalStorageToLayout(){

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
+import { MypageComponent } from './info/mypage/mypage.component';
 import { MainComponent } from './main/main.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { StockComponent } from './stock/stock.component';
@@ -13,6 +14,7 @@ const routes: Routes = [
       { path: 'reserve', component: ReservationComponent},
       { path: 'unit', component: UnitComponent},
       { path: 'stock', component: StockComponent},
+      { path: 'mypage', component: MypageComponent }
     ]
   },
 ];

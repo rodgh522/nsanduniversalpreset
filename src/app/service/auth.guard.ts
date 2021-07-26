@@ -25,12 +25,14 @@ export class AuthGuard implements CanActivate {
   }
 
   async checkSession(): Promise<boolean>{
-    if(this.isLoggedIn === undefined){
+    if(!this.isLoggedIn){
       return new Promise((resolve)=> {
         this.auth.authState.subscribe((res)=> {
           if(res === null){
+            this.isLoggedIn = false;
             resolve(false);
           }
+          this.isLoggedIn = true;
           resolve(true);
         });
       });

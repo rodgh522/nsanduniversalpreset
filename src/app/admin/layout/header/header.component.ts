@@ -10,18 +10,22 @@ import { SessionService } from '@src/app/service/session.service';
 export class HeaderComponent implements OnInit {
 
   showBoard = false;
+  user: any;
   constructor(
     private session: SessionService,
     private router: Router
-  ) { }
+  ) { 
+
+    this.session.user.subscribe(res=> {
+      this.user = res;
+    });
+  }
 
   ngOnInit(): void {
   }
 
   signOut(){
-    this.session.signOut().then(()=> {
-      this.router.navigateByUrl('/login');
-    });
+    this.session.signOut();
   }
 
 }

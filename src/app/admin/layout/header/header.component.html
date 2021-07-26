@@ -1,10 +1,10 @@
 <div class="header-container">
     <button class="user-config" (click)="showBoard = !showBoard">
-        사
+        {{ user ? user.MemNm.charAt(0) : '사' }}
     </button>
     <div class="config-board" *ngIf="showBoard">
         <ul>
-            <li><a routerLink="">프로필</a></li>
+            <li><a routerLink="/admin/mypage">프로필</a></li>
             <li><a (click)="signOut()">로그아웃</a></li>
         </ul>
     </div>

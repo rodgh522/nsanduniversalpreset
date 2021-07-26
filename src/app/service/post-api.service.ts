@@ -20,15 +20,6 @@ export class PostApiService {
   }
 
   makeData(d: any) {
-    if(rootScope.isWeb){
-      if(sessionStorage['loginTenantId'] != '' && sessionStorage['loginTenantId'] != null && sessionStorage['loginTenantId'] != undefined){
-        d.userkey = rootScope.gVariable.userkey;
-      }
-      if (sessionStorage['sysAdminYN'] == 'Y') {
-        d.srchTenantId = rootScope.gVariable.srchTenantId;
-      }
-      d.userkey = rootScope.gVariable.userkey;
-    }
     return d;
   }
 
@@ -66,7 +57,7 @@ export class PostApiService {
   }
 
   sendPost(p1, p2, p3, callback, callback2?) {
-    this.http.post(this.staticVariable.getUrl('/'+ p1 +'/' + p2  + '/action.json'), this.makeData(p3),
+    this.http.post(this.staticVariable.getUrl1('/'+ p1 +'/' + p2  + '/action.json'), p3,
     this.staticVariable.getRequestActions.defaultAction()).subscribe(data => {
       callback(this.makeResultData(data), p2);
     },
@@ -75,28 +66,8 @@ export class PostApiService {
     });
   }
 
-  sendPostOpen(p1, p2, p3, callback, callback2) {
-    this.http.post(this.staticVariable.getUrl('/'+ p1 +'/' + p2  + '.json'), this.makeData(p3),
-    this.staticVariable.getRequestActions.defaultAction()).subscribe(data => {
-      callback(this.makeResultData(data));
-    },
-    (error)=> {
-      callback2(error);
-    });
-  }
-
-  sendPostCustom(p1, p2, p3, callback, callback2) {
-    this.http.post(this.staticVariable.getUrl('/'+ p1 +'/' + p2  + '/actionCustom.json'), this.makeData(p3),
-    this.staticVariable.getRequestActions.defaultAction()).subscribe(data => {
-      callback(this.makeResultData(data));
-    },
-    (error)=> {
-      callback2(error);
-    });
-  }
-
   sendPostApi(p1, p2, p3, callback, callback2) {
-    this.http.post(this.staticVariable.getUrl('/'+ p1 +'/' + p2  + '.json'), this.makeData(p3),
+    this.http.post(this.staticVariable.getUrl1('/'+ p1 +'/' + p2  + '.json'), p3,
     this.staticVariable.getRequestActions.defaultAction()).subscribe(data => {
       callback(this.makeResultData(data));
     },
@@ -106,7 +77,7 @@ export class PostApiService {
   }
 
   sendOpenPostApi(p1, p2, callback, callback2) {
-    this.http.post(this.staticVariable.getUrl(p1), this.makeData(p2),
+    this.http.post(this.staticVariable.getUrl1(p1), p2,
     this.staticVariable.getRequestActions.defaultAction()).subscribe(data => {
       callback(this.makeResultData(data));
     },
@@ -117,7 +88,7 @@ export class PostApiService {
 
   login(p1, p2, callback?, callback2?) {
     if(typeof p1 == 'string') {
-        this.sendPostOpen(this.type.login, p1, p2, (data: any)=> {
+        this.sendPostApi(this.type.login, p1, p2, (data: any)=> {
           callback(data);
         },
         (data: any)=> {
@@ -126,7 +97,7 @@ export class PostApiService {
     } else {
       const code = this.getMapCode(p1);
       if(code.result) {
-        this.sendPostOpen(this.type.login, code.mapcode, code.data, (data: any)=>{
+        this.sendPostApi(this.type.login, code.mapcode, code.data, (data: any)=>{
           p2(data);
         },
         (data: any)=> {
@@ -165,52 +136,6 @@ export class PostApiService {
         }else{
           p2(this.makeErrorMsg('undefinedSqlMap'));
         }
-      }
-    }
-  }
-
-  callbackSelect(p1, p2, tempData, callback?, callback2?) {
-    if(typeof p1 == 'string') {
-        this.sendPost(this.type.select, p1, p2, (data: any)=> {
-          callback(data, tempData);
-        },
-        (data: any)=> {
-          callback2(data, tempData);
-        });
-    } else {
-      var code = this.getMapCode(p1);
-      if(code.result) {
-        this.sendPost(this.type.select, code.mapcode, code.data, (data: any)=> {
-          p2(data, tempData);
-        },
-        (data: any)=>{
-          callback(data, tempData);
-        });
-      } else{
-        p2(this.makeErrorMsg('undefinedSqlMap'));
-      }
-    }
-  }
-
-  selectCustom(p1, p2, callback, callback2) {
-    if(typeof p1 == 'string') {
-        this.sendPostCustom(this.type.select, p1, p2, (data: any)=> {
-          callback(data);
-        },
-        (data: any)=> {
-          callback2(data);
-        });
-    } else {
-      var code = this.getMapCode(p1);
-      if(code.result) {
-        this.sendPostCustom(this.type.select, code.mapcode, code.data, (data: any)=> {
-          p2(data);
-        },
-        (data: any)=> {
-          callback(data);
-        });
-      } else{
-        p2(this.makeErrorMsg('undefinedSqlMap'));
       }
     }
   }
@@ -360,7 +285,7 @@ export class PostApiService {
     let cal1;
     let cal2;
     if (typeof p1 == 'string') {
-      url = this.staticVariable.getUrl('/'+ this.type.excel +'/' + p1  + '.json');
+      url = this.staticVariable.getUrl1('/'+ this.type.excel +'/' + p1  + '.json');
 
       if (typeof p2 == 'string') {
         if(p2.indexOf('xls') != -1 || p2.indexOf('xlsx') != -1) {
@@ -380,7 +305,7 @@ export class PostApiService {
     } else {
       var code = this.getMapCode(p1);
       if (code.result) {
-        url = this.staticVariable.getUrl('/'+ this.type.excel +'/' + code.mapcode  + '.json');
+        url = this.staticVariable.getUrl1('/'+ this.type.excel +'/' + code.mapcode  + '.json');
         data = p1;
       } else {
         p2(this.makeErrorMsg('undefinedSqlMap'));
@@ -408,7 +333,6 @@ export class PostApiService {
       cal2 = p3;
     }
     var temp: any = {};
-    temp = this.makeData(temp);
     url += '?userkey=' + temp.userkey;
 
     this.http.post(url, data).subscribe(res => {
@@ -454,75 +378,6 @@ export class PostApiService {
     });
   }
 
-  // 위너스제이엠 보고서 관련
-  wjmReport(data, cal1, cal2, p2?) {
-    var url = null;
-    var fileNm;
-
-    var code = this.getMapCode(data);
-    if (code.result) {
-      url = this.staticVariable.getUrl('/wjm/analysis.json');
-    } else {
-      p2(this.makeErrorMsg('undefinedSqlMap'));
-      return;
-    }
-
-    if (data.fileNm != undefined) {
-      fileNm = data.fileNm;
-    } else {
-      fileNm = '';
-    }
-
-    // 파일을 바로 반환하지 않는 경우에 대한 처리 > 개인보고서
-    if(data.returnYN != undefined && data.returnYN == 'N'){
-      fileNm = '';
-    }
-
-    var temp: any = {};
-    temp = this.makeData(temp);
-    url += '?userkey=' + temp.userkey;
-
-    this.http.post(url, data).subscribe(res => {
-      // 파일 다운로드
-      if(fileNm != ''){
-        var linkElement = document.createElement('a');
-        try {
-          let result: string = res.toString();
-          var blob = new Blob([result], { type: 'application/octet-stream' });
-
-          if (navigator.msSaveOrOpenBlob) { // IE 10+
-              navigator.msSaveOrOpenBlob(blob, fileNm);
-
-          } else { // not IE
-            // eslint-disable-next-line @typescript-eslint/no-shadow
-            const url = URL.createObjectURL(blob);
-            linkElement.setAttribute('href', url);
-            linkElement.setAttribute('download', fileNm);
-            // var clickEvent = new MouseEvent("click", {
-            //     "view": window,
-            //     "bubbles": true,
-            //     "cancelable": false
-            // });
-            //linkElement.dispatchEvent(clickEvent);
-            if(cal1 != undefined) {
-                cal1(result);
-            }
-          }
-        } catch (ex) {
-          if(cal2 != undefined) {
-            cal2(ex);
-          }
-        }
-      }
-    },
-    error => {
-      if(cal2 != undefined) {
-        cal2(error);
-      }
-    });
-
-  }
-
   api(p1, p2, callback?, callback2?) {
     if(typeof p1 == 'string') {
         this.sendPostApi(this.type.api, p1, p2, (data: any)=> {
@@ -548,7 +403,7 @@ export class PostApiService {
 
   openApi(p1, p2, callback?, callback2?) {
     if(typeof p1 == 'string') {
-      this.sendPostOpen(this.type.openApi, p1, p2, (data: any)=> {
+      this.sendPostApi(this.type.openApi, p1, p2, (data: any)=> {
         callback(data);
       },
       (data: any)=> {
@@ -557,7 +412,7 @@ export class PostApiService {
     } else {
       var code = this.getMapCode(p1);
       if(code.result) {
-        this.sendPostOpen(this.type.openApi, code.mapcode, code.data, (data: any)=> {
+        this.sendPostApi(this.type.openApi, code.mapcode, code.data, (data: any)=> {
           p2(data);
         },
         (data: any)=> {
@@ -569,42 +424,53 @@ export class PostApiService {
     }
   }
 
-  sendAjax(type, sqlmap, data, callback) {
-    if(data == undefined){
-      data = {};
-    }
-    var url = '/'  + type + '/' + sqlmap + '/action.json';
-    if(sqlmap.indexOf('.json') > -1){
-      url = '/'  + type + '/' + sqlmap;
-    }
-    data.userkey = rootScope.gVariable.userkey;
-    // if (sessionStorage['loginSysAdminYN'] == "Y" && !data.srchTenantId) {
-    //   data.srchTenantId = sessionStorage['srchTenantId'];
-    // }
-    url = this.staticVariable.getUrl(url);
-    url = url + '?' +rootScope.gVariable.userkey;
-    var reciveJsonData = null;
-
-    this.http.post(url, data).subscribe(res => {
-      callback(reciveJsonData);
+  home(data: any, seccess, fail){
+    this.http.post(this.staticVariable.getUrl2('/home/' + data.mapcode + '.json'), data, 
+    this.staticVariable.getRequestActions.defaultAction()).subscribe(data => {
+      seccess(this.makeResultData(data));
     },
-    error => {
-
+    (error)=> {
+      fail(error);
     });
   }
 
-  customApi(request: any, success, fail){
-    const url = this.staticVariable.getUrl(request.url);
-    const prep = this.getMapCode(request);
-    if(prep.result){
-      const body = this.makeData(prep.data);
-      this.http.post(url, body, this.staticVariable.getRequestActions.defaultAction()).subscribe(data => {
-        success(this.makeResultData(data));
-      },
-      error=> {
-        fail(error);
-      });
-    }
+  movilaSelect(data: any, seccess, fail){
+    this.http.post(this.staticVariable.getUrl2('/home/select/' + data.mapcode + '.json'), data, 
+    this.staticVariable.getRequestActions.defaultAction()).subscribe(data => {
+      seccess(this.makeResultData(data));
+    },
+    (error)=> {
+      fail(error);
+    });
+  }
+
+  movilaInsert(data: any, seccess, fail){
+    this.http.post(this.staticVariable.getUrl2('/home/insert/' + data.mapcode + '.json'), data, 
+    this.staticVariable.getRequestActions.defaultAction()).subscribe(data => {
+      seccess(this.makeResultData(data));
+    },
+    (error)=> {
+      fail(error);
+    });
+  }
+
+  movilaUpdate(data: any, seccess, fail){
+    this.http.post(this.staticVariable.getUrl2('/home/update/' + data.mapcode + '.json'), data, 
+    this.staticVariable.getRequestActions.defaultAction()).subscribe(data => {
+      seccess(this.makeResultData(data));
+    },
+    (error)=> {
+      fail(error);
+    });
+  }
+  movilaDelete(data: any, seccess, fail){
+    this.http.post(this.staticVariable.getUrl2('/home/delete/' + data.mapcode + '.json'), data, 
+    this.staticVariable.getRequestActions.defaultAction()).subscribe(data => {
+      seccess(this.makeResultData(data));
+    },
+    (error)=> {
+      fail(error);
+    });
   }
 
 }

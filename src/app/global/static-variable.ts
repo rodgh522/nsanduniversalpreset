@@ -143,29 +143,7 @@ export class StaticVariableService{
     return '';
   }
 
-
-  sessionExpire() {
-    // sessionStorage.removeItem('isLoggedIn');
-    // sessionStorage.removeItem('loginUserId');
-    // sessionStorage.removeItem('loginUserIdx');
-    // sessionStorage.removeItem('loginSysAdminYN');
-    // sessionStorage.removeItem('loginUserName');
-    // sessionStorage.removeItem('loginUserGbn');
-    // sessionStorage.removeItem('loginUserDept');
-    // sessionStorage.removeItem('loginUserDeptCode');
-    // sessionStorage.removeItem('loginComGbn');
-    // sessionStorage.removeItem('loginUserType');
-    // sessionStorage.removeItem('loginUserEmail');
-    // sessionStorage.removeItem('loginTenantId');
-    // sessionStorage.removeItem('loginTenantName');
-    // sessionStorage.removeItem('loginTenantDir');
-    // sessionStorage.removeItem('loginEmail');
-    // sessionStorage.removeItem('loginTelNo');
-    // sessionStorage.removeItem('srchTenantId');
-    // sessionStorage.removeItem('srchTenantName');
-  }
-
-  getUrl(uri: string) {
+  getUrl1(uri: string) {
     const wildcard = uri.indexOf('download.do?fileName') > -1 ? '&' : '?';
     var domainPort = CONSTANT.URL.PORT == null || CONSTANT.URL.PORT == "" ? "" : ":" + CONSTANT.URL.PORT;
     var domainContext = CONSTANT.URL.CONTEXT == null || CONSTANT.URL.CONTEXT == "" ? "" : '/' + CONSTANT.URL.CONTEXT;
@@ -179,8 +157,21 @@ export class StaticVariableService{
     return url;
   }
 
+  getUrl2(uri: string) {
+    var domainPort = CONSTANT.URL.PORT == null || CONSTANT.URL.PORT == "" ? "" : ":" + CONSTANT.URL.PORT;
+    var domainContext = CONSTANT.URL.CONTEXT == null || CONSTANT.URL.CONTEXT == "" ? "" : '/' + CONSTANT.URL.CONTEXT;
+    var domainVersion = CONSTANT.URL.VERSION == null || CONSTANT.URL.VERSION == "" ? "" : '/' + CONSTANT.URL.VERSION;
+
+    var url = CONSTANT.URL.HTTP_PROTOCOL + '//' +
+    CONSTANT.URL.API_SERVER_DOMAIN + domainPort +
+    domainVersion + uri;
+
+    //var url = domainContext + domainVersion + uri;
+    return url;
+  }
+
   getFileDownloadUrl(FileKey) {
-    return this.getUrl('/attach/file/' + FileKey + '/download.do');
+    return this.getUrl1('/attach/file/' + FileKey + '/download.do');
   }
 
   getDateFormat(langCode, useDateTime) {

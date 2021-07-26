@@ -2,7 +2,8 @@ import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import firebase from 'firebase/app';
+import { rootScope } from './global/global';
+import { SessionService } from './service/session.service';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ export class AppComponent implements OnInit {
   constructor(
     private auth: AngularFireAuth,
     private router: Router,
+    private session: SessionService,
     @Inject(PLATFORM_ID) private platform: any
     ){
     this.isWeb = isPlatformBrowser(this.platform);
@@ -24,6 +26,9 @@ export class AppComponent implements OnInit {
       this.auth.authState.subscribe((res)=> {
         if(res === null){
           this.router.navigateByUrl('/login');
+        }else{
+          const user = rootScope.sessionStroageToData();
+          this.session.user.next(user);
         }
       });
     }

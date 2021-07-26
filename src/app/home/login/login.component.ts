@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
     const config = {
       mapcode: 'movilaLogin',
       attr: [
-        'MemId', 'AgentId', 'MemTy', 'MemNm', 'LoginId', 'Mobile', 'Email'
+        'MemId', 'PartnerId', 'MemTy', 'MemNm', 'LoginId', 'Mobile', 'Email'
       ]
     };
     let data = formToObj(this.loginform.controls);
@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
       if(res.header.status === CONSTANT.HttpStatus.OK){
         if(res.body.docCnt > 0){
           const stayChecked = this.loginform.controls['stayChecked'].value ? 'local' : 'session';
-          this.session.signIn(data.LoginId, data.Pwd, stayChecked).then(()=> {
+          this.session.signIn(data.LoginId, data.Pwd, stayChecked, res.body.docs[0]).then(()=> {
             this.router.navigateByUrl('/admin');
           });
         }

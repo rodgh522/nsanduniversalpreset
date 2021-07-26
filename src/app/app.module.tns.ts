@@ -7,6 +7,8 @@ import { SidebarComponent } from '@src/app/admin/layout/sidebar/sidebar.componen
 import { ReservationComponent } from '@src/app/admin/reservation/reservation.component';
 import { UnitComponent } from '@src/app/admin/unit/unit.component';
 import { StockComponent } from '@src/app/admin/stock/stock.component';
+import { ProfileComponent } from '@src/app/admin/info/profile/profile.component';
+import { MypageComponent } from '@src/app/admin/info/mypage/mypage.component';
 
 
 // Uncomment and add to NgModule imports if you need to use two-way binding and/or HTTP wrapper
@@ -19,6 +21,8 @@ import { StockComponent } from '@src/app/admin/stock/stock.component';
     ReservationComponent,
     UnitComponent,
     StockComponent,
+    ProfileComponent,
+    MypageComponent,
   ],
   imports: [
     NativeScriptModule,
