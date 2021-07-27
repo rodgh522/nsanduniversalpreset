@@ -1,5 +1,5 @@
 <div>
-    <mat-tab-group animationDuration="2ms">
+    <mat-tab-group animationDuration="2ms" (selectedTabChange)="operateTab($event.index)">
         <mat-tab label="내 정보">
             <div class="content-body">
                 <mat-accordion multi>
@@ -55,7 +55,7 @@
                         [ngStyle]="{'borderColor': checkValid('Email') ? '#f00': '#ddd'}">
                     
                     <div class="btn-box">
-                        <button mat-raised-button color="primary" (click)="submit()">제출</button>
+                        <button mat-raised-button color="primary" *ngIf="exposeSubmit" (click)="submit()">제출</button>
                     </div>
                 </form>
             </div>

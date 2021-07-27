@@ -13,9 +13,14 @@
   },
   "files": [
     "src/main.ts",
-    "src/polyfills.ts"
+    "src/polyfills.ts",
+    "src/app/global/global.d.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
   ],
   "exclude": [
-    "src/*.tns.ts"
+    "src/*.tns.ts",
+    "**/*.spec.ts"
   ]
 }

@@ -1,0 +1,39 @@
+<div class="modal-wrapper">
+    <button mat-button mat-dialog-close (click)="matRef.close()"><i class="fa fa-times"></i></button>
+    <div class="modal-content">
+        <h3>숙소정보</h3>
+        <h5>숙소 유형을 선택해주세요.</h5>
+        <div class="matchip-container">
+            <mat-chip-list selectable>
+                <mat-chip #c="matChip" [value]="Pension" 
+                    (click)="c.toggleSelected()">
+                    <mat-icon *ngIf="c.selected">check</mat-icon>
+                    펜션
+                </mat-chip>
+                <mat-chip #d="matChip" [value]="Camping" 
+                    (click)="d.toggleSelected()">
+                    <mat-icon *ngIf="d.selected">check</mat-icon>
+                    캠핑장
+                </mat-chip>
+            </mat-chip-list>
+        </div>
+        <h5>숙소 이름을 입력해주세요.</h5>
+        <mat-form-field>
+            <mat-label>숙소명</mat-label>
+            <input type="text" matInput placeholder="등록할 숙소 이름" autocomplete="off">
+        </mat-form-field>
+        <h5>숙소 대표번호를 입력해주세요.</h5>
+        <mat-form-field>
+            <mat-label>숙소 대표번호</mat-label>
+            <input type="text" matInput placeholder="- 없이 번호만 입력해주세요" autocomplete="off">
+        </mat-form-field>
+        <h5>숙소 주소를 입력해주세요.</h5>
+        <mat-form-field>
+            <mat-label>숙소 주소</mat-label>
+            <input type="text" matInput placeholder="숙소 주소" autocomplete="off">
+        </mat-form-field>
+        <div class="btn-box">
+            <button mat-raised-button color="primary" (click)="continew(1)">계속</button>
+        </div>
+    </div>
+</div>

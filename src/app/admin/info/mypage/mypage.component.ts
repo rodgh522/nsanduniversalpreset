@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { formToObj, rootScope, validCheck } from '@src/app/global/global';
+import { formToObj, objToForm, rootScope, validCheck } from '@src/app/global/global';
 import { PostApiService } from '@src/app/service/post-api.service';
 import { CONSTANT } from '@src/assets/global-constant';
 
@@ -11,7 +11,9 @@ import { CONSTANT } from '@src/assets/global-constant';
 })
 export class MypageComponent implements OnInit {
 
-  partnerform: FormGroup
+  partnerform: FormGroup;
+  exposeSubmit = rootScope.gVariable.PartnerId ? false : true;
+  
   constructor(
     private fb: FormBuilder,
     private postApi: PostApiService
@@ -79,6 +81,40 @@ export class MypageComponent implements OnInit {
     (error)=> {
       console.error('[Error]=> ' + error);
     });
+  }
+
+  operateTab(e){
+    switch(e){
+      case 0 : 
+      break;
+      case 1: this.getPartnerInfo();
+      break;
+    }
+  }
+
+  getPartnerInfo(){
+    
+    const attr = [
+      'PartnerId', 'PartnerNm', 'President', 'Phone', 'Email', 'Addr', 'BizNo'
+    ];
+    const data = {
+      attr: attr,
+      mapcode: 'MovilaPartner.selectPartner',
+      useConvert : 'Y',
+      PartnerId: rootScope.gVariable.PartnerId
+    };
+
+    this.postApi.movilaSelect(data, (res)=> {
+      if(res.header.status === CONSTANT.HttpStatus.OK){
+        if(res.body.docCnt > 0){
+          this.partnerform.controls = objToForm(res.body.docs[0], this.partnerform.controls);
+        }
+      }
+      console.log(res);
+    },
+    (error)=> {
+      console.error('[Error]=> ' + error);
+    })
   }
 
 }

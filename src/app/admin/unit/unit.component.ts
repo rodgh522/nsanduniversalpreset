@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DialogService } from '@src/app/service/dialog.service';
+import { AddComponent } from './add/add.component';
 
 @Component({
   selector: 'app-unit',
@@ -8,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 export class UnitComponent implements OnInit {
 
   title = '숙소관리';
-  constructor() { }
+  constructor(
+    private dialog: DialogService,
+    
+  ) { }
 
   ngOnInit(): void {
   }
 
+  openAdd(){
+    this.dialog.slide(AddComponent, {data: ''});
+  }
 }

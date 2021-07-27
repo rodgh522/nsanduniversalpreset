@@ -8,9 +8,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from '@src/app/app-routing.module';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PERSISTENCE } from '@angular/fire/auth';
 
 import { AppComponent } from '@src/app/app.component';
-import { PERSISTENCE } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -24,10 +26,12 @@ import { PERSISTENCE } from '@angular/fire/auth';
 
     /* Firebase init */
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    MatDialogModule, MatSnackBarModule
   ],
   providers: [
     { provide: PERSISTENCE, useValue: 'session' },
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
   ],
   bootstrap: [AppComponent]
 })

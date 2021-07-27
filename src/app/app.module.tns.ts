@@ -9,6 +9,7 @@ import { UnitComponent } from '@src/app/admin/unit/unit.component';
 import { StockComponent } from '@src/app/admin/stock/stock.component';
 import { ProfileComponent } from '@src/app/admin/info/profile/profile.component';
 import { MypageComponent } from '@src/app/admin/info/mypage/mypage.component';
+import { AddComponent } from '@src/app/admin/unit/add/add.component';
 
 
 // Uncomment and add to NgModule imports if you need to use two-way binding and/or HTTP wrapper
@@ -23,6 +24,7 @@ import { MypageComponent } from '@src/app/admin/info/mypage/mypage.component';
     StockComponent,
     ProfileComponent,
     MypageComponent,
+    AddComponent,
   ],
   imports: [
     NativeScriptModule,

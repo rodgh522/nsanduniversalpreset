@@ -25,5 +25,9 @@
       ]
     },
     "removeComments": false
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
   }
 }
