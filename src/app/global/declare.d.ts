@@ -5,3 +5,4 @@ interface String{
 }
 
 declare const kakao: any;
+declare let daum : any;

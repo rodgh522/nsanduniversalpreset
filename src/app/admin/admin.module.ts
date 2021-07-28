@@ -13,6 +13,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 /* Component */
 import { AdminComponent } from '@src/app/admin/admin.component';
@@ -46,7 +48,8 @@ import { AddComponent } from '@src/app/admin/unit/add/add.component';
     AdminRoutingModule, FormsModule, ReactiveFormsModule,
     AngularSplitModule,
     MatTooltipModule, MatTabsModule, MatExpansionModule, MatButtonModule,
-    MatInputModule, MatFormFieldModule, MatChipsModule, MatIconModule
+    MatInputModule, MatFormFieldModule, MatChipsModule, MatIconModule,
+    MatSelectModule, MatCheckboxModule
   ]
 })
 export class AdminModule { }

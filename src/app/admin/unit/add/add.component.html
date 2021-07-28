@@ -1,39 +1,187 @@
 <div class="modal-wrapper">
     <button mat-button mat-dialog-close (click)="matRef.close()"><i class="fa fa-times"></i></button>
-    <div class="modal-content">
-        <h3>숙소정보</h3>
-        <h5>숙소 유형을 선택해주세요.</h5>
-        <div class="matchip-container">
-            <mat-chip-list selectable>
-                <mat-chip #c="matChip" [value]="Pension" 
-                    (click)="c.toggleSelected()">
-                    <mat-icon *ngIf="c.selected">check</mat-icon>
-                    펜션
-                </mat-chip>
-                <mat-chip #d="matChip" [value]="Camping" 
-                    (click)="d.toggleSelected()">
-                    <mat-icon *ngIf="d.selected">check</mat-icon>
-                    캠핑장
-                </mat-chip>
-            </mat-chip-list>
-        </div>
-        <h5>숙소 이름을 입력해주세요.</h5>
-        <mat-form-field>
-            <mat-label>숙소명</mat-label>
-            <input type="text" matInput placeholder="등록할 숙소 이름" autocomplete="off">
-        </mat-form-field>
-        <h5>숙소 대표번호를 입력해주세요.</h5>
-        <mat-form-field>
-            <mat-label>숙소 대표번호</mat-label>
-            <input type="text" matInput placeholder="- 없이 번호만 입력해주세요" autocomplete="off">
-        </mat-form-field>
-        <h5>숙소 주소를 입력해주세요.</h5>
-        <mat-form-field>
-            <mat-label>숙소 주소</mat-label>
-            <input type="text" matInput placeholder="숙소 주소" autocomplete="off">
-        </mat-form-field>
+
+    <!-- page1 -->
+    <div class="modal-content" *ngIf="page === 1">
+        <form [formGroup]="formPage1">
+            <h3>숙소정보</h3>
+            <h5>숙소 유형을 선택해주세요.</h5>
+            <div class="matchip-container">
+                <mat-chip-list selectable>
+                    <mat-chip #c="matChip" value="Pension" [selected]="formPage1.controls['AcomTy'].value === 'Pension'" (click)="c.toggleSelected()"
+                        (selectionChange)="changeSelection($event, 'Pension')">
+                        <mat-icon *ngIf="c.selected">check</mat-icon>
+                        펜션
+                    </mat-chip>
+                    <mat-chip #d="matChip" value="Camping" [selected]="formPage1.controls['AcomTy'].value === 'Camping'" (click)="d.toggleSelected()"
+                        (selectionChange)="changeSelection($event, 'Camping')">
+                        <mat-icon *ngIf="d.selected">check</mat-icon>
+                        캠핑장
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+            <h5>숙소 이름을 입력해주세요.</h5>
+            <mat-form-field>
+                <mat-label>숙소명</mat-label>
+                <input type="text" matInput placeholder="등록할 숙소 이름" autocomplete="off"
+                    formControlName="AcomNm">
+            </mat-form-field>
+            <h5 class="addr-container">숙소 주소를 입력해주세요.
+                <button mat-stroked-button color="primary" (click)="srchAddr()">주소 검색</button>
+            </h5>
+            <mat-form-field>
+                <mat-label>숙소 주소</mat-label>
+                <input type="text" matInput placeholder="숙소 주소" autocomplete="off" 
+                    formControlName="Addr" readonly (click)="srchAddr()">
+            </mat-form-field>
+            <h5>숙소 대표번호를 입력해주세요.</h5>
+            <mat-form-field>
+                <mat-label>숙소 대표번호</mat-label>
+                <input type="text" matInput placeholder="- 없이 번호만 입력해주세요" autocomplete="off"
+                    formControlName="Line">
+            </mat-form-field>
+        </form>
         <div class="btn-box">
-            <button mat-raised-button color="primary" (click)="continew(1)">계속</button>
+            <button mat-raised-button color="primary" (click)="continue(1)" [disabled]="!formPage1.valid">계속</button>
+        </div>
+    </div>
+
+    <!-- page2 -->
+    <div class="modal-content" *ngIf="page === 2">
+        <h3>숙소규정(선택)</h3>
+        <h5>체크인/아웃 시간을 선택해주세요.</h5>
+        <div class="checktime-box">
+            <mat-form-field>
+                <mat-label>체크인</mat-label>
+                <mat-select [(ngModel)]="optional.CheckinTime">
+                    <mat-option *ngFor="let time of checkTime" [value]="time">{{time}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>체크아웃</mat-label>
+                <mat-select [(ngModel)]="optional.CheckoutTime">
+                    <mat-option *ngFor="let time of checkTime" [value]="time">{{time}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <h5>주의 사항을 입력해주세요.</h5>
+        <ul class="list-decorate-dot">
+            <li *ngFor="let info of optional.infoAccom; let i = index" (click)="editList('infoAccom', info, i)">
+                {{info}}
+                <button *ngIf="editItem === info" (click)="delList('infoAccom', i)"><i class="fa fa-minus"></i></button>
+            </li>
+        </ul>
+        <mat-form-field>
+            <mat-label>Leave a comment</mat-label>
+            <textarea matInput rows="3" placeholder="120자 이내로 작성해주세요." maxlength="120" 
+                [(ngModel)]="inputboxes['infoAccom']"></textarea>
+        </mat-form-field>
+        <div class="content-btn">
+            <button mat-stroked-button color="primary" *ngIf="activatedEditBtn !== 'infoAccom'" (click)="addRule('infoAccom')">주의사항 추가</button>
+            <button mat-stroked-button color="primary" *ngIf="activatedEditBtn === 'infoAccom'" (click)="cancelEdit()">수정 취소</button>
+            <button mat-stroked-button color="primary" *ngIf="activatedEditBtn === 'infoAccom'" (click)="modify('infoAccom')">주의사항 수정</button>
+        </div>
+        <h5>환불 규정을 입력해주세요.</h5>
+        <ul class="list-decorate-dot">
+            <li *ngFor="let info of optional.infoRefund; let i = index" (click)="editList('infoRefund', info, i)">
+                <span *ngIf="!info.to">
+                    {{info.from === 0 ? '당일' : info.from + '일 전'}} 취소 {{info.rate}} % 환불
+                </span>
+                <span *ngIf="info.to">
+                    {{info.from}}일 ~ {{info.to}}일 전 취소 {{info.rate}} % 환불
+                </span>
+                <button *ngIf="editItem === info" (click)="delList('infoRefund', i)"><i class="fa fa-minus"></i></button>
+            </li>
+        </ul>
+        <div class="refund-input">
+            <mat-select [(ngModel)]="inputboxes['infoRefund1'].from">
+                <mat-option [value]="0">당일</mat-option>
+                <mat-option *ngFor="let day of refundDay" [value]="day">{{day}}</mat-option>
+            </mat-select>
+            <span>일 전</span>
+            <mat-select [(ngModel)]="inputboxes['infoRefund1'].rate">
+                <mat-option *ngFor="let rate of refundRate" [value]="rate">{{rate}}</mat-option>
+            </mat-select> % 환불
+            <button mat-stroked-button color="primary" *ngIf="activatedEditBtn !== 'infoRefund1'" (click)="addRule('infoRefund1')">추가</button>
+            <div class="content-btn mgt10">
+                <button mat-stroked-button color="primary" *ngIf="activatedEditBtn === 'infoRefund1'" (click)="cancelEdit()">수정 취소</button>
+                <button mat-stroked-button color="primary" *ngIf="activatedEditBtn === 'infoRefund1'" (click)="modify('infoRefund')">환불규정 수정</button>
+            </div>
+        </div>
+        <div class="refund-input">
+            <mat-select [(ngModel)]="inputboxes['infoRefund2'].from">
+                <mat-option *ngFor="let day of refundDay" [value]="day">{{day}}</mat-option>
+            </mat-select>
+            <span>일 ~ </span>
+            <mat-select [(ngModel)]="inputboxes['infoRefund2'].to">
+                <mat-option *ngFor="let day of refundDay" [value]="day">{{day}}</mat-option>
+            </mat-select>
+            <span>일 전</span>
+            <mat-select [(ngModel)]="inputboxes['infoRefund2'].rate">
+                <mat-option *ngFor="let rate of refundRate" [value]="rate">{{rate}}</mat-option>
+            </mat-select> % 환불
+            <button mat-stroked-button color="primary" *ngIf="activatedEditBtn !== 'infoRefund2'" (click)="addRule('infoRefund2')">추가</button>
+            <div class="content-btn mgt10">
+                <button mat-stroked-button color="primary" *ngIf="activatedEditBtn === 'infoRefund2'" (click)="cancelEdit()">수정 취소</button>
+                <button mat-stroked-button color="primary" *ngIf="activatedEditBtn === 'infoRefund2'" (click)="modify('infoRefund')">환불규정 수정</button>
+            </div>
+        </div>
+        <div class="btn-box flex-between">
+            <button mat-raised-button color="primary" (click)="page = page - 1">이전</button>
+            <button mat-raised-button color="primary" (click)="continue(2)">계속</button>
+        </div>
+    </div>
+
+    <!-- page3 -->
+    <div class="modal-content" *ngIf="page === 3">
+        <h3>숙소 테마(선택)</h3>
+        <h5>주변 관광지를 입력해주세요.</h5>
+        <ul class="list-decorate-dot">
+            <li *ngFor="let info of optional.infoNearby; let i = index" (click)="editList('infoNearby', info, i)">
+                {{info}}
+                <button *ngIf="editItem === info" (click)="delList('infoNearby', i)"><i class="fa fa-minus"></i></button>
+            </li>
+        </ul>
+        <mat-form-field>
+            <mat-label>주변 관광지</mat-label>
+            <input type="text" matInput placeholder="예) 자라섬 차량 10분" maxlength="60" autocomplete="off"
+                [(ngModel)]="inputboxes['infoNearby']">
+        </mat-form-field>
+        <div class="content-btn">
+            <button mat-stroked-button color="primary" *ngIf="activatedEditBtn !== 'infoNearby'" (click)="addRule('infoNearby')">주변정보 추가</button>
+            <button mat-stroked-button color="primary" *ngIf="activatedEditBtn === 'infoNearby'" (click)="cancelEdit()">수정 취소</button>
+            <button mat-stroked-button color="primary" *ngIf="activatedEditBtn === 'infoNearby'" (click)="modify('infoNearby')">주변정보 수정</button>
+        </div>
+        <h5>테마를 선택해주세요.(중복선택)</h5>
+        <div class="checkbox-divider-half mgt10 mgb10">
+            <mat-checkbox *ngFor="let item of theme" color="primary" [checked]="onCheck('infoTheme', item.ThemeId)" (change)="editCheckList('infoTheme', $event, item.ThemeId)">{{item.ThemeNm}}</mat-checkbox>
+        </div>
+        <div class="btn-box flex-between mgt10">
+            <button mat-raised-button color="primary" (click)="page = page - 1">이전</button>
+            <button mat-raised-button color="primary" (click)="continue(3)">계속</button>
+        </div>
+    </div>
+
+    <!-- page4 -->
+    <div class="modal-content" *ngIf="page === 4">
+        <h3>숙소 편의시설(선택)</h3>
+        <h5>편의시설을 선택해주세요.(중복선택)</h5>
+        <div class="checkbox-divider-half mgt10 mgb10">
+            <mat-checkbox *ngFor="let item of facilities" color="primary" [checked]="onCheck('infoFacilities', item.FacId)" (change)="editCheckList('infoFacilities', $event, item.FacId)">{{item.FacNm}}</mat-checkbox>
+        </div>
+        <div class="btn-box flex-between mgt10">
+            <button mat-raised-button color="primary" (click)="page = page - 1">이전</button>
+            <button mat-raised-button color="primary" (click)="page = page + 1">계속</button>
+        </div>
+    </div>
+
+    <!-- page4 -->
+    <div class="modal-content" *ngIf="page === 4">
+        <h3>숙소 소개(선택)</h3>
+        <h5>숙소 검색시 함께 표시될 문구</h5>
+        <div class="btn-box flex-between mgt10">
+            <button mat-raised-button color="primary" (click)="page = page - 1">이전</button>
+            <button mat-raised-button color="primary" (click)="page = page + 1">숙소 등록신청</button>
         </div>
     </div>
 </div>

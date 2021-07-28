@@ -77,9 +77,6 @@ export class MypageComponent implements OnInit {
       if(res.header.status === CONSTANT.HttpStatus.OK){
         
       }
-    },
-    (error)=> {
-      console.error('[Error]=> ' + error);
     });
   }
 
@@ -111,9 +108,6 @@ export class MypageComponent implements OnInit {
         }
       }
       console.log(res);
-    },
-    (error)=> {
-      console.error('[Error]=> ' + error);
     })
   }
 

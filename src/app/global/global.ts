@@ -170,3 +170,11 @@ export function objToForm(data: any, controls){
   }
   return controls;
 }
+
+export function defaultCheckinTime(){
+  let result = [];
+  for(let i = 10; i < 19; i++){
+    result.push(i + ' : 00');
+  }
+  return result;
+}

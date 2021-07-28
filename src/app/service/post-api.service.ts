@@ -424,52 +424,52 @@ export class PostApiService {
     }
   }
 
-  home(data: any, seccess, fail){
+  home(data: any, seccess){
     this.http.post(this.staticVariable.getUrl2('/home/' + data.mapcode + '.json'), data, 
     this.staticVariable.getRequestActions.defaultAction()).subscribe(data => {
       seccess(this.makeResultData(data));
     },
     (error)=> {
-      fail(error);
+      console.error('[Error]=> ', error);
     });
   }
 
-  movilaSelect(data: any, seccess, fail){
+  movilaSelect(data: any, seccess){
     this.http.post(this.staticVariable.getUrl2('/home/select/' + data.mapcode + '.json'), data, 
     this.staticVariable.getRequestActions.defaultAction()).subscribe(data => {
       seccess(this.makeResultData(data));
     },
     (error)=> {
-      fail(error);
+      console.error('[Error]=> ', error);
     });
   }
 
-  movilaInsert(data: any, seccess, fail){
+  movilaInsert(data: any, seccess){
     this.http.post(this.staticVariable.getUrl2('/home/insert/' + data.mapcode + '.json'), data, 
     this.staticVariable.getRequestActions.defaultAction()).subscribe(data => {
       seccess(this.makeResultData(data));
     },
     (error)=> {
-      fail(error);
+      console.error('[Error]=> ', error);
     });
   }
 
-  movilaUpdate(data: any, seccess, fail){
+  movilaUpdate(data: any, seccess){
     this.http.post(this.staticVariable.getUrl2('/home/update/' + data.mapcode + '.json'), data, 
     this.staticVariable.getRequestActions.defaultAction()).subscribe(data => {
       seccess(this.makeResultData(data));
     },
     (error)=> {
-      fail(error);
+      console.error('[Error]=> ', error);
     });
   }
-  movilaDelete(data: any, seccess, fail){
+  movilaDelete(data: any, seccess){
     this.http.post(this.staticVariable.getUrl2('/home/delete/' + data.mapcode + '.json'), data, 
     this.staticVariable.getRequestActions.defaultAction()).subscribe(data => {
       seccess(this.makeResultData(data));
     },
     (error)=> {
-      fail(error);
+      console.error('[Error]=> ', error);
     });
   }
 

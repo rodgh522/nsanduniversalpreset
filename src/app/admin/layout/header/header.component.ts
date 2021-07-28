@@ -52,10 +52,7 @@ export class HeaderComponent implements OnInit {
         }
       }
       console.log(rootScope.gVariable);
-    },
-    (error)=> {
-      console.error('[Error]=> ' + error);
-    })
+    });
   }
 
 }

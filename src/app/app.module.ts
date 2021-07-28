@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 /* Module */
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from '@src/app/app-routing.module';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -21,7 +22,7 @@ import { AppComponent } from '@src/app/app.component';
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
-    BrowserAnimationsModule,
+    BrowserAnimationsModule, FormsModule, ReactiveFormsModule,
     HttpClientModule,
 
     /* Firebase init */
