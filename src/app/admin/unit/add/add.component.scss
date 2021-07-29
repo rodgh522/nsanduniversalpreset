@@ -68,3 +68,14 @@
 .checkbox-divider-half{
     .mat-checkbox{width: 48%;}
 }
+
+.background-highlight{
+    background-color: #ddd;
+    padding: 1px 0;
+    border-radius: 5px;
+    margin-bottom: 10px;
+
+    li{
+        cursor: initial;
+    }
+}

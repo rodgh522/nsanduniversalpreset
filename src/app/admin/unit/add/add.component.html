@@ -1,6 +1,6 @@
 <div class="modal-wrapper">
     <button mat-button mat-dialog-close (click)="matRef.close()"><i class="fa fa-times"></i></button>
-
+    <span>{{page}} / 6</span>
     <!-- page1 -->
     <div class="modal-content" *ngIf="page === 1">
         <form [formGroup]="formPage1">
@@ -64,7 +64,7 @@
                 </mat-select>
             </mat-form-field>
         </div>
-        <h5>주의 사항을 입력해주세요.</h5>
+        <h5>기본정보를 입력해주세요.</h5>
         <ul class="list-decorate-dot">
             <li *ngFor="let info of optional.infoAccom; let i = index" (click)="editList('infoAccom', info, i)">
                 {{info}}
@@ -72,14 +72,14 @@
             </li>
         </ul>
         <mat-form-field>
-            <mat-label>Leave a comment</mat-label>
-            <textarea matInput rows="3" placeholder="120자 이내로 작성해주세요." maxlength="120" 
+            <mat-label>기본정보</mat-label>
+            <textarea matInput rows="3" placeholder="예) 22시 이후 체크인은 사전문의바랍니다." maxlength="120" 
                 [(ngModel)]="inputboxes['infoAccom']"></textarea>
         </mat-form-field>
         <div class="content-btn">
-            <button mat-stroked-button color="primary" *ngIf="activatedEditBtn !== 'infoAccom'" (click)="addRule('infoAccom')">주의사항 추가</button>
+            <button mat-stroked-button color="primary" *ngIf="activatedEditBtn !== 'infoAccom'" (click)="addRule('infoAccom')">기본정보 추가</button>
             <button mat-stroked-button color="primary" *ngIf="activatedEditBtn === 'infoAccom'" (click)="cancelEdit()">수정 취소</button>
-            <button mat-stroked-button color="primary" *ngIf="activatedEditBtn === 'infoAccom'" (click)="modify('infoAccom')">주의사항 수정</button>
+            <button mat-stroked-button color="primary" *ngIf="activatedEditBtn === 'infoAccom'" (click)="modify('infoAccom')">기본정보 수정</button>
         </div>
         <h5>환불 규정을 입력해주세요.</h5>
         <ul class="list-decorate-dot">
@@ -175,13 +175,37 @@
         </div>
     </div>
 
-    <!-- page4 -->
-    <div class="modal-content" *ngIf="page === 4">
+    <!-- page5 -->
+    <div class="modal-content" *ngIf="page === 5">
         <h3>숙소 소개(선택)</h3>
-        <h5>숙소 검색시 함께 표시될 문구</h5>
+        <h5>숙소 소개를 입력해주세요</h5>
+        <mat-form-field>
+            <mat-label>숙소특징</mat-label>
+            <textarea matInput placeholder="120자 이내로 작성해주세요" rows="3" maxlength="120" autocomplete="off"
+                [(ngModel)]="optional['Intro']"></textarea>
+        </mat-form-field>
         <div class="btn-box flex-between mgt10">
             <button mat-raised-button color="primary" (click)="page = page - 1">이전</button>
-            <button mat-raised-button color="primary" (click)="page = page + 1">숙소 등록신청</button>
+            <button mat-raised-button color="primary" (click)="page = page + 1">계속</button>
+        </div>
+    </div>
+
+    <!-- page6 -->
+    <div class="modal-content" *ngIf="page === 6">
+        <h3>서류 첨부</h3>
+        <h5>필요 서류를 첨부해주세요.</h5>
+        <div class="background-highlight">
+            <ul class="list-decorate-dot">
+                <li>사업자 등록증</li>
+                <li>관광사업 등록증</li>
+                <li>야영장사고배상책임 보험증</li>
+                <li>통장사본</li>
+            </ul>
+        </div>
+        <app-file-attach (uploaded)="syncFileList($event)" [loadedFile]="uploadFileList" [refresh]="refreshFile"></app-file-attach>
+        <div class="btn-box flex-between mgt10">
+            <button mat-raised-button color="primary" (click)="page = page - 1">이전</button>
+            <button mat-raised-button color="primary" (click)="submit()">숙소 등록신청</button>
         </div>
     </div>
 </div>

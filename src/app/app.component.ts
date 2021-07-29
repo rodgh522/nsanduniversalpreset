@@ -1,9 +1,12 @@
 import { isPlatformBrowser } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { rootScope } from './global/global';
+import { StaticVariableService } from './global/static-variable';
 import { SessionService } from './service/session.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +21,9 @@ export class AppComponent implements OnInit {
     private auth: AngularFireAuth,
     private router: Router,
     private session: SessionService,
+    public http: HttpClient,
+    public staticVariable: StaticVariableService,
+    public translate: TranslateService,
     @Inject(PLATFORM_ID) private platform: any
     ){
     this.isWeb = isPlatformBrowser(this.platform);
@@ -35,6 +41,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(){
-    
+    this.translate.use('ko');
   }
+
 }
