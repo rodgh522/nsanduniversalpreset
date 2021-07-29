@@ -178,3 +178,8 @@ export function defaultCheckinTime(){
   }
   return result;
 }
+
+export function isNullOrEmpty(value? : any): boolean{
+  return value === '' || value === ' '  || value === '0.00' || value === null || value === undefined ||
+  (value != null && typeof value === 'object' && !Object.keys(value).length);
+}

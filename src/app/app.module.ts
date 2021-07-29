@@ -1,6 +1,10 @@
 import { environment } from 'src/environments/environment';
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+
+/* HTTP */
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 /* Module */
 import { BrowserModule } from '@angular/platform-browser';
@@ -15,6 +19,10 @@ import { PERSISTENCE } from '@angular/fire/auth';
 
 import { AppComponent } from '@src/app/app.component';
 
+export function createTranslateLoader(http: HttpClient){
+  return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +33,15 @@ import { AppComponent } from '@src/app/app.component';
     BrowserAnimationsModule, FormsModule, ReactiveFormsModule,
     HttpClientModule,
 
+    /* Translate Module */
+    TranslateModule.forRoot({
+      loader : {
+        provide : TranslateLoader,
+        useFactory : (createTranslateLoader),
+        deps : [HttpClient]
+      }
+    }),
+    
     /* Firebase init */
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
@@ -32,7 +49,7 @@ import { AppComponent } from '@src/app/app.component';
   ],
   providers: [
     { provide: PERSISTENCE, useValue: 'session' },
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }
   ],
   bootstrap: [AppComponent]
 })

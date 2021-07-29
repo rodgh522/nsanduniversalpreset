@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '@src/app/shared/shared.module';
 
 /* Module */
 import { AdminRoutingModule } from '@src/app/admin/admin-routing.module';
@@ -44,7 +45,7 @@ import { AddComponent } from '@src/app/admin/unit/add/add.component';
     AddComponent
   ],
   imports: [
-    CommonModule,
+    CommonModule, SharedModule,
     AdminRoutingModule, FormsModule, ReactiveFormsModule,
     AngularSplitModule,
     MatTooltipModule, MatTabsModule, MatExpansionModule, MatButtonModule,
