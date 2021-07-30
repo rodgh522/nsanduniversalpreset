@@ -1,0 +1,188 @@
+<div>
+    <h2>{{title}}
+        <button mat-raised-button (click)="openAdd()">숙소 추가</button>
+    </h2>
+    <mat-tab-group animationDuration="2ms" (selectedTabChange)="operateTab($event.index)">
+        <mat-tab label="상세정보">
+            <div class="content-body">
+                <h3>금나와라뚝딱 캠핑장</h3>
+                <mat-accordion multi>
+                    <mat-expansion-panel expanded>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <h4>숙소 정보</h4>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="mat-panel-body">
+                            <h5>숙소 유형</h5>
+                            <div>a</div>
+                            <h5>숙소 주소</h5>
+                            <div>b</div>
+                            <h5>대표 번호</h5>
+                            <div>c</div>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel expanded>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <h4>숙소 소개</h4>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="mat-panel-body">
+                            <div>소개합니다</div>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel expanded>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <h4>기본 정보</h4>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <h5>체크인/아웃 시간</h5>
+                        <div>체크인/아웃</div>
+                        <h5>기본 정보</h5>
+                        <div class="mat-panel-body">
+                            <ul class="list-decorate-dot">
+                                <li>d</li>
+                                <li>e</li>
+                            </ul>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel expanded>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <h4>객실 정보</h4>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="mat-panel-body">
+                            <ul class="list-decorate-dot">
+                                <li>z</li>
+                                <li>p</li>
+                            </ul>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel expanded>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <h4>주변 정보</h4>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="mat-panel-body">
+                            <ul class="list-decorate-dot">
+                                <li>w</li>
+                                <li>x</li>
+                            </ul>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel expanded>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <h4>인원 추가정보</h4>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="mat-panel-body">
+                            <ul class="list-decorate-dot">
+                                <li>w</li>
+                                <li>x</li>
+                            </ul>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel expanded>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <h4>환불 규정</h4>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="mat-panel-body">
+                            <ul class="list-decorate-dot">
+                                <li>f</li>
+                                <li>g</li>
+                            </ul>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel expanded>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <h4>숙소 테마</h4>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="mat-panel-body">
+                            <ul class="list-decorate-dot">
+                                <li>h</li>
+                                <li>i</li>
+                            </ul>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel expanded>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <h4>숙소 편의시설</h4>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="mat-panel-body">
+                            <ul class="list-decorate-dot">
+                                <li>j</li>
+                                <li>k</li>
+                            </ul>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel expanded>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <h4>바베큐</h4>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="mat-panel-body">
+                            <ul class="list-decorate-dot">
+                                <li>l</li>
+                                <li>m</li>
+                            </ul>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel expanded>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <h4>반려동물</h4>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="mat-panel-body">
+                            <ul class="list-decorate-dot">
+                                <li>o</li>
+                                <li>p</li>
+                            </ul>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel expanded>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <h4>픽업안내</h4>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="mat-panel-body">
+                            <ul class="list-decorate-dot">
+                                <li>q</li>
+                                <li>r</li>
+                            </ul>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel expanded>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <h4>기타정보</h4>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="mat-panel-body">
+                            <ul class="list-decorate-dot">
+                                <li>u</li>
+                                <li>v</li>
+                            </ul>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+        </mat-tab>
+        <mat-tab label="객실관리">
+            <app-unit></app-unit>
+        </mat-tab>
+    </mat-tab-group>
+</div>
