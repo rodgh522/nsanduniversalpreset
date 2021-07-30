@@ -7,6 +7,7 @@ html, body {
     height: 100%;
     padding: 0;
     margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 ul, li, ol{
@@ -37,6 +38,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 h1, h2, h3, h4, h5, h6{
     color: #1b3a57;
     margin-bottom: 2px;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 .flex-column{
     display: flex;
@@ -124,3 +126,28 @@ h1, h2, h3, h4, h5, h6{
 .mgr30{margin-right: 30px;}
 .mgr40{margin-right: 40px;}
 .mgr50{margin-right: 50px;}
+
+.content-body{
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 10px;
+}
+
+.mat-panel-body{
+    margin-top: 20px;
+}
+
+.list-decorate-dot{
+    padding: initial;
+    margin: initial;
+    margin-top: 10px;
+    margin-left: 30px;
+    
+    li{
+        word-break: break-all;
+        list-style: disc;
+        padding: initial;
+        margin: 10px 0;
+        cursor: pointer;
+    }
+}

@@ -13,6 +13,8 @@ export class MypageComponent implements OnInit {
 
   partnerform: FormGroup;
   exposeSubmit = rootScope.gVariable.PartnerId ? false : true;
+  uploadFileList = [];
+  refreshFile = 0;
   
   constructor(
     private fb: FormBuilder,
@@ -45,6 +47,11 @@ export class MypageComponent implements OnInit {
     });
   }
 
+  /* 첨부파일 컴포넌트와 데이터 sync */
+  syncFileList(e){
+    this.uploadFileList = [...e];
+  }
+
   checkValid(target){
     return this.partnerform.controls[target].touched && !this.partnerform.controls[target].valid;
   }
@@ -58,19 +65,24 @@ export class MypageComponent implements OnInit {
       }
       return;
     }
-    let data = formToObj(this.partnerform.controls);
-    this.sendRequest(data);
+    this.sendRequest();
   }
-
-  sendRequest(data: any){
-
+  
+  sendRequest(){
+    
     const attr = [
       'keyId', 'PartnerNm', 'President', 'Phone', 'Email', 'Addr', 'BizNo'
     ];
-    data.attr = attr;
-    data.MemId = rootScope.gVariable.MemId;
-    data.mapcode = 'insertPartner';
-    data.idName = 'PartnerId';
+    const data = {
+      attr : attr,
+      MemId : rootScope.gVariable.MemId,
+      uploadFileList : this.uploadFileList,
+      IdName : 'PartnerId',
+      tableNm : 'partner',
+      mapcode : 'insertPartner',
+      idName : 'PartnerId',
+      ...formToObj(this.partnerform.controls)
+    };
 
     this.postApi.home(data, (res)=> {
       console.log(res);

@@ -8,7 +8,7 @@
                 </a>
             </li>
             <li class="side-item" matTooltip="숙소관리" matTooltipClass="menu-tooltip" matTooltipPosition="right" [matTooltipDisabled]="!folded">
-                <a routerLink="unit" [@highlight]="selected === 'unit' ? 'active' : 'deactive'" (click)="selected = 'unit'">
+                <a routerLink="accom" [@highlight]="selected === 'unit' ? 'active' : 'deactive'" (click)="selected = 'unit'">
                     <i class="fa fa-key"></i><br>
                     <span *ngIf="!folded">숙소관리</span>
                 </a>

@@ -8,7 +8,9 @@ import { rootScope } from '../global/global';
 })
 export class SessionService {
 
-  user = new BehaviorSubject(null);
+  user$ = new BehaviorSubject(null);
+  accomodation$ = new BehaviorSubject(null);
+  addAcom$ = new BehaviorSubject(null);
   fireState;
   constructor(
     private auth: AngularFireAuth
@@ -23,7 +25,7 @@ export class SessionService {
   signIn(id: string, pwd: string, stay: string, info: any){
     return this.auth.setPersistence(stay).then(()=> {
       return this.auth.signInWithEmailAndPassword(id + '@softzion.com', pwd).then(()=> {
-        this.user.next(info);
+        this.user$.next(info);
         rootScope.setUserSession(info);
       });
     });
@@ -31,9 +33,18 @@ export class SessionService {
   
   signOut(){
     return this.auth.signOut().then(()=> {
-      this.user.next(null);
+      this.user$.next(null);
       rootScope.sessionExpire();
     });
-    
+  }
+
+  setAddAcom(data: any){
+    rootScope.gVariable.AcomId = data;
+    this.addAcom$.next(data);
+  }
+  
+  setAccomodation(data: any){
+    rootScope.gVariable.AcomId = data;
+    this.accomodation$.next(data);
   }
 }

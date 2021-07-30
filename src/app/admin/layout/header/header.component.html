@@ -1,4 +1,7 @@
 <div class="header-container">
+    <mat-select [(ngModel)]="targetAcom" class="mgt5" (selectionChange)="changeAccom()">
+        <mat-option *ngFor="let accom of accomList" [value]="accom.AcomId">{{accom.AcomNm}}</mat-option>
+    </mat-select>
     <button class="user-config" (click)="showBoard = !showBoard">
         {{ user ? user.MemNm.charAt(0) : '사' }}
     </button>

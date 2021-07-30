@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
           this.router.navigateByUrl('/login');
         }else{
           const user = rootScope.sessionStroageToData();
-          this.session.user.next(user);
+          this.session.user$.next(user);
         }
       });
     }

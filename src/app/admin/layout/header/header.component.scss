@@ -1,6 +1,11 @@
 .header-container{
     padding: 10px 30px;
     position: relative;
+
+    .mat-select{
+        max-width: 200px;
+        &:hover{border-bottom: 1px solid #1b3a57;}
+    }
     .user-config{
         float: right;
         width: 40px;

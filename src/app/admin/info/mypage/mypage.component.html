@@ -54,6 +54,19 @@
                     <input type="text" formControlName="Email" placeholder="이메일" 
                         [ngStyle]="{'borderColor': checkValid('Email') ? '#f00': '#ddd'}">
                     
+                    <div class="modal-content">
+                        <h3>서류 첨부</h3>
+                        <h5>필요 서류를 첨부해주세요.</h5>
+                        <div class="background-highlight">
+                            <ul class="list-decorate-dot">
+                                <li>사업자 등록증</li>
+                                <li>관광사업 등록증</li>
+                                <li>야영장사고배상책임 보험증</li>
+                                <li>통장사본</li>
+                            </ul>
+                        </div>
+                        <app-file-attach (uploaded)="syncFileList($event)" [loadedFile]="uploadFileList" [refresh]="refreshFile"></app-file-attach>
+                    </div>
                     <div class="btn-box">
                         <button mat-raised-button color="primary" *ngIf="exposeSubmit" (click)="submit()">제출</button>
                     </div>
