@@ -1,0 +1,81 @@
+.modal-wrapper{
+    .modal-content{
+        max-width: 500px;
+        margin: 10px auto;
+        
+        .mat-form-field{
+            width: 100%;
+        }
+
+        .checktime-box{
+            display: flex;
+        
+            .mat-form-field{
+                width: 45%;
+                margin-right: 20px;
+            }
+        }
+    }
+}
+
+.addr-container{
+    position: relative;
+
+    .mat-stroked-button{
+        position: absolute;
+        right: 0;
+        top: -5px;
+        line-height: 25px;
+    }
+}
+
+.list-decorate-dot{
+    padding: initial;
+    margin: initial;
+    margin-top: 10px;
+    margin-left: 30px;
+    
+    li{
+        word-break: break-all;
+        list-style: disc;
+        padding: initial;
+        margin: 10px 0;
+        cursor: pointer;
+    }
+}
+
+.content-btn{
+    button{
+        margin-right: 10px;
+    }
+}
+
+.refund-input{
+    margin: 20px 0;
+    .mat-select{
+        width: 60px;
+        border-bottom: 1px solid;
+        margin-left: 10px;
+        text-align: center;
+    }
+}
+
+.flex-between{
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkbox-divider-half{
+    .mat-checkbox{width: 48%;}
+}
+
+.background-highlight{
+    background-color: #ddd;
+    padding: 1px 0;
+    border-radius: 5px;
+    margin-bottom: 10px;
+
+    li{
+        cursor: initial;
+    }
+}

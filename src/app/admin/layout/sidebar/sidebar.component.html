@@ -1,0 +1,28 @@
+<div class="side-container">
+    <div class="side-container-box">
+        <ul>
+            <li class="side-item" matTooltip="예약관리" matTooltipClass="menu-tooltip" matTooltipPosition="right" [matTooltipDisabled]="!folded">
+                <a routerLink="reserve" [@highlight]="selected === 'reserve' ? 'active' : 'deactive'" (click)="selected = 'reserve'">
+                    <i class="fa fa-calendar"></i><br>
+                    <span *ngIf="!folded">예약관리</span>
+                </a>
+            </li>
+            <li class="side-item" matTooltip="숙소관리" matTooltipClass="menu-tooltip" matTooltipPosition="right" [matTooltipDisabled]="!folded">
+                <a routerLink="accom" [@highlight]="selected === 'unit' ? 'active' : 'deactive'" (click)="selected = 'unit'">
+                    <i class="fa fa-key"></i><br>
+                    <span *ngIf="!folded">숙소관리</span>
+                </a>
+            </li>
+            <li class="side-item" matTooltip="정산관리" matTooltipClass="menu-tooltip" matTooltipPosition="right" [matTooltipDisabled]="!folded">
+                <a routerLink="stock" [@highlight]="selected === 'stock' ? 'active' : 'deactive'" (click)="selected = 'stock'">
+                    <i class="fa fa-krw"></i><br>
+                    <span *ngIf="!folded">정산관리</span>
+                </a>
+            </li>
+        </ul>
+        <button (click)="foldSide()" class="toogle-btn">
+            <i class="fa fa-angle-left" *ngIf="!folded"></i>
+            <i class="fa fa-angle-right" *ngIf="folded"></i>
+        </button>
+    </div>
+</div>

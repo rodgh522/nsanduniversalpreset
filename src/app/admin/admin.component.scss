@@ -1,0 +1,18 @@
+#wrapper{
+    height: 100%;
+    position: relative;
+}
+
+.content-wrapper{
+    padding: 0 20px;
+    height: calc(100% - 20px);
+    margin-bottom: 50px;
+    padding-bottom: 20px;
+}
+
+admin-footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 3;
+}

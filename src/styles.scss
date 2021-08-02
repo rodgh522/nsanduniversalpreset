@@ -1,0 +1,153 @@
+/* You can add global styles to this file, and also import other style files */
+
+// Import common styles
+@import 'app-common';
+
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+ul, li, ol{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    color: #000;
+    text-decoration: none !important;
+}
+
+img, fieldset, button, input {
+    border: 0 none;
+    background-color: transparent;
+}
+  
+  img, input, select, textarea {
+    vertical-align: middle;
+}
+  
+  address, em {
+    font-style: normal;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+h1, h2, h3, h4, h5, h6{
+    color: #1b3a57;
+    margin-bottom: 2px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+
+.mat-expansion-panel-header{
+    border-radius: initial !important;
+    border-bottom: 1px solid #ddd;
+    background-color: #f6f6f6;
+
+    &:focus, &:hover{ background-color: #f6f6f6 !important; }
+}
+
+.text-error{
+    font-size: 12px;
+    color: #f00;
+}
+
+.form-regular{
+    input{
+        margin: 5px 0;
+        height: 50px;
+        text-indent: 2px;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+    }
+}
+
+.content-border{
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+.full-screen-modal{
+    width: 100%;
+    .mat-dialog-container{
+        transition: all 1s;
+        background-color: #f6f6f6;
+
+    }
+}
+.matchip-container{
+    margin: 20px 0;
+    .mat-chip{cursor: pointer;}
+}
+
+.btn-box{
+    button{
+        float: right;
+        margin: 10px;
+    }
+}
+
+/* margin */
+.mgt0{margin-top: 0;}
+.mgt5{margin-top: 5px;}
+.mgt10{margin-top: 10px;}
+.mgt15{margin-top: 15px;}
+.mgt20{margin-top: 20px;}
+.mgt30{margin-top: 30px;}
+.mgt40{margin-top: 40px;}
+.mgt50{margin-top: 50px;}
+.mgb0{margin-bottom: 0;}
+.mgb5{margin-bottom: 5px;}
+.mgb10{margin-bottom: 10px;}
+.mgb15{margin-bottom: 15px;}
+.mgb20{margin-bottom: 20px;}
+.mgb30{margin-bottom: 30px;}
+.mgb40{margin-bottom: 40px;}
+.mgb50{margin-bottom: 50px;}
+.mgl0{margin-left: 0;}
+.mgl5{margin-left: 5px;}
+.mgl10{margin-left: 10px;}
+.mgl15{margin-left: 15px;}
+.mgl20{margin-left: 20px;}
+.mgl30{margin-left: 30px;}
+.mgl40{margin-left: 40px;}
+.mgl50{margin-left: 50px;}
+.mgr0{margin-right: 0;}
+.mgr5{margin-right: 5px;}
+.mgr10{margin-right: 10px;}
+.mgr15{margin-right: 15px;}
+.mgr20{margin-right: 20px;}
+.mgr30{margin-right: 30px;}
+.mgr40{margin-right: 40px;}
+.mgr50{margin-right: 50px;}
+
+.content-body{
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 10px;
+}
+
+.mat-panel-body{
+    margin-top: 20px;
+}
+
+.list-decorate-dot{
+    padding: initial;
+    margin: initial;
+    margin-top: 10px;
+    margin-left: 30px;
+    
+    li{
+        word-break: break-all;
+        list-style: disc;
+        padding: initial;
+        margin: 10px 0;
+        cursor: pointer;
+    }
+}

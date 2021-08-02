@@ -1,0 +1,22 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "module": "esnext",
+    "types": [],
+    "paths": {
+      "@src/*": [
+        "src/*.android.ts",
+        "src/*.ios.ts",
+        "src/*.tns.ts"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*.tns.ts"
+  ],
+  "files": [
+    "src/main.tns.ts",
+    "src/polyfills.ts"
+  ]
+}

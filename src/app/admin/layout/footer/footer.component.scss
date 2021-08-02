@@ -1,0 +1,16 @@
+.footer-container{
+    height: 50px;
+    background-color: #eee;
+    border-top: 1px solid #ddd;
+    ul{
+        display: flex;
+        justify-content: space-around;
+        line-height: 50px;
+
+        a{
+            display: block;
+            font-size: 20px;
+            color: #a7a7aa;
+        }
+    }
+}
