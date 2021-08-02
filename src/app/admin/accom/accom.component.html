@@ -5,7 +5,7 @@
     <mat-tab-group animationDuration="2ms" (selectedTabChange)="operateTab($event.index)">
         <mat-tab label="상세정보">
             <div class="content-body">
-                <h3>금나와라뚝딱 캠핑장</h3>
+                <h3>{{accomInfo.AcomNm}}</h3>
                 <mat-accordion multi>
                     <mat-expansion-panel expanded>
                         <mat-expansion-panel-header>
@@ -15,11 +15,11 @@
                         </mat-expansion-panel-header>
                         <div class="mat-panel-body">
                             <h5>숙소 유형</h5>
-                            <div>a</div>
+                            <div>{{accomInfo.AcomTy === 'Camping' ? '캠핑장' : '펜션'}}</div>
                             <h5>숙소 주소</h5>
-                            <div>b</div>
+                            <div>{{accomInfo.Address}}</div>
                             <h5>대표 번호</h5>
-                            <div>c</div>
+                            <div>{{accomInfo.Line}}</div>
                         </div>
                     </mat-expansion-panel>
                     <mat-expansion-panel expanded>
@@ -29,7 +29,7 @@
                             </mat-panel-title>
                         </mat-expansion-panel-header>
                         <div class="mat-panel-body">
-                            <div>소개합니다</div>
+                            <div>{{accomInfo.Intro}}</div>
                         </div>
                     </mat-expansion-panel>
                     <mat-expansion-panel expanded>
@@ -39,12 +39,11 @@
                             </mat-panel-title>
                         </mat-expansion-panel-header>
                         <h5>체크인/아웃 시간</h5>
-                        <div>체크인/아웃</div>
+                        <div>{{accomInfo.CheckinTime}} / {{accomInfo.CheckoutTime}}</div>
                         <h5>기본 정보</h5>
                         <div class="mat-panel-body">
                             <ul class="list-decorate-dot">
-                                <li>d</li>
-                                <li>e</li>
+                                <li *ngFor="let info of accomInfo.options.info_base">{{info.Content}}</li>
                             </ul>
                         </div>
                     </mat-expansion-panel>
@@ -69,8 +68,7 @@
                         </mat-expansion-panel-header>
                         <div class="mat-panel-body">
                             <ul class="list-decorate-dot">
-                                <li>w</li>
-                                <li>x</li>
+                                <li *ngFor="let info of accomInfo.options.info_nearby">{{info.Content}}</li>
                             </ul>
                         </div>
                     </mat-expansion-panel>
@@ -95,8 +93,9 @@
                         </mat-expansion-panel-header>
                         <div class="mat-panel-body">
                             <ul class="list-decorate-dot">
-                                <li>f</li>
-                                <li>g</li>
+                                <li *ngFor="let info of accomInfo.options.info_refund">
+                                    {{info.RefundDayFrom === 0 ? '당일' : info.RefundDayFrom + '일'}} {{info.RefundDayTo ? '~' + info.RefundDayTo + '일' : ''}} 전 취소 {{info.rate}} % 환불
+                                </li>
                             </ul>
                         </div>
                     </mat-expansion-panel>
@@ -108,8 +107,7 @@
                         </mat-expansion-panel-header>
                         <div class="mat-panel-body">
                             <ul class="list-decorate-dot">
-                                <li>h</li>
-                                <li>i</li>
+                                <li *ngFor="let info of accomInfo.options.info_theme">{{info.ThemeNm}}</li>
                             </ul>
                         </div>
                     </mat-expansion-panel>
@@ -121,8 +119,7 @@
                         </mat-expansion-panel-header>
                         <div class="mat-panel-body">
                             <ul class="list-decorate-dot">
-                                <li>j</li>
-                                <li>k</li>
+                                <li *ngFor="let info of accomInfo.options.info_fac">{{info.FacNm}}</li>
                             </ul>
                         </div>
                     </mat-expansion-panel>

@@ -23,3 +23,25 @@
         margin-right: 10px;
     }
 }
+
+.reactive-form-container{
+    margin: 10px auto;
+    max-width: 650px;
+    height: calc(100% - 25px);
+    .form-splitter{
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0px 1px 3px 0px #aaa;
+        height: calc(100% - 5px);
+        .split-side{
+            height: calc(100% - 40px);
+            background-color: #f6f6f6;
+            border-right: 1px solid #ddd;
+            padding: 20px;
+        }
+
+        .content-body{
+            padding: 20px;
+        }
+    }
+}

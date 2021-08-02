@@ -89,7 +89,7 @@ export class AddComponent implements OnInit {
       AcomNm: ['', [
         Validators.required
       ]],
-      Addr: ['', [
+      Address: ['', [
         Validators.required
       ]],
       Line: ['', [
@@ -135,7 +135,7 @@ export class AddComponent implements OnInit {
     new daum.Postcode({
       oncomplete: (data)=> {
         const addr = '[' + data.zonecode + '] ' + data.address;
-        this.formPage1.controls['Addr'].setValue(addr);
+        this.formPage1.controls['Address'].setValue(addr);
       },
     }).open();
   }

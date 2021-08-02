@@ -1,50 +1,64 @@
-<div class="content-body form-unit">
-    <form [formGroup]="formunit">
-        <h5>객실 이름을 입력해주세요.</h5>
-        <mat-form-field>
-            <mat-label>객실명</mat-label>
-            <input type="text" matInput placeholder="객실 이름" autocomplete="off"
-                formControlName="UnitNm">
-        </mat-form-field>
-        <h5>객실 면적을 입력해주세요.</h5>
-        <mat-form-field>
-            <mat-label>평</mat-label>
-            <input type="text" matInput placeholder="평수" autocomplete="off"
-                formControlName="UnitWidth">
-        </mat-form-field>
-        <h5>객실 인원을 입력해주세요.</h5>
-        <div class="form-half">
-            <mat-form-field>
-                <mat-label>기준인원</mat-label>
-                <input type="text" matInput placeholder="기준인원" autocomplete="off"
-                formControlName="GuestStd">
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>최대인원</mat-label>
-                <input type="text" matInput placeholder="최대인원" autocomplete="off"
-                formControlName="GuestMax">
-            </mat-form-field>
-        </div>
-    </form>
-    <h5>기본정보를 입력해주세요.</h5>
-    <ul class="list-decorate-dot">
-        <li *ngFor="let info of optional.infoUnit; let i = index" (click)="editList('infoUnit', info, i)">
-            {{info}}
-            <button *ngIf="editItem === info" (click)="delList('infoUnit', i)"><i class="fa fa-minus"></i></button>
-        </li>
-    </ul>
-    <mat-form-field>
-        <mat-label>기본정보</mat-label>
-        <input type="text" matInput placeholder="예) 유아 기준은 만 5세입니다." maxlength="60" autocomplete="off"
-            [(ngModel)]="inputboxes['infoUnit']">
-    </mat-form-field>
-    <div class="content-btn">
-        <button mat-stroked-button color="primary" *ngIf="activatedEditBtn !== 'infoUnit'" (click)="addRule('infoUnit')">주변정보 추가</button>
-        <button mat-stroked-button color="primary" *ngIf="activatedEditBtn === 'infoUnit'" (click)="cancelEdit()">수정 취소</button>
-        <button mat-stroked-button color="primary" *ngIf="activatedEditBtn === 'infoUnit'" (click)="modify('infoUnit')">주변정보 수정</button>
-    </div>
-    <h5>편의시설을 선택해주세요.(중복선택)</h5>
-    <div class="checkbox-divider-half mgt10 mgb10">
-        <mat-checkbox *ngFor="let item of facilities" color="primary" [checked]="onCheck('facilities', item.FacId)" (change)="editCheckList('facilities', $event, item.FacId)">{{item.FacNm}}</mat-checkbox>
+<div class="reactive-form-container">
+    <h3>객실 관리</h3>
+    <div class="form-splitter">
+        <as-split useTransition="true" gutterSize="0" unit="pixel">
+            <as-split-area [size]="listView" minSize="0" order="1" visible="true">
+                <div class="split-side">
+                    asdasdasd
+                </div>
+            </as-split-area>
+            <as-split-area size="*" order="2" visible="true">
+                <div class="content-body form-unit">
+                    <form [formGroup]="formunit">
+                        <h5>객실 이름을 입력해주세요.</h5>
+                        <mat-form-field>
+                            <mat-label>객실명</mat-label>
+                            <input type="text" matInput placeholder="객실 이름" autocomplete="off"
+                            formControlName="UnitNm">
+                        </mat-form-field>
+                        <h5>객실 면적을 입력해주세요.</h5>
+                        <mat-form-field>
+                            <mat-label>평</mat-label>
+                            <input type="text" matInput placeholder="평수" autocomplete="off"
+                            formControlName="UnitWidth">
+                        </mat-form-field>
+                        <h5>객실 인원을 입력해주세요.</h5>
+                        <div class="form-half">
+                            <mat-form-field>
+                                <mat-label>기준인원</mat-label>
+                                <input type="text" matInput placeholder="기준인원" autocomplete="off"
+                                formControlName="GuestStd">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>최대인원</mat-label>
+                                <input type="text" matInput placeholder="최대인원" autocomplete="off"
+                                formControlName="GuestMax">
+                            </mat-form-field>
+                        </div>
+                    </form>
+                    <h5>기본정보를 입력해주세요.</h5>
+                    <ul class="list-decorate-dot">
+                        <li *ngFor="let info of optional.infoUnit; let i = index" (click)="editList('infoUnit', info, i)">
+                            {{info}}
+                            <button *ngIf="editItem === info" (click)="delList('infoUnit', i)"><i class="fa fa-minus"></i></button>
+                        </li>
+                    </ul>
+                    <mat-form-field>
+                        <mat-label>기본정보</mat-label>
+                        <input type="text" matInput placeholder="예) 유아 기준은 만 5세입니다." maxlength="60" autocomplete="off"
+                        [(ngModel)]="inputboxes['infoUnit']">
+                    </mat-form-field>
+                    <div class="content-btn">
+                        <button mat-stroked-button color="primary" *ngIf="activatedEditBtn !== 'infoUnit'" (click)="addRule('infoUnit')">주변정보 추가</button>
+                        <button mat-stroked-button color="primary" *ngIf="activatedEditBtn === 'infoUnit'" (click)="cancelEdit()">수정 취소</button>
+                        <button mat-stroked-button color="primary" *ngIf="activatedEditBtn === 'infoUnit'" (click)="modify('infoUnit')">주변정보 수정</button>
+                    </div>
+                    <h5>편의시설을 선택해주세요.(중복선택)</h5>
+                    <div class="checkbox-divider-half mgt10 mgb10">
+                        <mat-checkbox *ngFor="let item of facilities" color="primary" [checked]="onCheck('facilities', item.FacId)" (change)="editCheckList('facilities', $event, item.FacId)">{{item.FacNm}}</mat-checkbox>
+                    </div>
+                </div>
+            </as-split-area>
+        </as-split>
     </div>
 </div>

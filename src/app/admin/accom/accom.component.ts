@@ -17,6 +17,9 @@ export class AccomComponent implements OnInit, OnDestroy {
 
   title = '숙소관리';
   subScription: Array<Subscription> = [];
+  accomInfo: any = {
+    options: []
+  };
   constructor(
     private dialog: DialogService,
     private postApi: PostApiService,
@@ -30,7 +33,6 @@ export class AccomComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getAcomInfo();
   }
 
   ngOnDestroy() {
@@ -51,7 +53,7 @@ export class AccomComponent implements OnInit, OnDestroy {
 
   getAcomInfo(){
     const attr = [
-      'AcomId', 'AcomNm'
+      'AcomId', 'AcomNm', 'AcomStat', 'AcomTy', 'Address', 'Line', 'CheckinTime', 'CheckoutTime', 'Intro'
     ];
 
     const data = {
@@ -63,7 +65,11 @@ export class AccomComponent implements OnInit, OnDestroy {
     };
 
     this.postApi.home(data, (res)=> {
-      console.log(res);
+      if (res.header.status === CONSTANT.HttpStatus.OK) {
+        if (res.body.docCnt > 0) {
+          this.accomInfo = res.body.docs[0];
+        }
+      }
     });
   }
 

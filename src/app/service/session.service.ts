@@ -40,10 +40,13 @@ export class SessionService {
 
   setAddAcom(data: any){
     rootScope.gVariable.AcomId = data;
+    sessionStorage['AcomId'] = data;
     this.addAcom$.next(data);
+    this.accomodation$.next(data);
   }
   
   setAccomodation(data: any){
+    sessionStorage['AcomId'] = data;
     rootScope.gVariable.AcomId = data;
     this.accomodation$.next(data);
   }

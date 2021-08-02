@@ -21,7 +21,7 @@ export class EditComponent implements OnInit {
   };
   editItem;
   activatedEditBtn;
-
+  listView = 150;
   constructor(
     private fb: FormBuilder,
     private postApi: PostApiService
