@@ -23,13 +23,14 @@ export class AccomComponent implements OnInit, OnDestroy {
     private session: SessionService,
     private router: Router,
   ) { 
+    
     this.subScription.push(this.session.accomodation$.subscribe(res=> {
-
+      this.getAcomInfo();
     }));
-
   }
 
   ngOnInit(): void {
+    this.getAcomInfo();
   }
 
   ngOnDestroy() {
@@ -55,10 +56,15 @@ export class AccomComponent implements OnInit, OnDestroy {
 
     const data = {
       attr: attr,
-      mapcode: 'MovilaAccomodation.getAcomInfo',
+      mapcode: 'getAccom',
       useConvert: 'Y',
-      PartnerId: rootScope.gVariable.PartnerId
+      PartnerId: rootScope.gVariable.PartnerId,
+      AcomId: rootScope.gVariable.AcomId
     };
+
+    this.postApi.home(data, (res)=> {
+      console.log(res);
+    });
   }
 
 }

@@ -15,10 +15,10 @@ export function scrollFactory(overlay: Overlay): () => BlockScrollStrategy {
 interface inputBoxes{
   infoAccom: string;
   infoRefund1: {
-    from: number, rate: number
+    RefundDayFrom: number, rate: number
   },
   infoRefund2: {
-    from: number, to: number, rate: number
+    RefundDayFrom: number, RefundDayTo: number, rate: number
   },
   infoNearby: string
 }
@@ -44,8 +44,8 @@ export class AddComponent implements OnInit {
   };
   inputboxes: inputBoxes = {
     infoAccom: '',
-    infoRefund1: {from: null, rate: null},
-    infoRefund2: {from: null, to: null, rate: null},
+    infoRefund1: {RefundDayFrom: null, rate: null},
+    infoRefund2: {RefundDayFrom: null, RefundDayTo: null, rate: null},
     infoNearby: ''
   };
 
@@ -145,14 +145,14 @@ export class AddComponent implements OnInit {
 
     if(target.indexOf('Refund') > 0){
       if(target.endsWith('1')){
-        if(this.inputboxes[target].from != null && this.inputboxes[target].rate != null){
+        if(this.inputboxes[target].RefundDayFrom != null && this.inputboxes[target].rate != null){
           this.optional['infoRefund'].push({...this.inputboxes[target]});
-          this.inputboxes[target] = {from : null, rate: null};
+          this.inputboxes[target] = {RefundDayFrom : null, rate: null};
         }
       }else{
-        if(this.inputboxes[target].from != null &&  this.inputboxes[target].to != null && this.inputboxes[target].rate != null){
+        if(this.inputboxes[target].RefundDayFrom != null &&  this.inputboxes[target].RefundDayTo != null && this.inputboxes[target].rate != null){
           this.optional['infoRefund'].push({...this.inputboxes[target]});
-          this.inputboxes[target] = {from : null, to: null, rate: null};
+          this.inputboxes[target] = {RefundDayFrom : null, RefundDayTo: null, rate: null};
         }
       }
     }else{
@@ -173,11 +173,11 @@ export class AddComponent implements OnInit {
       if(target.endsWith('1')){
         this.inputboxes['infoRefund1'] = {...this.optional[target][index]};
         this.activatedEditBtn = 'infoRefund1';
-        this.inputboxes['infoRefund2'] = {from: null, to: null, rate: null};
+        this.inputboxes['infoRefund2'] = {RefundDayFrom: null, RefundDayTo: null, rate: null};
       }else{
         this.inputboxes['infoRefund2'] = {...this.optional[target][index]};
         this.activatedEditBtn = 'infoRefund2';
-        this.inputboxes['infoRefund1'] = {from: null, rate: null};
+        this.inputboxes['infoRefund1'] = {RefundDayFrom: null, rate: null};
       }
     }else{
       this.inputboxes[target] = this.optional[target][index];
@@ -199,9 +199,9 @@ export class AddComponent implements OnInit {
     for(const key in this.inputboxes){
       if(key.indexOf('Refund') > 0){
         if(key.endsWith('1')){
-          this.inputboxes['infoRefund1'] = {from: null, rate: null};
+          this.inputboxes['infoRefund1'] = {RefundDayFrom: null, rate: null};
         }else{
-          this.inputboxes['infoRefund2'] = {from: null, to: null, rate: null};
+          this.inputboxes['infoRefund2'] = {RefundDayFrom: null, RefundDayTo: null, rate: null};
         }
       }else{
         this.inputboxes[key] = '';

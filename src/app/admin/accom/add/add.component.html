@@ -84,17 +84,17 @@
         <h5>환불 규정을 입력해주세요.</h5>
         <ul class="list-decorate-dot">
             <li *ngFor="let info of optional.infoRefund; let i = index" (click)="editList('infoRefund', info, i)">
-                <span *ngIf="!info.to">
-                    {{info.from === 0 ? '당일' : info.from + '일 전'}} 취소 {{info.rate}} % 환불
+                <span *ngIf="!info.RefundDayTo">
+                    {{info.RefundDayFrom === 0 ? '당일' : info.RefundDayFrom + '일 전'}} 취소 {{info.rate}} % 환불
                 </span>
-                <span *ngIf="info.to">
-                    {{info.from}}일 ~ {{info.to}}일 전 취소 {{info.rate}} % 환불
+                <span *ngIf="info.RefundDayTo">
+                    {{info.RefundDayFrom}}일 ~ {{info.RefundDayTo}}일 전 취소 {{info.rate}} % 환불
                 </span>
                 <button *ngIf="editItem === info" (click)="delList('infoRefund', i)"><i class="fa fa-minus"></i></button>
             </li>
         </ul>
         <div class="refund-input">
-            <mat-select [(ngModel)]="inputboxes['infoRefund1'].from">
+            <mat-select [(ngModel)]="inputboxes['infoRefund1'].RefundDayFrom">
                 <mat-option [value]="0">당일</mat-option>
                 <mat-option *ngFor="let day of refundDay" [value]="day">{{day}}</mat-option>
             </mat-select>
@@ -109,11 +109,11 @@
             </div>
         </div>
         <div class="refund-input">
-            <mat-select [(ngModel)]="inputboxes['infoRefund2'].from">
+            <mat-select [(ngModel)]="inputboxes['infoRefund2'].RefundDayFrom">
                 <mat-option *ngFor="let day of refundDay" [value]="day">{{day}}</mat-option>
             </mat-select>
             <span>일 ~ </span>
-            <mat-select [(ngModel)]="inputboxes['infoRefund2'].to">
+            <mat-select [(ngModel)]="inputboxes['infoRefund2'].RefundDayTo">
                 <mat-option *ngFor="let day of refundDay" [value]="day">{{day}}</mat-option>
             </mat-select>
             <span>일 전</span>

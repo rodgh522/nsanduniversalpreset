@@ -79,7 +79,7 @@ export class HeaderComponent implements OnInit {
         if(res.body.docCnt > 0){
           this.accomList = res.body.docs;
           if(isNullOrEmpty(rootScope.gVariable.AcomId)){
-            this.targetAcom = this.accomList[0].AcomId;
+            this.targetAcom = rootScope.gVariable.AcomId = this.accomList[0].AcomId;
           }
         }
       }
