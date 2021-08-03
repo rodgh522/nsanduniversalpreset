@@ -1,12 +1,20 @@
+import { state, style, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { rootScope } from '@src/app/global/global';
 import { PostApiService } from '@src/app/service/post-api.service';
 import { CONSTANT } from '@src/assets/global-constant';
 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss']
+  styleUrls: ['./edit.component.scss'],
+  animations: [
+    trigger('focusTab', [
+      state('focused', style({'backgroundColor': 'rgba(25, 115, 232, 0.1)', 'color': '#0a43ff'})),
+      state('focusout', style({'backgroundColor': '*', 'color': '*'}))
+    ])
+  ]
 })
 export class EditComponent implements OnInit {
 
@@ -21,11 +29,15 @@ export class EditComponent implements OnInit {
   };
   editItem;
   activatedEditBtn;
-  listView = 150;
+  container;
+  selectedTab = 0;
+  title = '객실정보';
   constructor(
     private fb: FormBuilder,
     private postApi: PostApiService
-  ) { }
+  ) { 
+    this.container = rootScope.windowSize;
+  }
 
   ngOnInit(): void {
     this.formInit();

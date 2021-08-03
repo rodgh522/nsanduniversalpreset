@@ -34,14 +34,56 @@
         box-shadow: 0px 1px 3px 0px #aaa;
         height: calc(100% - 5px);
         .split-side{
-            height: calc(100% - 40px);
+            height: 100%;
             background-color: #f6f6f6;
             border-right: 1px solid #ddd;
+            
+            ul li{
+                padding: 20px;
+                cursor: pointer;
+                font-weight: 600;
+                font-size: 14px;
+                color: #444;
+                &:hover{
+                    background-color: #ddd;
+                }
+            }
+        }
+
+        .content-header{
+            border-bottom: 1px solid #ddd;
             padding: 20px;
+            background-color: #f6f6f6;
+
+            span{
+                vertical-align: super;
+            }
         }
 
         .content-body{
             padding: 20px;
+            padding-top: 0;
         }
     }
+}
+
+.suffix-won{
+    position: relative;
+    width: 30%;
+    &::after{
+        content: '원';
+        position: absolute;
+        right: 0;
+        top: 22px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #555;
+    }
+    input{
+        font-size: 14px;
+    }
+}
+
+.border-bottom-ddd{
+    border-bottom: 1px solid #ddd;
 }

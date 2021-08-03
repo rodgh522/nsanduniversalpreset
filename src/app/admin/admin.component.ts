@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { rootScope } from '../global/global';
 
 @Component({
   selector: 'app-admin',
@@ -17,7 +18,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
   
   ngAfterViewInit(){
-    this.container = this.wrapper.nativeElement.offsetWidth;
+    this.container = rootScope.windowSize.outerWidth = this.wrapper.nativeElement.offsetWidth;
     setTimeout(()=> {
       this.setView();
     }, 1)
@@ -25,7 +26,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   @HostListener('window:resize')
   react(){
-    this.container = window.outerWidth;
+    this.container = rootScope.windowSize.outerWidth = window.outerWidth;
     this.setView();
   }
 

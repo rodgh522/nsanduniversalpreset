@@ -32,6 +32,8 @@ import { AddComponent } from '@src/app/admin/accom/add/add.component';
 import { UnitComponent } from '@src/app/admin/accom/unit/unit.component';
 import { ListComponent } from '@src/app/admin/accom/unit/list/list.component';
 import { EditComponent } from '@src/app/admin/accom/unit/edit/edit.component';
+import { DecimalDirective } from '../directive/decimal.directive';
+import { CommaDirective } from '../directive/comma.directive';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { EditComponent } from '@src/app/admin/accom/unit/edit/edit.component';
     AddComponent,
     UnitComponent,
     ListComponent,
-    EditComponent
+    EditComponent,
+    DecimalDirective,
+    CommaDirective
   ],
   imports: [
     CommonModule, SharedModule,
