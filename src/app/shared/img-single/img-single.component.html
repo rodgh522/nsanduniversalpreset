@@ -1,0 +1,4 @@
+<div class="img-container" (click)="openFileReader()">
+    <button>+ 사진선택</button>
+</div>
+<input type="file" #major class="file" (change)="upload($event.target.files)">

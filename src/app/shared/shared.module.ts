@@ -16,6 +16,8 @@ import { FileDropZoneDirective } from '@src/app/directive/file-drop-zone.directi
 import { FileAttachComponent } from '@src/app/shared/file-attach/file-attach.component';
 import { AlertComponent } from '@src/app/shared/alert/alert.component';
 import { HttpClient } from '@angular/common/http';
+import { ImgSingleComponent } from '@src/app/shared/img-single/img-single.component';
+import { ImgMultiComponent } from '@src/app/shared/img-multi/img-multi.component';
 
 export function createTranslateLoader(http: HttpClient){
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -24,7 +26,7 @@ export function createTranslateLoader(http: HttpClient){
 @NgModule({
   declarations: [
     FileAttachComponent,
-    AlertComponent, FileDropZoneDirective, FilesizePipe
+    AlertComponent, FileDropZoneDirective, FilesizePipe, ImgSingleComponent, ImgMultiComponent
   ],
   imports: [
     CommonModule, 
@@ -40,8 +42,8 @@ export function createTranslateLoader(http: HttpClient){
     }),
   ],
   exports: [
-    FileAttachComponent,
-    AlertComponent, FilesizePipe
+    AlertComponent, FilesizePipe,
+    FileAttachComponent, ImgSingleComponent, ImgMultiComponent
   ]
 })
 export class SharedModule { }
