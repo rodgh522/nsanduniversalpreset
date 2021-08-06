@@ -57,7 +57,7 @@ import { CommaDirective } from '../directive/comma.directive';
   imports: [
     CommonModule, SharedModule,
     AdminRoutingModule, FormsModule, ReactiveFormsModule,
-    AngularSplitModule,
+    AngularSplitModule, 
     MatTooltipModule, MatTabsModule, MatExpansionModule, MatButtonModule,
     MatInputModule, MatFormFieldModule, MatChipsModule, MatIconModule,
     MatSelectModule, MatCheckboxModule

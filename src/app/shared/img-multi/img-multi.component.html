@@ -1,6 +1,9 @@
 <div>
-    <div class="img-container">
-        <img src="" alt="">
+    <div cdkDropList [cdkDropListData]="data" cdkDropListOrientation="horizontal" (cdkDropListSorted)="drop($event, data)" class="cdk-container">
+        <div class="img-container" *ngFor="let img of data"
+            cdkDrag [cdkDragData]="img">
+            <img [src]="img.link" alt="" class="attach-image">
+        </div>
     </div>
     <div class="img-container" (click)="openFileReader()">
         <button>+ 사진추가</button>

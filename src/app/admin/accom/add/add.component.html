@@ -108,7 +108,7 @@
                 <button mat-stroked-button color="primary" *ngIf="activatedEditBtn === 'infoRefund1'" (click)="modify('infoRefund')">환불규정 수정</button>
             </div>
         </div>
-        <div class="refund-input">
+        <!-- <div class="refund-input">
             <mat-select [(ngModel)]="inputboxes['infoRefund2'].RefundDayFrom">
                 <mat-option *ngFor="let day of refundDay" [value]="day">{{day}}</mat-option>
             </mat-select>
@@ -125,7 +125,7 @@
                 <button mat-stroked-button color="primary" *ngIf="activatedEditBtn === 'infoRefund2'" (click)="cancelEdit()">수정 취소</button>
                 <button mat-stroked-button color="primary" *ngIf="activatedEditBtn === 'infoRefund2'" (click)="modify('infoRefund')">환불규정 수정</button>
             </div>
-        </div>
+        </div> -->
         <div class="btn-box flex-between">
             <button mat-raised-button color="primary" (click)="page = page - 1">이전</button>
             <button mat-raised-button color="primary" (click)="continue(2)">계속</button>

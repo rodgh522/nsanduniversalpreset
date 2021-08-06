@@ -55,7 +55,7 @@ export class FileTransferService {
             let url: string;
             // 비회원 파일 업로드(회원가입)
             if(isNullOrEmpty(rootScope.gVariable.userkey)){
-              url = this.staticVariable.getUrl1('/openapi/attach/temp/' + each.tmpFileKey + '/download.do?fileName=' + each.encFileName);
+              url = this.staticVariable.getUrl2('/home/attach/temp/' + each.tmpFileKey + '/download.do?fileName=' + each.encFileName + '&tempKey=' + rootScope.gVariable.MemId);
             }else{
               url = this.staticVariable.getUrl1('/attach/temp/' + each.tmpFileKey + '/download.do?fileName=' + each.encFileName);
             }

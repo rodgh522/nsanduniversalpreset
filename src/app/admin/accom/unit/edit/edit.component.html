@@ -1,14 +1,20 @@
 <div class="reactive-form-container">
-    <h3>객실 관리</h3>
+    <h3>
+        <a routerLink="/admin/accom/unit-list">
+            <mat-icon>arrow_backward</mat-icon>
+        </a>
+        <span> 객실 관리</span>
+    </h3>
     <div class="form-splitter">
         <as-split useTransition="true" gutterSize="0" unit="pixel">
             <as-split-area [size]="container.outerWidth > 660 ?  150 : (selectedTab === null ? '*' : 0)" minSize="0" order="1" visible="true">
                 <div class="split-side">
                     <ul>
                         <li [@focusTab]="selectedTab === 0 ? 'focused' : 'focusout'" (click)="selectedTab = 0; title = '객실정보'">객실정보</li>
-                        <li [@focusTab]="selectedTab === 1 ? 'focused' : 'focusout'" (click)="selectedTab = 1; title = '판매가'">판매가</li>
-                        <li [@focusTab]="selectedTab === 2 ? 'focused' : 'focusout'" (click)="selectedTab = 2; title = '사진등록'">사진등록</li>
-                        <li [@focusTab]="selectedTab === 3 ? 'focused' : 'focusout'" (click)="selectedTab = 3; title = '옵션'">옵션</li>
+                        <li *ngIf="unitId" 
+                            [@focusTab]="selectedTab === 1 ? 'focused' : 'focusout'" (click)="selectedTab = 1; title = '판매가'; getPriceInfo()">판매가</li>
+                        <li *ngIf="unitId" 
+                            [@focusTab]="selectedTab === 2 ? 'focused' : 'focusout'" (click)="selectedTab = 2; title = '사진등록'">사진등록</li>
                     </ul>
                 </div> 
             </as-split-area>
@@ -61,99 +67,121 @@
                             [(ngModel)]="inputboxes['infoUnit']">
                         </mat-form-field>
                         <div class="content-btn">
-                            <button mat-stroked-button color="primary" *ngIf="activatedEditBtn !== 'infoUnit'" (click)="addRule('infoUnit')">주변정보 추가</button>
+                            <button mat-stroked-button color="primary" *ngIf="activatedEditBtn !== 'infoUnit'" (click)="addRule('infoUnit')">기본정보 추가</button>
                             <button mat-stroked-button color="primary" *ngIf="activatedEditBtn === 'infoUnit'" (click)="cancelEdit()">수정 취소</button>
-                            <button mat-stroked-button color="primary" *ngIf="activatedEditBtn === 'infoUnit'" (click)="modify('infoUnit')">주변정보 수정</button>
+                            <button mat-stroked-button color="primary" *ngIf="activatedEditBtn === 'infoUnit'" (click)="modify('infoUnit')">기본정보 수정</button>
                         </div>
                         <h5>편의시설을 선택해주세요.(중복선택)</h5>
                         <div class="checkbox-divider-half mgt10 mgb10">
                             <mat-checkbox *ngFor="let item of facilities" color="primary" [checked]="onCheck('facilities', item.FacId)" (change)="editCheckList('facilities', $event, item.FacId)">{{item.FacNm}}</mat-checkbox>
                         </div>
+                        <div>
+                            <button mat-raised-button color="primary" class="btn-save" (click)="setBaseInfo()">저장</button>
+                        </div>
                     </div>
                     <div *ngIf="selectedTab === 1">
                         <h5><i class="fa fa-circle" style="color: cadetblue;"></i> 비수기</h5>
-                        <div class="flex-btw border-bottom-ddd">
-                            <mat-form-field class="suffix-won">
-                                <mat-label>주중</mat-label>
-                                <input type="text" matInput autocomplete="off" value="0" maxlength="8" appDecimal appComma>
-                            </mat-form-field>
-                            <mat-form-field class="suffix-won">
-                                <mat-label>금</mat-label>
-                                <input type="text" matInput autocomplete="off" value="0" maxlength="8" appDecimal appComma>
-                            </mat-form-field>
-                            <mat-form-field class="suffix-won">
-                                <mat-label>주말</mat-label>
-                                <input type="text" matInput autocomplete="off" value="0" maxlength="8" appDecimal appComma>
-                            </mat-form-field>
-                        </div>
+                        <form [formGroup]="formprice">
+                            <div class="flex-btw border-bottom-ddd">
+                                <mat-form-field class="suffix-won">
+                                    <mat-label>주중</mat-label>
+                                    <input type="text" matInput autocomplete="off" formControlName="WeekdayPrice" 
+                                        placeholder="0" maxlength="8" appComma>
+                                    </mat-form-field>
+                                <mat-form-field class="suffix-won">
+                                    <mat-label>금</mat-label>
+                                    <input type="text" matInput autocomplete="off" formControlName="FridayPrice" 
+                                        placeholder="0" maxlength="8" appDecimal appComma>
+                                </mat-form-field>
+                                <mat-form-field class="suffix-won">
+                                    <mat-label>주말</mat-label>
+                                    <input type="text" matInput autocomplete="off" formControlName="WeekendPrice" 
+                                        placeholder="0" maxlength="8" appDecimal appComma>
+                                </mat-form-field>
+                            </div>
+                        </form>
                         <h5><i class="fa fa-circle" style="color: cornflowerblue;"></i> 준성수기</h5>
                         <div class="flex-btw border-bottom-ddd">
                             <mat-form-field class="suffix-won">
                                 <mat-label>주중</mat-label>
-                                <input type="text" matInput autocomplete="off" value="0" maxlength="8" appDecimal appComma>
+                                <input type="text" matInput autocomplete="off" [(ngModel)]="prices.BUSY.WeekdayPrice" 
+                                    placeholder="0" maxlength="8" appComma>
                             </mat-form-field>
                             <mat-form-field class="suffix-won">
                                 <mat-label>금</mat-label>
-                                <input type="text" matInput autocomplete="off" value="0" maxlength="8" appDecimal appComma>
+                                <input type="text" matInput autocomplete="off" [(ngModel)]="prices.BUSY.FridayPrice" 
+                                    placeholder="0" maxlength="8" appDecimal appComma>
                             </mat-form-field>
                             <mat-form-field class="suffix-won">
                                 <mat-label>주말</mat-label>
-                                <input type="text" matInput autocomplete="off" value="0" maxlength="8" appDecimal appComma>
+                                <input type="text" matInput autocomplete="off" [(ngModel)]="prices.BUSY.WeekendPrice" 
+                                    placeholder="0" maxlength="8" appDecimal appComma>
                             </mat-form-field>
                         </div>
                         <h5><i class="fa fa-circle" style="color: chartreuse;"></i> 성수기</h5>
                         <div class="flex-btw border-bottom-ddd">
                             <mat-form-field class="suffix-won">
                                 <mat-label>주중</mat-label>
-                                <input type="text" matInput autocomplete="off" value="0" maxlength="8" appDecimal appComma>
+                                <input type="text" matInput autocomplete="off" [(ngModel)]="prices.HECTIC.WeekdayPrice" 
+                                    placeholder="0" maxlength="8" appDecimal appComma>
                             </mat-form-field>
                             <mat-form-field class="suffix-won">
                                 <mat-label>금</mat-label>
-                                <input type="text" matInput autocomplete="off" value="0" maxlength="8" appDecimal appComma>
+                                <input type="text" matInput autocomplete="off" [(ngModel)]="prices.HECTIC.FridayPrice" 
+                                    placeholder="0" maxlength="8" appDecimal appComma>
                             </mat-form-field>
                             <mat-form-field class="suffix-won">
                                 <mat-label>주말</mat-label>
-                                <input type="text" matInput autocomplete="off" value="0" maxlength="8" appDecimal appComma>
+                                <input type="text" matInput autocomplete="off" [(ngModel)]="prices.HECTIC.WeekendPrice" 
+                                    placeholder="0" maxlength="8" appDecimal appComma>
                             </mat-form-field>
                         </div>
                         <h5><i class="fa fa-circle" style="color: burlywood;"></i> 할인기간</h5>
                         <div class="flex-btw border-bottom-ddd">
                             <mat-form-field class="suffix-won">
                                 <mat-label>주중</mat-label>
-                                <input type="text" matInput autocomplete="off" value="0" maxlength="8" appDecimal appComma>
+                                <input type="text" matInput autocomplete="off" [(ngModel)]="prices.SALE.WeekdayPrice" 
+                                    placeholder="0" maxlength="8" appDecimal appComma>
                             </mat-form-field>
                             <mat-form-field class="suffix-won">
                                 <mat-label>금</mat-label>
-                                <input type="text" matInput autocomplete="off" value="0" maxlength="8" appDecimal appComma>
+                                <input type="text" matInput autocomplete="off" [(ngModel)]="prices.SALE.FridayPrice" 
+                                    placeholder="0" maxlength="8" appDecimal appComma>
                             </mat-form-field>
                             <mat-form-field class="suffix-won">
                                 <mat-label>주말</mat-label>
-                                <input type="text" matInput autocomplete="off" value="0" maxlength="8" appDecimal appComma>
+                                <input type="text" matInput autocomplete="off" [(ngModel)]="prices.SALE.WeekendPrice" 
+                                    placeholder="0" maxlength="8" appDecimal appComma>
                             </mat-form-field>
                         </div>
                         <h5><i class="fa fa-circle" style="color: blueviolet;"></i> 지정기간</h5>
                         <div class="flex-btw">
                             <mat-form-field class="suffix-won">
                                 <mat-label>주중</mat-label>
-                                <input type="text" matInput autocomplete="off" value="0" maxlength="8" appDecimal appComma>
+                                <input type="text" matInput autocomplete="off" [(ngModel)]="prices.SPECIFIC.WeekdayPrice" 
+                                    placeholder="0" maxlength="8" appDecimal appComma>
                             </mat-form-field>
                             <mat-form-field class="suffix-won">
                                 <mat-label>금</mat-label>
-                                <input type="text" matInput autocomplete="off" value="0" maxlength="8" appDecimal appComma>
+                                <input type="text" matInput autocomplete="off" [(ngModel)]="prices.SPECIFIC.FridayPrice" 
+                                    placeholder="0" maxlength="8" appDecimal appComma>
                             </mat-form-field>
                             <mat-form-field class="suffix-won">
                                 <mat-label>주말</mat-label>
-                                <input type="text" matInput autocomplete="off" value="0" maxlength="8" appDecimal appComma>
+                                <input type="text" matInput autocomplete="off" [(ngModel)]="prices.SPECIFIC.WeekendPrice" 
+                                    placeholder="0" maxlength="8" appDecimal appComma>
                             </mat-form-field>
+                        </div>
+                        <div>
+                            <button mat-raised-button color="primary" class="btn-save" (click)="setPriceInfo()">저장</button>
                         </div>
                     </div>
                     <div *ngIf="selectedTab === 2">
                         <h4>대표사진(1장)</h4>
-                        <app-img-single></app-img-single>
+                        <app-img-single [(files)]="mainImage"></app-img-single>
                         <h4>객실사진(9장)</h4>
-                        <app-img-multi></app-img-multi>
+                        <app-img-multi [(files)]="subImgs"></app-img-multi>
                     </div>
-                    <div *ngIf="selectedTab === 3">옵션</div>
                 </div>
             </as-split-area>
         </as-split>

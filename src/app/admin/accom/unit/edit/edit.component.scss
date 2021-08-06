@@ -28,6 +28,14 @@
     margin: 10px auto;
     max-width: 650px;
     height: calc(100% - 25px);
+
+    h3{
+        position: relative;
+        a{
+            position: absolute;
+        }
+        span{margin-left: 50px;}
+    }
     .form-splitter{
         border: 1px solid #ddd;
         border-radius: 5px;

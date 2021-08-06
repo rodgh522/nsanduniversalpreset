@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MatButtonModule } from '@angular/material/button';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 /* Pipe */
 import { FilesizePipe } from '@src/app/pipe/filesize.pipe';
@@ -30,8 +31,7 @@ export function createTranslateLoader(http: HttpClient){
   ],
   imports: [
     CommonModule, 
-    MatButtonModule,
-
+    MatButtonModule, DragDropModule,
 
     TranslateModule.forRoot({
       loader : {
@@ -42,8 +42,14 @@ export function createTranslateLoader(http: HttpClient){
     }),
   ],
   exports: [
-    AlertComponent, FilesizePipe,
-    FileAttachComponent, ImgSingleComponent, ImgMultiComponent
+    /* Module */
+    DragDropModule,
+
+    /* Pipe */
+    FilesizePipe,
+
+    /* Component */
+    AlertComponent, FileAttachComponent, ImgSingleComponent, ImgMultiComponent
   ]
 })
 export class SharedModule { }

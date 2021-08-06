@@ -1,6 +1,22 @@
 <div>
     <button mat-stroked-button color="primary" routerLink="/admin/accom/unit-edit">객실 추가</button>
-    <div>
-        객실정보
+    <div class="unit-list">
+        <div *ngFor="let unit of unitList" class="unit-content" (click)="goEdit(unit.UnitId)">
+            <h3>{{unit.UnitNm}}</h3>
+            <div> 
+                <div class="guest-indicate">
+                    <dt>기준인원</dt>
+                    <dt>{{unit.GuestStd}}</dt>
+                </div>
+                <div class="guest-indicate">
+                    <dt>/</dt>
+                    <dt>/</dt>
+                </div>
+                <div class="guest-indicate">
+                    <dt>최대인원</dt>
+                    <dt>{{unit.GuestMax}}</dt>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

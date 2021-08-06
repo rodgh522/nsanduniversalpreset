@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { DialogService } from '@src/app/service/dialog.service';
 import { FileTransferService } from '@src/app/service/file-transfer.service';
 import { AlertComponent } from '../alert/alert.component';
@@ -11,9 +11,19 @@ import { AlertComponent } from '../alert/alert.component';
 export class ImgSingleComponent implements OnInit {
 
   @ViewChild('major') major: ElementRef;
-  @Output() uploaded = new EventEmitter();
+  @Output() fileChange = new EventEmitter();
+  @Input() 
+  get files (){
+    return this.data;
+  }
+
+  set files(value){
+    this.data = value;
+    this.fileChange.emit(this.data);
+  }
+
   total = 0;
-  files = [];
+  data: any = {};
   constructor(
     private dialog: DialogService,
     private fileTrans: FileTransferService
@@ -32,18 +42,15 @@ export class ImgSingleComponent implements OnInit {
       return;
     }
 
-    // 사진은 최대 10장까지만
-    this.total = newFiles.length + this.files.length;
+    this.total = newFiles.length + this.data.length;
     if (this.total > 10) {
       return;
     }else {
       this.fileTrans.uploadFiles(newFiles).then(res => {
         res.forEach(item => {
           item.fileType = this.execFileType(item.fileName);
-          this.files.push(item);
+          this.data = item;
         });
-        
-        this.uploaded.emit(this.files);
       });
     }
   }

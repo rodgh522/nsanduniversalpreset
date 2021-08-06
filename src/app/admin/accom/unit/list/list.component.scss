@@ -1,0 +1,40 @@
+.unit-list{
+    margin-top: 30px;
+
+    .unit-content{
+        width: 200px;
+        height: 200px;
+        border: 1px solid #ddd;
+        box-shadow: 0px 1px 3px 0px #aaa;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        display: inline-block;
+        margin-right: 10px;
+
+        h3{margin-left: 20px;}
+        &:hover{
+            background-color: #f6f6f6;
+        }
+    }
+}
+.guest-indicate{
+    display: inline-block;
+    text-align: center;
+    dt{
+        &:first-of-type{
+            color: #aaa;
+            font-size: 12px;
+        }
+
+        &:nth-of-type(2){
+            margin: 0 3px;
+        }
+
+        &:last-of-type{
+            color: #444;
+            font-size: 14px;
+        }
+    }
+    &:first-of-type{margin-left: 20px;}
+}

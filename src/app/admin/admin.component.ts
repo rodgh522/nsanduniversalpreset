@@ -18,8 +18,8 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
   
   ngAfterViewInit(){
-    this.container = rootScope.windowSize.outerWidth = this.wrapper.nativeElement.offsetWidth;
     setTimeout(()=> {
+      this.container = rootScope.windowSize.outerWidth = this.wrapper.nativeElement.offsetWidth;
       this.setView();
     }, 1)
   }

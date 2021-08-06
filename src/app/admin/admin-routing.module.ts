@@ -19,6 +19,7 @@ const routes: Routes = [
           { path: '', redirectTo: 'unit-list' },
           { path: 'unit-list', component: ListComponent },
           { path: 'unit-edit', component: EditComponent },
+          { path: 'unit-edit/:keyId', component: EditComponent },
         ]
       },
       { path: 'stock', component: StockComponent},

@@ -11,7 +11,7 @@ export class CommaDirective {
 
   @HostListener('keyup')
   valid(){
-    let val: string = this.el.nativeElement.value;
+    let val: string = this.el.nativeElement.value.replaceAll(/[^0-9]/, '');
     if(val.length > 1 && val.startsWith('0')){
       val = val.slice(1);
     }
@@ -20,7 +20,11 @@ export class CommaDirective {
     for(let i = 1; len > 3 * i; i++){
       val = val.substr(0, len - 3 * i) + ',' + val.substr(len - 3 * i);
     }
-
-    this.el.nativeElement.value = val;
+    
+    if(val === ''){
+      this.el.nativeElement.value = '0';
+    }else{
+      this.el.nativeElement.value = val;
+    }
   }
 }

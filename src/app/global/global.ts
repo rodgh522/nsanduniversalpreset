@@ -172,6 +172,13 @@ export function objToForm(data: any, controls){
   return controls;
 }
 
+export function objFilter(data: any, target: string){
+  let result = [];
+  for (const key in data) {
+    result.push(data)
+  }
+}
+
 export function defaultCheckinTime(){
   let result = [];
   for(let i = 10; i < 19; i++){
