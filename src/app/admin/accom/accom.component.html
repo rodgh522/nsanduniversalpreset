@@ -4,178 +4,220 @@
     </h2>
     <mat-tab-group animationDuration="2ms" (selectedTabChange)="operateTab($event.index)">
         <mat-tab label="상세정보">
-            <div class="content-body">
+            <div class="split-container">
                 <h3>{{accomInfo.AcomNm}}</h3>
-                <mat-accordion multi>
-                    <mat-expansion-panel expanded>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <h4>숙소 정보</h4>
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <div class="mat-panel-body">
-                            <h5>숙소 유형</h5>
-                            <div>{{accomInfo.AcomTy === 'Camping' ? '캠핑장' : '펜션'}}</div>
-                            <h5>숙소 주소</h5>
-                            <div>{{accomInfo.Address}}</div>
-                            <h5>대표 번호</h5>
-                            <div>{{accomInfo.Line}}</div>
-                        </div>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel expanded>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <h4>숙소 소개</h4>
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <div class="mat-panel-body">
-                            <div>{{accomInfo.Intro}}</div>
-                        </div>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel expanded>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <h4>기본 정보</h4>
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <h5>체크인/아웃 시간</h5>
-                        <div>{{accomInfo.CheckinTime}} / {{accomInfo.CheckoutTime}}</div>
-                        <h5>기본 정보</h5>
-                        <div class="mat-panel-body">
-                            <ul class="list-decorate-dot">
-                                <li *ngFor="let info of accomInfo.options.info_base">{{info.Content}}</li>
-                            </ul>
-                        </div>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel expanded>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <h4>객실 정보</h4>
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <div class="mat-panel-body">
-                            <ul class="list-decorate-dot">
-                                <li>z</li>
-                                <li>p</li>
-                            </ul>
-                        </div>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel expanded>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <h4>주변 정보</h4>
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <div class="mat-panel-body">
-                            <ul class="list-decorate-dot">
-                                <li *ngFor="let info of accomInfo.options.info_nearby">{{info.Content}}</li>
-                            </ul>
-                        </div>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel expanded>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <h4>인원 추가정보</h4>
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <div class="mat-panel-body">
-                            <ul class="list-decorate-dot">
-                                <li>w</li>
-                                <li>x</li>
-                            </ul>
-                        </div>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel expanded>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <h4>환불 규정</h4>
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <div class="mat-panel-body">
-                            <ul class="list-decorate-dot">
-                                <li *ngFor="let info of accomInfo.options.info_refund">
-                                    {{info.RefundDayFrom === 0 ? '당일' : info.RefundDayFrom + '일'}} {{info.RefundDayTo ? '~' + info.RefundDayTo + '일' : ''}} 전 취소 {{info.rate}} % 환불
-                                </li>
-                            </ul>
-                        </div>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel expanded>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <h4>숙소 테마</h4>
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <div class="mat-panel-body">
-                            <ul class="list-decorate-dot">
-                                <li *ngFor="let info of accomInfo.options.info_theme">{{info.ThemeNm}}</li>
-                            </ul>
-                        </div>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel expanded>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <h4>숙소 편의시설</h4>
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <div class="mat-panel-body">
-                            <ul class="list-decorate-dot">
-                                <li *ngFor="let info of accomInfo.options.info_fac">{{info.FacNm}}</li>
-                            </ul>
-                        </div>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel expanded>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <h4>바베큐</h4>
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <div class="mat-panel-body">
-                            <ul class="list-decorate-dot">
-                                <li>l</li>
-                                <li>m</li>
-                            </ul>
-                        </div>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel expanded>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <h4>반려동물</h4>
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <div class="mat-panel-body">
-                            <ul class="list-decorate-dot">
-                                <li>o</li>
-                                <li>p</li>
-                            </ul>
-                        </div>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel expanded>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <h4>픽업안내</h4>
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <div class="mat-panel-body">
-                            <ul class="list-decorate-dot">
-                                <li>q</li>
-                                <li>r</li>
-                            </ul>
-                        </div>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel expanded>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <h4>기타정보</h4>
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <div class="mat-panel-body">
-                            <ul class="list-decorate-dot">
-                                <li>u</li>
-                                <li>v</li>
-                            </ul>
-                        </div>
-                    </mat-expansion-panel>
-                </mat-accordion>
+                <div class="form-splitter">
+                    <as-split useTransition="true" gutterSize="0" unit="pixel">
+                        <as-split-area [size]="container.outerWidth > 660 ?  150 : (selectedTab === null ? '*' : 0)" minSize="0" order="1" visible="true">
+                            <div class="split-side">
+                                <ul>
+                                    <li [@focusTab]="selectedTab === 0 ? 'focused' : 'focusout'" (click)="selectedTab = 0">숙소정보</li>
+                                    <li [@focusTab]="selectedTab === 1 ? 'focused' : 'focusout'" (click)="selectedTab = 1">시즌설정</li>
+                                    <li [@focusTab]="selectedTab === 2 ? 'focused' : 'focusout'" (click)="selectedTab = 2">옵션설정</li>
+                                    <li [@focusTab]="selectedTab === 3 ? 'focused' : 'focusout'" (click)="selectedTab = 3">사진등록</li>
+                                </ul>
+                            </div> 
+                        </as-split-area>
+                        <as-split-area [size]="container.outerWidth > 660 ? '*' : (selectedTab === null ? 0 : '*')" order="2" visible="true">
+                            <div class="content-header" *ngIf="container.outerWidth < 660">
+                                <button (click)="selectedTab = null">
+                                    <mat-icon>arrow_backward</mat-icon>
+                                </button>
+                                <span>{{title}}</span>
+                            </div>
+                            <div class="content-body">
+                                <div *ngIf="selectedTab === 0" class="form-unit">
+                                    <mat-accordion multi>
+                                        <mat-expansion-panel expanded>
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <h4>숙소 정보</h4>
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <div class="mat-panel-body">
+                                                <h5>숙소 유형</h5>
+                                                <div>{{accomInfo.AcomTy === 'Camping' ? '캠핑장' : '펜션'}}</div>
+                                                <h5>숙소 주소</h5>
+                                                <div>{{accomInfo.Address}}</div>
+                                                <h5>대표 번호</h5>
+                                                <div>{{accomInfo.Line}}</div>
+                                            </div>
+                                        </mat-expansion-panel>
+                                        <mat-expansion-panel expanded>
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <h4>숙소 소개</h4>
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <div class="mat-panel-body">
+                                                <div>{{accomInfo.Intro}}</div>
+                                            </div>
+                                        </mat-expansion-panel>
+                                        <mat-expansion-panel expanded>
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <h4>기본 정보</h4>
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <h5>체크인/아웃 시간</h5>
+                                            <div>{{accomInfo.CheckinTime}} / {{accomInfo.CheckoutTime}}</div>
+                                            <h5>기본 정보</h5>
+                                            <div class="mat-panel-body">
+                                                <ul class="list-decorate-dot">
+                                                    <li *ngFor="let info of accomInfo.options.info_base">{{info.Content}}</li>
+                                                </ul>
+                                            </div>
+                                        </mat-expansion-panel>
+                                        <mat-expansion-panel expanded>
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <h4>객실 정보</h4>
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <div class="mat-panel-body">
+                                                <ul class="list-decorate-dot">
+                                                    <li>z</li>
+                                                    <li>p</li>
+                                                </ul>
+                                            </div>
+                                        </mat-expansion-panel>
+                                        <mat-expansion-panel expanded>
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <h4>주변 정보</h4>
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <div class="mat-panel-body">
+                                                <ul class="list-decorate-dot">
+                                                    <li *ngFor="let info of accomInfo.options.info_nearby">{{info.Content}}</li>
+                                                </ul>
+                                            </div>
+                                        </mat-expansion-panel>
+                                        <mat-expansion-panel expanded>
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <h4>인원 추가정보</h4>
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <div class="mat-panel-body">
+                                                <ul class="list-decorate-dot">
+                                                    <li>w</li>
+                                                    <li>x</li>
+                                                </ul>
+                                            </div>
+                                        </mat-expansion-panel>
+                                        <mat-expansion-panel expanded>
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <h4>환불 규정</h4>
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <div class="mat-panel-body">
+                                                <ul class="list-decorate-dot">
+                                                    <li *ngFor="let info of accomInfo.options.info_refund">
+                                                        {{info.RefundDayFrom === 0 ? '당일' : info.RefundDayFrom + '일'}} {{info.RefundDayTo ? '~' + info.RefundDayTo + '일' : ''}} 전 취소 {{info.rate}} % 환불
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </mat-expansion-panel>
+                                        <mat-expansion-panel expanded>
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <h4>숙소 테마</h4>
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <div class="mat-panel-body">
+                                                <ul class="list-decorate-dot">
+                                                    <li *ngFor="let info of accomInfo.options.info_theme">{{info.ThemeNm}}</li>
+                                                </ul>
+                                            </div>
+                                        </mat-expansion-panel>
+                                        <mat-expansion-panel expanded>
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <h4>숙소 편의시설</h4>
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <div class="mat-panel-body">
+                                                <ul class="list-decorate-dot">
+                                                    <li *ngFor="let info of accomInfo.options.info_fac">{{info.FacNm}}</li>
+                                                </ul>
+                                            </div>
+                                        </mat-expansion-panel>
+                                        <mat-expansion-panel expanded>
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <h4>바베큐</h4>
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <div class="mat-panel-body">
+                                                <ul class="list-decorate-dot">
+                                                    <li>l</li>
+                                                    <li>m</li>
+                                                </ul>
+                                            </div>
+                                        </mat-expansion-panel>
+                                        <mat-expansion-panel expanded>
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <h4>반려동물</h4>
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <div class="mat-panel-body">
+                                                <ul class="list-decorate-dot">
+                                                    <li>o</li>
+                                                    <li>p</li>
+                                                </ul>
+                                            </div>
+                                        </mat-expansion-panel>
+                                        <mat-expansion-panel expanded>
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <h4>픽업안내</h4>
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <div class="mat-panel-body">
+                                                <ul class="list-decorate-dot">
+                                                    <li>q</li>
+                                                    <li>r</li>
+                                                </ul>
+                                            </div>
+                                        </mat-expansion-panel>
+                                        <mat-expansion-panel expanded>
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <h4>기타정보</h4>
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <div class="mat-panel-body">
+                                                <ul class="list-decorate-dot">
+                                                    <li>u</li>
+                                                    <li>v</li>
+                                                </ul>
+                                            </div>
+                                        </mat-expansion-panel>
+                                    </mat-accordion>
+                                </div>
+                                <div *ngIf="selectedTab === 1" class="form-unit">
+                                    시즌설정
+                                    <h1>test</h1>
+                                    <h1>test</h1>
+                                    <h1>test</h1>
+                                    <h1>test</h1>
+                                    <h1>test</h1>
+                                    <h1>test</h1>
+                                    <h1>test</h1>
+                                </div>
+                                <div *ngIf="selectedTab === 2" class="form-unit">
+                                    옵션설정
+                                </div>
+                                <div *ngIf="selectedTab === 3" class="form-unit">
+                                    사진등록
+                                </div>
+                            </div>
+                        </as-split-area>
+                    </as-split>
+                </div>
             </div>
         </mat-tab>
         <mat-tab label="객실관리">

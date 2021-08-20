@@ -1,8 +1,8 @@
 <div>
-    <button mat-stroked-button color="primary" routerLink="/admin/accom/unit-edit">객실 추가</button>
+    <button mat-stroked-button color="primary" routerLink="/admin/accom/unit-edit">객실 타입 추가</button>
     <div class="unit-list">
         <div *ngFor="let unit of unitList" class="unit-content" (click)="goEdit(unit.UnitId)">
-            <h3>{{unit.UnitNm}}</h3>
+            <h3>{{unit.UnitNm}}({{unit.roomCnt}})</h3>
             <div> 
                 <div class="guest-indicate">
                     <dt>기준인원</dt>

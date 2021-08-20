@@ -53,7 +53,6 @@ export class ListComponent implements OnInit, OnDestroy {
           this.unitList = res.body.docs;
         }
       }
-      console.log(res);
     });
   }
 

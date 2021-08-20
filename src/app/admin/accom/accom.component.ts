@@ -1,3 +1,4 @@
+import { state, style, trigger } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { rootScope } from '@src/app/global/global';
@@ -11,7 +12,13 @@ import { AddComponent } from './add/add.component';
 @Component({
   selector: 'app-accom',
   templateUrl: './accom.component.html',
-  styleUrls: ['./accom.component.scss']
+  styleUrls: ['./accom.component.scss'],
+  animations: [
+    trigger('focusTab', [
+      state('focused', style({'backgroundColor': 'rgba(25, 115, 232, 0.1)', 'color': '#0a43ff'})),
+      state('focusout', style({'backgroundColor': '*', 'color': '*'}))
+    ])
+  ]
 })
 export class AccomComponent implements OnInit, OnDestroy {
 
@@ -20,6 +27,8 @@ export class AccomComponent implements OnInit, OnDestroy {
   accomInfo: any = {
     options: []
   };
+  container;
+  selectedTab = 0;
   constructor(
     private dialog: DialogService,
     private postApi: PostApiService,
@@ -30,6 +39,7 @@ export class AccomComponent implements OnInit, OnDestroy {
     this.subScription.push(this.session.accomodation$.subscribe(res=> {
       this.getAcomInfo();
     }));
+    this.container = rootScope.windowSize;
   }
 
   ngOnInit(): void {
