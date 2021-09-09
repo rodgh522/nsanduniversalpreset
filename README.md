@@ -68,3 +68,8 @@ npm i --only=dev @angular-devkit/build-angular@~0.1100
 ```
 $ npm i -D @nativescript/schematics @angular/cli
 ```
+  - webpack-cli unknown argument --env...
+  -> downgrade webpack-cli to ~v3.3
+```
+$ npm i webpack-cli@~3
+```

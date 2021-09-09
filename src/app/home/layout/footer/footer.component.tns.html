@@ -1,1 +1,53 @@
-<Button text="footer works!" class="btn btn-primary"></Button>
+<GridLayout>
+    <GridLayout height="auto" verticalAlignment="bottom" columns="*, *, *, *, *">
+        <!-- base layer -->
+        <AbsoluteLayout col="0" colSpan="5" verticalAlignment="bottom">
+            <GridLayout #tabBgContainer columns="auto, 10, auto, 10, auto">
+                <GridLayout #leftTabs col="0" colSpan="2" height="80"
+                    verticalAlignment="bottom" borderRadius="0 68 0 0">
+                </GridLayout>
+                <GridLayout #centerPatch col="1" colSpan="3" height="40"
+                    verticalAlignment="bottom">
+                </GridLayout>
+                <GridLayout #rightTabs col="3" colSpan="4" height="80"
+                    verticalAlignment="bottom" borderRadius="0 68 0 0">
+                </GridLayout>
+
+                <!-- focus circle -->
+                <GridLayout #centerCircle col="1" colSpan="3" height="100" width="100"
+                    borderRadius="50" verticalAlignment="bottom" marginBottom="10">
+                    <GridLayout verticalAlignment="center" horizontalAlignment="center" height="90"
+                        width="90" borderRadius="45">
+                    </GridLayout>
+                </GridLayout>
+            </GridLayout>
+
+        </AbsoluteLayout>
+        <!-- tab contents -->
+        <GridLayout #tabContents col="0" marginTop="20"
+            (tap)="onBottomNavTap('main')" verticalAlignment="middle">
+            <Label class="fa-regular" text="home" verticalAlignment="bottom"
+                horizontalAlignment="center" fontSize="20">
+            </Label>
+        </GridLayout>
+        <GridLayout #tabContents col="1" marginTop="20"
+            (tap)="onBottomNavTap('unit')" verticalAlignment="middle">
+            <Label class="fa-regular" text="search" verticalAlignment="bottom"
+                horizontalAlignment="center" fontSize="20">
+            </Label>
+        </GridLayout>
+        <GridLayout #tabContents col="2" marginTop="20"
+            (tap)="onBottomNavTap('login')" verticalAlignment="middle">
+            <Label class="fa-regular" text="login" verticalAlignment="bottom"
+                horizontalAlignment="center" fontSize="20">
+            </Label>
+        </GridLayout>
+        
+
+        <!-- pan layer -->
+        <GridLayout #dragCircle column="0" colSpan="5" 
+            verticalAlignment="center" horizontalAlignment="center" height="90"
+            width="90" backgroundColor="transparent" borderRadius="45">
+        </GridLayout>
+    </GridLayout>
+</GridLayout>

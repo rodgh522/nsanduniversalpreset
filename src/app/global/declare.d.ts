@@ -4,5 +4,9 @@ interface String{
     replaceAll(target : string, replacement : string) : string;
 }
 
+const AndroidApplication = {
+    view: any
+}
+
 declare const kakao: any;
 declare let daum : any;

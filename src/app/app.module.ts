@@ -31,7 +31,7 @@ export function createTranslateLoader(http: HttpClient){
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     BrowserAnimationsModule, FormsModule, ReactiveFormsModule,
-    HttpClientModule,
+    HttpClientModule, 
 
     /* Translate Module */
     TranslateModule.forRoot({

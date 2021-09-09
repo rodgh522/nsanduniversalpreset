@@ -28,16 +28,16 @@ export class AppComponent implements OnInit {
     ){
     this.isWeb = isPlatformBrowser(this.platform);
     
-    if(this.isWeb){
-      this.auth.authState.subscribe((res)=> {
-        if(res === null){
-          this.router.navigateByUrl('/login');
-        }else{
-          const user = rootScope.sessionStroageToData();
-          this.session.user$.next(user);
-        }
-      });
-    }
+    // if(this.isWeb){
+    //   this.auth.authState.subscribe((res)=> {
+    //     if(res === null){
+    //       this.router.navigateByUrl('/login');
+    //     }else{
+    //       const user = rootScope.sessionStroageToData();
+    //       this.session.user$.next(user);
+    //     }
+    //   });
+    // }
   }
 
   ngOnInit(){
