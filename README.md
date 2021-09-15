@@ -73,3 +73,7 @@ $ npm i -D @nativescript/schematics @angular/cli
 ```
 $ npm i webpack-cli@~3
 ```
+  - Error: The Angular Compiler requires TypeScript >=4.0.0 and <4.2.0 but 4.4.3 was found instead.
+```
+$ npm i typescript@4.1.6 --save-dev
+```

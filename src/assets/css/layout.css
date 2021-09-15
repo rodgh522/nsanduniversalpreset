@@ -1,0 +1,135 @@
+
+/** 초기화 **/
+html, body { height: 100%; color: #333; font-family: 'Noto Sans KR', sans-serif; font-size: 16px; word-break: keep-all; }
+html, body, div, p, span, a, img, h1, h2, h3, h4, h5, label, input, button, textarea, header, footer, section, nav, ul, li, dl, dt, dd { margin: 0; padding: 0; border: 0; box-sizing: border-box; font-family: 'Noto Sans KR', sans-serif; font-weight: 400; }
+
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, section {display:block;} 
+img, fieldset {
+    border: 0 none;
+}
+ol, ul, li {
+    list-style: none outside none;
+}
+
+a { color: #333; text-decoration: none; cursor: pointer; }
+a:link { color: #333; text-decoration: none; }
+a:visited { color: #333; text-decoration: none; }
+a:active { color: #333; text-decoration: none; }
+a:hover { color: inherit; text-decoration: none; }
+
+input, select, img {
+    font-size: 12px;
+    vertical-align: middle;
+}
+button { cursor: pointer; }
+.blind { position: absolute; width: 1px; height: 1px; clip: rect(0 0 0 0); overflow: hidden; }
+
+.point_c { color: #93b85f; }
+
+/*** top ***/
+#top { height: 32px; }
+#top .util { float: right; margin: 10px 0; }
+#top .util ul li { float: left; margin-right: 30px; color: #999; line-height: 32px; font-size: 12px; }
+#top .util ul li:last-child { margin-right: 0; }
+#top .util ul li a { color: #999; }
+
+#top .search_box { float: right; width: 200px; height: 32px; margin: 10px 0 10px 30px; padding: 0 12px; border-radius: 16px; background: #f7f7f7; overflow: hidden; }
+#top .search_box input[type="text"] { width: 140px; height: 32px; border-radius: 16px; padding: 0 6px; background: transparent; }
+#top .search_box button.search_btn { float: right; width: 22px; height: 22px; margin: 5px 0; background: url('../images/search.png') 50% 50% no-repeat; }
+
+/*** header ***/
+#header { height: 100px; }
+#header h1.logo { float: left; margin: 18px 0; }
+#header .gnb { float: right; }
+#header .gnb ul li { display: inline-block; margin-right: 40px; line-height: 100px; font-size: 18px; }
+#header .gnb ul li:last-child { margin-right: 0; }
+#header .gnb button.search { width: 20px; height: 20px; background: url('../images/search.png') no-repeat; vertical-align: middle; }
+
+/*** content ***/
+.wrapper { width: 100%; height: 100%; }
+.content { width: 1200px; margin: 0 auto; }
+.content:after { display: block; clear: both; content: ''; }
+
+/** 화살표 박스 **/
+.arrow_box { position: relative; }
+.arrow { position: absolute; width: 20px; height: 30px; background: url('../images/arrow.png') no-repeat; cursor: pointer; }
+.arrow.prev_arrow { left: -50px; transform: rotate(180deg); }
+.arrow.next_arrow { right: -50px; }
+
+/** pagination **/
+.pagination{ margin: 30px 0; text-align:center }
+.pagination a,.pagination strong{ display:inline-block; margin: 0 8px; color:#333; font-size:20px; font-weight: 400; }
+.pagination strong{color:#93b85f !important; font-weight: 700;}
+.pagination a:hover,.pagination a:active,.pagination a:focus{ text-decoration: underline; }
+.pagination a.pre,.paginate a.pre_end,.paginate a.next,.pagination a.next_end{font-size:20px}
+.pagination a.pre { width: 13px; height: 13px; background:url('../images/pa_next.png') no-repeat; transform: rotate(180deg);}
+.pagination a.pre_end{ width: 13px; height: 13px; background:url('../images/pa_end.png') no-repeat; transform: rotate(180deg);}
+.pagination a.next{ width: 13px; height: 13px; background:url('../images/pa_next.png') no-repeat; }
+.pagination a.next_end{ width: 13px; height: 13px; background:url('../images/pa_end.png') no-repeat; }
+
+/** 예약박스 **/
+.reserv_box { display: table; width: 1200px; }
+.reserv_box .reserv_item { display: table-cell; position: relative; vertical-align: middle; }
+.reserv_box .reserv_item.loc { width: 260px; }
+.reserv_box .reserv_item.date { width: 540px; }
+.reserv_box .reserv_item.number { width: 220px; }
+.reserv_box .reserv_item dl { display: inline-block; margin-right: 80px;}
+.reserv_box .reserv_item dl:last-child { margin-right: 0;}
+.reserv_box .reserv_item dt { margin-bottom: 10px; color: #93b85f; font-size: 16px; }
+.reserv_box .reserv_item dd { font-size: 20px; cursor: pointer; }
+
+.reserv_box .reserv_layer { position: absolute; padding: 16px; border: 1px solid #e7e7e7; background: #fff; z-index: 1; }
+.reserv_box .reserv_layer.loc { left: -1px; width: 261px; }
+.reserv_box .reserv_layer.loc ul li { padding: 12px 8px; }
+.reserv_box .reserv_layer.loc ul li a:hover { text-decoration: underline; }
+
+.reserv_box .reserv_layer.date { left: 0; width: 840px; height: 360px; }
+
+.reserv_box .reserv_layer.number { left: -1px; width: 220px; padding: 30px; }
+.reserv_layer.number dt { color: #666; font-size: 15px; }
+.reserv_layer.number .countNum_box button { width: 40px; height: 40px; border: 1px solid #ddd; vertical-align: middle; }
+.reserv_layer.number .countNum_box .minus_btn { background: url('../images/minus.png') 50% 50% no-repeat; }
+.reserv_layer.number .countNum_box .plus_btn { background: url('../images/plus.png') 50% 50% no-repeat; }
+.reserv_layer.number .countNum_box .count_inp { width: 50px; height: 40px; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; text-align: center; font-size: 15px; }
+
+/** 추천 상품 **/
+.recomm_box ul li { position: relative; width: 32%; height: 300px; margin-bottom: 20px; margin-right: 2%; }
+.recomm_box ul li:nth-child(3n) { margin-right: 0; }
+.recomm_box .recomm_item_img .recomm_item_desc { position: absolute; left: 0; bottom: 0; width: 100%; padding: 80px 20px 20px 20px; background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0) 100%); color: #fff; }
+.recomm_box .recomm_item_img .recomm_item_desc .loc_tag { margin-bottom: 8px; font-weight: 300; }
+.recomm_box .recomm_item_img .recomm_item_desc dt { font-size: 22px; font-weight: 500; }
+.recomm_box .recomm_item_img .recomm_item_desc .price { margin-top: 20px; font-weight: 500; }
+.recomm_box .recomm_item_img .recomm_item_desc .price .sale_tag { display: inline-block; margin-right: 5px; color: #93b85f; }
+.recomm_box .recomm_item_img img { width: 100%; height: 300px; object-fit: cover; }
+
+/*** fnbArea ***/
+#fnbArea { height: 60px; border-top: 1px solid #ececec; line-height: 60px; }
+#fnbArea .fnb li { margin-right: 30px; font-size: 15px; }
+#fnbArea .fnb li:last-child { margin-right: 0; }
+
+/*** footer ***/
+#footer { padding: 30px 0; background-color: #333; color: #fff; font-size: 15px; }
+#footer .c_name { margin-bottom: 20px; }
+#footer ul li { line-height: 1.4em; font-weight: 300 }
+#footer ul li:nth-child(5) { clear: both; }
+#footer ul li:after { display: inline-block; width: 1px; height: 10px; margin: 0 15px; background: #666; content: '' }
+#footer ul li:nth-child(4):after,
+#footer ul li:nth-child(6):after { display: none; }
+#footer .copyright { margin-top: 30px; color: #999; }
+
+/*******/
+.ul_h:after { display: block; clear: both; content: ''; }
+.ul_h li { float: left; }
+
+.leftBox { float: left; }
+.rightBox { float: right; }
+
+
+@media (max-width: 1200px) {
+
+    .leftBox { clear: both; }
+    .rightBox { clear: both; }
+    
+}
