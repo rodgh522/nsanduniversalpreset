@@ -15,6 +15,7 @@ export class JoinComponent implements OnInit {
 
   joinform: FormGroup;
   pwdTip: string;
+  chanelTip: string;
   isChecked = false;
   isDuplicated = false;
 
@@ -48,6 +49,7 @@ export class JoinComponent implements OnInit {
       rePwd: ['', [
         Validators.required,
       ]],
+      ChCode: ['', []],
       agreement: ['', [
         Validators.required,
         Validators.requiredTrue
@@ -57,6 +59,7 @@ export class JoinComponent implements OnInit {
     });
 
     this.pwdTip = '8 ~ 16자, 숫자 혹은 특수문자 1개 이상';
+    this.chanelTip = '채널코드가 있다면 입력해주세요';
   }
 
   ngOnInit(): void {

@@ -31,6 +31,11 @@
                     <input type="text" placeholder="인증번호 입력" formControlName="sms">
                     <button>인증번호 확인</button>
                 </div>
+                <h4>
+                    채널코드
+                    <i class="fa fa-info-circle" [matTooltip]="chanelTip"></i>
+                </h4>
+                <input type="text" formControlName="ChCode" placeholder="채널코드">
                 <h4>개인정보 수집 및 이용 동의
                     <span *ngIf="checkValid('agreement')" class="text-error"> * 필수</span>
                     <a>보기</a>
