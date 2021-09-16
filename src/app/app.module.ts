@@ -16,6 +16,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PERSISTENCE } from '@angular/fire/auth';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { AppComponent } from '@src/app/app.component';
 
@@ -31,7 +32,7 @@ export function createTranslateLoader(http: HttpClient){
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     BrowserAnimationsModule, FormsModule, ReactiveFormsModule,
-    HttpClientModule, 
+    HttpClientModule, MatNativeDateModule,
 
     /* Translate Module */
     TranslateModule.forRoot({

@@ -7,6 +7,7 @@ import { rootScope } from './global/global';
 import { StaticVariableService } from './global/static-variable';
 import { SessionService } from './service/session.service';
 import { TranslateService } from '@ngx-translate/core';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-root',
@@ -24,20 +25,21 @@ export class AppComponent implements OnInit {
     public http: HttpClient,
     public staticVariable: StaticVariableService,
     public translate: TranslateService,
+    private _adaptor: DateAdapter<any>,
     @Inject(PLATFORM_ID) private platform: any
     ){
     this.isWeb = isPlatformBrowser(this.platform);
     
-    // if(this.isWeb){
-    //   this.auth.authState.subscribe((res)=> {
-    //     if(res === null){
-    //       this.router.navigateByUrl('/login');
-    //     }else{
-    //       const user = rootScope.sessionStroageToData();
-    //       this.session.user$.next(user);
-    //     }
-    //   });
-    // }
+    if(this.isWeb){
+      this.auth.authState.subscribe((res)=> {
+        if(res != null){
+          const user = rootScope.sessionStroageToData();
+          this.session.user$.next(user);
+        }
+      });
+    }
+
+    this._adaptor.setLocale('ko');
   }
 
   ngOnInit(){
