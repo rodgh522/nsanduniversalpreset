@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { formToObj, validCheck } from '@src/app/global/global';
+import { formToObj, rootScope, validCheck } from '@src/app/global/global';
 import { PostApiService } from '@src/app/service/post-api.service';
 import { SessionService } from '@src/app/service/session.service';
 import { CONSTANT } from '@src/assets/global-constant';
@@ -64,7 +64,8 @@ export class LoginComponent implements OnInit {
         if(res.body.docCnt > 0){
           const stayChecked = this.loginform.controls['stayChecked'].value ? 'local' : 'session';
           this.session.signIn(data.LoginId, data.Pwd, stayChecked, res.body.docs[0]).then(()=> {
-            this.router.navigateByUrl('/admin');
+            const whereTo = rootScope.savedUrl ? rootScope.savedUrl : '/admin';
+            this.router.navigateByUrl(whereTo);
           });
         }
       }

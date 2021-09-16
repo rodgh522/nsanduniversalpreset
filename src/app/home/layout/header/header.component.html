@@ -6,7 +6,8 @@
         </div>
         <nav class="util">
             <ul>
-                <li><a routerLink="login">LOGIN</a></li>
+                <li *ngIf="!isLoggedIn"><a (click)="goLogin()">LOGIN</a></li>
+                <li *ngIf="isLoggedIn"><a (click)="logout()">MyPage</a></li>
             </ul>
         </nav>
     </div>

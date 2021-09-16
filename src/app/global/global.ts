@@ -39,6 +39,7 @@ Date.prototype.toStrFormat = function(){
 
 export namespace rootScope{
   export let windowSize: any = {};
+  export let savedUrl: string;
   export let currentLanguage = '';
   export let navbarToggle: boolean;
 
