@@ -9,21 +9,21 @@
             <div class="reserv_box">
                 <div class="reserv_item loc">
                     <!-- 레이어 팝업(지역) -->
-                    <!-- <div class="reserv_layer loc">
+                    <div class="reserv_layer loc" *ngIf="areaToggle">
                         <ul>
-                            <li><a href="#" role="button">전국</a></li>
-                            <li><a href="#" role="button">서울/경기/인천</a></li>
-                            <li><a href="#" role="button">충청/대전</a></li>
-                            <li><a href="#" role="button">전라/광주</a></li>
-                            <li><a href="#" role="button">경상/대구/부산/울산</a></li>
-                            <li><a href="#" role="button">강원</a></li>
-                            <li><a href="#" role="button">제주</a></li>
+                            <li (click)="setArea($event)"><a role="button">전국</a></li>
+                            <li (click)="setArea($event)"><a role="button">서울/경기/인천</a></li>
+                            <li (click)="setArea($event)"><a role="button">충청/대전</a></li>
+                            <li (click)="setArea($event)"><a role="button">전라/광주</a></li>
+                            <li (click)="setArea($event)"><a role="button">경상/대구/부산/울산</a></li>
+                            <li (click)="setArea($event)"><a role="button">강원</a></li>
+                            <li (click)="setArea($event)"><a role="button">제주</a></li>
                         </ul>
-                    </div> -->
+                    </div>
                     <!-- //레이어 팝업(지역) -->
-                    <dl>
+                    <dl (click)="areaToggle = !areaToggle">
                         <dt>지역</dt>
-                        <dd>강원</dd>
+                        <dd>{{ areaText }}</dd>
                     </dl>
                 </div>
                 <div class="reserv_item date">
@@ -32,36 +32,44 @@
                     <!-- <div class="reserv_layer date">
                     </div> -->
                     <!-- //레이어 팝업(날짜) -->
+                    <mat-datepicker-toggle #matDateToggle [for]="picker" style="display: none;"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker touchUi (closed)="finishedPickDate()"></mat-date-range-picker>
+                    <mat-date-range-input #rangeInput [rangePicker]="picker"
+                        [min]="today" [max]="maxDay" separator=""
+                        style="width: 0; height: 0;">
+                        <input matStartDate placeholder="Start date">
+                        <input matEndDate placeholder="End date">
+                    </mat-date-range-input>
                     <dl>
                         <dt>예약일자</dt>
-                        <dd>2021년 9월 9일(목)</dd>
+                        <dd (click)="openDatePicker()">{{startDate | customdate : 'kor'}}</dd>
                     </dl>
                     <dl>
                         <dt>퇴실일자</dt>
-                        <dd>2021년 9월 10일(금)</dd>
+                        <dd (click)="openDatePicker()">{{endDate | customdate : 'kor'}}</dd>
                     </dl>
                 </div>
                 <div class="reserv_item number">
                     <!-- 레이어 팝업(인원) -->
-                    <!-- <div class="reserv_layer number">
+                    <div class="reserv_layer number" *ngIf="guestToggle">
                         <dl>
                             <dt>인원</dt>
                             <dd>
                                 <div class="countNum_box">
-                                    <button class="minus_btn"></button>
-                                    <input type="text" class="count_inp" value="5" disabled>
-                                    <button class="plus_btn"></button>
+                                    <button class="minus_btn" (click)="srch.guest = srch.guest === 2 ? 2 : srch.guest - 1"></button>
+                                    <input type="text" class="count_inp" [value]="srch.guest" disabled>
+                                    <button class="plus_btn" (click)="srch.guest = srch.guest === 15 ? 15 : srch.guest + 1"></button>
                                 </div>
                             </dd>
                         </dl>
-                    </div> -->
+                    </div>
                     <!-- //레이어 팝업(인원) -->
-                    <dl>
+                    <dl (click)="guestToggle = !guestToggle">
                         <dt>인원수</dt>
-                        <dd>4명</dd>
+                        <dd>{{srch.guest}}명</dd>
                     </dl>
                 </div>
-                <button class="reserv_item reserv_btn">예약하기</button>
+                <button class="reserv_item reserv_btn" (click)="srchList()">예약하기</button>
             </div>
         </div>
     </div>
