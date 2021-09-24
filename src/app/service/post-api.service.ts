@@ -335,47 +335,47 @@ export class PostApiService {
     var temp: any = {};
     url += '?userkey=' + temp.userkey;
 
-    this.http.post(url, data).subscribe(res => {
-      if(fileNm != null && fileNm != ''){
-        var linkElement = document.createElement('a');
-        try {
-          let result: string = res.toString();
-          var blob = new Blob([result], { type: 'application/octet-stream' });
+    // this.http.post(url, data).subscribe(res => {
+    //   if(fileNm != null && fileNm != ''){
+    //     var linkElement = document.createElement('a');
+    //     try {
+    //       let result: string = res.toString();
+    //       var blob = new Blob([result], { type: 'application/octet-stream' });
 
-          if (navigator.msSaveOrOpenBlob) { // IE 10+
-              navigator.msSaveOrOpenBlob(blob, fileNm);
-          } else { // not IE
-            // eslint-disable-next-line @typescript-eslint/no-shadow
-            const url = URL.createObjectURL(blob);
+    //       if (navigator.msSaveOrOpenBlob) { // IE 10+
+    //           navigator.msSaveOrOpenBlob(blob, fileNm);
+    //       } else { // not IE
+    //         // eslint-disable-next-line @typescript-eslint/no-shadow
+    //         const url = URL.createObjectURL(blob);
 
-            if (fileNm == '') {
-              var urls = url.split('/');
-              fileNm = urls[urls.length-1] + '.xlsx';
-            }
-            linkElement.setAttribute('href', url);
-            linkElement.setAttribute('download', fileNm);
-            // // var clickEvent = new MouseEvent("click", {
-            // //     "view": window,
-            // //     "bubbles": true,
-            // //     "cancelable": false
-            // // });
-            // linkElement.dispatchEvent(clickEvent);
-            if(cal1 != undefined) {
-              cal1(result);
-            }
-          }
-        } catch (ex) {
-          if(cal2 != undefined) {
-            cal2(ex);
-          }
-        }
-      }
-    },
-    error => {
-      if(cal2 != undefined) {
-        cal2(data);
-      }
-    });
+    //         if (fileNm == '') {
+    //           var urls = url.split('/');
+    //           fileNm = urls[urls.length-1] + '.xlsx';
+    //         }
+    //         linkElement.setAttribute('href', url);
+    //         linkElement.setAttribute('download', fileNm);
+    //         // // var clickEvent = new MouseEvent("click", {
+    //         // //     "view": window,
+    //         // //     "bubbles": true,
+    //         // //     "cancelable": false
+    //         // // });
+    //         // linkElement.dispatchEvent(clickEvent);
+    //         if(cal1 != undefined) {
+    //           cal1(result);
+    //         }
+    //       }
+    //     } catch (ex) {
+    //       if(cal2 != undefined) {
+    //         cal2(ex);
+    //       }
+    //     }
+    //   }
+    // },
+    // error => {
+    //   if(cal2 != undefined) {
+    //     cal2(data);
+    //   }
+    // });
   }
 
   api(p1, p2, callback?, callback2?) {
