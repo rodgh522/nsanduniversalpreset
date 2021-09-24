@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDateFormats, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatDatepickerToggle, MatDateRangeInput } from '@angular/material/datepicker';
+import { Router } from '@angular/router';
+import { PostApiService } from '@src/app/service/post-api.service';
 import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-main',
@@ -13,7 +15,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy{
   @ViewChild('rangeInput') rangeInput: MatDateRangeInput<Date>;
   srch: any = {
     Sido: [],
-    guest: 2
+    GuestMax: 2
   };
   areaToggle = false;
   guestToggle = false;
@@ -25,7 +27,9 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy{
 
   subscription: Array<Subscription> = [];
   constructor(
-    @Inject(MAT_DATE_FORMATS) private _dateFormats: MatDateFormats
+    @Inject(MAT_DATE_FORMATS) private _dateFormats: MatDateFormats,
+    private postApi: PostApiService,
+    private router: Router
   ) { 
     this.maxDay = new Date(Date.parse(this.today.toString()) + 30 * 1000 * 60 * 60 * 24);
     this.endDate = new Date(Date.parse(this.today.toString()) + 1000 * 60 * 60 * 24);
@@ -64,24 +68,20 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy{
   }
   
   setDate(beginDt: Date, endDt: Date){
-    this.srch.date = [];
-    // this.srch.BeginDt = beginDt ? beginDt.toStrFormat() : undefined;
-    // this.srch.EndDt = endDt ? endDt.toStrFormat() : undefined;
+    this.srch.dates = [];
     if (!endDt) {
       return;
     } 
     let target = beginDt;
     while (target < endDt) {
-      const temp = {
-        date: target,
-        day: target.getDay()
-      };
-      this.srch.date.push(temp);
+      this.srch.dates.push(target);
       target = new Date(Date.parse(target.toString()) + 1000 * 60 * 60 * 24);
     }
+    this.srch.straight = this.srch.dates.length;
   }
   
   srchList(){
     console.log(this.srch);
+    this.router.navigate(['/accom'], { queryParams: this.srch });  
   }
 }
