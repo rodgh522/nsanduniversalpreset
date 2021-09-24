@@ -19,7 +19,8 @@ import { JoinComponent } from '@src/app/home/login/join/join.component';
 import { UnitListComponent } from '@src/app/home/unit-list/unit-list.component';
 
 /* Pipe */
-import { CustomdatePipe } from '../pipe/customdate.pipe';
+import { CustomdatePipe } from '@src/app/pipe/customdate.pipe';
+import { AccomListComponent } from '@src/app/home/accom-list/accom-list.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { CustomdatePipe } from '../pipe/customdate.pipe';
     HeaderComponent, FooterComponent, MainComponent, JoinComponent, UnitListComponent,
 
     /* pipe */
-    CustomdatePipe
+    CustomdatePipe,
+      AccomListComponent
   ],
   imports: [
     CommonModule,
