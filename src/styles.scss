@@ -170,3 +170,17 @@ h1, h2, h3, h4, h5, h6{
     float: right;
     margin: 10px 0;
 }
+
+.spinner-wrap{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+    background-color: #fefefe;
+    opacity: 0.6;
+
+    mat-spinner{
+        margin: 0 auto;
+        top: 30%;
+    }
+}
