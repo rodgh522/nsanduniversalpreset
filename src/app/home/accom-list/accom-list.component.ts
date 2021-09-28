@@ -1,18 +1,25 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDatepickerToggle, MatDateRangeInput } from '@angular/material/datepicker';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { rootScope } from '@src/app/global/global';
+import { StaticVariableService } from '@src/app/global/static-variable';
 import { PostApiService } from '@src/app/service/post-api.service';
+import { SearchService } from '@src/app/service/search.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-accom-list',
   templateUrl: './accom-list.component.html',
   styleUrls: ['./accom-list.component.scss']
 })
-export class AccomListComponent implements OnInit {
+export class AccomListComponent implements OnInit, OnDestroy {
 
   @ViewChild('matDateToggle') matDateToggle: MatDatepickerToggle<Date>;
   @ViewChild('rangeInput') rangeInput: MatDateRangeInput<Date>;
+
+  subscription: Array<Subscription> = [];
   
+  dataloader = false;
   srch: any = {};
   areaToggle = false;
   guestToggle = false;
@@ -21,29 +28,46 @@ export class AccomListComponent implements OnInit {
   maxDay;
   startDate;
   endDate;
+  list = [];
+  recommandList = [];
 
   constructor(
-    private activateRouter: ActivatedRoute,
-    private postApi: PostApiService
+    private postApi: PostApiService,
+    private searchService: SearchService,
+    private staticVariable: StaticVariableService,
+    private router: Router
   ) { 
-    this.srch = this.activateRouter.snapshot.queryParams;
-    this.srch.dates.map(function(a){
-      a = new Date(a);
-      return a;
-    });
     this.maxDay = new Date(Date.parse(this.today.toString()) + 30 * 1000 * 60 * 60 * 24);
+
+    this.subscription.push(this.searchService.searchList.subscribe((res)=> {
+      this.srch = res;
+    }));
   }
 
   ngOnInit(): void {
-    console.log(this.srch);
-
-    this.startDate = this.srch.dates[0];
-    this.endDate = new Date(Date.parse(new Date(this.srch.dates[this.srch.dates.length - 1]).toString()) + 1000 * 60 * 60 * 24);
-    
-    this.getList();
+    if(rootScope.isWeb) {
+      this.startDate = this.srch.dates[0];
+      this.endDate = new Date(Date.parse(this.srch.dates[this.srch.dates.length - 1].toString()) + 1000 * 60 * 60 * 24);
+      this.areaText = this.srch.Sido.length > 0 ? this.arrToStr(this.srch.Sido): '전국';
+      
+      this.getList();
+    }
   }
-  
+
+  ngOnDestroy(){
+    this.subscription.forEach(a=> a.unsubscribe());
+  }
+
+  arrToStr(arr){
+    let result = '';
+    arr.forEach(a=> result += result == '' ? a : '/' + a);
+    return result;
+  }
+
   getList(){
+    this.dataloader = true;
+    this.searchService.setSearchList(this.srch);
+
     let param = {
       ...this.srch,
       mapcode: 'MovilaSearch.getAccomList',
@@ -52,8 +76,20 @@ export class AccomListComponent implements OnInit {
       IdName: 'AcomId',
       dates: this.changeFormat(this.srch.dates)
     };
+    
     this.postApi.movilaSelect(param, (res)=> {
-      console.log(res);
+      if(res.header.status === 200) {
+        this.dataloader = false;
+        this.list = res.body.docs.map((a)=> {
+          if(a.uploadFileList.length > 0) {
+            a.link = this.staticVariable.getFileDownloadUrl(a.uploadFileList[0].PhysicalFileNm)
+          } else {
+            a.link = 'assets/images/no_image.jpg'
+          }
+          return a;
+        });
+        this.recommandList = this.list.slice(0, 3);
+      }
     });
   }
 
@@ -100,6 +136,16 @@ export class AccomListComponent implements OnInit {
       target = new Date(Date.parse(target.toString()) + 1000 * 60 * 60 * 24);
     }
     this.srch.straight = this.srch.dates.length;
+  }
+
+  goDetail(keyId: string){
+    const data = {
+      AcomId: keyId,
+      dates: this.srch.dates,
+      GuestMax: this.srch.GuestMax
+    };
+    this.searchService.setSearchDetail(data);
+    this.router.navigateByUrl('/unit');
   }
   
 }

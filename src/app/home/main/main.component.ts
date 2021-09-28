@@ -3,6 +3,7 @@ import { MatDateFormats, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatDatepickerToggle, MatDateRangeInput } from '@angular/material/datepicker';
 import { Router } from '@angular/router';
 import { PostApiService } from '@src/app/service/post-api.service';
+import { SearchService } from '@src/app/service/search.service';
 import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-main',
@@ -28,8 +29,8 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy{
   subscription: Array<Subscription> = [];
   constructor(
     @Inject(MAT_DATE_FORMATS) private _dateFormats: MatDateFormats,
-    private postApi: PostApiService,
-    private router: Router
+    private router: Router,
+    private searchService: SearchService
   ) { 
     this.maxDay = new Date(Date.parse(this.today.toString()) + 30 * 1000 * 60 * 60 * 24);
     this.endDate = new Date(Date.parse(this.today.toString()) + 1000 * 60 * 60 * 24);
@@ -82,6 +83,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy{
   
   srchList(){
     console.log(this.srch);
-    this.router.navigate(['/accom'], { queryParams: this.srch });  
+    this.searchService.setSearchList(this.srch);
+    this.router.navigateByUrl('/accom');  
   }
 }

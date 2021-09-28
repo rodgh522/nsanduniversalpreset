@@ -5,13 +5,15 @@ import { JoinComponent } from './login/join/join.component';
 import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
 import { AccomListComponent } from './accom-list/accom-list.component';
+import { UnitListComponent } from './unit-list/unit-list.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent,
       children: [
         { path: '', redirectTo: 'main', pathMatch: ''},
         { path: 'main', component: MainComponent },
-        { path: 'accom', component: AccomListComponent }
+        { path: 'accom', component: AccomListComponent },
+        { path: 'unit', component: UnitListComponent }
       ]},
   { path: 'login', component: LoginComponent },
   { path: 'join', component: JoinComponent }

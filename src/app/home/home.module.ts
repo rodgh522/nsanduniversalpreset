@@ -8,6 +8,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SharedModule } from '@src/app/shared/shared.module';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 /* Component */
 import { HomeComponent } from '@src/app/home/home.component';
@@ -21,6 +22,8 @@ import { UnitListComponent } from '@src/app/home/unit-list/unit-list.component';
 /* Pipe */
 import { CustomdatePipe } from '@src/app/pipe/customdate.pipe';
 import { AccomListComponent } from '@src/app/home/accom-list/accom-list.component';
+import { SidoPipe } from '../pipe/sido.pipe';
+import { CommaPipe } from '../pipe/comma.pipe';
 
 @NgModule({
   declarations: [
@@ -30,14 +33,14 @@ import { AccomListComponent } from '@src/app/home/accom-list/accom-list.componen
 
     /* pipe */
     CustomdatePipe,
-      AccomListComponent
+    AccomListComponent, SidoPipe, CommaPipe
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
     FormsModule, ReactiveFormsModule,
     MatCheckboxModule, MatTooltipModule, SharedModule,
-    MatDatepickerModule
+    MatDatepickerModule, MatProgressSpinnerModule
   ]
 })
 export class HomeModule { }

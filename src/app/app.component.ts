@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
     private _adaptor: DateAdapter<any>,
     @Inject(PLATFORM_ID) private platform: any
     ){
-    this.isWeb = isPlatformBrowser(this.platform);
+    this.isWeb = rootScope.isWeb = isPlatformBrowser(this.platform);
     
     if(this.isWeb){
       this.auth.authState.subscribe((res)=> {

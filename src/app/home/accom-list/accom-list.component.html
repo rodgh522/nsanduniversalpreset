@@ -1,3 +1,6 @@
+<div class="spinner-wrap" *ngIf="dataloader">
+    <mat-spinner></mat-spinner>
+</div>
 <div id="main">
     <div class="sub_title">
         <div class="content">
@@ -64,12 +67,12 @@
                             </dl>
                         </div>
                         <!-- //레이어 팝업(인원) -->
-                        <dl>
+                        <dl (click)="guestToggle = !guestToggle">
                             <dt>인원수</dt>
                             <dd>{{srch.GuestMax}}명</dd>
                         </dl>
                     </div>
-                    <button class="reserv_item reserv_btn">검색</button>
+                    <button class="reserv_item reserv_btn" (click)="getList()">검색</button>
                 </div>
             </div>
         </div>
@@ -81,55 +84,20 @@
                 <button class="arrow prev_arrow"></button>
                 <ul class="ul_h">
                     <!-- loop -->
-                    <li>
-                        <a href="#">
+                    <li *ngFor="let item of recommandList" (click)="goDetail(item.AcomId)">
+                        <a>
                             <div class="recomm_item_img">
                                 <div class="recomm_item_desc">
-                                    <p class="loc_tag">가평군</p>
+                                    <p class="loc_tag">{{ item.Addr1 | sido }}</p>
                                     <dl>
-                                        <dt>가평 포레스트 카라반</dt>
+                                        <dt>{{ item.AcomNm }}</dt>
                                         <dd class="price">
-                                            <span class="sale_tag">76%</span>
-                                            100,000 원 ~
+                                            <span class="sale_tag" *ngIf="item.ChPrice && item.ChPrice != 0">76%</span>
+                                            {{ item.DFTPrice | comma }}원
                                         </dd>
                                     </dl>
                                 </div>
-                                <img src="assets/images/thumb/thumb4.png" alt="">
-                            </div>
-                        </a>
-                    </li>
-                    <!-- loop -->
-                    <li>
-                        <a href="#">
-                            <div class="recomm_item_img">
-                                <div class="recomm_item_desc">
-                                    <p class="loc_tag">가평군</p>
-                                    <dl>
-                                        <dt>가평 포레스트 카라반</dt>
-                                        <dd class="price">
-                                            <span class="sale_tag">76%</span>
-                                            100,000 원 ~
-                                        </dd>
-                                    </dl>
-                                </div>
-                                <img src="assets/images/thumb/thumb4.png" alt="">
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <div class="recomm_item_img">
-                                <div class="recomm_item_desc">
-                                    <p class="loc_tag">가평군</p>
-                                    <dl>
-                                        <dt>가평 포레스트 카라반</dt>
-                                        <dd class="price">
-                                            <span class="sale_tag">76%</span>
-                                            100,000 원 ~
-                                        </dd>
-                                    </dl>
-                                </div>
-                                <img src="assets/images/thumb/thumb4.png" alt="">
+                                <img src="{{ item.link }}" alt="">
                             </div>
                         </a>
                     </li>
@@ -141,88 +109,27 @@
     <section class="sec_sub_list">
         <div class="content">
             <h2>이 지역 일반상품</h2>
-            <span class="title_desc">전체 <span class="point_c">1,125</span>개</span>
+            <span class="title_desc">전체 <span class="point_c">{{ list.length }}</span>개</span>
             <div>
                 <ul class="nm_list">
                     <!-- loop -->
-                    <li>
+                    <li *ngFor="let item of list">
                         <div class="list_img">
-                            <img src="assets/images/thumb/thumb1.png" alt="">
+                            <img src="{{ item.link }}" alt="">
                         </div>
                         <div class="list_desc">
                             <div class="list_title">
-                                <p class="list_loc">가평군</p>
-                                <h3>가평 포레스트 카라반</h3>
+                                <p class="list_loc">{{ item.Addr1 | sido }}</p>
+                                <h3>{{ item.AcomNm }}</h3>
                             </div>
                             <div class="list_price">
-                                <span class="point_c"><b>76%</b></span>
-                                100,000원 ~
-                            </div>
-                        </div>
-                    </li>
-                    <!-- //loop -->
-                    <li>
-                        <div class="list_img">
-                            <img src="assets/images/thumb/thumb2.png" alt="">
-                        </div>
-                        <div class="list_desc">
-                            <div class="list_title">
-                                <p class="list_loc">가평군</p>
-                                <h3>가평 포레스트 카라반</h3>
-                            </div>
-                            <div class="list_price">
-                                <span class="point_c"><b>76%</b></span>
-                                100,000원 ~
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="list_img">
-                            <img src="assets/images/thumb/thumb3.png" alt="">
-                        </div>
-                        <div class="list_desc">
-                            <div class="list_title">
-                                <p class="list_loc">가평군</p>
-                                <h3>가평 포레스트 카라반</h3>
-                            </div>
-                            <div class="list_price">
-                                <span class="point_c"><b>76%</b></span>
-                                100,000원 ~
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="list_img">
-                            <img src="assets/images/thumb/thumb4.png" alt="">
-                        </div>
-                        <div class="list_desc">
-                            <div class="list_title">
-                                <p class="list_loc">가평군</p>
-                                <h3>가평 포레스트 카라반</h3>
-                            </div>
-                            <div class="list_price">
-                                <span class="point_c"><b>76%</b></span>
-                                100,000원 ~
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="list_img">
-                            <img src="assets/images/thumb/thumb5.png" alt="">
-                        </div>
-                        <div class="list_desc">
-                            <div class="list_title">
-                                <p class="list_loc">가평군</p>
-                                <h3>가평 포레스트 카라반</h3>
-                            </div>
-                            <div class="list_price">
-                                <span class="point_c"><b>76%</b></span>
-                                100,000원 ~
+                                <span class="point_c" *ngIf="item.ChPrice && item.ChPrice != 0"><b>76%</b></span>
+                                {{ item.DFTPrice | comma }}원
                             </div>
                         </div>
                     </li>
                 </ul>
-                <div class="pagination">
+                <!-- <div class="pagination">
                     <a href="#" class="pre_end"><span class="blind">처음</span></a>
                     <a href="#" class="pre"><span class="blind">이전</span></a>
                     <a href="#">1</a>
@@ -237,7 +144,7 @@
                     <a href="#">10</a>
                     <a href="#" class="next"><span class="blind">다음</span></a>
                     <a href="#" class="next_end"><span class="blind">끝</span></a>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
