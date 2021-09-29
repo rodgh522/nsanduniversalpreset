@@ -9,6 +9,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { SharedModule } from '@src/app/shared/shared.module';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonModule } from '@angular/material/button';
 
 /* Component */
 import { HomeComponent } from '@src/app/home/home.component';
@@ -40,7 +41,7 @@ import { CommaPipe } from '../pipe/comma.pipe';
     HomeRoutingModule,
     FormsModule, ReactiveFormsModule,
     MatCheckboxModule, MatTooltipModule, SharedModule,
-    MatDatepickerModule, MatProgressSpinnerModule
+    MatDatepickerModule, MatProgressSpinnerModule, MatButtonModule
   ]
 })
 export class HomeModule { }

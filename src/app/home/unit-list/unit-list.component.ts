@@ -110,16 +110,19 @@ export class UnitListComponent implements OnInit, OnDestroy {
 
   prepRoomInfo(rooms: Array<any>){
     this.list = rooms.map((a)=> {
-      a.adult = a.baseInfo[0].GuestStd;
+      a.adult = a.baseInfo[0].GuestStd ? a.baseInfo[0].GuestStd : 2;
       a.infant = 0;
-      a.maxGuest = a.baseInfo[0].GuestMax;
+      a.maxGuest = a.baseInfo[0].GuestMax ? a.baseInfo[0].GuestMax : 2;
+      a.pet = a.baseInfo[0].PetStd ? a.baseInfo[0].PetStd : 0;
       a.addGuestPrice = 0;
       a.addPetPrice = 0;
       a.addOptionPrice = 0;
+      a.toggleOption = false;
       a.roomPrice = a.ChPrice > 0 ? a.ChPrice : a.DFTPrice;
       a.saleRate = a.ChPrice != 0 ? (a.DFTPrice - a.ChPrice) / a.DFTPrice * 100 : 0;
       a.selectedOption = '';
       a.options = [];
+      a.selected = false;
       return a;
     });
   }
@@ -137,6 +140,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
       item[0].totalCnt = 1;
       target.options.push(item[0]);
     }
+    this.setOption(target, item[0], '-');
   }
 
   setGuest(room, target, action){
@@ -163,19 +167,40 @@ export class UnitListComponent implements OnInit, OnDestroy {
     }
   }
 
-  setOption(option, action){
+  setOption(item, option, action){
+    let price = 0;
     if(action === '+') {
       option.totalCnt++;
     }else {
       option.totalCnt -= option.totalCnt > 1 ? 1 : 0;
     }
+
+    item.options.forEach((a)=> {
+      price += a.totalCnt * a.ItemPrice;
+    });
+    item.addOptionPrice = price;
   }
 
-  setPrice(target, price, action){
+  delOption(item, idx){
+    let price = 0;
+    item.options.splice(idx, 1);
+
+    item.options.forEach((a)=> {
+      price += a.totalCnt * a.ItemPrice;
+    });
+    item.addOptionPrice = price;
+  }
+
+  setPet(item, action){
     if(action === '+') {
-      target.totalPrice += price
+      item.pet += item.baseInfo[0].PetMax && item.baseInfo[0].PetMax > item.pet ? 1 : 0;
     }else {
-      target.totalPrice -= price
+      item.pet -= item.pet > 0 ? 1 : 0;
+    }
+    if(item.pet > item.baseInfo[0].PetStd) {
+      item.addPetPrice = (item.pet - item.baseInfo[0].PetStd) * item.baseInfo[0].PetAdd;
+    }else {
+      item.addPetPrice = 0;
     }
   }
 
