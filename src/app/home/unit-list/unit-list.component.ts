@@ -16,7 +16,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
   @ViewChild('rangeInput') rangeInput: MatDateRangeInput<Date>;
   
   dataloader = false;
-  selectedMenu = 'room';
+  selectedMenu = 'accom';
   srch: any = {};
   subscription: Array<Subscription> = [];
   today = new Date();
@@ -46,6 +46,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
       this.endDate = new Date(Date.parse(this.srch.dates[this.srch.dates.length - 1].toString()) + 1000 * 60 * 60 * 24);
 
       this.getData();
+      this.setMenu(this.selectedMenu);
     }
   }
 
@@ -236,8 +237,20 @@ export class UnitListComponent implements OnInit, OnDestroy {
 
   setMenu(target){
     this.selectedMenu = target;
+    let param: any = {
+      AcomId: this.srch.AcomId
+    };
     switch(target) {
       case 'accom': 
+        if(!this.accomInfo) {
+          param.mapcode = 'getAcomInfo';
+          this.postApi.home(param, (res)=> {
+            if(res.header.status === 200) {
+              this.accomInfo = res.body.docs[0];
+              console.log(this.accomInfo);
+            }
+          });
+        }
       break;
       case 'review':
       break;

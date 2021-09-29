@@ -12,6 +12,7 @@
             </div>
         </div>
     </section>
+    <app-swiper></app-swiper>
     <div class="sub_snb">
         <div class="content">
             <nav class="sub_tab">
@@ -138,6 +139,111 @@
                     <span>{{ totalPrice() | comma }}</span>
                     <span>원</span>
                     <button mat-flat-button color="primary">예약하기</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="sec_reserv_info" *ngIf="selectedMenu === 'accom'">
+        <div class="content info_list_deco_disc" *ngIf="accomInfo">
+            <div class="info_wrap">
+                <div>
+                    <h3>기본 정보</h3>
+                    <ul>
+                        <li>체크인 {{ accomInfo.CheckinTime }}  |  체크아웃 {{ accomInfo.CheckoutTime }}</li>
+                        <li>전화번호 : <a href="tel:{{ accomInfo.Line }}">{{ accomInfo.Line }}</a></li>
+                        <li>숙소소개 : {{ accomInfo.Intro }}</li>
+                        <li *ngFor="let base of accomInfo.info_base">
+                            {{ base }}
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>객실 정보</h3>
+                    <ul>
+                        <li *ngFor="let accom of accomInfo.info_accom">
+                            {{ accom.Content }}
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>인원추가 정보</h3>
+                    <ul>
+                        <li *ngFor="let guest of accomInfo.info_guest">
+                            {{ guest.Content }}
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>주변 정보</h3>
+                    <ul>
+                        <li *ngFor="let near of accomInfo.info_nearby">
+                            {{ near.Content }}
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>바베큐 정보</h3>
+                    <ul>
+                        <li *ngFor="let bbq of accomInfo.info_bbq">
+                            {{ bbq.Content }}
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>픽업 정보</h3>
+                    <ul>
+                        <li *ngFor="let pickup of accomInfo.info_pickup">
+                            {{ pickup.Content }}
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>반려동물 정보</h3>
+                    <ul>
+                        <li *ngFor="let pet of accomInfo.info_pet">
+                            {{ pet.Content }}
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>환불 정보</h3>
+                    <ul>
+                        <li *ngFor="let refund of accomInfo.info_refund">
+                            숙박 {{ refund.Daybefore === 0 ? '당일' : refund.Daybefore + '일전' }} : {{  refund.RefundRate }}% 환불
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>기타 정보</h3>
+                    <ul>
+                        <li *ngFor="let etc of accomInfo.info_etc">
+                            {{ etc.Content }}
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>숙소 시설</h3>
+                    <ul>
+                        <li>
+                            부대시설<br>
+                            <span *ngFor="let fac of accomInfo.fac_accom; let last = last">
+                                {{ fac.CodeValue }}<span *ngIf="!last">, </span>
+                            </span>
+                        </li>
+                        <li>
+                            공용시설<br>
+                            <span *ngFor="let pub of accomInfo.pub_accom; let last = last">
+                                {{ pub.CodeValue }}<span *ngIf="!last">, </span>
+                            </span>
+                        </li>
+                        <li>
+                            기타시설<br>
+                            <span *ngFor="let etc of accomInfo.etc_accom; let last = last">
+                                {{ etc.CodeValue }}<span *ngIf="!last">, </span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
