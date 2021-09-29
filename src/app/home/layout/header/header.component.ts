@@ -20,7 +20,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.subscription.push(this.session.user$.subscribe(res=> {
       this.isLoggedIn = res ? true : false;
-      console.log(res);
     }));
   }
 

@@ -1,1 +1,139 @@
-<p>unit-list works!</p>
+<div class="spinner-wrap" *ngIf="dataloader">
+    <mat-spinner></mat-spinner>
+</div>
+<div id="main">
+    <section class="sub_visual">
+        <div class="content">
+            <div class="black_bg">
+                <div class="sub_title">
+                    <h2>{{ data.AcomNm }}</h2>
+                    <p>{{ data.Addr1 }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="sub_snb">
+        <div class="content">
+            <nav class="sub_tab">
+                <ul class="ul_h">
+                    <li class="focus"><a href="#">객실정보/예약</a></li>
+                    <li><a href="#">숙소정보</a></li>
+                    <li><a href="#">리뷰 (<span>0</span>)</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <section class="sec_reserv_info">
+        <div class="content">
+            <div class="reserv_field">
+                <div class="content" (click)="openDatePicker()">
+                    <label for="reserv_date">예약 일정</label>
+                    <mat-datepicker-toggle #matDateToggle [for]="picker" style="display: none;"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker touchUi (closed)="finishedPickDate()"></mat-date-range-picker>
+                    <mat-date-range-input #rangeInput [rangePicker]="picker"
+                        [min]="today" [max]="maxDay" separator=""
+                        style="width: 0; height: 0;">
+                        <input matStartDate placeholder="Start date">
+                        <input matEndDate placeholder="End date">
+                    </mat-date-range-input>
+                    <button id="reserv_date">
+                        <span>{{startDate | customdate : 'kor'}}</span> ~
+                        <span>{{endDate | customdate : 'kor'}}</span> / 
+                        <span>{{ srch.straight }}박</span>
+                        <span class="icon_pencil"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="info_field">
+                <ul class="nm_list">
+                    <!-- loop -->
+                    <li *ngFor="let item of list">
+                        <div class="list_img">
+                            <img src="assets/images/thumb/thumb1.png" alt="">
+                        </div>
+                        <div class="list_desc">
+                            <div class="list_title">
+                                <p class="list_tag">
+                                    <span class="tag red">{{ item.BlockYN === 'Y' || item.reservedCnt > 0 ? '예약완료' : '예약가능'}}</span>
+                                </p>
+                                <h3>{{ item.roomNm }}</h3>
+                                <p class="list_sub_desc">
+                                    인원: 기준 {{ item.baseInfo[0].GuestStd }}명 / 최대 {{ item.baseInfo[0].GuestMax }}명<br>
+                                    영/유아기준: {{ item.baseInfo[0].InfantMonth}}개월<br>
+                                    <span *ngIf="item.baseInfo[0].PetMax > 0">애견: 기준 {{ item.baseInfo[0].PetStd }}마리 / 최대 {{ item.baseInfo[0].PetMax }}마리<br></span>
+                                    <span *ngIf="!item.baseInfo[0].PetMax && item.baseInfo[0].PetMax == 0">애견입실불가<br></span>
+                                    유형/크기: {{ item.baseInfo[0].UnitTy === 'CARAVAN' ? '카라반' : '글램핑' }}/{{ item.baseInfo[0].UnitWidth }}평<br>
+                                    시설: 
+                                    <span *ngFor="let fac of item.facInfo; last as isLast">
+                                        {{ fac.CodeValue }}
+                                        <span *ngIf="!isLast">, </span>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="list_option">
+                            <span class="option_title">인원추가</span>
+                            <div class="add_person">
+                                <div class="option_item">
+                                    <span>성인</span>
+                                    <div class="countNum_box">
+                                        <button class="minus_btn" (click)="setGuest(item, 'adult', '-')"></button>
+                                        <input type="text" class="count_inp" [value]="item.adult" disabled>
+                                        <button class="plus_btn" (click)="setGuest(item, 'adult', '+')"></button>
+                                    </div>
+                                </div>
+                                <div class="option_item">
+                                    <span>영/유아</span>
+                                    <div class="countNum_box">
+                                        <button class="minus_btn" (click)="setGuest(item, 'infant', '-')"></button>
+                                        <input type="text" class="count_inp" [value]="item.infant" disabled>
+                                        <button class="plus_btn" (click)="setGuest(item, 'infant', '+')"></button>
+                                    </div>
+                                </div>
+                                <div class="option_item" *ngIf="item.baseInfo[0].PetMax > 0">
+                                    <span>애견</span>
+                                    <div class="countNum_box">
+                                        <button class="minus_btn" (click)="setPet(item, '-')"></button>
+                                        <input type="text" class="count_inp" [value]="item.pet" disabled>
+                                        <button class="plus_btn" (click)="setPet(item, '+')"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="add_option">
+                                <button class="option_title" (click)="item.toggleOption = !item.toggleOption">옵션추가</button>
+                                <div class="add_option_box" *ngIf="item.toggleOption">
+                                    <!-- 추가된 옵션 -->
+                                    <div class="option_item" *ngFor="let added of item.options; let index = index">
+                                        <button class="del_btn" (click)="delOption(item, index)"></button>
+                                        <span>{{ added.ItemNm }}<br>{{ added.ItemPrice | comma }}원</span>
+                                        <div class="countNum_box">
+                                            <button class="minus_btn" (click)="setOption(item, added, '-')"></button>
+                                            <input type="text" class="count_inp" [value]="added.totalCnt" disabled>
+                                            <button class="plus_btn" (click)="setOption(item, added, '+')"></button>
+                                        </div>
+                                    </div>
+                                    <!-- //추가된 옵션 -->
+                                    <div class="option_select">
+                                        <span>추가 옵션</span>
+                                        <select name="add_option" (change)="addOption(item)" [(ngModel)]="item.selectedOption">
+                                            <option value="">선택</option>
+                                            <option *ngFor="let opt of data.options" [value]="opt.ItemId">{{ opt.ItemNm }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list_price">
+                                <p class="orig_price" *ngIf="item.saleRate > 0">{{ item.DFTPrice}}원</p>
+                                <span class="point_c"><b *ngIf="item.saleRate > 0">{{ item.saleRate }}</b></span> {{ item.roomPrice + item.addGuestPrice + item.addPetPrice + item.addOptionPrice | comma }}원
+                            </div>
+                            <div class="list_selected">
+                                <button mat-stroked-button *ngIf="!item.selected" (click)="item.selected = true"><i class="fa fa-check"></i>    선택</button>
+                                <button mat-flat-button color="primary" *ngIf="item.selected" (click)="item.selected = false"><i class="fa fa-check"></i>    선택</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</div>
