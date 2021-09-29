@@ -86,6 +86,7 @@ h2 { margin: 80px 0 20px 0; font-size: 32px; font-weight: 700; }
 .add_option_box .option_select select { width: 130px; height: 40px; padding: 0 4px; border: 1px solid #ddd; }
 .add_option_box .option_item .del_btn { position: absolute; top: 15px; left: -20px; width: 13px; height: 13px; background: url('/assets/images/del_btn.png'); cursor: pointer; }
 
+.list_price,
 .list_option .list_price { text-align: right; font-size: 28px; font-weight: 700; }
 .list_option .list_price .orig_price { text-decoration: line-through; color: #999; font-size: 15px; }
 
@@ -125,3 +126,11 @@ h2 { margin: 80px 0 20px 0; font-size: 32px; font-weight: 700; }
         }
     }
 }
+.list_selected button { width: 230px; height: 50px; margin-top: 10px; background: #fff; color: #666; border: 1px solid #ddd; border-radius: 0; font-size: 16px; }
+/* 버튼 선택됐을 때, 사용할 수 없을 때 */
+// .list_selected button.focus { background: #93b85f; color: #fff; border: 1px solid #93b85f; }
+// .list_selected button.disabled { background: #f7f7f7; color: #bbb; border: 1px solid #ddd; cursor: default; }
+
+.pay_reserve .pay_result { margin-top: 20px; height: 60px; color: #999; }
+.pay_reserve .pay_result .list_price { margin-left: 10px; color: #93b85f; font-size: 28px; font-weight: 700; }
+.pay_reserve button { width: 230px; height: 60px; margin: 20px 0 20px 20px; background: #93b85f; color: #fff; font-size: 18px; }
