@@ -16,14 +16,14 @@
         <div class="content">
             <nav class="sub_tab">
                 <ul class="ul_h">
-                    <li class="focus"><a href="#">객실정보/예약</a></li>
-                    <li><a href="#">숙소정보</a></li>
-                    <li><a href="#">리뷰 (<span>0</span>)</a></li>
+                    <li [ngClass]="[selectedMenu === 'room' ? 'focus' : '']" (click)="setMenu('room')"><a>객실정보/예약</a></li>
+                    <li [ngClass]="[selectedMenu === 'accom' ? 'focus' : '']" (click)="setMenu('accom')"><a>숙소정보</a></li>
+                    <li [ngClass]="[selectedMenu === 'review' ? 'focus' : '']" (click)="setMenu('review')"><a>리뷰 (<span>0</span>)</a></li>
                 </ul>
             </nav>
         </div>
     </div>
-    <section class="sec_reserv_info">
+    <section class="sec_reserv_info" *ngIf="selectedMenu === 'room'">
         <div class="content">
             <div class="reserv_field">
                 <div class="content" (click)="openDatePicker()">
@@ -54,7 +54,7 @@
                         <div class="list_desc">
                             <div class="list_title">
                                 <p class="list_tag">
-                                    <span class="tag red">{{ item.BlockYN === 'Y' || item.reservedCnt > 0 ? '예약완료' : '예약가능'}}</span>
+                                    <span [ngClass]="['tag', item.isBlocked ? 'red' : 'green']">{{ item.isBlocked ? '예약완료' : '예약가능'}}</span>
                                 </p>
                                 <h3>{{ item.roomNm }}</h3>
                                 <p class="list_sub_desc">
@@ -127,12 +127,18 @@
                                 <span class="point_c"><b *ngIf="item.saleRate > 0">{{ item.saleRate }}</b></span> {{ item.roomPrice + item.addGuestPrice + item.addPetPrice + item.addOptionPrice | comma }}원
                             </div>
                             <div class="list_selected">
-                                <button mat-stroked-button *ngIf="!item.selected" (click)="item.selected = true"><i class="fa fa-check"></i>    선택</button>
-                                <button mat-flat-button color="primary" *ngIf="item.selected" (click)="item.selected = false"><i class="fa fa-check"></i>    선택</button>
+                                <button mat-stroked-button *ngIf="!item.selected" (click)="setPrice(true, item, item.RoomId)"><i class="fa fa-check"></i>    선택</button>
+                                <button mat-flat-button color="primary" *ngIf="item.selected" (click)="setPrice(false, item, item.RoomId)"><i class="fa fa-check"></i>    선택</button>
                             </div>
                         </div>
                     </li>
                 </ul>
+                <div class="pay_reserve">
+                    <span>총 결제금액: </span>
+                    <span>{{ totalPrice() | comma }}</span>
+                    <span>원</span>
+                    <button mat-flat-button color="primary">예약하기</button>
+                </div>
             </div>
         </div>
     </section>

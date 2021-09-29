@@ -1,15 +1,15 @@
 var API_HTTP_PROTOCOL = 'http:'; //location.protocol;
 var API_SERVER_DOMAIN = 'localhost';
-var API_SERVER_PORT: string | number = '8080';
+var API_SERVER_PORT: string | number = '8090';
 
 export var CONSTANT = {
   URL : {
     MAIL_PROTOCOL : 'mailto:',
     HTTP_PROTOCOL : API_HTTP_PROTOCOL,
+    PORT : '8058',
     // PORT : API_SERVER_PORT,
-    PORT : API_SERVER_PORT,
-    // API_SERVER_DOMAIN : API_SERVER_DOMAIN,
-    API_SERVER_DOMAIN : '168.168.0.183',
+    API_SERVER_DOMAIN : '59.15.3.210',
+    // API_SERVER_DOMAIN : 'localhost',
     CONTEXT : '',
     VERSION : '',
     SITE_URL : API_HTTP_PROTOCOL +'//'+ API_SERVER_DOMAIN + (API_SERVER_PORT == '80' ? '' : ':' + API_SERVER_PORT),

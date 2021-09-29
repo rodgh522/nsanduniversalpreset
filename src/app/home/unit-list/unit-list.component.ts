@@ -16,6 +16,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
   @ViewChild('rangeInput') rangeInput: MatDateRangeInput<Date>;
   
   dataloader = false;
+  selectedMenu = 'room';
   srch: any = {};
   subscription: Array<Subscription> = [];
   today = new Date();
@@ -24,6 +25,9 @@ export class UnitListComponent implements OnInit, OnDestroy {
   endDate;
   data: any = {};
   list = [];
+  reserve = [];
+  accomInfo;
+  review;
 
   constructor(
     private searchService: SearchService,
@@ -118,6 +122,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
       a.addPetPrice = 0;
       a.addOptionPrice = 0;
       a.toggleOption = false;
+      a.isBlocked = a.BlockYN === 'Y' || a.reservedCnt > 0;
       a.roomPrice = a.ChPrice > 0 ? a.ChPrice : a.DFTPrice;
       a.saleRate = a.ChPrice != 0 ? (a.DFTPrice - a.ChPrice) / a.DFTPrice * 100 : 0;
       a.selectedOption = '';
@@ -204,4 +209,38 @@ export class UnitListComponent implements OnInit, OnDestroy {
     }
   }
 
+  setPrice(selected: boolean, item, roomId) {
+    if(item.BlockYN === 'Y' || item.reservedCnt > 0) {
+      return;
+    }
+    item.selected = selected;
+    if(selected) {
+      const idx = this.list.findIndex(a=> a.RoomId === roomId);
+      if(idx > -1) {
+        this.reserve.push(this.list[idx]);
+      }
+    }else {
+      const idx = this.reserve.findIndex(a=> a.RoomId === roomId);
+      this.reserve.splice(idx, 1);
+    }
+    console.log(this.reserve);
+  }
+
+  totalPrice(){
+    let price = 0;
+    this.reserve.forEach((a)=> {
+      price += a.roomPrice + a.addGuestPrice + a.addPetPrice + a.addOptionPrice;
+    });
+    return price;
+  }
+
+  setMenu(target){
+    this.selectedMenu = target;
+    switch(target) {
+      case 'accom': 
+      break;
+      case 'review':
+      break;
+    }
+  }
 }
