@@ -133,11 +133,13 @@
                         </div>
                     </li>
                 </ul>
-                <div class="pay_reserve">
-                    <span>총 결제금액: </span>
-                    <span>{{ totalPrice() | comma }}</span>
-                    <span>원</span>
-                    <button mat-flat-button color="primary">예약하기</button>
+                <div class="pay_reserve clear">
+                    <div class="rightBox">
+                        <span class="pay_result">
+                            총 결제금액 <span class="list_price">{{ totalPrice() | comma }}</span>원
+                        </span>
+                        <button class="mgl20">예약하기</button>
+                    </div>
                 </div>
             </div>
         </div>
