@@ -3,7 +3,6 @@ import { ViewportRuler } from '@angular/cdk/scrolling';
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { DialogService } from '@src/app/service/dialog.service';
 import { FileTransferService } from '@src/app/service/file-transfer.service';
-import { AlertComponent } from '../alert/alert.component';
 
 @Component({
   selector: 'app-img-multi',
@@ -108,7 +107,7 @@ export class ImgMultiComponent implements OnInit, AfterViewInit {
       if(files[key] instanceof File){
         const type = this.execFileType(files[key].name);
         if(type === 'none'){
-          this.dialog.alert(AlertComponent, {
+          this.dialog.alert({
             msg: 'jpg, gif, png 파일만 가능합니다.',
           });
           return null;

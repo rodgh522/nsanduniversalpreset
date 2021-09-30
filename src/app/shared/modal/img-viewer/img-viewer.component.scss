@@ -1,0 +1,10 @@
+.viewer-wrap{
+    position: relative;
+
+    div button{
+        position: absolute;
+        z-index: 9;
+        right: 10px;
+        font-size: 25px;
+    }
+}

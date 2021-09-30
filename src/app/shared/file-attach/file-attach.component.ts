@@ -1,7 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { DialogService } from '@src/app/service/dialog.service';
 import { FileTransferService } from '@src/app/service/file-transfer.service';
-import { AlertComponent } from '../alert/alert.component';
 
 @Component({
   selector: 'app-file-attach',
@@ -43,7 +42,7 @@ export class FileAttachComponent implements OnChanges{
       if(files[key] instanceof File){
         const type = this.execFileType(files[key].name);
         if(type === 'none'){
-          this.dialog.alert(AlertComponent, {
+          this.dialog.alert({
             msg: 'mp3, mp4, doc, docx, xls, xlsx, ppt, pptx, hwp, pdf, txt, jpg, gif, png, zip, alz, rar, 7z 파일만 가능합니다.',
           });
           return;

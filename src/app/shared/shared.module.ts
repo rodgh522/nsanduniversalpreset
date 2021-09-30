@@ -21,6 +21,8 @@ import { HttpClient } from '@angular/common/http';
 import { ImgSingleComponent } from '@src/app/shared/img-single/img-single.component';
 import { ImgMultiComponent } from '@src/app/shared/img-multi/img-multi.component';
 import { SwiperComponent } from '@src/app/shared/swiper/swiper.component';
+import { ImgViewerComponent } from '@src/app/shared/modal/img-viewer/img-viewer.component';
+import { ConfirmComponent } from '@src/app/shared/modal/confirm/confirm.component';
 
 export function createTranslateLoader(http: HttpClient){
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -29,7 +31,7 @@ export function createTranslateLoader(http: HttpClient){
 @NgModule({
   declarations: [
     FileAttachComponent,
-    AlertComponent, FileDropZoneDirective, FilesizePipe, ImgSingleComponent, ImgMultiComponent, SwiperComponent
+    AlertComponent, FileDropZoneDirective, FilesizePipe, ImgSingleComponent, ImgMultiComponent, SwiperComponent, ImgViewerComponent, ConfirmComponent
   ],
   imports: [
     CommonModule, 
