@@ -41,6 +41,7 @@ export class AccomListComponent implements OnInit, OnDestroy {
 
     this.subscription.push(this.searchService.searchList.subscribe((res)=> {
       this.srch = res;
+      this.srch.Sido = !this.srch.Sido || this.srch.Sido[0] == 'undefined' ? [] : this.srch.Sido;
     }));
   }
 
@@ -60,7 +61,9 @@ export class AccomListComponent implements OnInit, OnDestroy {
 
   arrToStr(arr){
     let result = '';
-    arr.forEach(a=> result += result == '' ? a : '/' + a);
+    arr.forEach((a)=> {
+      result += result == '' ? a : '/' + a
+    });
     return result;
   }
 
@@ -142,10 +145,11 @@ export class AccomListComponent implements OnInit, OnDestroy {
     const data = {
       AcomId: keyId,
       dates: this.srch.dates,
-      GuestMax: this.srch.GuestMax
+      GuestMax: this.srch.GuestMax,
+      straight: this.srch.straight
     };
-    this.searchService.setSearchDetail(data);
-    this.router.navigateByUrl('/unit');
+    const paramQuery = JSON.stringify(data);
+    this.router.navigate(['/unit', paramQuery]);
   }
   
 }

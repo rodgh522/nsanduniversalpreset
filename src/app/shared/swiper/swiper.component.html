@@ -1,18 +1,24 @@
-<h1>Thumbs</h1>
 <swiper [slidesPerView]="1" [spaceBetween]="50" [navigation]="true" [pagination]="{ clickable: true }"
-    [thumbs]="{ swiper: thumbsSwiper }">
-    <ng-template swiperSlide>Slide 1</ng-template>
-    <ng-template swiperSlide>Slide 2</ng-template>
-    <ng-template swiperSlide>Slide 3</ng-template>
-    <ng-template swiperSlide>Slide 4</ng-template>
-    <ng-template swiperSlide>Slide 5</ng-template>
-    <ng-template swiperSlide>Slide 6</ng-template>
+    class="main_image" [thumbs]="{ swiper: thumbsSwiper }" [ngStyle]="{'height': mainHeight}">
+    <ng-template swiperSlide *ngFor="let item of images">
+        <img src="{{ item.link }}" alt="" class="image_frame">
+    </ng-template>
+    <!-- <ng-template swiperSlide><div style="height: 100%; background-color: aliceblue;">Slide 1</div></ng-template>
+    <ng-template swiperSlide><div style="height: 100%; background-color: antiquewhite;">Slide 2</div></ng-template>
+    <ng-template swiperSlide><div style="height: 100%; background-color: aqua;">Slide 3</div></ng-template>
+    <ng-template swiperSlide><div style="height: 100%; background-color: aquamarine;">Slide 4</div></ng-template>
+    <ng-template swiperSlide><div style="height: 100%; background-color: azure;">Slide 5</div></ng-template>
+    <ng-template swiperSlide><div style="height: 100%; background-color: bisque;">Slide 6</div></ng-template> -->
 </swiper>
-<swiper [slidesPerView]="3" [spaceBetween]="50" (swiper)="setThumbsSwiper($event)" [navigation]="{}">
-    <ng-template swiperSlide>Slide 1</ng-template>
-    <ng-template swiperSlide>Slide 2</ng-template>
-    <ng-template swiperSlide>Slide 3</ng-template>
-    <ng-template swiperSlide>Slide 4</ng-template>
-    <ng-template swiperSlide>Slide 5</ng-template>
-    <ng-template swiperSlide>Slide 6</ng-template>
+<swiper [slidesPerView]="4" [spaceBetween]="5" (swiper)="setThumbsSwiper($event)" [navigation]="{}" 
+    class="thumb_image" [ngStyle]="{'height': thumbHeight}">
+    <ng-template swiperSlide *ngFor="let item of images">
+        <img src="{{ item.link }}" alt="" class="image_frame">
+    </ng-template>
+    <!-- <ng-template swiperSlide><div style="height: 100%; background-color: aliceblue;">Slide 1</div></ng-template>
+    <ng-template swiperSlide><div style="height: 100%; background-color: antiquewhite;">Slide 2</div></ng-template>
+    <ng-template swiperSlide><div style="height: 100%; background-color: aqua;">Slide 3</div></ng-template>
+    <ng-template swiperSlide><div style="height: 100%; background-color: aquamarine;">Slide 4</div></ng-template>
+    <ng-template swiperSlide><div style="height: 100%; background-color: azure;">Slide 5</div></ng-template>
+    <ng-template swiperSlide><div style="height: 100%; background-color: bisque;">Slide 6</div></ng-template> -->
 </swiper>

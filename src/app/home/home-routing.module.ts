@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
 import { AccomListComponent } from './accom-list/accom-list.component';
 import { UnitListComponent } from './unit-list/unit-list.component';
+import { PaymentComponent } from './payment/payment.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent,
@@ -13,7 +14,8 @@ const routes: Routes = [
         { path: '', redirectTo: 'main', pathMatch: ''},
         { path: 'main', component: MainComponent },
         { path: 'accom', component: AccomListComponent },
-        { path: 'unit', component: UnitListComponent }
+        { path: 'unit/:param', component: UnitListComponent },
+        { path: 'payment', component: PaymentComponent }
       ]},
   { path: 'login', component: LoginComponent },
   { path: 'join', component: JoinComponent }

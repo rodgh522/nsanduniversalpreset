@@ -23,8 +23,9 @@ import { UnitListComponent } from '@src/app/home/unit-list/unit-list.component';
 /* Pipe */
 import { CustomdatePipe } from '@src/app/pipe/customdate.pipe';
 import { AccomListComponent } from '@src/app/home/accom-list/accom-list.component';
-import { SidoPipe } from '../pipe/sido.pipe';
-import { CommaPipe } from '../pipe/comma.pipe';
+import { SidoPipe } from '@src/app/pipe/sido.pipe';
+import { CommaPipe } from '@src/app/pipe/comma.pipe';
+import { PaymentComponent } from '@src/app/home/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { CommaPipe } from '../pipe/comma.pipe';
 
     /* pipe */
     CustomdatePipe,
-    AccomListComponent, SidoPipe, CommaPipe
+    AccomListComponent, SidoPipe, CommaPipe, PaymentComponent
   ],
   imports: [
     CommonModule,

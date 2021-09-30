@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
         if(res.body.docCnt > 0){
           const stayChecked = this.loginform.controls['stayChecked'].value ? 'local' : 'session';
           this.session.signIn(data.LoginId, data.Pwd, stayChecked, res.body.docs[0]).then(()=> {
-            const whereTo = rootScope.savedUrl ? rootScope.savedUrl : '/admin';
+            const whereTo = rootScope.savedUrl ? rootScope.savedUrl : '/main';
             this.router.navigateByUrl(whereTo);
           });
         }

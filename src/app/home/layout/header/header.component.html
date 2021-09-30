@@ -6,6 +6,7 @@
         </div>
         <nav class="util">
             <ul>
+                <li><a href="http://59.15.3.210:8058/#/login" target="_blank">Partner Centre</a></li>
                 <li *ngIf="!isLoggedIn"><a (click)="goLogin()">LOGIN</a></li>
                 <li *ngIf="isLoggedIn"><a (click)="logout()">MyPage</a></li>
             </ul>

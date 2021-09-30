@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
+import { AlertComponent } from '../shared/alert/alert.component';
+import { ConfirmComponent } from '../shared/modal/confirm/confirm.component';
 
 @Injectable({
   providedIn: 'root'
@@ -20,25 +22,28 @@ export class DialogService {
     private matDialog: MatDialog
   ) { }
 
-  alert(component: ComponentType<any>, data: any) {
-    const dialogRef = this.matDialog.open(component, {data: data});
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+  alert(data: any) {
+    const dialogRef = this.matDialog.open(AlertComponent, {
+      hasBackdrop: true,
+      data: data
     });
+
+    dialogRef.afterClosed();
   }
 
-  confirm(component: ComponentType<any>, data: any){
-    const dialogRef = this.matDialog.open(component, {data: data});
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+  confirm(data: any){
+    const dialogRef = this.matDialog.open(ConfirmComponent, {
+      hasBackdrop: true,
+      data: data
     });
+
+    return dialogRef.afterClosed();
   }
 
-  modal(component: ComponentType<any>, data: any, config: MatDialogConfig): Observable<any>{
-    config.data = data;
-    const dialogRef = this.matDialog.open(component, config);
+  modal(component: ComponentType<any>, data: any, config?: MatDialogConfig): Observable<any>{
+    let matConfig = config ? config : {};
+    matConfig.data = data;
+    const dialogRef = this.matDialog.open(component, matConfig);
 
     return dialogRef.afterClosed();
   }

@@ -1,8 +1,14 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDatepickerToggle, MatDateRangeInput } from '@angular/material/datepicker';
+import { MatDialogConfig } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { rootScope } from '@src/app/global/global';
+import { StaticVariableService } from '@src/app/global/static-variable';
+import { DialogService } from '@src/app/service/dialog.service';
 import { PostApiService } from '@src/app/service/post-api.service';
 import { SearchService } from '@src/app/service/search.service';
+import { SessionService } from '@src/app/service/session.service';
+import { ImgViewerComponent } from '@src/app/shared/modal/img-viewer/img-viewer.component';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -10,7 +16,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './unit-list.component.html',
   styleUrls: ['./unit-list.component.scss']
 })
-export class UnitListComponent implements OnInit, OnDestroy {
+export class UnitListComponent implements OnInit {
 
   @ViewChild('matDateToggle') matDateToggle: MatDatepickerToggle<Date>;
   @ViewChild('rangeInput') rangeInput: MatDateRangeInput<Date>;
@@ -30,14 +36,17 @@ export class UnitListComponent implements OnInit, OnDestroy {
   review;
 
   constructor(
-    private searchService: SearchService,
-    private postApi: PostApiService
+    private activeRouter: ActivatedRoute,
+    private postApi: PostApiService,
+    private dialog: DialogService,
+    private staticVariable: StaticVariableService,
+    private router: Router,
+    private session: SessionService
   ) { 
     this.maxDay = new Date(Date.parse(this.today.toString()) + 30 * 1000 * 60 * 60 * 24);
     
-    this.subscription.push(this.searchService.searchDetail.subscribe(res=> {
-      this.srch = res;
-    }));
+    this.srch = JSON.parse(this.activeRouter.snapshot.params.param);
+    this.setDateData();
   }
 
   ngOnInit(): void {
@@ -49,13 +58,15 @@ export class UnitListComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(){
-    this.subscription.forEach(a=> a.unsubscribe());
+  setDateData(){
+    this.srch.dates = this.srch.dates.map((a)=> {
+      let b = new Date(a);
+      return b;
+    });
   }
 
   getData(){
     this.dataloader = true;
-    this.searchService.setSearchDetail(this.srch);
 
     let param = {
       ...this.srch,
@@ -67,7 +78,6 @@ export class UnitListComponent implements OnInit, OnDestroy {
       if(res.header.status === 200) {
         this.data = res.body.docs[0];
         this.prepRoomInfo(this.data.rooms);
-        console.log(this.data);
       }
     });
   }
@@ -94,6 +104,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
     }
     this.setDate(date.start, date.end);
     this.getData();
+    this.router.navigate(['/unit', JSON.stringify(this.srch)]);
   }
   
   setDate(beginDt: Date, endDt: Date){
@@ -122,6 +133,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
       a.addPetPrice = 0;
       a.addOptionPrice = 0;
       a.toggleOption = false;
+      a.photo = a.uploadFileList.length > 0 ? this.staticVariable.getFileDownloadUrl(a.uploadFileList[0].PhysicalFileNm) : 'assets/images/no_image.jpg';
       a.isBlocked = a.BlockYN === 'Y' || a.reservedCnt > 0;
       a.roomPrice = a.ChPrice > 0 ? a.ChPrice : a.DFTPrice;
       a.saleRate = a.ChPrice != 0 ? (a.DFTPrice - a.ChPrice) / a.DFTPrice * 100 : 0;
@@ -223,7 +235,6 @@ export class UnitListComponent implements OnInit, OnDestroy {
       const idx = this.reserve.findIndex(a=> a.RoomId === roomId);
       this.reserve.splice(idx, 1);
     }
-    console.log(this.reserve);
   }
 
   totalPrice(){
@@ -236,11 +247,76 @@ export class UnitListComponent implements OnInit, OnDestroy {
 
   setMenu(target){
     this.selectedMenu = target;
+    let param: any = {
+      AcomId: this.srch.AcomId
+    };
     switch(target) {
       case 'accom': 
+        if(!this.accomInfo) {
+          param.mapcode = 'getAcomInfo';
+          this.postApi.home(param, (res)=> {
+            if(res.header.status === 200) {
+              this.accomInfo = res.body.docs[0];
+            }
+          });
+        }
       break;
       case 'review':
       break;
     }
   }
+
+  openViewer(files){
+    if(!files || files.length === 0) {
+      return;
+    }
+    let config: MatDialogConfig = { 
+      hasBackdrop: true,
+      maxWidth: '900px'
+    };
+    this.dialog.modal(ImgViewerComponent, files, config);
+  }
+
+  goPayment(){
+    if(this.reserve.length === 0) {
+      return;
+    }
+    
+    let param = { 
+      ...this.srch, 
+      rooms: [ ...this.reserve ]
+    };
+    rootScope.paymentData = param;
+
+    if(!this.session.user$.value) {
+      this.askLogin();
+      return;
+    }
+    this.router.navigate(['/payment']);
+  }
+
+  askLogin(){
+    const data = {
+      msg: '로그인하지 않았습니다. 비회원으로 진행하시겠습니까?',
+      ok: {
+        msg: '예약하기',
+      },
+      cancel: {
+        msg: '로그인',
+      }
+    };
+
+    this.dialog.confirm(data).toPromise()
+    .then((res)=> {
+      if(res) {
+        if(res === 'ok') {
+          this.router.navigate(['/payment']);
+        }else {
+          rootScope.savedUrl = this.router.url;
+          this.router.navigateByUrl('/login');
+        }
+      }
+    });
+  }
+
 }
