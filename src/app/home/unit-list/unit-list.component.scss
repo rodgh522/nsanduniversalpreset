@@ -34,7 +34,7 @@ h2 { margin: 80px 0 20px 0; font-size: 32px; font-weight: 700; }
 
 /*** 객실 정보 ***/
 /** sub_visual **/
-.sub_visual .content { height: 400px; background: url('/assets/images/sub_visual.png') 50% 50% no-repeat; }
+.sub_visual .content { height: 400px; }
 .sub_visual .content .black_bg { position: relative; width: 100%; height: 100%; background-color: rgba(51, 51, 51, 0.5); }
 .sub_visual .sub_title { position: absolute; left: 60px; bottom: 50px;}
 .sub_visual .sub_title h2 { margin: 0 0 10px 0; font-size: 32px; color: #fff; }
@@ -128,9 +128,32 @@ h2 { margin: 80px 0 20px 0; font-size: 32px; font-weight: 700; }
 }
 .list_selected button { width: 230px; height: 50px; margin-top: 10px; background: #fff; color: #666; border: 1px solid #ddd; border-radius: 0; font-size: 16px; }
 /* 버튼 선택됐을 때, 사용할 수 없을 때 */
-// .list_selected button.focus { background: #93b85f; color: #fff; border: 1px solid #93b85f; }
-// .list_selected button.disabled { background: #f7f7f7; color: #bbb; border: 1px solid #ddd; cursor: default; }
+.list_selected button.focus { background: #93b85f; color: #fff; border: 1px solid #93b85f; }
+.list_selected button.disabled { background: #f7f7f7; color: #bbb; border: 1px solid #ddd; cursor: default; }
 
 .pay_reserve .pay_result { margin-top: 20px; height: 60px; color: #999; }
 .pay_reserve .pay_result .list_price { margin-left: 10px; color: #93b85f; font-size: 28px; font-weight: 700; }
 .pay_reserve button { width: 230px; height: 60px; margin: 20px 0 20px 20px; background: #93b85f; color: #fff; font-size: 18px; }
+
+.accom_info_top{
+    &> div {
+        display: inline-block;
+    }
+    .image_area{
+        width: 50%;
+    }
+    .info_area{
+        width: 50%;
+        height: 100%;
+        position: relative;
+        &> div{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding-left: 50px;
+            h2{
+                margin: 0;
+            }
+        }
+    }
+}

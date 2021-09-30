@@ -2,17 +2,19 @@
     <mat-spinner></mat-spinner>
 </div>
 <div id="main">
-    <section class="sub_visual">
-        <div class="content">
-            <div class="black_bg">
-                <div class="sub_title">
+    <section class="sub_visual" *ngIf="data">
+        <div class="content accom_info_top">
+            <div class="image_area">
+                <app-swiper imageHeight="280px" thumbHeight="110px" [images]="data.uploadFileList"></app-swiper>
+            </div>
+            <div class="info_area">
+                <div>
                     <h2>{{ data.AcomNm }}</h2>
                     <p>{{ data.Addr1 }}</p>
                 </div>
             </div>
         </div>
     </section>
-    <app-swiper></app-swiper>
     <div class="sub_snb">
         <div class="content">
             <nav class="sub_tab">
@@ -49,8 +51,8 @@
                 <ul class="nm_list">
                     <!-- loop -->
                     <li *ngFor="let item of list">
-                        <div class="list_img">
-                            <img src="assets/images/thumb/thumb1.png" alt="">
+                        <div class="list_img" (click)="openViewer(item.uploadFileList)">
+                            <img [src]="item.photo" alt="">
                         </div>
                         <div class="list_desc">
                             <div class="list_title">
@@ -128,8 +130,7 @@
                                 <span class="point_c"><b *ngIf="item.saleRate > 0">{{ item.saleRate }}</b></span> {{ item.roomPrice + item.addGuestPrice + item.addPetPrice + item.addOptionPrice | comma }}원
                             </div>
                             <div class="list_selected">
-                                <button mat-stroked-button *ngIf="!item.selected" (click)="setPrice(true, item, item.RoomId)"><i class="fa fa-check"></i>    선택</button>
-                                <button mat-flat-button color="primary" *ngIf="item.selected" (click)="setPrice(false, item, item.RoomId)"><i class="fa fa-check"></i>    선택</button>
+                                <button [ngClass]="[item.selected ? 'focus' : '', item.isBlocked ? 'disabled' : '']" (click)="setPrice(!item.selected, item, item.RoomId)"><i class="fa fa-check" *ngIf="item.selected"></i>    선택</button>
                             </div>
                         </div>
                     </li>
@@ -139,7 +140,7 @@
                         <span class="pay_result">
                             총 결제금액 <span class="list_price">{{ totalPrice() | comma }}</span>원
                         </span>
-                        <button class="mgl20">예약하기</button>
+                        <button class="mgl20" (click)="goPayment()">예약하기</button>
                     </div>
                 </div>
             </div>

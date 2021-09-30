@@ -37,7 +37,7 @@ export class SearchService {
       let data: any = {
         Sido: this.strToArray('Sido'),
         dates: this.strToArray('dates'),
-        GuestMax: sessionStorage.getItem('GuestMax'),
+        GuestMax: parseInt(sessionStorage.getItem('GuestMax')),
         straight: sessionStorage.getItem('straight')
       };
       this.searchList.next(data);
