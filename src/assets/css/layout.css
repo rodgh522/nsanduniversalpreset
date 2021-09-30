@@ -108,6 +108,8 @@ button { cursor: pointer; }
 /*** fnbArea ***/
 #fnbArea { height: 60px; border-top: 1px solid #ececec; line-height: 60px; }
 #fnbArea .fnb li { margin-right: 30px; font-size: 15px; }
+#fnbArea .fnb li:first-child a { color: #93b85f }
+#fnbArea .fnb li:first-child:after { display: inline-block; width: 1px; height: 10px; margin-left: 30px; background: #ececec; content: ''; }
 #fnbArea .fnb li:last-child { margin-right: 0; }
 
 /*** footer ***/
