@@ -1,0 +1,5 @@
+<form [formGroup]="infoform" class="flex-column">
+    <input type="text" placeholder="이름" formControlName="GuestNm">
+    <input type="text" placeholder="전화번호" formControlName="Mobile">
+</form>
+<button mat-flat-button color="primary" (click)="setData()">저장</button>

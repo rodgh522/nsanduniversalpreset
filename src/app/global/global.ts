@@ -42,6 +42,7 @@ export namespace rootScope{
   export let savedUrl: string;
   export let currentLanguage = '';
   export let navbarToggle: boolean;
+  export let paymentData: any = {};
 
   export let gVariable: any = {};
 
@@ -191,4 +192,15 @@ export function defaultCheckinTime(){
 export function isNullOrEmpty(value? : any): boolean{
   return value === '' || value === ' '  || value === '0.00' || value === null || value === undefined ||
   (value != null && typeof value === 'object' && !Object.keys(value).length);
+}
+
+export function changeFormat(list){
+  const result = list.map((a)=> {
+    var date = new Date(a);
+    return {
+      bookingDt: date.toStrFormat(),
+      bookingDay: date.getDay()
+    };
+  });
+  return result;
 }
