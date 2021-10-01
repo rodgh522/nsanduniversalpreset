@@ -71,7 +71,8 @@ export class UnitListComponent implements OnInit {
     let param = {
       ...this.srch,
       mapcode: 'getAcomDetail',
-      dates: this.changeFormat(this.srch.dates)
+      dates: this.changeFormat(this.srch.dates),
+      ChCode: sessionStorage.getItem('ChCode')
     };
     this.postApi.home(param, (res)=> {
       this.dataloader = false;
@@ -136,7 +137,7 @@ export class UnitListComponent implements OnInit {
       a.photo = a.uploadFileList.length > 0 ? this.staticVariable.getFileDownloadUrl(a.uploadFileList[0].PhysicalFileNm) : 'assets/images/no_image.jpg';
       a.isBlocked = a.BlockYN === 'Y' || a.reservedCnt > 0;
       a.roomPrice = a.ChPrice > 0 ? a.ChPrice : a.DFTPrice;
-      a.saleRate = a.ChPrice != 0 ? (a.DFTPrice - a.ChPrice) / a.DFTPrice * 100 : 0;
+      a.saleRate = a.ChPrice != 0 ? Math.round((a.DFTPrice - a.ChPrice) / a.DFTPrice * 100) : 0;
       a.selectedOption = '';
       a.options = [];
       a.selected = false;

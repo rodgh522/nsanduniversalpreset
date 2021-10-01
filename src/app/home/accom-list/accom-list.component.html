@@ -92,8 +92,11 @@
                                     <dl>
                                         <dt>{{ item.AcomNm }}</dt>
                                         <dd class="price">
-                                            <span class="sale_tag" *ngIf="item.ChPrice && item.ChPrice != 0">76%</span>
-                                            {{ item.DFTPrice | comma }}원
+                                            <p class="orig_price" *ngIf="item.saleRate > 0">{{ item.DFTPrice | comma }}원</p>
+                                            {{ item.price | comma }}원
+                                            <span class="sale_tag" *ngIf="item.saleRate > 0">
+                                                {{ item.saleRate }}%
+                                            </span>
                                         </dd>
                                     </dl>
                                 </div>
@@ -123,8 +126,13 @@
                                 <h3>{{ item.AcomNm }}</h3>
                             </div>
                             <div class="list_price">
-                                <span class="point_c" *ngIf="item.ChPrice && item.ChPrice != 0"><b>76%</b></span>
-                                {{ item.DFTPrice | comma }}원
+                                <p class="orig_price" *ngIf="item.saleRate > 0">{{ item.DFTPrice | comma }}원</p>
+                                {{ item.price | comma }}원
+                                <span class="point_c" *ngIf="item.saleRate > 0">
+                                    {{ item.saleRate }}%
+                                </span>
+                                <!-- {{ item.DFTPrice | comma }}원
+                                <span class="point_c" *ngIf="item.ChPrice && item.ChPrice != 0"><b>76%</b></span> -->
                             </div>
                         </div>
                     </li>

@@ -127,7 +127,7 @@
                             </div>
                             <div class="list_price">
                                 <p class="orig_price" *ngIf="item.saleRate > 0">{{ item.DFTPrice}}원</p>
-                                <span class="point_c"><b *ngIf="item.saleRate > 0">{{ item.saleRate }}</b></span> {{ item.roomPrice + item.addGuestPrice + item.addPetPrice + item.addOptionPrice | comma }}원
+                                <span class="point_c"><b *ngIf="item.saleRate > 0">{{ item.saleRate }}%</b></span> {{ item.roomPrice + item.addGuestPrice + item.addPetPrice + item.addOptionPrice | comma }}원
                             </div>
                             <div class="list_selected">
                                 <button [ngClass]="[item.selected ? 'focus' : '', item.isBlocked ? 'disabled' : '']" (click)="setPrice(!item.selected, item, item.RoomId)"><i class="fa fa-check" *ngIf="item.selected"></i>    선택</button>

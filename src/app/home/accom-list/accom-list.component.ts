@@ -47,10 +47,12 @@ export class AccomListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if(rootScope.isWeb) {
+      if(!this.srch.dates) {
+        this.router.navigateByUrl('/main');
+      }
       this.startDate = this.srch.dates[0];
       this.endDate = new Date(Date.parse(this.srch.dates[this.srch.dates.length - 1].toString()) + 1000 * 60 * 60 * 24);
       this.areaText = this.srch.Sido.length > 0 ? this.arrToStr(this.srch.Sido): '전국';
-      
       this.getList();
     }
   }
@@ -77,7 +79,8 @@ export class AccomListComponent implements OnInit, OnDestroy {
       uploadFileList: [],
       tableNm: 'accom',
       IdName: 'AcomId',
-      dates: this.changeFormat(this.srch.dates)
+      dates: this.changeFormat(this.srch.dates),
+      ChCode: sessionStorage.getItem('ChCode')
     };
     
     this.postApi.movilaSelect(param, (res)=> {
@@ -88,6 +91,13 @@ export class AccomListComponent implements OnInit, OnDestroy {
             a.link = this.staticVariable.getFileDownloadUrl(a.uploadFileList[0].PhysicalFileNm)
           } else {
             a.link = 'assets/images/no_image.jpg'
+          }
+          if(a.ChPrice > 0) {
+            a.price = a.ChPrice;
+            a.saleRate = Math.round((a.DFTPrice - a.ChPrice) / a.DFTPrice * 100);
+          }else {
+            a.isDiscounted = false;
+            a.price = a.DFTPrice;
           }
           return a;
         });
