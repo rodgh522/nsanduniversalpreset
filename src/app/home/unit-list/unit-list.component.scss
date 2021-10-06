@@ -107,22 +107,34 @@ h2 { margin: 80px 0 20px 0; font-size: 32px; font-weight: 700; }
 }
 
 .info_wrap{
-    margin: 30px;
-    padding: 50px;
-    background-color: #f6f6f6;
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fcfcfc;
 
     &> div:not(:first-of-type){ 
         margin-top: 20px;
     }
     
     &> div{
+        margin-bottom: 50px;
         h3{
-            color: #555;
-            font-size: 17px;
+            padding: 20px 0 40px 0;
+            color: #333;
+            border-top: 1px solid #333;
+            font-size: 18px;
+            font-weight: 500;
         }
         ul{
-            color: #777;
-            font-size: 15px;
+            color: #666;
+            font-size: 16px;
+            li {
+                list-style: none;
+                line-height: 1.8em;
+            }
+        }
+        a {
+            text-decoration: underline;
         }
     }
 }
