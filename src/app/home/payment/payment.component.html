@@ -1,5 +1,162 @@
-<form [formGroup]="infoform" class="flex-column">
-    <input type="text" placeholder="이름" formControlName="GuestNm">
-    <input type="text" placeholder="전화번호" formControlName="Mobile">
-</form>
-<button mat-flat-button color="primary" (click)="setData()">저장</button>
+<div id="main">
+    <section id="sec_orderInfo">
+        <div class="content">
+            <div class="sub_title">
+                <h2>예약정보</h2>
+                <p class="page_desc">
+                    <span class="title">추가 금액 안내</span>
+                    <span>캠핑푸드는 50,000원 미만일 경우 배송비 3,000원이 추가됩니다.</span>
+                </p>
+            </div>
+            <ul class="nm_list">
+                <li class="list_head clear m_no">
+                    <div class="wd_35p item_title">숙소이름/객실정보</div>
+                    <div class="wd_20p">입실/퇴실</div>
+                    <div class="wd_15p">객실가격</div>
+                    <div class="wd_15p">옵션가격</div>
+                    <div class="wd_15p">예약금액</div>
+                </li>
+                <!-- loop -->
+                <li *ngFor="let item of data.rooms">
+                    <div class="list_body">
+                        <div class="dp_td va_middle item_info">
+                            <div class="wd_35p item_title text-left">
+                                <h3>{{ data.acomNm }}</h3>
+                                <p>{{ item.roomNm }} / {{ data.straight }}박</p>
+                            </div>
+                            <div class="wd_20p item_time">
+                                <dl class="m_dl_h mg0auto">
+                                    <dt class="pc_no">입실</dt>
+                                    <dd>{{ data.dates[0] | customdate : 'kor' }} {{ data.checkin }}</dd>
+                                </dl>
+                                <dl class="m_dl_h mg0auto">
+                                    <dt class="pc_no">퇴실</dt>
+                                    <dd>{{ makeLastDay(data.dates[data.dates.length - 1]) | customdate : 'kor' }} {{ data.checkout }}</dd>
+                                </dl>
+                            </div>
+                            <div class="wd_15p">
+                                <dl class="m_dl_h">
+                                    <dt class="pc_no">객실가격</dt>
+                                    <dd>{{ item.roomPrice + item.addGuestPrice | comma }} 원</dd>
+                                </dl>
+                            </div>
+                            <div class="wd_15p">
+                                <dl class="m_dl_h">
+                                    <dt class="pc_no">옵션가격</dt>
+                                    <dd>{{ item.addPetPrice + item.addOptionPrice | comma }} 원</dd>
+                                </dl>
+                            </div>
+                            <div class="wd_15p">
+                                <dl class="m_dl_h">
+                                    <dt class="pc_no">예약금액</dt>
+                                    <dd>{{ item.roomPrice + item.addGuestPrice + item.addPetPrice + item.addOptionPrice | comma}} 원</dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="row clear item_coupon">
+                            <div class="mgr50">
+                                <label>
+                                    <input type="checkbox" class="mgr10" [(ngModel)]="item.useCoupon">이용권/쿠폰적용</label>
+                            </div>
+                            <div class="ip_div" *ngIf="item.useCoupon">
+                                <label class="mgr10">발행번호</label><input type="text" [(ngModel)]="item.PrintCode" placeholder="발행번호">
+                            </div>
+                            <div class="ip_div" *ngIf="item.useCoupon">
+                                <label class="mgr10">인증번호</label><input type="text" [(ngModel)]="item.VerifyCode" placeholder="인증번호">
+                            </div>
+                            <div class="btn_wrap" *ngIf="item.useCoupon">
+                                <button class="btn primary_btn" (click)="searchCoupon(item)">적용</button>
+                            </div>
+                            <div class="fl_right item_price va_middle">
+                                <span class="mgr10">결제예정금액</span>
+                                <span class="price">70,000 원</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="total_price fl_right">
+                <dl class="va_middle">
+                    <dt class="mgr10">총 결제금액</dt>
+                    <dd><span class="point_c">610,000</span> 원</dd>
+                </dl>
+            </div>
+        </div>
+    </section>
+    <section id="sec_ordererInfo">
+        <div class="content">
+            <div class="sub_title">
+                <h2>주문자정보</h2>
+            </div>
+            <div class="input_wrap">
+                <div>
+                    <label for="" class="es">주문자</label>
+                    <input type="text" placeholder="주문자 이름">
+                </div>
+                <div>
+                    <label for="" class="es">휴대폰 번호</label>
+                    <input type="text" placeholder="휴대폰 번호">
+                </div>
+                <div class="adr_box">
+                    <label for="">주소</label>
+                    <input type="text" class="zipcode" placeholder="우편번호"><button class="adr_btn">검색</button>
+                    <input type="text" class="mgb10" placeholder="주소">
+                    <input type="text" placeholder="상세주소">
+                </div>
+                <div class="em_box">
+                    <label for="">이메일</label>
+                    <input type="text" class="em_id" placeholder="아이디">
+                    <input type="text" class="em_hst" placeholder="@email.com">
+                    <select class="em_hst fl_right">
+                        <option value="">naver.com</option>
+                        <option value="">daum.com</option>
+                        <option value="">gmail.com</option>
+                        <option value="">직접 입력</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="sec_orderAddRequest">
+        <div class="content">
+            <div class="sub_title">
+                <h2>추가요청사항</h2>
+            </div>
+            <div class="input_wrap">
+                <div>
+                    <label>요청사항</label>
+                    <textarea placeholder="요청사항을 입력해주세요"></textarea>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="sec_orderPayment">
+        <div class="content">
+            <div class="sub_title">
+                <h2>결제방식선택</h2>
+            </div>
+            <div>
+                <ul class="ul_h">
+                    <li>
+                        <input type="radio" id="rd1"><label for="rd1">신용카드</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="rd2"><label for="rd2">실시간 계좌이체</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="rd3"><label for="rd3">무통장입금(가상계좌, 에스크로)</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="rd4"><label for="rd4">추가결제</label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <div class="btn_wrap text-center mgt50">
+        <div class="content">
+            <button class="btn-lg cancel_btn">이전</button>
+            <button class="btn-lg primary_btn">결제하기</button>
+        </div>
+    </div>
+</div>
