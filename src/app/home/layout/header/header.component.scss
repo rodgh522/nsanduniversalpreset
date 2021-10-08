@@ -1,0 +1,67 @@
+@import '/src/assets/var';
+
+/*** top ***/
+#top {
+    height: 52px;
+
+    .util {
+        float: right;
+        margin: 10px 0;
+        ul li {
+            float: left;
+            margin-right: 30px;
+            color: $light_gray;
+            font-size: 12px;
+            line-height: 32px;
+            a {
+                color: $light_gray;
+            }
+        }
+    }
+    .search_box {
+        float: right;
+        width: 200px;
+        height: 32px;
+        margin: 10px 0;
+        padding: 0 12px;
+        border-radius: 16px;
+        background: $gray_bg;
+        overflow: hidden;
+        input[type=text] {
+            width: 140px;
+            height: 32px;
+            border-radius: 16px;
+            padding: 0 6px;
+            background: transparent;
+        }
+        .search_btn {
+            float: right;
+            width: 22px;
+            height: 22px;
+            margin: 5px 0;
+            background: url('#{$img_url}search.png') 50% 50% no-repeat;
+        }
+    }
+}
+
+/*** header ***/
+#header {
+    height: 100px;
+    border-bottom: $gray_border;
+    .logo {
+        float: left;
+        margin: 18px 0;
+    }
+    .gnb {
+        float: right;
+        ul li {
+            display: inline-block;
+            margin-right: 40px;
+            line-height: 100px;
+            font-size: 18px;
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+}
