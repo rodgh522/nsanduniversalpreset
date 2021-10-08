@@ -103,7 +103,7 @@
                                 </div>
                             </div>
                             <div class="add_option">
-                                <button class="option_title" (click)="item.toggleOption = !item.toggleOption">옵션추가</button>
+                                <button class="option_title" *ngIf="data.options.length > 0" (click)="item.toggleOption = !item.toggleOption">옵션추가</button>
                                 <div class="add_option_box" *ngIf="item.toggleOption">
                                     <!-- 추가된 옵션 -->
                                     <div class="option_item" *ngFor="let added of item.options; let index = index">

@@ -116,7 +116,7 @@
             <div>
                 <ul class="nm_list">
                     <!-- loop -->
-                    <li *ngFor="let item of list">
+                    <li *ngFor="let item of list" (click)="goDetail(item.AcomId)">
                         <div class="list_img">
                             <img src="{{ item.link }}" alt="">
                         </div>

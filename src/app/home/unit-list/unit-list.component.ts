@@ -173,12 +173,12 @@ export class UnitListComponent implements OnInit {
     }
     const adult = room.baseInfo[0].Adult;
     const infant = room.baseInfo[0].Infant;
-    if(room.adult + room.infant > room.baseInfo[0].GuestStd) {
-      if(room.baseInfo[0].GuestStd - room.adult < 0){
-        room.addGuestPrice = (room.adult - room.baseInfo[0].GuestStd) * (adult ? adult : 0);
-        room.addGuestPrice += room.infant * (infant ? infant : 0);
-      }else {
-        room.addGuestPrice = ((room.adult + room.infant) - room.baseInfo[0].GuestStd) * (infant ? infant : 0);
+    if(room.adult + room.infant > room.baseInfo[0].GuestStd) {    // 성인 + 유아 > 기준인원
+      if(room.baseInfo[0].GuestStd - room.adult < 0){             // 기준인원 < 성인
+        room.addGuestPrice = ((room.adult - room.baseInfo[0].GuestStd) * (adult ? adult : 0)) * this.srch.straight;
+        room.addGuestPrice += (room.infant * (infant ? infant : 0)) * this.srch.straight;
+      }else {                                                     // 기준인원 > 성인
+        room.addGuestPrice = (((room.adult + room.infant) - room.baseInfo[0].GuestStd) * (infant ? infant : 0)) * this.srch.straight;
       }
     }else{
       room.addGuestPrice = 0;
@@ -216,7 +216,7 @@ export class UnitListComponent implements OnInit {
       item.pet -= item.pet > 0 ? 1 : 0;
     }
     if(item.pet > item.baseInfo[0].PetStd) {
-      item.addPetPrice = (item.pet - item.baseInfo[0].PetStd) * item.baseInfo[0].PetAdd;
+      item.addPetPrice = ((item.pet - item.baseInfo[0].PetStd) * item.baseInfo[0].PetAdd) * this.srch.straight;
     }else {
       item.addPetPrice = 0;
     }
@@ -285,6 +285,9 @@ export class UnitListComponent implements OnInit {
     
     let param = { 
       ...this.srch, 
+      acomNm: this.data.AcomNm,
+      checkin: this.data.CheckinTime,
+      checkout: this.data.CheckoutTime,
       rooms: [ ...this.reserve ]
     };
     rootScope.paymentData = param;
