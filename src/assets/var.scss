@@ -1,0 +1,28 @@
+$black: #333;
+$white: #fff;
+$point: #93b85f;
+
+$gray: #666;
+$light_gray: #aaa;
+
+$gray_bg: #fbfbfb;
+
+$basic_border: 1px solid #ddd;
+$gray_border: 1px solid #eee;
+
+$img_url: '/assets/images/';
+
+@mixin clear {
+    display: block;
+    clear: both;
+    content: '';
+}
+
+@mixin miniBar($margin, $bg) {
+    display: inline-block;
+    width: 1px;
+    height: 10px;
+    margin: $margin;
+    background-color: $bg;
+    content: '';
+}

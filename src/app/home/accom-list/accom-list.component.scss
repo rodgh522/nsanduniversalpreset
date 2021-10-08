@@ -22,7 +22,7 @@ h2 { margin: 80px 0 20px 0; font-size: 32px; font-weight: 700; }
 
 .sec_sub_search .reserv_layer.loc { top: 105px; left: -1px; }
 .reserv_box .reserv_layer.date { top: 105px; left: -1px; }
-.reserv_box .reserv_layer.number { top: -173px; border-bottom: 0; }
+.reserv_box .reserv_layer.number { bottom: -173px; border-top: 0; }
 
 /** sec_sub_recomm **/
 .sec_sub_recomm .recomm_box .arrow { top: 40%; }
