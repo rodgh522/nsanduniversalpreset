@@ -17,7 +17,7 @@
                     <div class="wd_15p">예약금액</div>
                 </li>
                 <!-- loop -->
-                <li *ngFor="let item of data.rooms">
+                <li *ngFor="let item of data.rooms; let index = index">
                     <div class="list_body">
                         <div class="dp_td va_middle item_info">
                             <div class="wd_35p item_title text-left">
@@ -64,7 +64,8 @@
                                     <p>{{  item.coupon.msg }}</p>
                                 </div>
                                 <label>
-                                    <input type="checkbox" class="mgr10" [(ngModel)]="item.useCoupon" (change)="onChangeCoupon(item)">이용권/쿠폰적용</label>
+                                    <input type="checkbox" class="mgr10" [(ngModel)]="item.useCoupon" 
+                                        [disabled]="item.localYN" (change)="onChangeCoupon(item)">이용권/쿠폰적용</label>
                             </div>
                             <div class="ip_div" *ngIf="item.useCoupon">
                                 <label class="mgr10">발행번호</label><input type="text" [(ngModel)]="item.PrintCode" placeholder="발행번호">
@@ -79,7 +80,10 @@
                         </div>
                         <div class="row clear item_coupon">
                             <div>
-                                <label><input type="checkbox" class="mgr10">지역민 할인</label>
+                                <label *ngIf="data.localYN === 'Y' && data.localRate && data.localRate > 0">
+                                    <input type="checkbox" class="mgr10" (click)="localDisc($event, item, index)" 
+                                        [disabled]="item.useCoupon" [(ngModel)]="item.localYN">지역민 할인
+                                </label>
                             </div>
                             <div class="fl_right item_price va_middle">
                                 <span class="mgr10">결제예정금액</span>
@@ -101,80 +105,88 @@
             </div>
         </div>
     </section>
-    <section id="sec_ordererInfo">
-        <div class="content">
-            <div class="sub_title">
-                <h2>주문자정보</h2>
+    <form [formGroup]="formInfo">
+        <section id="sec_ordererInfo">
+            <div class="content">
+                <div class="sub_title">
+                    <h2>주문자정보</h2>
+                </div>
+                <div class="input_wrap">
+                    <div>
+                        <label for="" class="es">*주문자</label>
+                        <input type="text" placeholder="주문자 이름" formControlName="GuestNm"
+                            [ngStyle]="{'borderColor': checkValid('GuestNm') ? '#f00': '#ddd'}">
+                    </div>
+                    <div>
+                        <label for="" class="es">*휴대폰 번호</label>
+                        <input type="text" placeholder="휴대폰 번호" formControlName="Mobile"
+                            [ngStyle]="{'borderColor': checkValid('Mobile') ? '#f00': '#ddd'}">
+                    </div>
+                    <!-- <div class="adr_box">
+                        <label for="">주소</label>
+                        <input type="text" class="zipcode" placeholder="우편번호"><button class="adr_btn">검색</button>
+                        <input type="text" class="mgb10" placeholder="주소">
+                        <input type="text" placeholder="상세주소">
+                    </div> -->
+                    <div class="em_box">
+                        <label for="">이메일</label>
+                        <input type="text" placeholder="아이디" formControlName="Email">
+                        <!-- <input type="text" class="em_hst" placeholder="@email.com" formControlName="emailGroup">
+                        <select class="em_hst fl_right" (change)="formInfo.controls.emailGroup = ">
+                            <option value="">gmail.com</option>
+                            <option value="">naver.com</option>
+                            <option value="">hanmail.net</option>
+                            <option value="">직접 입력</option>
+                        </select> -->
+                    </div>
+                </div>
             </div>
-            <div class="input_wrap">
-                <div>
-                    <label for="" class="es">주문자</label>
-                    <input type="text" placeholder="주문자 이름">
+        </section>
+        <section id="sec_orderAddRequest">
+            <div class="content">
+                <div class="sub_title">
+                    <h2>추가요청사항</h2>
+                </div>
+                <div class="input_wrap">
+                    <div>
+                        <label>요청사항</label>
+                        <textarea placeholder="요청사항을 입력해주세요" formControlName="Memo"></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="sec_orderPayment">
+            <div class="content">
+                <div class="sub_title">
+                    <h2>결제방식선택</h2>
                 </div>
                 <div>
-                    <label for="" class="es">휴대폰 번호</label>
-                    <input type="text" placeholder="휴대폰 번호">
-                </div>
-                <div class="adr_box">
-                    <label for="">주소</label>
-                    <input type="text" class="zipcode" placeholder="우편번호"><button class="adr_btn">검색</button>
-                    <input type="text" class="mgb10" placeholder="주소">
-                    <input type="text" placeholder="상세주소">
-                </div>
-                <div class="em_box">
-                    <label for="">이메일</label>
-                    <input type="text" class="em_id" placeholder="아이디">
-                    <input type="text" class="em_hst" placeholder="@email.com">
-                    <select class="em_hst fl_right">
-                        <option value="">naver.com</option>
-                        <option value="">daum.com</option>
-                        <option value="">gmail.com</option>
-                        <option value="">직접 입력</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="sec_orderAddRequest">
-        <div class="content">
-            <div class="sub_title">
-                <h2>추가요청사항</h2>
-            </div>
-            <div class="input_wrap">
-                <div>
-                    <label>요청사항</label>
-                    <textarea placeholder="요청사항을 입력해주세요"></textarea>
+                    <ul class="ul_h">
+                        <li>
+                            <input type="radio" id="rd1" value="CARD" formControlName="PaymentTy">
+                            <label for="rd1">신용카드</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="rd2" value="CASH" formControlName="PaymentTy">
+                            <label for="rd2">실시간 계좌이체</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="rd3" value="BANK" formControlName="PaymentTy">
+                            <label for="rd3">무통장입금(가상계좌, 에스크로)</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="rd4" value="ADDD" formControlName="PaymentTy">
+                            <label for="rd4">추가결제</label>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </section>
-    <section id="sec_orderPayment">
-        <div class="content">
-            <div class="sub_title">
-                <h2>결제방식선택</h2>
-            </div>
-            <div>
-                <ul class="ul_h">
-                    <li>
-                        <input type="radio" id="rd1"><label for="rd1">신용카드</label>
-                    </li>
-                    <li>
-                        <input type="radio" id="rd2"><label for="rd2">실시간 계좌이체</label>
-                    </li>
-                    <li>
-                        <input type="radio" id="rd3"><label for="rd3">무통장입금(가상계좌, 에스크로)</label>
-                    </li>
-                    <li>
-                        <input type="radio" id="rd4"><label for="rd4">추가결제</label>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </section>
+        </section>
+    </form>
     <div class="btn_wrap text-center mgt50">
         <div class="content">
-            <button class="btn-lg cancel_btn">이전</button>
-            <button class="btn-lg primary_btn">결제하기</button>
+            <button class="btn-lg cancel_btn" (click)="location.back()">이전</button>
+            <button class="btn-lg primary_btn" (click)="pay()">결제하기</button>
         </div>
     </div>
 </div>

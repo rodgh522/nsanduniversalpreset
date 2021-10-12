@@ -12,15 +12,17 @@ import { PostApiService } from '@src/app/service/post-api.service';
 })
 export class PaymentComponent implements OnInit {
 
-  infoform: FormGroup;
+  userInfo;
   data: any;
   couponList = [];
+  formInfo: FormGroup;
   constructor(
     private location: Location,
     private fb: FormBuilder,
     private postApi: PostApiService
   ) { 
     this.data = rootScope.paymentData;
+    this.userInfo = rootScope.gVariable;
   }
 
   ngOnInit(): void {
@@ -39,13 +41,18 @@ export class PaymentComponent implements OnInit {
   }
 
   formInit(){
-    this.infoform = this.fb.group({
-      GuestNm: ['', [
+    console.log(this.userInfo);
+    this.formInfo = this.fb.group({
+      GuestNm: [this.userInfo.MemNm ? this.userInfo.MemNm : '', [
         Validators.required
       ]],
-      Mobile: ['', [
+      Mobile: [this.userInfo.Mobile ? this.userInfo.Mobile : '', [
         Validators.required
-      ]]
+      ]],
+      Email: ['', []],
+      Memo: ['', []],
+      PaymentTy: ['', []]
+      // emailGroup: ['', []]
     })
   }
 
@@ -53,17 +60,17 @@ export class PaymentComponent implements OnInit {
     if(this.isFormCompleted()) {
       return;
     }
-    let form = formToObj(this.infoform.controls);
+    let form = formToObj(this.formInfo.controls);
     let param: any = { ...form, ...this.data };
     param.dates = changeFormat(this.data.dates);
     console.log(param);
   }
 
   isFormCompleted(){
-    if(validCheck(this.infoform.controls)){
-      for(const key in this.infoform.controls){
-        if(this.infoform.controls[key]){
-          this.infoform.controls[key].markAsTouched();
+    if(validCheck(this.formInfo.controls)){
+      for(const key in this.formInfo.controls){
+        if(this.formInfo.controls[key]){
+          this.formInfo.controls[key].markAsTouched();
         }
       }
       return true;
@@ -73,7 +80,12 @@ export class PaymentComponent implements OnInit {
   }
 
   searchCoupon(item) {
-    console.log(this.couponList);
+    if(item.localYN) {
+      item.coupon.resultCode = 0;
+      item.coupon.msg = '중복할인은 적용되지 않습니다.';
+      return;
+    }
+    
     // 이전에 적용시킨 쿠폰이 있는지 확인
     if(item.prevCode) {
       this.removeCoupon(item);                    // 같지 않으면 적용 쿠폰리스트에서 이전 쿠폰 제거
@@ -184,6 +196,33 @@ export class PaymentComponent implements OnInit {
     item.VerifyCode = '';
   }
 
+  localDisc(e, item, idx) {
+    if(e.target.checked) {
+      if(item.useCoupon) {
+        item.coupon.resultCode = 0;
+        item.coupon.msg = '중복할인은 적용되지 않습니다.';
+        item.localYN = false;
+        return;
+      }
+
+      this.data.rooms.forEach((a, i)=> {
+        if(i === idx) {
+          a.localYN = true;
+        }else {
+          a.localYN = false;
+          a.roomPrice = a.ChPrice > 0 ? a.ChPrice : a.DFTPrice;
+          a.salePrice = a.useCoupon ? a.salePrice : 0;
+        }
+      });
+      this.removeCoupon(item);
+      item.roomPrice = item.DFTPrice;
+      item.salePrice = Math.round((item.DFTPrice + item.addGuestPrice) * (this.data.localRate / 100));
+    }else {
+      item.roomPrice = item.ChPrice > 0 ? item.ChPrice : item.DFTPrice;
+      item.salePrice = 0;
+    }
+  }
+
   finalPrice(){
     if(!this.data && !this.data.rooms) {
       return;
@@ -195,5 +234,61 @@ export class PaymentComponent implements OnInit {
     this.data.finalPrice = price += this.data.shipping ? 3000 : 0;
     return price;
   }
+
+  checkValid(target){
+    return this.formInfo.controls[target].touched && !this.formInfo.controls[target].valid;
+  }
+
+  pay(){
+    if(validCheck(this.formInfo.controls)){
+      for(const key in this.formInfo.controls){
+        if(this.formInfo.controls[key]){
+          this.formInfo.controls[key].markAsTouched();
+        }
+      }
+      return;
+    }
+    const formData = formToObj(this.formInfo.controls);
+    const payment = {
+      PayStatus: 'SUCCESS',
+      PaymentTy: formData.PaymentTy,
+      PaymentNum: '12841893',
+      OrderTotal: this.data.finalPrice,
+      PayTotal: this.data.finalPrice,
+      CashReceipt: 'Y'
+    };
+
+    this.makeData();
+    let param = {
+      ...formData, 
+      payment: payment,
+      rooms: this.data.rooms,
+      MemId: this.userInfo.MemId ? this.userInfo.MemId : '',
+      ChCode: this.userInfo.ChCode ? this.userInfo.ChCode : '',
+      CheckinDt: this.data.dates[0].toStrFormat(),
+      CheckoutDt: this.makeLastDay(this.data.dates[this.data.dates.length - 1]).toStrFormat(),
+    };
+    console.log(param);
+  }
   
+  makeData(){
+    // 할인 적용 항목
+    this.data.rooms.forEach((a)=> {
+      let discount: any;
+      if(a.coupon && a.coupon.resultCode === 1) {
+        discount = {
+          CouponId: a.coupon.result.CouponId,
+          Promotion: a.coupon.result.CouponNm,
+          PromotionPrice: a.salePrice
+        };
+      }else if(a.localYN) {
+        discount = {
+          CouponId: '',
+          Promotion: '지역민할인',
+          PromotionPrice: a.salePrice
+        };
+      }
+      a.discount = discount;
+    });
+  }
 }

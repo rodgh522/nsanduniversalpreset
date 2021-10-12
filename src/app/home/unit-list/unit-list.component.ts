@@ -288,6 +288,9 @@ export class UnitListComponent implements OnInit {
       acomNm: this.data.AcomNm,
       checkin: this.data.CheckinTime,
       checkout: this.data.CheckoutTime,
+      localYN: this.data.LocalDiscYN,
+      localRate: this.data.LocalRate,
+      localMax: this.data.LocalMax,
       rooms: [ ...this.reserve ]
     };
     rootScope.paymentData = param;
