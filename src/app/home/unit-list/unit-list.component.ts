@@ -194,7 +194,7 @@ export class UnitListComponent implements OnInit {
     }
 
     item.options.forEach((a)=> {
-      price += a.totalCnt * a.ItemPrice;
+      price += a.CashYN === 'Y' ? 0 : a.totalCnt * a.ItemPrice;
     });
     item.addOptionPrice = price;
   }

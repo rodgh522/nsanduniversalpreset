@@ -37,7 +37,11 @@
                             <div class="wd_15p">
                                 <dl class="m_dl_h">
                                     <dt class="pc_no">객실가격</dt>
-                                    <dd>{{ item.roomPrice + item.addGuestPrice | comma }} 원</dd>
+                                    <dd [ngClass]="[item.salePrice && item.salePrice > 0 ? 'orig_price': '']">{{ item.roomPrice + item.addGuestPrice | comma }} 원</dd>
+                                </dl>
+                                <dl class="m_dl_h" *ngIf="item.salePrice && item.salePrice > 0">
+                                    <dt class="pc_no"></dt>
+                                    <dd>{{ item.roomPrice + item.addGuestPrice - item.salePrice | comma }} 원</dd>
                                 </dl>
                             </div>
                             <div class="wd_15p">
@@ -49,14 +53,18 @@
                             <div class="wd_15p">
                                 <dl class="m_dl_h">
                                     <dt class="pc_no">예약금액</dt>
-                                    <dd>{{ item.roomPrice + item.addGuestPrice + item.addPetPrice + item.addOptionPrice | comma}} 원</dd>
+                                    <dd>{{ item.roomPrice + item.addGuestPrice + item.addPetPrice + item.addOptionPrice - (item.salePrice ? item.salePrice : 0) | comma}} 원</dd>
                                 </dl>
                             </div>
                         </div>
                         <div class="row clear item_coupon">
                             <div class="mgr50">
+                                <!-- 쿠폰적용 메세지 -->
+                                <div class="msg" *ngIf="item.coupon && item.coupon.resultCode === 0">
+                                    <p>{{  item.coupon.msg }}</p>
+                                </div>
                                 <label>
-                                    <input type="checkbox" class="mgr10" [(ngModel)]="item.useCoupon">이용권/쿠폰적용</label>
+                                    <input type="checkbox" class="mgr10" [(ngModel)]="item.useCoupon" (change)="onChangeCoupon(item)">이용권/쿠폰적용</label>
                             </div>
                             <div class="ip_div" *ngIf="item.useCoupon">
                                 <label class="mgr10">발행번호</label><input type="text" [(ngModel)]="item.PrintCode" placeholder="발행번호">
@@ -66,19 +74,29 @@
                             </div>
                             <div class="btn_wrap" *ngIf="item.useCoupon">
                                 <button class="btn primary_btn" (click)="searchCoupon(item)">적용</button>
+                                <button class="btn cancel_btn" (click)="removeCoupon(item); resetCode(item)">적용취소</button>
+                            </div>
+                        </div>
+                        <div class="row clear item_coupon">
+                            <div>
+                                <label><input type="checkbox" class="mgr10">지역민 할인</label>
                             </div>
                             <div class="fl_right item_price va_middle">
                                 <span class="mgr10">결제예정금액</span>
-                                <span class="price">70,000 원</span>
+                                <span class="price">{{ item.roomPrice + item.addGuestPrice + item.addPetPrice + item.addOptionPrice - (item.salePrice ? item.salePrice : 0) | comma}} 원</span>
                             </div>
                         </div>
                     </div>
                 </li>
             </ul>
             <div class="total_price fl_right">
+                <dl class="va_middle" *ngIf="data.shipping">
+                    <dt class="mgr10">+ 배송비</dt>
+                    <dd><span class="">3000</span> 원</dd>
+                </dl>
                 <dl class="va_middle">
                     <dt class="mgr10">총 결제금액</dt>
-                    <dd><span class="point_c">610,000</span> 원</dd>
+                    <dd><span class="point_c">{{ finalPrice() | comma }}</span> 원</dd>
                 </dl>
             </div>
         </div>

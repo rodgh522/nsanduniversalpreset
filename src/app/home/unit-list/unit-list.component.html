@@ -114,6 +114,10 @@
                                             <input type="text" class="count_inp" [value]="added.totalCnt" disabled>
                                             <button class="plus_btn" (click)="setOption(item, added, '+')"></button>
                                         </div>
+                                        <div class="option_condition">
+                                            <span class="option_condition_cash" *ngIf="added.CashYN === 'Y'">현장결제</span>
+                                            <span class="option_condition_delivery" *ngIf="added.DeliveryYN === 'Y'">배송비</span>
+                                        </div>
                                     </div>
                                     <!-- //추가된 옵션 -->
                                     <div class="option_select">

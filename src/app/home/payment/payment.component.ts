@@ -14,6 +14,7 @@ export class PaymentComponent implements OnInit {
 
   infoform: FormGroup;
   data: any;
+  couponList = [];
   constructor(
     private location: Location,
     private fb: FormBuilder,
@@ -26,11 +27,14 @@ export class PaymentComponent implements OnInit {
     if(rootScope.isWeb) {
       if(isNullOrEmpty(this.data)) {
         this.location.back();
+      }else{
+        this.data.rooms[0].PrintCode = '1707200342';
+        this.data.rooms[0].VerifyCode = 'CMB2-L85M-J65C';
+        this.addShipping();
+        console.log(this.data);
+
       }
     }
-    this.data.rooms[0].PrintCode = '1707200342';
-    this.data.rooms[0].VerifyCode = 'CMB2-L85M-J65C';
-    console.log(this.data);
     this.formInit();
   }
 
@@ -69,6 +73,20 @@ export class PaymentComponent implements OnInit {
   }
 
   searchCoupon(item) {
+    console.log(this.couponList);
+    // 이전에 적용시킨 쿠폰이 있는지 확인
+    if(item.prevCode) {
+      this.removeCoupon(item);                    // 같지 않으면 적용 쿠폰리스트에서 이전 쿠폰 제거
+    }
+    item.prevCode = item.PrintCode;
+    item.coupon = {};
+    if(this.checkDupleCoupon(item.PrintCode)) {   // 적용 쿠폰 리스트에 먼저 등록되었는지 체크
+      item.coupon = {
+        resultCode: 0,
+        msg: '적용된 객실이 있습니다.'
+      };
+      return;
+    }
     const dates = this.changeFormat(this.data.dates);
     let param: any = {
       mapcode: 'searchCoupon',
@@ -89,6 +107,7 @@ export class PaymentComponent implements OnInit {
     });
   }
 
+  // 쿠폰 검색시 'yyyy-mm-dd' 데이터와 day(0 - 6) 데이터 필요
   changeFormat(list){
     const result = list.map((a)=> {
       var date = new Date(a);
@@ -100,20 +119,81 @@ export class PaymentComponent implements OnInit {
     return result;
   }
 
+  // 적용 쿠폰 리스트에 추가 (할인요금 계산)
   adjCoupon(item){
-    const coupon = {...item.coupon.result};
+    let coupon = {...item.coupon.result};
     let sleepInRow = typeof this.data.straight === 'string' ? parseInt(this.data.straight) : this.data.straight;
     const guestPrice = item.addGuestPrice / sleepInRow;
     if(coupon.CouponTy === 'PASS') {
       item.salePrice = coupon.orgPrice + guestPrice;
     }else {
-      item.salePrice = coupon.Discount;
+      item.salePrice = coupon.Discount > coupon.orgPrice ? coupon.orgPrice : coupon.Discount;     // 할인 한도가 객실금액을 넘지 못한다.
     }
-    console.log(item);
+    coupon.RoomId = item.RoomId;
+    coupon.PrintCode = item.PrintCode;
+    this.couponList.push(coupon);
+    console.log(this.couponList);
   }
   
+  // 퇴실일 계산
   makeLastDay(date: Date) {
     return new Date(Date.parse(date.toString()) + 1000 * 60 * 60 * 24);
+  }
+
+  // 적용된 쿠폰 중복체크
+  checkDupleCoupon(newCode){
+    const duple = this.couponList.filter(a=> a.PrintCode == newCode);
+    if(duple.length > 0) {
+      return true;
+    }else {
+      return false;
+    }
+  }
+
+  // 적용 쿠폰 제거 및 할인요금 제거
+  removeCoupon(item) {
+    item.coupon = {};
+    item.salePrice = 0;
+    const idx = this.couponList.findIndex(a=> a.RoomId == item.RoomId);
+    if(idx > -1) {                                        // 리스트에 있으면 제거
+      this.couponList.splice(idx, 1);
+    }
+  }
+
+  // DeliveryYN 체크된 옵션 요금 5만원 미만 배송료 추가
+  addShipping(){
+    let total = 0;
+    this.data.rooms.forEach((a)=> {
+      a.options.forEach((b)=> {
+        total += b.DeliveryYN === 'Y' ? b.ItemPrice : 0;
+      });
+    });
+    this.data.shipping = total > 0 && total < 50000 ? true : false;
+  }
+  
+  onChangeCoupon(item){
+    console.log(item);
+    if(!item.useCoupon) {
+      this.removeCoupon(item);
+      this.resetCode(item);
+    }
+  }
+
+  resetCode(item){
+    item.PrintCode = '';
+    item.VerifyCode = '';
+  }
+
+  finalPrice(){
+    if(!this.data && !this.data.rooms) {
+      return;
+    }
+    let price = 0;
+    this.data.rooms.forEach((a)=> {
+      price += a.roomPrice + a.addGuestPrice + a.addPetPrice + a.addOptionPrice - (a.salePrice && a.salePrice > 0 ? a.salePrice : 0);
+    });
+    this.data.finalPrice = price += this.data.shipping ? 3000 : 0;
+    return price;
   }
   
 }

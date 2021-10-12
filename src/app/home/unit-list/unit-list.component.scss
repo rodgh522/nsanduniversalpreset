@@ -169,3 +169,23 @@ h2 { margin: 80px 0 20px 0; font-size: 32px; font-weight: 700; }
         }
     }
 }
+.option_condition{
+    span{
+        text-align: end;
+        font-size: 12px !important;
+        width: unset !important;
+        line-height: unset !important;
+        margin-top: 10px;
+        margin-right: 5px;
+        padding: 0 5px;
+        border-radius: 20px;
+
+        &.option_condition_cash{
+            border: 1px solid #6e8;
+        }
+
+        &.option_condition_delivery{
+            border: 1px solid #ff7f50;
+        }
+    }
+}
