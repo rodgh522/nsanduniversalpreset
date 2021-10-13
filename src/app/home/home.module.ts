@@ -26,6 +26,7 @@ import { AccomListComponent } from '@src/app/home/accom-list/accom-list.componen
 import { SidoPipe } from '@src/app/pipe/sido.pipe';
 import { CommaPipe } from '@src/app/pipe/comma.pipe';
 import { PaymentComponent } from '@src/app/home/payment/payment.component';
+import { CompleteComponent } from '@src/app/home/payment/complete/complete.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { PaymentComponent } from '@src/app/home/payment/payment.component';
 
     /* pipe */
     CustomdatePipe,
-    AccomListComponent, SidoPipe, CommaPipe, PaymentComponent
+    AccomListComponent, SidoPipe, CommaPipe, PaymentComponent, CompleteComponent
   ],
   imports: [
     CommonModule,

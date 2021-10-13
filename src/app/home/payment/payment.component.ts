@@ -1,8 +1,9 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { changeFormat, formToObj, isNullOrEmpty, rootScope, validCheck } from '@src/app/global/global';
+import { DialogService } from '@src/app/service/dialog.service';
 import { PostApiService } from '@src/app/service/post-api.service';
 
 @Component({
@@ -19,7 +20,9 @@ export class PaymentComponent implements OnInit {
   constructor(
     private location: Location,
     private fb: FormBuilder,
-    private postApi: PostApiService
+    private postApi: PostApiService,
+    private dialog: DialogService,
+    private router: Router
   ) { 
     this.data = rootScope.paymentData;
     this.userInfo = rootScope.gVariable;
@@ -177,14 +180,14 @@ export class PaymentComponent implements OnInit {
     let total = 0;
     this.data.rooms.forEach((a)=> {
       a.options.forEach((b)=> {
-        total += b.DeliveryYN === 'Y' ? b.ItemPrice : 0;
+        total += b.DeliveryYN === 'Y' ? b.ItemPrice * b.totalCnt : 0;
       });
     });
     this.data.shipping = total > 0 && total < 50000 ? true : false;
   }
   
+  // 쿠폰 미적용
   onChangeCoupon(item){
-    console.log(item);
     if(!item.useCoupon) {
       this.removeCoupon(item);
       this.resetCode(item);
@@ -196,6 +199,7 @@ export class PaymentComponent implements OnInit {
     item.VerifyCode = '';
   }
 
+  // 지역민 할인 적용
   localDisc(e, item, idx) {
     if(e.target.checked) {
       if(item.useCoupon) {
@@ -223,6 +227,7 @@ export class PaymentComponent implements OnInit {
     }
   }
 
+  // 총 결제금액 계산
   finalPrice(){
     if(!this.data && !this.data.rooms) {
       return;
@@ -239,6 +244,7 @@ export class PaymentComponent implements OnInit {
     return this.formInfo.controls[target].touched && !this.formInfo.controls[target].valid;
   }
 
+  // 결제 후 예약
   pay(){
     if(validCheck(this.formInfo.controls)){
       for(const key in this.formInfo.controls){
@@ -264,11 +270,26 @@ export class PaymentComponent implements OnInit {
       payment: payment,
       rooms: this.data.rooms,
       MemId: this.userInfo.MemId ? this.userInfo.MemId : '',
+      ResvStat: 'COM',
       ChCode: this.userInfo.ChCode ? this.userInfo.ChCode : '',
       CheckinDt: this.data.dates[0].toStrFormat(),
       CheckoutDt: this.makeLastDay(this.data.dates[this.data.dates.length - 1]).toStrFormat(),
+      mapcode: 'makeBooking'
     };
     console.log(param);
+
+    this.postApi.home(param, (res)=>{
+      if(res.header.status === 200) {
+        const result = res.body.docs[0];
+        const args = {
+          rooms: result.rooms,
+          resvStat: result.ResvStat
+        };
+        this.router.navigate(['/complete', JSON.stringify(args)]);
+      }else if(res.header.status === 406) {
+        this.dialog.alert({msg: res.body.docs[0].errMessage});
+      }
+    });
   }
   
   makeData(){
@@ -288,7 +309,14 @@ export class PaymentComponent implements OnInit {
           PromotionPrice: a.salePrice
         };
       }
-      a.discount = discount;
+      a.discount = discount ? [discount] : [];
     });
   }
+
+  goBack(){
+    if(rootScope.isWeb) {
+      this.location.back();
+    }
+  }
+  
 }

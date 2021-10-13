@@ -7,6 +7,7 @@ import { MainComponent } from './main/main.component';
 import { AccomListComponent } from './accom-list/accom-list.component';
 import { UnitListComponent } from './unit-list/unit-list.component';
 import { PaymentComponent } from './payment/payment.component';
+import { CompleteComponent } from './payment/complete/complete.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent,
@@ -15,7 +16,8 @@ const routes: Routes = [
         { path: 'main', component: MainComponent },
         { path: 'accom', component: AccomListComponent },
         { path: 'unit/:param', component: UnitListComponent },
-        { path: 'payment', component: PaymentComponent }
+        { path: 'payment', component: PaymentComponent },
+        { path: 'complete/:param', component: CompleteComponent },
       ]},
   { path: 'login', component: LoginComponent },
   { path: 'join', component: JoinComponent }

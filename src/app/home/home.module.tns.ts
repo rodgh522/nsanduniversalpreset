@@ -17,7 +17,7 @@ import { UnitListComponent } from '@src/app/home/unit-list/unit-list.component.t
     LoginComponent,
     MainComponent,
     FooterComponent,
-    UnitListComponent
+    UnitListComponent,
   ],
   imports: [
     NativeScriptCommonModule,
