@@ -1,0 +1,19 @@
+<div>
+    <div class="sub_title">
+        <div class="content">
+            <h2>예약완료</h2>
+            <p class="page_desc" *ngFor="let item of data.rooms">
+                <span class="title">{{ item.roomNm }}</span>
+                <span>
+                    예약번호 : {{ item.ResvNo }}
+                    <!-- <br> -->
+                </span>
+            </p>
+        </div>
+    </div>
+    <div class="btn_wrap text-center mgt50">
+        <div class="content">
+            <button class="btn-lg primary_btn" routerLink="/main">메인으로</button>
+        </div>
+    </div>
+</div>
