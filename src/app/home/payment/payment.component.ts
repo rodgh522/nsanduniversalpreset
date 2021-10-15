@@ -232,12 +232,14 @@ export class PaymentComponent implements OnInit {
     if(!this.data && !this.data.rooms) {
       return;
     }
-    let price = 0;
-    this.data.rooms.forEach((a)=> {
-      price += a.roomPrice + a.addGuestPrice + a.addPetPrice + a.addOptionPrice - (a.salePrice && a.salePrice > 0 ? a.salePrice : 0);
-    });
-    this.data.finalPrice = price += this.data.shipping ? 3000 : 0;
-    return price;
+    if(rootScope.isWeb) {
+      let price = 0;
+      this.data.rooms.forEach((a)=> {
+        price += a.roomPrice + a.addGuestPrice + a.addPetPrice + a.addOptionPrice - (a.salePrice && a.salePrice > 0 ? a.salePrice : 0);
+      });
+      this.data.finalPrice = price += this.data.shipping ? 3000 : 0;
+      return price;
+    }
   }
 
   checkValid(target){
@@ -276,7 +278,6 @@ export class PaymentComponent implements OnInit {
       CheckoutDt: this.makeLastDay(this.data.dates[this.data.dates.length - 1]).toStrFormat(),
       mapcode: 'makeBooking'
     };
-    console.log(param);
 
     this.postApi.home(param, (res)=>{
       if(res.header.status === 200) {
