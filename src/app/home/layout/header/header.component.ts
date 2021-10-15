@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import { rootScope } from '@src/app/global/global';
 import { SessionService } from '@src/app/service/session.service';
@@ -11,11 +11,14 @@ import { Subscription } from 'rxjs';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
+  offsetY;
+  mobMenuToggle = false;
   public isLoggedIn = false;
   private subscription: Array<Subscription> = [];
   constructor(
     private router: Router,
-    private session: SessionService
+    private session: SessionService,
+
   ){ 
 
     this.subscription.push(this.session.user$.subscribe(res=> {
@@ -23,7 +26,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }));
   }
 
+  @HostListener('window:scroll', ['$event'])
+  onScroll(event){
+    if(rootScope.isWeb) {
+      this.offsetY = window.pageYOffset;
+    }
+  }
+
   ngOnInit(): void {
+    if(rootScope.isWeb) {
+      this.offsetY = window.pageYOffset;
+    }
   }
 
   ngOnDestroy(){
