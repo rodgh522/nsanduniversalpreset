@@ -26,17 +26,30 @@
         ul li {
             line-height: 22px;
             font-weight: 300;
-            &:after {
-                @include miniBar(0 15px, $gray);
-            }
-            &:last-child {
-                &:after {
-                    display: none;
-                }
+            @include miniBar(0 15px, $gray);
+            &:last-child:after {
+                display: none;
             }
         }
     }
     .copyright {
         color: $light_gray;
+    }
+}
+
+@include tablet {
+    #fnbArea {
+        display: none;
+    }
+
+    #footer {
+        .info {
+            ul li {
+                margin-right: 20px;
+                &:after {
+                display: none;
+                }
+            }
+        }
     }
 }

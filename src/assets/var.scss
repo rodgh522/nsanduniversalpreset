@@ -1,3 +1,8 @@
+// path
+$img_url: '/assets/images/';
+
+
+// background & color
 $black: #333;
 $white: #fff;
 $point: #93b85f;
@@ -7,11 +12,26 @@ $light_gray: #aaa;
 
 $gray_bg: #fbfbfb;
 
+
+// border
 $basic_border: 1px solid #ddd;
+$black_border: 1px solid #333;
 $gray_border: 1px solid #eee;
 
-$img_url: '/assets/images/';
 
+// font-size
+$font_def: 16px;
+$font_xxs : 13px;
+$font_xs : 14px;
+$font_s  : 15px;
+$font_m  : 20px;
+$font_l  : 24px;
+$font_xl : 32px;
+
+
+
+
+// mixin
 @mixin clear {
     display: block;
     clear: both;
@@ -19,10 +39,74 @@ $img_url: '/assets/images/';
 }
 
 @mixin miniBar($margin, $bg) {
+    &:after {
+        display: inline-block;
+        width: 1px;
+        height: 10px;
+        margin: $margin;
+        background-color: $bg;
+        content: '';
+    }
+}
+
+@mixin basicInput($width: auto, $height: 36px) {
+    width: $width;
+    min-width: 80px;
+    height: $height;
+    padding: 3px 8px;
+    border: $basic_border;
+}
+
+@mixin textEllipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+@mixin textMultiEllipsis($line: 2) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: $line;
+    /*! autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */
+}
+
+@mixin mobile_menu {
     display: inline-block;
-    width: 1px;
-    height: 10px;
-    margin: $margin;
-    background-color: $bg;
+    position: absolute;
+    width: 23px;
+    border-top: 2px solid #333;
     content: '';
+    &.active {
+        bottom: 6px;
+        transition: all 0.2s;
+    }
+}
+
+@mixin td($td_num, $td_width) {
+    &:nth-child(#{$td_num}) {
+        width: #{$td_width};
+    }
+
+    @include tablet {
+        &:nth-child(#{$td_num}) {
+            width: 100% !important;
+        }
+    }
+}
+
+// breakpoints
+$breakpoint-desktop: 1200px;
+$breakpoint-tablet: 800px;
+
+@mixin tablet {
+    @media (max-width: #{$breakpoint-tablet}) {
+        @content;
+    }
+}
+@mixin desktop {
+    @media (max-width: #{$breakpoint-desktop}) {
+        @content;
+    }
 }
