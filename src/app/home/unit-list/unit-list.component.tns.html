@@ -1,1 +1,80 @@
-<Button text="unit-list works!" class="btn btn-primary"></Button>
+<GridLayout marginBottom="70">
+    <ScrollView #scrollView (scroll)="onScroll($event, scrollView, topView)">
+        <StackLayout>
+            <StackLayout #topView height="250" backgroundColor="#45ab9d">
+                <Label text="Unit" color="grey" textAlignment="center" fontSize="40" marginTop="40">
+                </Label>
+            </StackLayout>
+            <StackLayout width="100%" backgroundColor="white" padding="10">
+                <ScrollView orientation="horizontal" scrollBarIndicatorVisible="false">
+                    <StackLayout orientation="horizontal">
+                        <StackLayout margin="10" *ngFor="let item of data.rooms">
+                            <StackLayout height="110" width="125" borderRadius="5" backgroundColor="#65ADF1" [backgroundImage]="item.photo">
+                                <Button horizontalAlignment="right" marginRight="5"
+                                    marginTop="80" width="50" height="20" text="3.9"
+                                    color="#fff" backgroundColor="#3b75ff">
+                                </Button>
+                            </StackLayout>
+                            <Label fontSize="14" color="#000" [text]="item.roomNm">
+                            </Label>
+                            <Label fontSize="12" color="#999999" text="2018">
+                            </Label>
+                        </StackLayout>
+                        <StackLayout margin="10">
+                            <StackLayout height="110" width="125" borderRadius="5" backgroundColor="#65ADF1">
+                                <Button horizontalAlignment="right" marginRight="5"
+                                    marginTop="80" width="50" height="20" text="3.9"
+                                    color="#fff" backgroundColor="#3b75ff">
+                                </Button>
+                            </StackLayout>
+                            <Label fontSize="14" color="#000" text="Heming (Remix)">
+                            </Label>
+                            <Label fontSize="12" color="#999999" text="2018">
+                            </Label>
+                        </StackLayout>
+                        <StackLayout margin="10">
+                            <StackLayout height="110" width="125" borderRadius="5" backgroundColor="#65ADF1">
+                                <Button horizontalAlignment="right" marginRight="5"
+                                    marginTop="80" width="50" height="20" text="3.9"
+                                    color="#fff" backgroundColor="#3b75ff">
+                                </Button>
+                            </StackLayout>
+                            <Label fontSize="14" color="#000" text="Babi (Remix)">
+                            </Label>
+                            <Label fontSize="12" color="#999999" text="2018">
+                            </Label>
+                        </StackLayout>
+                        <StackLayout margin="10">
+                            <StackLayout height="110" width="125" borderRadius="5" backgroundColor="#65ADF1">
+                                <Button horizontalAlignment="right" marginRight="5"
+                                    marginTop="80" width="50" height="20" text="3.9"
+                                    color="#fff" backgroundColor="#3b75ff">
+                                </Button>
+                            </StackLayout>
+                            <Label fontSize="14" color="#000" text="Ed Sharan (Remix)">
+                            </Label>
+                            <Label fontSize="12" color="#999999" text="2018">
+                            </Label>
+                        </StackLayout>
+                        <StackLayout margin="10">
+                            <StackLayout height="110" width="125" borderRadius="5" backgroundColor="#65ADF1">
+                                <Button horizontalAlignment="right" marginRight="5"
+                                    marginTop="80" width="50" height="20" text="3.9"
+                                    color="#fff" backgroundColor="#3b75ff">
+                                </Button>
+                            </StackLayout>
+                            <Label fontSize="14" color="#000" text="Sweetner (Remix)">
+                            </Label>
+                            <Label fontSize="12" color="#999999" text="2018">
+                            </Label>
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
+                <Label textWrap="true" text="NativeScript Parallax" class="h2 description-label"></Label>
+				<Label textWrap="true" class="p-10" text="Tart muffin marshmallow marzipan cake. Brownie liquorice marzipan chupa chups wafer jelly beans liquorice candy cake. Lollipop icing halvah marzipan candy canes liquorice. Sesame snaps brownie dessert chocolate bar wafer brownie. Cupcake gingerbread tiramisu jelly liquorice jujubes gummi bears. Cotton candy marshmallow cotton candy tiramisu jelly sweet caramels marshmallow halvah. Chupa chups muffin candy. Tart topping dessert sweet dessert dragée cake cupcake chupa chups. Gummies tootsie roll dragée jelly beans candy canes jelly-o chocolate carrot cake. Powder jelly beans topping pie danish gummies jelly. jelly-o sesame snaps danish sweet roll marshmallow halvah croissant chupa chups. Cookie gummi bears jelly-o cake marshmallow danish chupa chups cotton candy. Carrot cake marshmallow sweet."></Label>
+				<Label textWrap="true" class="p-10" text="Gummi bears carrot cake fruitcake cookie jelly-o jelly beans. Gummi bears jelly beans sugar plum. Marzipan cookie pie wafer cupcake cake. Bonbon tiramisu toffee chocolate bar toffee ice cream gummies. Pastry marshmallow lollipop marshmallow chupa chups tiramisu candy powder. Brownie chupa chups biscuit biscuit bonbon icing pastry. Icing liquorice cupcake gingerbread cupcake. Tiramisu marzipan chocolate bar lollipop gummi bears bonbon. Powder wafer pudding chocolate cake jelly toffee. Halvah carrot cake oat cake sugar plum candy jelly-o. Cookie toffee toffee marzipan lollipop dragée donut. Chupa chups jelly-o candy cotton candy bear claw sweet roll tart."></Label>
+				<Label textWrap="true" class="p-10" text="Tart muffin marshmallow marzipan cake. Brownie liquorice marzipan chupa chups wafer jelly beans liquorice candy cake. Lollipop icing halvah marzipan candy canes liquorice. Sesame snaps brownie dessert chocolate bar wafer brownie. Cupcake gingerbread tiramisu jelly liquorice jujubes gummi bears. Cotton candy marshmallow cotton candy tiramisu jelly sweet caramels marshmallow halvah. Chupa chups muffin candy. Tart topping dessert sweet dessert dragée cake cupcake chupa chups. Gummies tootsie roll dragée jelly beans candy canes jelly-o chocolate carrot cake. Powder jelly beans topping pie danish gummies jelly. jelly-o sesame snaps danish sweet roll marshmallow halvah croissant chupa chups. Cookie gummi bears jelly-o cake marshmallow danish chupa chups cotton candy. Carrot cake marshmallow sweet."></Label>
+			</StackLayout>
+        </StackLayout>
+    </ScrollView>
+</GridLayout>

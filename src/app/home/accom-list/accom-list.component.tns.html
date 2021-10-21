@@ -1,1 +1,68 @@
-<Button text="accom-list works!" class="btn btn-primary"></Button>
+<GridLayout rows="auto,auto,*,auto" columns="auto">
+
+    <!-- tab content1 -->
+    <GridLayout *ngIf="selectedTabview == 0" row="2" width="100%"
+        backgroundColor="white">
+        <ListView [items]="items" separatorColor="transparent">
+            <ng-template let-item="item">
+                <StackLayout class="main">
+                    <StackLayout class="content">
+                        <Image stretch="aspectFill" class="card-img" (tap)="showItem(item.id)"
+                            [src]="item.cover"></Image>
+                        <GridLayout width="100%" columns="auto,*" rows="auto,auto"
+                            class="" verticalAlignment="center">
+                            <Label [text]="categoryIcon(item.category)" row="0"
+                                col="0" rowSpan="2" [backgroundColor]="item.categoryTag"
+                                class="fa category-icon"></Label>
+                            <Label row="0" col="1" class="item-name" textwrap="true"
+                                verticalAlignment="bottom"
+                                horizontalAlignment="left" [text]="item.name"></Label>
+                            <GridLayout row="1" col="1" rows="auto" columns="auto,auto,auto">
+                                <Label row="0" col="0" class="item-category"
+                                    textwrap="true" verticalAlignment="top"
+                                    horizontalAlignment="left" [text]="item.category"></Label>
+                                <Label col="1" row="0" class="fa rating-icon"
+                                    text="&#xf005;"></Label>
+                                <Label col="2" row="0" class="rating-value item-category"
+                                    [text]="item.rating"></Label>
+                            </GridLayout>
+                        </GridLayout>
+                        <StackLayout width="100%" marginTop="5" class="line"></StackLayout>
+
+                        <GridLayout columns="auto,*,auto,auto" rows="auto">
+                            <GridLayout col="0" rows="auto" columns="auto,auto"
+                                (tap)="toggleLike(item)">
+                                <Label col="0" row="0" #like [class]="item.isLike ? 'fa like-icon liked-active' : 'fa like-icon default'"
+                                    [text]="item.isLike ? '&#xf164;':'&#xf087;'"></Label>
+                                <Label col="1" row="0" class="layout" [text]="item.likes"></Label>
+                            </GridLayout>
+                            <StackLayout col="1" orientation="horizontal"
+                                marginLeft="15">
+                                <Label ref="" class="like-icon layout fa"
+                                    text="&#xf0e5;"></Label>
+                                <Label class="layout" [text]="item.comments"></Label>
+                            </StackLayout>
+                            <GridLayout col="2" rows="auto" columns="auto,auto"
+                                (tap)="toggleHeart(item)" marginRight="15">
+                                <Label col="0" row="0" #favorite [class]="item.isFavorite ? 'like-icon fa heart-active' : 'like-icon fa default'"
+                                    [text]="item.isFavorite ? '&#xf004;':'&#xf08a;'"></Label>
+                                <Label col="1" row="0" class="layout" text="Favorite"></Label>
+                            </GridLayout>
+                            <StackLayout col="3" orientation="horizontal">
+                                <Label ref="" class="like-icon layout fa"
+                                    text="&#xf045;"></Label>
+                                <Label class="layout" text="Share"></Label>
+                            </StackLayout>
+
+                        </GridLayout>
+                    </StackLayout>
+
+                    <StackLayout width="100%" class="lineBreak"></StackLayout>
+
+                </StackLayout>
+            </ng-template>
+        </ListView>
+    </GridLayout>
+
+
+</GridLayout>

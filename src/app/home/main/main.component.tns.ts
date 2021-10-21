@@ -29,5 +29,5 @@ export class MainComponent implements OnInit {
             topView.translateY = Math.floor(offset);
         }
     }
-}
+  }
 }

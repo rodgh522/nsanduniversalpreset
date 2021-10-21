@@ -1,14 +1,17 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "./out-tsc/app",
     "module": "esnext",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
     "types": [],
     "paths": {
       "@src/*": [
         "src/*.android.ts",
         "src/*.ios.ts",
-        "src/*.tns.ts"
+        "src/*.tns.ts",
+        "src/*.ts",
       ]
     }
   },

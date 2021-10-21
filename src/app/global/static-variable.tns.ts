@@ -1,6 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
-import { CONSTANT } from 'src/assets/global-constant';
+import { CONSTANT } from '../../assets/global-constant';
 import { rootScope } from './global';
 //import { GAlert } from '@src/app/component/gAlert/service';
 

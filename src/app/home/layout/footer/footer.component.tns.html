@@ -31,12 +31,18 @@
             </Label>
         </GridLayout>
         <GridLayout #tabContents col="1" marginTop="20"
-            (tap)="onBottomNavTap('unit')" verticalAlignment="middle">
-            <Label class="fa-regular" text="search" verticalAlignment="bottom"
+            (tap)="onBottomNavTap('accom')" verticalAlignment="middle">
+            <Label class="fa-regular" text="accom" verticalAlignment="bottom"
                 horizontalAlignment="center" fontSize="20">
             </Label>
         </GridLayout>
         <GridLayout #tabContents col="2" marginTop="20"
+            (tap)="onBottomNavTap('unit')" verticalAlignment="middle">
+            <Label class="fa-regular" text="unit" verticalAlignment="bottom"
+                horizontalAlignment="center" fontSize="20">
+            </Label>
+        </GridLayout>
+        <GridLayout #tabContents col="3" marginTop="20"
             (tap)="onBottomNavTap('login')" verticalAlignment="middle">
             <Label class="fa-regular" text="login" verticalAlignment="bottom"
                 horizontalAlignment="center" fontSize="20">

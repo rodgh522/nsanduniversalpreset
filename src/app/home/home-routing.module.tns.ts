@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
 import { NativeScriptRouterModule } from '@nativescript/angular';
+import { AccomListComponent } from './accom-list/accom-list.component.tns';
 import { HomeComponent } from './home.component.tns';
 import { LoginComponent } from './login/login.component.tns';
 import { MainComponent } from './main/main.component.tns';
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent,
     children: [
       { path: 'main', component: MainComponent },
+      { path: 'accom', component: AccomListComponent },
       { path: 'unit', component: UnitListComponent },
     ]
   },
