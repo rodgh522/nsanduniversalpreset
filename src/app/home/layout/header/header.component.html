@@ -1,34 +1,33 @@
-<div id="top">
-    <div class="content">
-        <div class="search_box">
-            <input type="text" placeholder="검색어를 입력해주세요">
-            <button class="search_btn"><span class="blind">검색</span></button>
+<header id="header">
+    <div id="top">
+        <div class="content">
+            <div class="search_box">
+                <input type="text" placeholder="검색어를 입력해주세요">
+                <button class="search_btn"><span class="blind">검색</span></button>
+            </div>
+            <nav class="util">
+                <ul>
+                    <li><a href="http://59.15.3.210:8058/#/login" target="_blank">파트너센터</a></li>
+                    <li *ngIf="!isLoggedIn"><a (click)="goLogin()">LOGIN</a></li>
+                    <li *ngIf="isLoggedIn"><a (click)="logout()">MYPAGE</a></li>
+                </ul>
+            </nav>
         </div>
-        <nav class="util">
-            <ul>
-                <li *ngIf="!isLoggedIn"><a (click)="goLogin()">LOGIN</a></li>
-                <li *ngIf="isLoggedIn"><a (click)="logout()">MYPAGE</a></li>
-            </ul>
-        </nav>
     </div>
-</div>
-<!-- 스크롤 내려가면 header top: 0 -->
-<!-- 동시에 #header.gnb top: 100px -->
-<header id="header" [ngStyle]="{'top': offsetY > 0 ? 0 : '51px'}">
-    <div class="content">
-        <a [ngClass]="['mobile_menu', mobMenuToggle ? 'active' : '']" (click)="mobMenuToggle = !mobMenuToggle">모바일메뉴</a>
-        <!-- <a class="mobile_menu active">모바일메뉴</a> -->
-        <!-- 클릭하면 .mobile_menu.active 클래스 추가하며 .gnb { display: block; } -->
-        <h1 class="logo"><a href="#"><img src="assets/images/logo.png" alt="모빌라"></a></h1>
-        <nav class="gnb" 
-            [ngStyle]="{'top': offsetY > 0 ? '100px' : '*', 'display': mobMenuToggle ? 'block' : 'none'}">
-            <ul>
-                <li><a href="#">모빌라캠핑장</a></li>
-                <li><a href="#">모빌라홀캠핑장</a></li>
-                <li><a href="#">단체행사</a></li>
-                <li><a href="#">이벤트</a></li>
-                <li><a href="#">커뮤니티</a></li>
-            </ul>
-        </nav>
+    <div id="head">
+        <div class="content">
+            <a [ngClass]="['mobile_menu', mobMenuToggle ? 'active' : '']" (click)="mobMenuToggle = !mobMenuToggle">모바일메뉴</a>
+            <h1 class="logo"><a href="#"><img src="./assets/images/logo.png" alt="모빌라"></a></h1>
+            <nav class="gnb"
+                [ngStyle]="{'display': mobMenuToggle ? 'block' : 'none'}">
+                <ul>
+                    <li><a href="#">모빌라캠핑장</a></li>
+                    <li><a href="#">모빌라홀캠핑장</a></li>
+                    <li><a href="#">단체행사</a></li>
+                    <li><a href="#">이벤트</a></li>
+                    <li><a href="#">커뮤니티</a></li>
+                </ul>
+            </nav>
+        </div>
     </div>
 </header>

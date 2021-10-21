@@ -9,6 +9,7 @@ $point: #93b85f;
 
 $gray: #666;
 $light_gray: #aaa;
+$light_gray2: #ddd;
 
 $gray_bg: #fbfbfb;
 
@@ -17,13 +18,14 @@ $gray_bg: #fbfbfb;
 $basic_border: 1px solid #ddd;
 $black_border: 1px solid #333;
 $gray_border: 1px solid #eee;
+$point_border: 1px solid #93b85f;
 
 
 // font-size
-$font_def: 16px;
 $font_xxs : 13px;
 $font_xs : 14px;
 $font_s  : 15px;
+$font_def: 16px;
 $font_m  : 20px;
 $font_l  : 24px;
 $font_xl : 32px;
@@ -39,7 +41,7 @@ $font_xl : 32px;
 }
 
 @mixin miniBar($margin, $bg) {
-    &:after {
+    &:not(:last-child):after {
         display: inline-block;
         width: 1px;
         height: 10px;
@@ -54,7 +56,47 @@ $font_xl : 32px;
     min-width: 80px;
     height: $height;
     padding: 3px 8px;
+    background: $white;
+    color: $gray;
     border: $basic_border;
+}
+@mixin blackButton($width: auto, $height: 36px) {
+    width: $width;
+    min-width: 80px;
+    height: $height;
+    background: $black;
+    color: $white;
+    border: $black_border;
+    cursor: pointer;
+}
+
+@mixin createButton($type, $width: auto, $height: 36px) {
+    /* 쓸지말지 고민됨.. */
+    width: $width;
+    min-width: 80px;
+    height: $height;
+    cursor: pointer;
+    // background: $black;
+    // color: $white;
+    // border: $black_border;
+    @if $type == default {
+        border: $basic_border;
+    } @else if $type == primary {
+        border: $black;
+        background: $black;
+        color: $white;
+    } @else if $type == cancel {
+        border: 1px solid transparent;
+        background: transparent;
+        color: $black;
+    }
+}
+@mixin buttonWrap($num, $btn_width) {
+    // $버튼 개수
+    max-width: ($btn_width * $num) + (10px * $num);
+    button {
+        @include blackButton($btn_width);
+    }
 }
 
 @mixin textEllipsis {
@@ -94,6 +136,13 @@ $font_xl : 32px;
             width: 100% !important;
         }
     }
+}
+
+@mixin bg($w, $h, $img_name) {
+    width: $w;
+    height: $h;
+    background: url('#{$img_url}#{$img_name}') 50% 50% no-repeat;
+    content: '';
 }
 
 // breakpoints
