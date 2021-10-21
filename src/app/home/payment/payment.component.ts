@@ -272,7 +272,7 @@ export class PaymentComponent implements OnInit {
       payment: payment,
       rooms: this.data.rooms,
       MemId: this.userInfo.MemId ? this.userInfo.MemId : '',
-      ResvStat: 'COM',
+      ResvStat: 'COMP',
       ChCode: this.userInfo.ChCode ? this.userInfo.ChCode : '',
       CheckinDt: this.data.dates[0].toStrFormat(),
       CheckoutDt: this.makeLastDay(this.data.dates[this.data.dates.length - 1]).toStrFormat(),
