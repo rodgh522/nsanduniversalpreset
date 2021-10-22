@@ -9,7 +9,8 @@ export class SearchService {
 
   searchList = new BehaviorSubject({});
   searchDetail = new BehaviorSubject({});
-  
+  srch: any = {};
+
   constructor() { 
     this.getSessionStorage();
   }

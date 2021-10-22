@@ -1,0 +1,12 @@
+<GridLayout rows="auto, auto, auto" class="modal_wrapper">
+    <Label text="숙박인원" class="title" row="0"></Label>
+    <GridLayout columns="auto, *, auto" rows="auto" row="1" class="indicator">
+        <Label row="0" col="0" text="-" class="counting left" (tap)="count(-1)"></Label>
+        <Label row="0" col="1" [text]="guest" class="counting"></Label>
+        <Label row="0" col="2" text="+" class="counting right" (tap)="count(1)"></Label>
+    </GridLayout>
+    <GridLayout columns="*, auto, auto" row="2">
+        <Button text="적용" col="1" class="btn btn-primary" (tap)="close(1)"></Button>
+        <Button text="취소" col="2" class="btn btn-transparent" (tap)="close(0)"></Button>
+    </GridLayout>
+</GridLayout>
