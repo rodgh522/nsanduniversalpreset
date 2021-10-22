@@ -15,6 +15,9 @@ export class CustomdatePipe implements PipeTransform {
           var days = ['일', '월', '화', '수', '목', '금', '토'];
           result = origin.getFullYear() + '년 ' + (origin.getMonth() + 1) + '월 ' + origin.getDate() + '일(' + days[origin.getDay()] + ')';
         break;
+        case 'mm.dd':
+          result = (origin.getMonth() + 1) + '.' + origin.getDate();
+        break;
       }
     }
     return result;

@@ -1,68 +1,163 @@
-<GridLayout rows="auto,auto,*,auto" columns="auto">
+<GridLayout>
 
-    <!-- tab content1 -->
-    <GridLayout *ngIf="selectedTabview == 0" row="2" width="100%"
-        backgroundColor="white">
-        <ListView [items]="items" separatorColor="transparent">
-            <ng-template let-item="item">
-                <StackLayout class="main">
-                    <StackLayout class="content">
-                        <Image stretch="aspectFill" class="card-img" (tap)="showItem(item.id)"
-                            [src]="item.cover"></Image>
-                        <GridLayout width="100%" columns="auto,*" rows="auto,auto"
-                            class="" verticalAlignment="center">
-                            <Label [text]="categoryIcon(item.category)" row="0"
-                                col="0" rowSpan="2" [backgroundColor]="item.categoryTag"
-                                class="fa category-icon"></Label>
-                            <Label row="0" col="1" class="item-name" textwrap="true"
-                                verticalAlignment="bottom"
-                                horizontalAlignment="left" [text]="item.name"></Label>
-                            <GridLayout row="1" col="1" rows="auto" columns="auto,auto,auto">
-                                <Label row="0" col="0" class="item-category"
-                                    textwrap="true" verticalAlignment="top"
-                                    horizontalAlignment="left" [text]="item.category"></Label>
-                                <Label col="1" row="0" class="fa rating-icon"
-                                    text="&#xf005;"></Label>
-                                <Label col="2" row="0" class="rating-value item-category"
-                                    [text]="item.rating"></Label>
-                            </GridLayout>
-                        </GridLayout>
-                        <StackLayout width="100%" marginTop="5" class="line"></StackLayout>
 
-                        <GridLayout columns="auto,*,auto,auto" rows="auto">
-                            <GridLayout col="0" rows="auto" columns="auto,auto"
-                                (tap)="toggleLike(item)">
-                                <Label col="0" row="0" #like [class]="item.isLike ? 'fa like-icon liked-active' : 'fa like-icon default'"
-                                    [text]="item.isLike ? '&#xf164;':'&#xf087;'"></Label>
-                                <Label col="1" row="0" class="layout" [text]="item.likes"></Label>
-                            </GridLayout>
-                            <StackLayout col="1" orientation="horizontal"
-                                marginLeft="15">
-                                <Label ref="" class="like-icon layout fa"
-                                    text="&#xf0e5;"></Label>
-                                <Label class="layout" [text]="item.comments"></Label>
-                            </StackLayout>
-                            <GridLayout col="2" rows="auto" columns="auto,auto"
-                                (tap)="toggleHeart(item)" marginRight="15">
-                                <Label col="0" row="0" #favorite [class]="item.isFavorite ? 'like-icon fa heart-active' : 'like-icon fa default'"
-                                    [text]="item.isFavorite ? '&#xf004;':'&#xf08a;'"></Label>
-                                <Label col="1" row="0" class="layout" text="Favorite"></Label>
-                            </GridLayout>
-                            <StackLayout col="3" orientation="horizontal">
-                                <Label ref="" class="like-icon layout fa"
-                                    text="&#xf045;"></Label>
-                                <Label class="layout" text="Share"></Label>
-                            </StackLayout>
+<ScrollView class="list-wrapper">
+    <StackLayout>
 
-                        </GridLayout>
+    
+    <StackLayout marginLeft="10" marginRight="10" marginTop="10" row="0">
+        <ns-search-box></ns-search-box>
+    </StackLayout>
+
+    <StackLayout width="100%" backgroundColor="white" padding="10" >
+        <Label text="이 지역 추천상품" class="list-regular-title"></Label>
+        <ScrollView orientation="horizontal" scrollBarIndicatorVisible="false">
+            <StackLayout orientation="horizontal">
+                <StackLayout margin="10">
+                    <StackLayout height="110" width="125" borderRadius="5" backgroundImage="~/assets/images/thumb/thumb1.png">
+                        <Button horizontalAlignment="left" marginRight="5"
+                            marginTop="0" width="60" height="40" text="가평"
+                            color="#fff" backgroundColor="#333">
+                        </Button>
                     </StackLayout>
-
-                    <StackLayout width="100%" class="lineBreak"></StackLayout>
-
+                    <Label fontSize="14" color="#000" text="남이섬 베스트 카라반">
+                    </Label>
+                    <Label fontSize="12" color="#999999" text="50,000">
+                    </Label>
                 </StackLayout>
-            </ng-template>
-        </ListView>
-    </GridLayout>
+                <StackLayout margin="10">
+                    <StackLayout height="110" width="125" borderRadius="5" backgroundImage="~/assets/images/thumb/thumb2.png">
+                        <Button horizontalAlignment="right" marginRight="5"
+                            marginTop="80" width="50" height="20" text="3.9"
+                            color="#fff" backgroundColor="#3b75ff">
+                        </Button>
+                    </StackLayout>
+                    <Label fontSize="14" color="#000" text="남이섬 베스트 카라반">
+                    </Label>
+                    <Label fontSize="12" color="#999999" text="50,000">
+                    </Label>
+                </StackLayout>
+                <StackLayout margin="10">
+                    <StackLayout height="110" width="125" borderRadius="5" backgroundImage="~/assets/images/thumb/thumb3.png">
+                        <Button horizontalAlignment="right" marginRight="5"
+                            marginTop="80" width="50" height="20" text="3.9"
+                            color="#fff" backgroundColor="#3b75ff">
+                        </Button>
+                    </StackLayout>
+                    <Label fontSize="14" color="#000" text="남이섬 베스트 카라반">
+                    </Label>
+                    <Label fontSize="12" color="#999999" text="50,000">
+                    </Label>
+                </StackLayout>
+                <StackLayout margin="10">
+                    <StackLayout height="110" width="125" borderRadius="5" backgroundImage="~/assets/images/thumb/thumb4.png">
+                        <Button horizontalAlignment="right" marginRight="5"
+                            marginTop="80" width="50" height="20" text="3.9"
+                            color="#fff" backgroundColor="#3b75ff">
+                        </Button>
+                    </StackLayout>
+                    <Label fontSize="14" color="#000" text="남이섬 베스트 카라반">
+                    </Label>
+                    <Label fontSize="12" color="#999999" text="50,000">
+                    </Label>
+                </StackLayout>
+                <StackLayout margin="10">
+                    <StackLayout height="110" width="125" borderRadius="5" backgroundImage="~/assets/images/thumb/thumb5.png">
+                        <Button horizontalAlignment="right" marginRight="5"
+                            marginTop="80" width="50" height="20" text="3.9"
+                            color="#fff" backgroundColor="#3b75ff">
+                        </Button>
+                    </StackLayout>
+                    <Label fontSize="14" color="#000" text="남이섬 베스트 카라반">
+                    </Label>
+                    <Label fontSize="12" color="#999999" text="50,000">
+                    </Label>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
+    
+    <!-- tab content1 -->
+    <StackLayout *ngIf="selectedTabview == 0" rows="auto, auto, *" row="2" width="100%" height="100%"
+        backgroundColor="white">
+        <GridLayout columns="auto, *" class="list-title" row="0" borderBottom="2">
+            <Label text="이 지역 일반상품" column="0" class="list-regular-title"></Label>
+            <Label text="전체 n개" column="1" class=""></Label>
+        </GridLayout>
+        <StackLayout class="line" width="100%" row="1"></StackLayout>
+            <StackLayout class="main">
+                <StackLayout class="content">
+                    <Image stretch="aspectFill" class="card-img" (tap)="showItem(items[0].id)"
+                        [src]="items[0].cover"></Image>
+                    <GridLayout width="100%" rows="auto, auto, auto, auto"
+                        class="accom-info" verticalAlignment="center">
+                        <Label [text]="items[0].category" row="0" class="accom-area"></Label>
+                        <Label row="1" class="item-name" textwrap="true"
+                            verticalAlignment="bottom"
+                            horizontalAlignment="left" [text]="items[0].name"></Label>
+                        <Label row="2" class="item-org-price" textwrap="true"
+                            verticalAlignment="bottom"
+                            horizontalAlignment="left" [text]="items[0].price"></Label>
+                        <GridLayout row="3" rows="auto" columns="auto,auto">
+                            <Label row="1" col="0" class="item-price"
+                                textwrap="true" verticalAlignment="top"
+                                horizontalAlignment="left" [text]="items[0].price"></Label>
+                            <Label col="1" row="1" class="sale-rate"
+                                [text]="items[0].comments"></Label>
+                        </GridLayout>
+                    </GridLayout>
+                    <StackLayout width="100%" marginTop="5" class="line"></StackLayout>
+                </StackLayout>
+                <StackLayout class="content">
+                    <Image stretch="aspectFill" class="card-img" (tap)="showItem(items[0].id)"
+                        [src]="items[0].cover"></Image>
+                    <GridLayout width="100%" rows="auto, auto, auto, auto"
+                        class="accom-info" verticalAlignment="center">
+                        <Label [text]="items[0].category" row="0" class="accom-area"></Label>
+                        <Label row="1" class="item-name" textwrap="true"
+                            verticalAlignment="bottom"
+                            horizontalAlignment="left" [text]="items[0].name"></Label>
+                        <Label row="2" class="item-org-price" textwrap="true"
+                            verticalAlignment="bottom"
+                            horizontalAlignment="left" [text]="items[0].price"></Label>
+                        <GridLayout row="3" rows="auto" columns="auto,auto">
+                            <Label row="1" col="0" class="item-price"
+                                textwrap="true" verticalAlignment="top"
+                                horizontalAlignment="left" [text]="items[0].price"></Label>
+                            <Label col="1" row="1" class="sale-rate"
+                                [text]="items[0].comments"></Label>
+                        </GridLayout>
+                    </GridLayout>
+                    <StackLayout width="100%" marginTop="5" class="line"></StackLayout>
+                </StackLayout>
+                <StackLayout class="content">
+                    <Image stretch="aspectFill" class="card-img" (tap)="showItem(items[0].id)"
+                        [src]="items[0].cover"></Image>
+                    <GridLayout width="100%" rows="auto, auto, auto, auto"
+                        class="accom-info" verticalAlignment="center">
+                        <Label [text]="items[0].category" row="0" class="accom-area"></Label>
+                        <Label row="1" class="item-name" textwrap="true"
+                            verticalAlignment="bottom"
+                            horizontalAlignment="left" [text]="items[0].name"></Label>
+                        <Label row="2" class="item-org-price" textwrap="true"
+                            verticalAlignment="bottom"
+                            horizontalAlignment="left" [text]="items[0].price"></Label>
+                        <GridLayout row="3" rows="auto" columns="auto,auto">
+                            <Label row="1" col="0" class="item-price"
+                                textwrap="true" verticalAlignment="top"
+                                horizontalAlignment="left" [text]="items[0].price"></Label>
+                            <Label col="1" row="1" class="sale-rate"
+                                [text]="items[0].comments"></Label>
+                        </GridLayout>
+                    </GridLayout>
+                    <StackLayout width="100%" marginTop="5" class="line"></StackLayout>
+                </StackLayout>
+
+            </StackLayout>
+    </StackLayout>
+
+</StackLayout>
 
 
+</ScrollView>
 </GridLayout>

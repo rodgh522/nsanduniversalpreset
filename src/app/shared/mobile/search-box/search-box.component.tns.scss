@@ -1,0 +1,19 @@
+/* Add mobile styles for the component here.  */
+.box-container{
+    border-width: 1; border-color: #eee; background-color: #fff;
+    
+    * {
+        text-align: center;
+        vertical-align: middle;
+    }
+    .border-right{
+        border-right-width: 1; border-color: #eee;
+    }
+
+    .btn-search{
+        background-color: #93b85f;
+        color: #fff;
+        padding: 20;
+        border-color: #93b85f;
+    }
+}

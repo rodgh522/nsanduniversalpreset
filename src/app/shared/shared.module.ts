@@ -23,6 +23,7 @@ import { ImgMultiComponent } from '@src/app/shared/img-multi/img-multi.component
 import { SwiperComponent } from '@src/app/shared/swiper/swiper.component';
 import { ImgViewerComponent } from '@src/app/shared/modal/img-viewer/img-viewer.component';
 import { ConfirmComponent } from '@src/app/shared/modal/confirm/confirm.component';
+import { DatePickerComponent } from '@src/app/shared/mobile/date-picker/date-picker.component';
 
 export function createTranslateLoader(http: HttpClient){
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -31,7 +32,8 @@ export function createTranslateLoader(http: HttpClient){
 @NgModule({
   declarations: [
     FileAttachComponent,
-    AlertComponent, FileDropZoneDirective, FilesizePipe, ImgSingleComponent, ImgMultiComponent, SwiperComponent, ImgViewerComponent, ConfirmComponent
+    AlertComponent, FileDropZoneDirective, FilesizePipe, ImgSingleComponent, ImgMultiComponent, SwiperComponent, ImgViewerComponent, 
+    ConfirmComponent, DatePickerComponent
   ],
   imports: [
     CommonModule, 
