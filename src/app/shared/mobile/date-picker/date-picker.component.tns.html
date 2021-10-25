@@ -1,0 +1,9 @@
+<GridLayout rows="*, auto">
+    <StackLayout row="0">
+        <NgxDateRange></NgxDateRange>
+    </StackLayout>
+    <GridLayout columns="*, auto, auto" row="1">
+        <Button col="1" text="적용" (tap)="close(true)"></Button>
+        <Button col="2" text="취소" (tap)="close(false)"></Button>
+    </GridLayout>
+</GridLayout>

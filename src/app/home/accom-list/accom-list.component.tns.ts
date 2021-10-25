@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterExtensions } from '@nativescript/angular';
+import { SearchService } from '@src/app/service/search.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-accom-list',
   templateUrl: './accom-list.component.tns.html',
   styleUrls: ['./accom-list.component.tns.scss']
 })
-export class AccomListComponent implements OnInit {
+export class AccomListComponent implements OnInit, OnDestroy {
 
+    subscription: Array<Subscription> = [];
     lastDelY = 0;
     headerCollapsed = false;
     selectedTab = 0;
@@ -16,7 +19,11 @@ export class AccomListComponent implements OnInit {
     items: Array<any>;
     categories: Array<any>;
 
-    constructor(private routerExtensions: RouterExtensions) {
+    constructor(
+        private routerExtensions: RouterExtensions,
+        private searchService: SearchService
+    ) {
+
         //Set up to get data from shared service to help moving from mocking data to real API calls in the future
         this.items = [{
           id: 1,
@@ -27,7 +34,7 @@ export class AccomListComponent implements OnInit {
             "~/assets/images/no_image.png",
             "~/assets/images/no_image.png",
             "~/assets/images/thumb/thumb1.png"
-        ],
+            ],
           category: "Burger",
           categoryTag: "#2D9CDB",
           price: "300.00",
@@ -115,6 +122,14 @@ export class AccomListComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        console.log(this.searchService.srch);
+    }
+
+    ngOnDestroy(){
+        this.subscription.forEach(a=> {
+            console.log(a);
+            a.unsubscribe();
+        });
     }
 
     showItem(itemId) {

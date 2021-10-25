@@ -1,0 +1,30 @@
+/* Add mobile styles for the component here.  */
+.modal_wrapper{
+    padding: 10;
+    .title{
+        color: #1b3a57;
+        font-size: 20;
+    }
+    .indicator{
+        border-width: 1;
+        border-color: #eee;
+        margin-top: 20;
+        margin-left: 10;
+        margin-right: 10;
+        vertical-align: middle;
+        .counting{
+            padding-top: 5;
+            &.left{
+                border-right-width: 1;
+            }
+            &.right{
+                border-left-width: 1;
+            }
+            border-color: #eee;
+            text-align: center;
+            vertical-align: bottom;
+            width: 50; height: 40;
+            font-size: 20;
+        }
+    }
+}

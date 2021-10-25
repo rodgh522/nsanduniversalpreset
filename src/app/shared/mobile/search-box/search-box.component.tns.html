@@ -1,0 +1,20 @@
+<GridLayout rows="*" columns="auto, *, auto, auto" class="box-container">
+    <StackLayout width="80" col="0" class="border-right" paddingTop="20" paddingBottom="20" (tap)="searchArea()">
+        <GridLayout rows="*">
+            <GridLayout rows="*" columns="*" row="0">
+                <Label [text]="area" row="0" height="100%"></Label>
+            </GridLayout>
+        </GridLayout>
+    </StackLayout>
+    <StackLayout col="1" class="border-right" paddingTop="20" paddingBottom="20" (tap)="openCalendar()">
+        <GridLayout rows="auto" columns="*, auto, *">
+            <Label text="{{ startDate | customdate : 'mm.dd' }}" class="" col="0"></Label>
+            <Label text="-" class="" col="1"></Label>
+            <Label text="{{ endDate | customdate : 'mm.dd' }}" class="" col="2"></Label>
+        </GridLayout>
+    </StackLayout>
+    <StackLayout col="2" width="80" (tap)="setGuests()" paddingTop="20" paddingBottom="20">
+        <Label text="{{guest}}명"></Label>
+    </StackLayout>
+    <Label text="검색" class="btn-search" col="3" (tap)="getSearch()"></Label>
+</GridLayout>

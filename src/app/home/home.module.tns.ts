@@ -2,6 +2,7 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NativeScriptCommonModule } from '@nativescript/angular';
 
 /* Module */
+import { SharedModule } from '../shared/shared.module.tns';
 
 /* Component */
 import { HomeComponent } from './home.component.tns';
@@ -23,7 +24,8 @@ import { AccomListComponent } from './accom-list/accom-list.component.tns';
   ],
   imports: [
     NativeScriptCommonModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    SharedModule
   ],
   schemas: [
     NO_ERRORS_SCHEMA
