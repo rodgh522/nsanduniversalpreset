@@ -1,7 +1,7 @@
 <GridLayout>
-    <GridLayout height="auto" verticalAlignment="bottom" columns="*, *, *, *, *">
+    <GridLayout rows="*" columns="*, *, *, *">
         <!-- base layer -->
-        <AbsoluteLayout col="0" colSpan="5" verticalAlignment="bottom">
+        <!-- <AbsoluteLayout col="0" colSpan="5" verticalAlignment="bottom">
             <GridLayout #tabBgContainer columns="auto, 10, auto, 10, auto">
                 <GridLayout #leftTabs col="0" colSpan="2" height="80"
                     verticalAlignment="bottom" borderRadius="0 68 0 0">
@@ -13,7 +13,6 @@
                     verticalAlignment="bottom" borderRadius="0 68 0 0">
                 </GridLayout>
 
-                <!-- focus circle -->
                 <GridLayout #centerCircle col="1" colSpan="3" height="100" width="100"
                     borderRadius="50" verticalAlignment="bottom" marginBottom="10">
                     <GridLayout verticalAlignment="center" horizontalAlignment="center" height="90"
@@ -22,30 +21,35 @@
                 </GridLayout>
             </GridLayout>
 
-        </AbsoluteLayout>
+        </AbsoluteLayout> -->
+
         <!-- tab contents -->
-        <GridLayout #tabContents col="0" marginTop="20"
+        <GridLayout #tabContents col="1" rows="*, *" row="0"
             (tap)="onBottomNavTap('main')" verticalAlignment="middle">
-            <Label class="fa-regular" text="home" verticalAlignment="bottom"
-                horizontalAlignment="center" fontSize="20">
+            <Image class="nav_img" src="~/assets/images/home.png" row="0"></Image>
+            <Label class="fa-regular" text="홈" verticalAlignment="bottom" row="1"
+                horizontalAlignment="center" fontSize="15">
             </Label>
         </GridLayout>
-        <GridLayout #tabContents col="1" marginTop="20"
+        <GridLayout #tabContents col="0" rows="*, *"
             (tap)="onBottomNavTap('accom')" verticalAlignment="middle">
-            <Label class="fa-regular" text="accom" verticalAlignment="bottom"
-                horizontalAlignment="center" fontSize="20">
+            <Image class="nav_img" src="~/assets/images/search.png" row="0" ></Image>
+            <Label class="fa-regular" text="검색" verticalAlignment="bottom" row="1"
+                horizontalAlignment="center" fontSize="15">
             </Label>
         </GridLayout>
-        <GridLayout #tabContents col="2" marginTop="20"
+        <GridLayout #tabContents col="2" rows="*, *" class="menu-box"
             (tap)="onBottomNavTap('unit')" verticalAlignment="middle">
-            <Label class="fa-regular" text="unit" verticalAlignment="bottom"
-                horizontalAlignment="center" fontSize="20">
+            <Image class="nav_img" src="~/assets/images/fingerprint.png" row="0"></Image>
+            <Label class="fa-regular" text="로그인" verticalAlignment="bottom"
+                horizontalAlignment="center" fontSize="15" row="1">
             </Label>
         </GridLayout>
-        <GridLayout #tabContents col="3" marginTop="20"
+        <GridLayout #tabContents col="3" rows="*, *"
             (tap)="onBottomNavTap('login')" verticalAlignment="middle">
-            <Label class="fa-regular" text="login" verticalAlignment="bottom"
-                horizontalAlignment="center" fontSize="20">
+            <Image class="nav_img" src="~/assets/images/more.png" row="0" ></Image>
+            <Label class="fa-regular" text="더보기" verticalAlignment="bottom"
+                horizontalAlignment="center" fontSize="15" row="1">
             </Label>
         </GridLayout>
         
