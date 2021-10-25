@@ -13,6 +13,10 @@ import { HomeRoutingModule } from './home-routing.module.tns';
 import { UnitListComponent } from './unit-list/unit-list.component.tns';
 import { AccomListComponent } from './accom-list/accom-list.component.tns';
 
+/* Pipe */
+import { SidoPipe } from '@src/app/pipe/sido.pipe';
+import { CommaPipe } from '@src/app/pipe/comma.pipe';
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -20,7 +24,8 @@ import { AccomListComponent } from './accom-list/accom-list.component.tns';
     MainComponent,
     FooterComponent,
     UnitListComponent,
-    AccomListComponent
+    AccomListComponent,
+    SidoPipe, CommaPipe
   ],
   imports: [
     NativeScriptCommonModule,

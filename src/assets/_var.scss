@@ -9,7 +9,8 @@ $point: #93b85f;
 
 $gray: #666;
 $light_gray: #aaa;
-$light_gray2: #ddd;
+$light_gray_b: #bbb;
+$light_gray_d: #ddd;
 
 $gray_bg: #fbfbfb;
 
@@ -70,27 +71,6 @@ $font_xl : 32px;
     cursor: pointer;
 }
 
-@mixin createButton($type, $width: auto, $height: 36px) {
-    /* 쓸지말지 고민됨.. */
-    width: $width;
-    min-width: 80px;
-    height: $height;
-    cursor: pointer;
-    // background: $black;
-    // color: $white;
-    // border: $black_border;
-    @if $type == default {
-        border: $basic_border;
-    } @else if $type == primary {
-        border: $black;
-        background: $black;
-        color: $white;
-    } @else if $type == cancel {
-        border: 1px solid transparent;
-        background: transparent;
-        color: $black;
-    }
-}
 @mixin buttonWrap($num, $btn_width) {
     // $버튼 개수
     max-width: ($btn_width * $num) + (10px * $num);
