@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewContainerRef } from '@angular/core';
 import { ModalDialogOptions, ModalDialogService, RouterExtensions } from '@nativescript/angular';
 import { action } from '@nativescript/core';
 import { isNullOrEmpty } from '@src/app/global/global';
@@ -15,6 +15,7 @@ const today = new Date();
 })
 export class SearchBoxComponent implements OnInit {
 
+  @Output() onSearch = new EventEmitter;
   srch: any = {};
   toggle: any = {};
   area = '전국';
@@ -36,17 +37,18 @@ export class SearchBoxComponent implements OnInit {
       GuestMax: 2,
       dates: [this.startDate],
       straight: 1,
-      Sido: ''
+      Sido: []
     } 
     : this.searchService.srch
     console.log(this.srch);
   }
 
   searchArea(){
-    action('지역선택', '취소', ['전국', '서울/경기/인천', '충청북도/충청남도']).
+    action('지역선택', '취소', ['전국', '서울/경기/인천', '충북/충남', '경북/대구','제주']).
     then((res)=> {
       this.area = res !== '취소' ? res : this.area;
       this.srch.Sido = this.area.split('/');
+      this.srch.Sido = this.srch.Sido[0] === '전국' ? [] : this.srch.Sido;
     });
   }
 
@@ -98,6 +100,7 @@ export class SearchBoxComponent implements OnInit {
   getSearch(){
     this.searchService.srch = this.srch;
     this.router.navigateByUrl('accom');
+    this.onSearch.emit();
   }
 
 }

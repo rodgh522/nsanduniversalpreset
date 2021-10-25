@@ -9,7 +9,14 @@ export class SearchService {
 
   searchList = new BehaviorSubject({});
   searchDetail = new BehaviorSubject({});
-  srch: any = {};
+  srch: any = {
+    GuestMax: 2,
+    dates: [
+      new Date()
+    ],
+    straight: 1,
+    Sido: []
+  };
 
   constructor() { 
     this.getSessionStorage();
