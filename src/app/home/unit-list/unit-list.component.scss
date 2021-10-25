@@ -1,191 +1,161 @@
-header#header { border-bottom: 1px solid #ececec; }
-h2 { margin: 80px 0 20px 0; font-size: 32px; font-weight: 700; }
-#fnbArea { margin-top: 50px; }
-
-/** normal list **/
-.nm_list li { padding: 40px 0; border-bottom: 1px solid #ddd; }
-.nm_list li:after { display: block; clear: both; content: ''; }
-.nm_list li:first-child { border-top: 1px solid #333; }
-.nm_list li .list_img { float: left; }
-.nm_list li .list_img img { width: 280px; height: 180px; object-fit: cover; }
-.nm_list li .list_desc { position: relative; float: left; height: 180px; margin-left: 40px; }
-.nm_list li .list_desc .list_title .list_loc { color: #666; font-size: 20px; }
-.nm_list li .list_desc .list_title h3 { color: #333; font-size: 30px; font-weight: 500; }
-.nm_list li .list_desc .list_price { position: absolute; bottom: 0; font-size: 26px; }
-
-/** sec_sub_search **/
-.sec_sub_search .search_reserv { padding: 40px 0; background: #f7f7f7; }
-.sec_sub_search .reserv_item { padding-left: 30px; border-right: 1px solid #ececec; }
-.sec_sub_search .reserv_item.loc { padding-left: 10px; }
-.sec_sub_search .reserv_item.number { border-right: 0; }
-.sec_sub_search .reserv_item.reserv_btn { width: 120px; height: 45px; margin: 10px 0; padding: 0; background: #93b85f; color: #fff; font-size: 20px; float: right; }
-
-.sec_sub_search .reserv_layer.loc { top: 105px; left: -1px; }
-.reserv_box .reserv_layer.date { top: 105px; left: -1px; }
-.reserv_box .reserv_layer.number { top: -173px; border-bottom: 0; }
-
-/** sec_sub_recomm **/
-.sec_sub_recomm .recomm_box .arrow { top: 40%; }
-
-/** sec_sub_list **/
-.sec_sub_list h2 { display: inline-block; }
-.sec_sub_list .title_desc { margin-left: 20px; color: #666; font-size: 22px; font-weight: 300; }
-.sec_sub_list .nm_list li { cursor: pointer; }
-
-/*** 객실 정보 ***/
-/** sub_visual **/
-.sub_visual .content { height: 400px; }
-.sub_visual .content .black_bg { position: relative; width: 100%; height: 100%; background-color: rgba(51, 51, 51, 0.5); }
-.sub_visual .sub_title { position: absolute; left: 60px; bottom: 50px;}
-.sub_visual .sub_title h2 { margin: 0 0 10px 0; font-size: 32px; color: #fff; }
-.sub_visual .sub_title p { color: #ddd; }
-
-/** sub_snb **/
-.sub_snb .sub_tab { height: 60px; }
-.sub_snb .sub_tab ul li { min-width: 120px; padding: 0 10px; line-height: 60px; font-size: 18px; text-align: center; }
-.sub_snb .sub_tab ul li.focus { font-weight: 700; }
-.sub_snb .sub_tab ul li.focus { box-shadow: 0 -2px 0 0 #333 inset; }
-.sub_snb .sub_tab { border-bottom: 1px solid #ddd; }
+@import '/src/assets/var';
+#main { margin-top: 150px; }
 
 /** sec_reserv_info **/
-.sec_reserv_info .reserv_field { margin: 40px 0; }
-.sec_reserv_info .reserv_field label { display: block; color: #aaa; font-size: 15px; font-weight: 300; }
-.sec_reserv_info .reserv_field button { background: transparent; color: #333; font-size: 20px; }
-
-.sec_reserv_info .reserv_field button .icon_pencil { display: inline-block; position: relative; top: 3px; width: 27px; height: 20px; background: url('/assets/images/icon_pencil.png') no-repeat; }
-
-.info_field .list_check,
-.info_field .list_img,
-.info_field .list_desc { float: left; }
-.info_field .list_option { float: right; }
-
-.info_field .list_check { float: left; margin-right: 10px; }
-.info_field .list_check input[type='checkbox'] { width: 20px; height: 20px; border: 1px solid #ddd; background: #fff; -webkit-appearance: none; -moz-appearance: none; appearance: none; outline: 0; vertical-align: top; }
-.info_field .list_check input[type='checkbox']:checked { border: 1px solid #333; background: url('/assets/images/input_check.png') no-repeat; }
-.info_field .list_check input[type='checkbox']:disabled { background: #ececec; }
-
-.info_field .nm_list li .list_desc { margin-left: 20px; }
-.info_field .nm_list li .list_desc .list_title h3 { margin: 5px 0 20px 0;font-size: 24px; font-weight: 600; }
-
-.list_title .list_tag .tag { display: inline-block; height: 22px; padding: 0 8px; background: #bbb; color: #fff; border-radius: 11px; line-height: 22px; font-size: 13px; font-weight: 300; }
-.list_title .list_tag .tag.red { background: #d87474; }
-.list_title .list_tag .tag.green { background: #93b85f; }
-.list_title .list_sub_desc { color: #666; font-size: 15px; }
-
-.info_field .list_option { width: 230px; }
-.list_option .option_title { background: transparent; font-size: 15px; font-weight: 500; }
-.list_option button.option_title:after { display: inline-block; width: 8px; height: 4px; margin-left: 5px; background: url('/assets/images/s_arrow.png') no-repeat; vertical-align: middle; content: ''; }
-.list_option .add_person,
-.list_option .add_option { margin-bottom: 30px; }
-
-.list_option .option_item { position: relative; margin-bottom: 5px; }
-.list_option .option_item:after { display: block; clear: both; content: ''; }
-.list_option .option_item span,
-.add_option_box .option_select span { float: left; width: 100px; line-height: 40px; font-size: 15px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
-.list_option .option_item .countNum_box { float: left; }
-.add_option_box .option_select select { width: 130px; height: 40px; padding: 0 4px; border: 1px solid #ddd; }
-.add_option_box .option_item .del_btn { position: absolute; top: 15px; left: -20px; width: 13px; height: 13px; background: url('/assets/images/del_btn.png'); cursor: pointer; }
-
-.list_price,
-.list_option .list_price { text-align: right; font-size: 28px; font-weight: 700; }
-.list_option .list_price .orig_price { text-decoration: line-through; color: #999; font-size: 15px; }
-
-.list_selected{
-    button{ width: 100%; }
-}
-.pay_reserve{
-    padding: 10px 0;
-    text-align: end;
-
-    button{
-        width: 200px;
-        margin-left: 20px;
+#sec_reserv_info {
+    .reserv_field {
+        margin: 40px 0;
+        label {
+            display: block;
+            color: $light_gray;
+            font-size: $font_s;
+            font-weight: 300;
+        }
+        button {
+            background: transparent;
+            color: $black;
+            font-size: $font_m;
+            .icon_pencil {
+                display: inline-block;
+                position: relative;
+                top: 3px;
+                @include bg(27px, 20px, 'icon_pencil.png');
+            }
+            @include tablet {
+                font-size: 16px;
+            }
+        }
+    }
+    .pay_reserve {
+        .pay_result {
+            color: #999;
+            .list_price {
+                margin-left: 10px;
+                color: $point;
+                font-size: 28px;
+                font-weight: 700;
+            }
+        }
+        button {
+            margin-top: 10px;
+            font-size: 18px;
+            @include basicInput(230px, 60px);
+            &:hover {
+                background: $point;
+                color: $white;
+                border: 1px solid $point;
+            }
+        }
+    }
+    .list_body {
+        .item_info {
+            & > div {
+                @include td(1, 25%);
+                @include td(2, 55%);
+                @include td(3, 20%);
+            }
+        }
     }
 }
-.info_list_deco_disc{
-    ul, li{ list-style: disc inside;}
+
+/** review list **/
+.rv_write {
+    border-bottom: $gray_border;
+    textarea {
+        width: 100%;
+        padding: 8px;
+        border: $basic_border;
+        font-size: $font_s;
+        resize: none;
+    }
+    .rv_w_footer {
+        .file_btn {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: url('#{$img_url}file_btn.png') 50% 50% no-repeat;
+            border: $basic_border;
+            cursor: pointer;
+        }
+        input[type=file] { display: none; }
+        .desc {
+            display: inline-block;
+            margin-left: 5px;
+            color: $light_gray_b;
+            font-size: $font_xs;
+            @include tablet { display: none; }
+        }
+        .submit_btn {
+            min-width: 150px;
+            height: 50px;
+            font-size: $font_def;
+        }
+    }
 }
 
-.info_wrap{
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 30px;
-    background-color: #fcfcfc;
-
-    &> div:not(:first-of-type){ 
-        margin-top: 20px;
+.rv_item {
+    padding: 40px 0;
+    border-bottom: $basic_border;
+    .rv_header {
+        color: $light_gray_b;
+        font-size: $font_xs;
+    }
+    .rv_body {
+        margin: 10px 0;
+        .more {
+            margin-left: 5px;
+            color: $point;
+            font-size: 15px;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+        .rv_pic {
+            margin-top: 20px;
+            ul li {
+                position: relative;
+                width: 120px;
+                height: 120px;
+                margin-right: 10px;
+                cursor: pointer;
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    &:hover {
+                        opacity: 0.7;
+                        transition: 0.3s;
+                    }
+                }
+            }
+        }
+    }
+    .rv_footer {
+        padding: 0 20px;
+        .mod_btn, .del_btn {
+            background: transparent;
+            color: $light_gray;
+            font-size: $font_xs;
+            vertical-align: middle;
+        }
     }
     
-    &> div{
-        margin-bottom: 50px;
-        h3{
-            padding: 20px 0 40px 0;
-            color: #333;
-            border-top: 1px solid #333;
-            font-size: 18px;
-            font-weight: 500;
+    &.rv_reply {
+        padding: 20px;
+        background: $gray_bg;
+        .rv_header:before {
+            display: inline-block;
+            position: relative;
+            top: -2px;
+            margin: 0 8px;
+            @include bg(8px, 8px, 're.png');
         }
-        ul{
-            color: #666;
-            font-size: 16px;
-            li {
-                list-style: none;
-                line-height: 1.8em;
-            }
+        .rv_body {
+            padding: 0 30px;
+            color: $gray;
         }
-        a {
-            text-decoration: underline;
-        }
-    }
-}
-.list_selected button { width: 230px; height: 50px; margin-top: 10px; background: #fff; color: #666; border: 1px solid #ddd; border-radius: 0; font-size: 16px; }
-/* 버튼 선택됐을 때, 사용할 수 없을 때 */
-.list_selected button.focus { background: #93b85f; color: #fff; border: 1px solid #93b85f; }
-.list_selected button.disabled { background: #f7f7f7; color: #bbb; border: 1px solid #ddd; cursor: default; }
-
-.pay_reserve .pay_result { margin-top: 20px; height: 60px; color: #999; }
-.pay_reserve .pay_result .list_price { margin-left: 10px; color: #93b85f; font-size: 28px; font-weight: 700; }
-.pay_reserve button { width: 230px; height: 60px; margin: 20px 0 20px 20px; background: #93b85f; color: #fff; font-size: 18px; }
-
-.accom_info_top{
-    &> div {
-        display: inline-block;
-    }
-    .image_area{
-        width: 50%;
-    }
-    .info_area{
-        width: 50%;
-        height: 100%;
-        position: relative;
-        &> div{
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            padding-left: 50px;
-            h2{
-                margin: 0;
-            }
-        }
-    }
-}
-.option_condition{
-    span{
-        text-align: end;
-        font-size: 12px !important;
-        width: unset !important;
-        line-height: unset !important;
-        margin-top: 10px;
-        margin-right: 5px;
-        padding: 0 5px;
-        border-radius: 20px;
-
-        &.option_condition_cash{
-            border: 1px solid #6e8;
-        }
-
-        &.option_condition_delivery{
-            border: 1px solid #ff7f50;
+        .rv_footer {
+            padding: 0;
         }
     }
 }

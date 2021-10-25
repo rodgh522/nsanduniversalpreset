@@ -1,90 +1,19 @@
-header#header { border-bottom: 1px solid #ececec; }
-h2 { margin: 80px 0 20px 0; font-size: 32px; font-weight: 700; }
-#fnbArea { margin-top: 50px; }
+@import '/src/assets/var';
 
-/** normal list **/
-.nm_list li { padding: 40px 0; border-bottom: 1px solid #ddd; }
-.nm_list li:after { display: block; clear: both; content: ''; }
-.nm_list li:first-child { border-top: 1px solid #333; }
-.nm_list li .list_img { float: left; }
-.nm_list li .list_img img { width: 280px; height: 180px; object-fit: cover; }
-.nm_list li .list_desc { position: relative; float: left; height: 180px; margin-left: 40px; }
-.nm_list li .list_desc .list_title .list_loc { color: #666; font-size: 20px; }
-.nm_list li .list_desc .list_title h3 { color: #333; font-size: 30px; font-weight: 500; }
-.nm_list li .list_desc .list_price { position: absolute; bottom: 0; font-size: 26px; }
+.reserv {
+    background: $gray_bg;
+    padding: 40px 0;
+}
 
-/** sec_sub_search **/
-.sec_sub_search .search_reserv { padding: 40px 0; background: #f7f7f7; }
-.sec_sub_search .reserv_item { padding-left: 30px; border-right: 1px solid #ececec; }
-.sec_sub_search .reserv_item.loc { padding-left: 10px; }
-.sec_sub_search .reserv_item.number { border-right: 0; }
-.sec_sub_search .reserv_item.reserv_btn { width: 120px; height: 45px; margin: 10px 0; padding: 0; background: #93b85f; color: #fff; font-size: 20px; float: right; }
-
-.sec_sub_search .reserv_layer.loc { top: 105px; left: -1px; }
-.reserv_box .reserv_layer.date { top: 105px; left: -1px; }
-.reserv_box .reserv_layer.number { bottom: -173px; border-top: 0; }
-
-/** sec_sub_recomm **/
-.sec_sub_recomm .recomm_box .arrow { top: 40%; }
-
-/** sec_sub_list **/
-.sec_sub_list h2 { display: inline-block; }
-.sec_sub_list .title_desc { margin-left: 20px; color: #666; font-size: 22px; font-weight: 300; }
-.sec_sub_list .nm_list li { cursor: pointer; }
-
-/*** 객실 정보 ***/
-/** sub_visual **/
-.sub_visual .content { height: 400px; background: url('/assets/images/sub_visual.png') 50% 50% no-repeat; }
-.sub_visual .content .black_bg { position: relative; width: 100%; height: 100%; background-color: rgba(51, 51, 51, 0.5); }
-.sub_visual .sub_title { position: absolute; left: 60px; bottom: 50px;}
-.sub_visual .sub_title h2 { margin: 0 0 10px 0; font-size: 32px; color: #fff; }
-.sub_visual .sub_title p { color: #ddd; }
-
-/** sub_snb **/
-.sub_snb .sub_tab { height: 60px; }
-.sub_snb .sub_tab ul li { min-width: 120px; padding: 0 10px; line-height: 60px; font-size: 18px; text-align: center; }
-.sub_snb .sub_tab ul li.focus { font-weight: 700; }
-.sub_snb .sub_tab ul li.focus { box-shadow: 0 -2px 0 0 #333 inset; }
-.sub_snb .sub_tab { border-bottom: 1px solid #ddd; }
-
-/** sec_reserv_info **/
-.sec_reserv_info .reserv_field { margin: 40px 0; }
-.sec_reserv_info .reserv_field label { display: block; color: #aaa; font-size: 15px; font-weight: 300; }
-.sec_reserv_info .reserv_field button { background: transparent; color: #333; font-size: 20px; }
-
-.sec_reserv_info .reserv_field button .icon_pencil { display: inline-block; position: relative; top: 3px; width: 27px; height: 20px; background: url('/assets/images/icon_pencil.png') no-repeat; }
-
-.info_field .list_check,
-.info_field .list_img,
-.info_field .list_desc { float: left; }
-.info_field .list_option { float: right; }
-
-.info_field .list_check { float: left; margin-right: 10px; }
-.info_field .list_check input[type='checkbox'] { width: 20px; height: 20px; border: 1px solid #ddd; background: #fff; -webkit-appearance: none; -moz-appearance: none; appearance: none; outline: 0; vertical-align: top; }
-.info_field .list_check input[type='checkbox']:checked { border: 1px solid #333; background: url('/assets/images/input_check.png') no-repeat; }
-.info_field .list_check input[type='checkbox']:disabled { background: #ececec; }
-
-.info_field .nm_list li .list_desc { margin-left: 20px; }
-.info_field .nm_list li .list_desc .list_title h3 { margin: 5px 0 20px 0;font-size: 24px; font-weight: 600; }
-
-.list_title .list_tag .tag { display: inline-block; height: 22px; padding: 0 8px; background: #bbb; color: #fff; border-radius: 11px; line-height: 22px; font-size: 13px; font-weight: 300; }
-.list_title .list_tag .tag.red { background: #d87474; }
-.list_title .list_tag .tag.green { background: #93b85f; }
-.list_title .list_sub_desc { color: #666; font-size: 15px; }
-
-.info_field .list_option { width: 230px; }
-.list_option .option_title { background: transparent; font-size: 15px; font-weight: 500; }
-.list_option button.option_title:after { display: inline-block; width: 8px; height: 4px; margin-left: 5px; background: url('/assets/images/s_arrow.png') no-repeat; vertical-align: middle; content: ''; }
-.list_option .add_person,
-.list_option .add_option { margin-bottom: 30px; }
-
-.list_option .option_item { position: relative; margin-bottom: 5px; }
-.list_option .option_item:after { display: block; clear: both; content: ''; }
-.list_option .option_item span,
-.add_option_box .option_select span { float: left; width: 100px; line-height: 40px; font-size: 15px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
-.list_option .option_item .countNum_box { float: left; }
-.add_option_box .option_select select { width: 130px; height: 40px; padding: 0 4px; border: 1px solid #ddd; }
-.add_option_box .option_item .del_btn { position: absolute; top: 15px; left: -20px; width: 13px; height: 13px; background: url('/assets/images/del_btn.png'); cursor: pointer; }
-
-.list_option .list_price { text-align: right; font-size: 28px; font-weight: 700; }
-.list_price .orig_price, .price .orig_price { text-decoration: line-through; color: #999; font-size: 15px; }
+/*** 일반상품 ***/
+#sec_sub_list {
+    .list_body {
+        .item_info {
+            & > div {
+                @include td(1, 25%);
+                @include td(2, 55%);
+                @include td(3, 20%);
+            }
+        }
+    }
+}
