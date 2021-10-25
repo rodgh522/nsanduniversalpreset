@@ -1,0 +1,707 @@
+@import '/src/assets/var';
+
+#main { margin-top: 230px; }
+.content {
+    position: relative;
+    width: 95%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+input[type=radio] + label, input + input, select + input {
+    margin-left: 5px;
+}
+input[type=text] + button {
+    margin-left: 10px;
+}
+button + button {
+    margin-left: 10px;
+}
+
+.leftBox { float: left; }
+.rightBox { float: right; }
+
+.va_top { vertical-align: top;}
+.va_middle { vertical-align: middle;}
+.va_bottom { vertical-align: bottom;}
+
+.point_c { color: $point; }
+
+.default_btn {
+    border: $basic_border;
+}
+.primary_btn {
+    border: $black_border;
+    background: $black;
+    color: $white;
+}
+.point_btn {
+    border: $point_border;
+    background: $point;
+    color: $white;
+}
+.cancel_btn {
+    border: 1px solid transparent;
+    background: transparent;
+}
+.btn-lg {
+    min-width: 140px;
+    height: 60px;
+    font-size: 16px;
+}
+
+/** 버튼 **/
+.content.btn_wrap {
+    max-width: 420px;
+    font-size: 15px;
+    button {
+        width: 140px;
+        height: 60px;
+        font-size: 16px;
+    }
+}
+
+/*** 마이페이지 ***/
+/** mp_snb **/
+.mp_snb {
+    height: 50px;
+    border-bottom: 1px solid #ececec;
+    background: #fcfcfc;
+    line-height: 50px;
+    @include clear;
+    .mp_title {
+        float: left;
+        color: $light_gray;
+        background: transparent;
+        font-size: $font_xxs;
+        font-weight: 300;
+        line-height: 50px;
+        cursor: pointer;
+        &:after {
+            display: inline-block;
+            @include bg(13px, 13px, 'pa_s_next.png');
+            position: relative;
+            top: 2px;
+            margin-left: 5px;
+        }
+    }
+    ul {
+        float: left;
+        margin-left: 50px;
+        font-size: 14px;
+        li {
+            @include miniBar(0 20px, $light_gray);
+            a.focus {
+                color: $point;
+                font-weight: 500;
+            }
+        }
+    }
+    @include desktop {
+        ul { display: none; }
+        .mp_title:after {
+            transform: rotate(90deg);
+        }
+    }
+}
+
+/** 탭 **/
+.sub_tab {
+    height: 60px;
+    border-bottom: $basic_border;
+    ul li {
+        min-width: 120px;
+        line-height: 60px;
+        text-align: center;
+        a {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        &.focus {
+            font-weight: 500;
+            &:after {
+                display: block;
+                position: relative;
+                top: -1px;
+                border-bottom: 2px solid #333;
+                content: '';
+            }
+        }
+        @include tablet {
+            min-width: 80px;
+        }
+    }
+}
+
+/** 인풋 박스 **/
+.input_wrap {
+    & > div {
+        margin-bottom: 20px;
+        & > label {
+            display: block;
+            margin-bottom: 5px;
+            color: $gray;
+            font-size: $font_s;
+        }
+        & > input[type=checkbox] + label {
+            display: inline;
+        }
+        & > input[type=text],
+        & > input[type=password],
+        & > select {
+            @include basicInput(100%, 50px);
+            margin-bottom: 10px;
+            font-size: $font_def;
+        }
+        & > textarea {
+            @include basicInput(100%, 150px);
+            font-size: $font_def;
+            resize: none;
+        }
+        &.file_box {
+            input[type=file] { display: none; }
+            input[type=file] + label {
+                display: inline-block;
+                @include blackButton(140px, 50px);
+                text-align: center;
+                line-height: 50px;
+                font-size: 16px;
+            }
+            .fl_name {
+                margin-left: 10px;
+                display: inline-block;
+                position: relative;
+                top: 5px;
+                min-width: 170px;
+                @include textEllipsis;
+            }
+        }
+        &.adr_box {
+            .zipcode { width: 140px; }
+            .adr_btn {
+                @include blackButton(120px, 50px);
+                margin: 0 0 10px 10px;
+                font-size: $font_def;
+            }
+        }
+        &.email_box {
+            .email_id { width: 140px; }
+            .email_hst {
+                width: 160px;
+            }
+            span {
+                margin: 0 5px;
+                line-height: 50px;
+            }
+        }
+    }
+}
+
+/** 서브 타이틀 **/
+h2 {
+    margin: 80px 0 20px 0; font-size: 32px; font-weight: 700;
+    p {
+        font-size: $font_s;
+        color: $light_gray;
+        font-weight: 400;
+    }
+}
+.sub_title {
+    .page_desc {
+        font-size: $font_s;
+        color: $light_gray;
+        font-weight: 400;
+        margin-bottom: 20px;
+        padding: 20px;
+        border: $gray_border;
+        .title {
+            display: block;
+            margin-bottom: 10px;
+            color: $gray;
+            font-size: $font_s;
+            font-weight: 500;
+        }
+        span {
+            color: $light_gray;
+            font-size: $font_xs;
+        }
+    }
+}
+
+/** 서브 비주얼 **/
+#sub_visual .content {
+    height: 400px;
+    background: url('#{$img_url}sub_visual.png') 50% 50% no-repeat;
+    .black_bg {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(51, 51, 51, 0.5);
+        .sub_title {
+            position: absolute;
+            left: 60px;
+            bottom: 50px;
+            h2 {
+                margin: 0 0 10px 0;
+                font-size: $font_xl;
+                color: $white;
+            }
+            p {
+                color: $light_gray_d;
+            }
+            @include tablet {
+                left: 30px;
+            }
+        }
+    }
+}
+
+/** 예약박스 **/
+.reserv_box {
+    height: 150px;
+    background: $white;
+    .reserv_item {
+        position: relative;
+        vertical-align: middle;
+        padding: 20px 30px;
+        border: $gray_border;
+        border-right: 0;
+        z-index: 1;
+        @include td(1, 20%);
+        @include td(2, 45%);
+        @include td(3, 20%);
+        @include td(4, 15%);
+        dl {
+            display: inline-block;
+            margin-right: 80px;
+            &:last-child {
+                margin-right: 0;
+            }
+            dt {
+                margin-bottom: 10px;
+                color: $point;
+            }
+            dd {
+                font-size: $font_m;
+                cursor: pointer;
+            }
+        }
+        &.reserv_btn {
+            min-width: 160px;
+            padding: 0;
+            border: 0;
+            background-color: $point;
+            button {
+                width: 100%;
+                height: 60px;
+                background-color: transparent;
+                color: $white;
+                font-size: $font_m;
+            }
+        }
+        .reserv_layer {
+            position: absolute;
+            padding: 16px;
+            border: $gray_border;
+            background: $white;
+            z-index: 1;
+            &.loc {
+                left: -1px;
+                width: 260px;
+                li {
+                    a {
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                        padding: 12px 8px;
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+            &.number {
+                left: -1px;
+                width: 220px;
+                padding: 30px;
+                dt {
+                    color: $gray;
+                    font-size: $font_s;
+                }
+            }
+        }
+    }
+}
+
+/* 카운트 박스 */
+.countNum_box {
+    button {
+        width: 40px;
+        height: 40px;
+        margin: 0 !important;
+        border: $basic_border;
+        vertical-align: middle;
+        &.minus_btn { background: url('#{$img_url}minus.png') 50% 50% no-repeat; }
+        &.plus_btn { background: url('#{$img_url}plus.png') 50% 50% no-repeat; }
+    }
+    .count_inp {
+        width: 50px;
+        height: 40px;
+        border-top: $basic_border;
+        border-bottom: $basic_border;
+        text-align: center;
+        font-size: $font_s;
+    }
+}
+
+/** 추천 상품 **/
+.recomm_box {
+    ul li {
+        position: relative;
+        width: 32%;
+        height: 300px;
+        margin-bottom: 20px;
+        margin-right: 2%;
+        &:nth-child(3n) {
+            margin-right: 0;
+        }
+        .recomm_item_img {
+            img {
+                width: 100%;
+                height: 300px;
+                object-fit: cover;
+            }
+            .recomm_item_desc {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                padding: 80px 20px 20px 20px;
+                background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0) 100%);
+                color: $white;
+                .loc_tag {
+                    font-weight: 300;
+                }
+                dt {
+                    font-size: $font_l;
+                    font-weight: 500;
+                }
+                dd.price {
+                    margin-top: 20px;
+                    font-weight: 500;
+                    .sale_tag {
+                        display: inline-block;
+                        margin-right: 5px;
+                        color: $point;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/** 게시판 **/
+.title_desc {
+    margin-bottom: 10px;
+}
+.nm_bd_list {
+    .desc {
+        display: inline-block;
+        max-width: 500px;
+        height: 36px;
+        color: $light_gray;
+        font-size: $font_xs;
+        line-height: 36px;
+        @include textEllipsis;
+    }
+    .search_box {
+        input[type=text], select { @include basicInput; }
+        input[type=text] + button { margin-left: 5px; }
+    }
+    table {
+        width: 100%;
+        margin: 10px 0;
+        border-top: $black_border;
+        border-collapse: collapse !important;
+        tr {
+            th, td {
+                padding: 15px;
+                border-bottom: $gray_border;
+                text-align: center;
+                .notice_num {
+                    display: inline-block;
+                    padding: 0 10px;
+                    color: $black;
+                    border: $gray_border;
+                    font-size: $font_xxs;
+                }
+            }
+            th {
+                background: $gray_bg;
+                font-size: $font_xs;
+            }
+            td {
+                &.title { text-align: left; }
+                a:hover { text-decoration: underline; }
+            }
+            &.reply {
+                td {
+                    background: $gray_bg;
+                    &.title a:before {
+                        display: inline-block;
+                        position: relative;
+                        top: -2px;
+                        margin: 0 8px;
+                        content: '';
+                        @include bg(8px, 8px, 're.png');
+                    }
+                }
+            }
+        }
+    }
+    button {
+        min-width: 80px;
+        height: 36px;
+        font-size: $font_xs;
+    }
+}
+/** 상품 리스트 **/
+.nm_list {
+    border-top: $black_border;
+    li.list_head {
+        padding: 10px 0;
+        border: $gray_border;
+        background: $gray_bg;
+        color: $gray;
+        font-size: $font_s;
+        & > div {
+            float: left;
+            text-align: center;
+        }
+    }
+    li.list_body {
+        border-bottom: $gray_border;
+        a {
+            display: block;
+        }
+        .item_info {
+            padding: 20px 0;
+            h3 {
+                font-size: $font_l;
+                margin-bottom: 20px;
+            }
+            .item_thumb {
+                img {
+                    width: 100%;
+                    height: 200px;
+                    object-fit: cover;
+                }
+                @include tablet {
+                    margin-bottom: 20px;
+                }
+            }
+            .item_title {
+                padding: 0 20px;
+                .list_loc { font-size: $font_def; }
+                .list_sub { color: $light_gray; font-size: 15px; font-weight: 400; }
+                .list_sub_desc { color: $gray; }
+                .list_tag {
+                    .tag {
+                        display: inline-block;
+                        height: 22px;
+                        padding: 0 8px;
+                        background: $black;
+                        color: #fff;
+                        border-radius: 11px;
+                        line-height: 22px;
+                        font-size: $font_xs;
+                        font-weight: 300;
+                        &.red { background: #d87474; }
+                        &.green { background: #93b85f; }
+                    }
+                }
+                @include tablet {
+                    margin-bottom: 20px;
+                    padding: 0;
+                }
+            }
+            .item_option {
+                width: 230px;
+                & > div:not(:last-child) {
+                    margin-bottom: 30px;
+                    @include tablet {
+                        padding-top: 10px;
+                        border-top: $basic_border;
+                    }
+                }
+                .option_title {
+                    background: transparent;
+                    font-size: $font_s;
+                    font-weight: 500;
+                }
+                button.option_title {
+                    &:after {
+                        display: inline-block;
+                        margin-left: 5px;
+                        vertical-align: middle;
+                        @include bg(8px, 4px, 's_arrow.png');
+                    }
+                }
+            }
+            .item_state {
+                text-align: center;
+                .print_rec_btn {
+                    background: transparent;
+                    color: $light_gray;
+                    font-size: $font_xxs;
+                }
+            }
+            .item_price {
+                .orig_price {
+                    text-decoration: line-through;
+                    color: $light_gray;
+                    font-size: 15px;
+                    font-weight: 400;
+                }
+                @include desktop {
+                    h3 {
+                        font-size: $font_m;
+                    }
+                }
+            }
+            .list_selected {
+                button {
+                    font-size: 16px;
+                    @include basicInput(230px, 50px);
+                    &.focus {
+                        background: $point;
+                        color: $white;
+                        border: 1px solid $point;
+                    }
+                    @include tablet {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+        .row { padding: 10px 20px; }
+    }
+}
+
+
+.option_item {
+    position: relative;
+    margin-bottom: 5px;
+    @include clear;
+    label {
+        float: left;
+        width: 100px;
+        line-height: 40px;
+        font-size: $font_s;
+        @include textEllipsis;
+    }
+    select {
+        @include basicInput(130px, 40px)
+    }
+    .del_btn {
+        position: absolute;
+        top: 15px;
+        left: -20px;
+        @include bg(13px, 13px, 'del_btn.png');
+    }
+}
+
+
+
+/** pagination **/
+.pagination {
+    margin: 30px 0;
+    text-align: center;
+    a, strong {
+        display: inline-block;
+        margin: 0 8px;
+        color: $black;
+        font-size: $font_m;
+        font-weight: 400;
+    }
+    strong {
+        color: $point !important;
+        font-weight: 700;
+    }
+    a:hover, a:active, a:focus {
+        text-decoration: underline;
+    }
+    a.pre, a.pre_end, a.next, a.next_end {
+        width: 13px;
+        height: 13px;
+        font-size: $font_m;
+    }
+    a.pre      { @include bg(13px, 13px, 'pa_next.png'); transform: rotate(180deg);}
+    a.pre_end  { @include bg(13px, 13px, 'pa_end.png');  transform: rotate(180deg);}
+    a.next     { @include bg(13px, 13px, 'pa_next.png'); }
+    a.next_end { @include bg(13px, 13px, 'pa_end.png'); }
+
+    @include tablet {
+        /* pagenation(small) */
+        a, strong {
+            color: $light_gray;
+            font-size: $font_xs;
+        }
+        a.pre      { @include bg(13px, 13px, 'pa_s_next.png'); transform: rotate(180deg);}
+        a.pre_end  { @include bg(13px, 13px, 'pa_s_end.png'); transform: rotate(180deg);}
+        a.next     { @include bg(13px, 13px, 'pa_s_next.png'); }
+        a.next_end { @include bg(13px, 13px, 'pa_s_end.png'); }
+    }
+}
+
+
+@include desktop {
+    /** 예약박스 **/
+    .reserv_box {
+        height: auto;
+        .reserv_item {
+            &.date {
+                dl {
+                    display: block;
+                    &:first-child {
+                        margin-bottom: 20px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@include tablet {
+    /** 예약박스 **/
+    .reserv_box {
+        .reserv_item {
+            border: 0;
+            &:not(:last-child) {
+                border-bottom: $gray_border;
+            }
+        }
+    }
+    /** 추천 상품 **/
+    .recomm_box {
+        ul li {
+            width: 100%;
+            margin-right: 0;
+        }
+    }
+
+    /** 인풋 박스 **/
+    .input_wrap {
+        .email_box select.email_hst {
+            display: block;
+            width: 100%;
+        }
+    }
+
+    /** 게시판 **/
+    .nm_bd_list table th:not(.title),
+    .nm_bd_list table td:not(.title) {
+        display: none;
+    }
+}

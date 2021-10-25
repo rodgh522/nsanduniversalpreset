@@ -1,4 +1,3 @@
-
 <div id="main">
     <div class="visual">
         <div class="visualBox arrow_box">
@@ -6,7 +5,12 @@
             <!-- 슬라이드 -->
         </div>
         <div class="content">
-            <div class="reserv_box">
+        </div>
+    </div>
+    
+    <div id="reserv">
+        <div class="content">
+            <div class="dp_td reserv_box">
                 <div class="reserv_item loc">
                     <!-- 레이어 팝업(지역) -->
                     <div class="reserv_layer loc" *ngIf="areaToggle">
@@ -27,11 +31,6 @@
                     </dl>
                 </div>
                 <div class="reserv_item date">
-                    <!-- 레이어 팝업(날짜) -->
-                    <!-- 달력 -->
-                    <!-- <div class="reserv_layer date">
-                    </div> -->
-                    <!-- //레이어 팝업(날짜) -->
                     <mat-datepicker-toggle #matDateToggle [for]="picker" style="display: none;"></mat-datepicker-toggle>
                     <mat-date-range-picker #picker touchUi (closed)="finishedPickDate()"></mat-date-range-picker>
                     <mat-date-range-input #rangeInput [rangePicker]="picker"
@@ -73,11 +72,11 @@
             </div>
         </div>
     </div>
+
     <section class="sec_popular">
         <div class="content">
             <h2>모빌라 인기상품</h2>
-            <div class="popular_box arrow_box">
-                <button class="arrow prev_arrow"></button>
+            <div class="popular_box">
                 <ul class="ul_h">
                     <!-- loop -->
                     <li>
@@ -148,7 +147,6 @@
                         </a>
                     </li>
                 </ul>
-                <button class="arrow next_arrow"></button>
             </div>
         </div>
     </section>
@@ -267,8 +265,7 @@
     </section>
     <div class="partner">
         <div class="content">
-            <div class="partner_box arrow_box">
-                <button class="arrow prev_arrow"></button>
+            <div class="partner_box">
                 <ul class="ul_h">
                     <!-- loop -->
                     <li><img src="assets/images/partner_bn.png" alt=""></li>
@@ -278,7 +275,6 @@
                     <li><img src="assets/images/partner_bn.png" alt=""></li>
                     <li><img src="assets/images/partner_bn.png" alt=""></li>
                 </ul>
-                <button class="arrow next_arrow"></button>
             </div>
         </div>
     </div>
