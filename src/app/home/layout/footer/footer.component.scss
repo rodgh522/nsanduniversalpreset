@@ -27,9 +27,6 @@
             line-height: 22px;
             font-weight: 300;
             @include miniBar(0 15px, $gray);
-            &:last-child:after {
-                display: none;
-            }
         }
     }
     .copyright {
@@ -39,17 +36,9 @@
 
 @include tablet {
     #fnbArea {
-        display: none;
-    }
-
-    #footer {
-        .info {
-            ul li {
-                margin-right: 20px;
-                &:after {
-                display: none;
-                }
-            }
+        visibility: hidden;
+        .fnb {
+            display: none;
         }
     }
 }
