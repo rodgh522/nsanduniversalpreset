@@ -13,31 +13,32 @@
                     <li><a href="#">비회원 로그인</a></li>
                 </ul>
             </nav>
-            <div class="input_wrap">
-                <form [formGroup]="loginform" class="flex-column">
-                    <div>
-                        <input type="text" formControlName="LoginId"
-                            [ngStyle]="{'border-color': checkValid('LoginId') ? '#f00' : '#ddd'}" placeholder="아이디">
+            <form [formGroup]="loginform" class="flex-column">
+                <div class="input_wrap">
+                        <div>
+                            <input type="text" formControlName="LoginId"
+                                [ngStyle]="{'border-color': checkValid('LoginId') ? '#f00' : '#ddd'}" placeholder="아이디">
+                        </div>
+                        <div>
+                            <input type="password" formControlName="Pwd"
+                                [ngStyle]="{'border-color': checkValid('Pwd') ? '#f00' : '#ddd'}" placeholder="비밀번호">
+                        </div>
+                        <div class="log_util text-left mgb10">
+                            <input type="checkbox" id="cb1" class="mgr05" formControlName="stayChecked"><label for="cb1">자동로그인</label>
+                        </div>
+                        <div>
+                            <button class="primary_btn login_btn" type="submit" (click)="signIn()">로그인</button>
+                        </div>
+                    
+                    <div class="log_util mgt10">
+                        <ul class="ul_h">
+                            <li><a routerLink="/join">회원가입</a></li>
+                            <li><a routerLink="/admin">아이디 찾기</a></li>
+                            <li><a routerLink="">비밀번호 찾기</a></li>
+                        </ul>
                     </div>
-                    <div>
-                        <input type="password" formControlName="Pwd"
-                            [ngStyle]="{'border-color': checkValid('Pwd') ? '#f00' : '#ddd'}" placeholder="비밀번호">
-                    </div>
-                    <div class="log_util text-left mgb10">
-                        <input type="checkbox" id="cb1" class="mgr05" formControlName="stayChecked"><label for="cb1">자동로그인</label>
-                    </div>
-                    <div>
-                        <button class="primary_btn login_btn" type="submit" (click)="signIn()">로그인</button>
-                    </div>
-                </form>
-                <div class="log_util mgt10">
-                    <ul class="ul_h">
-                        <li><a routerLink="/join">회원가입</a></li>
-                        <li><a routerLink="/admin">아이디 찾기</a></li>
-                        <li><a routerLink="">비밀번호 찾기</a></li>
-                    </ul>
                 </div>
-            </div>
+            </form>
             <div class="log_desc">
                 <p class="mgb30">모빌라 회원이 되면?</p>
                 <span>

@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 export class HeaderComponent implements OnInit, OnDestroy {
 
   offsetY;
+  outerWidth;
   mobMenuToggle = false;
   public isLoggedIn = false;
   private subscription: Array<Subscription> = [];
@@ -33,9 +34,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(e){
+    if(rootScope.isWeb) {
+      this.outerWidth = window.outerWidth;
+    }
+  }
+
   ngOnInit(): void {
     if(rootScope.isWeb) {
       this.offsetY = window.pageYOffset;
+      this.outerWidth = window.outerWidth;
     }
   }
 
