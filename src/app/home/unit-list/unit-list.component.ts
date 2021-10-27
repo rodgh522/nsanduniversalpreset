@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDatepickerToggle, MatDateRangeInput } from '@angular/material/datepicker';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { rootScope } from '@src/app/global/global';
+import { formToObj, rootScope, isNullOrEmpty, objToForm} from '@src/app/global/global';
 import { StaticVariableService } from '@src/app/global/static-variable';
 import { DialogService } from '@src/app/service/dialog.service';
 import { PostApiService } from '@src/app/service/post-api.service';
@@ -10,6 +11,7 @@ import { SearchService } from '@src/app/service/search.service';
 import { SessionService } from '@src/app/service/session.service';
 import { ImgViewerComponent } from '@src/app/shared/modal/img-viewer/img-viewer.component';
 import { Subscription } from 'rxjs';
+import { CONSTANT } from '@src/assets/global-constant';
 
 @Component({
   selector: 'app-unit-list',
@@ -20,6 +22,11 @@ export class UnitListComponent implements OnInit {
 
   @ViewChild('matDateToggle') matDateToggle: MatDatepickerToggle<Date>;
   @ViewChild('rangeInput') rangeInput: MatDateRangeInput<Date>;
+
+  reviewform: FormGroup;
+  reviewupdform: FormGroup;
+  uploadFileList = [];
+  refreshFile = 0;
   
   dataloader = false;
   selectedMenu = 'room';
@@ -31,11 +38,14 @@ export class UnitListComponent implements OnInit {
   endDate;
   data: any = {};
   list = [];
+  reviewlist = [];
   reserve = [];
   accomInfo;
   review;
+  userid = rootScope.gVariable.MemId;
 
   constructor(
+    private fb: FormBuilder,
     private activeRouter: ActivatedRoute,
     private postApi: PostApiService,
     private dialog: DialogService,
@@ -44,7 +54,14 @@ export class UnitListComponent implements OnInit {
     private session: SessionService
   ) { 
     this.maxDay = new Date(Date.parse(this.today.toString()) + 30 * 1000 * 60 * 60 * 24);
-    
+
+    this.reviewform = fb.group({
+      Content: ['', []]
+    });
+    this.reviewupdform = fb.group({
+      Content: ['', []]
+    });
+
     this.srch = JSON.parse(this.activeRouter.snapshot.params.param);
     this.setDateData();
   }
@@ -55,6 +72,7 @@ export class UnitListComponent implements OnInit {
       this.endDate = new Date(Date.parse(this.srch.dates[this.srch.dates.length - 1].toString()) + 1000 * 60 * 60 * 24);
 
       this.getData();
+      this.getReview();
     }
   }
 
@@ -263,6 +281,7 @@ export class UnitListComponent implements OnInit {
         }
       break;
       case 'review':
+        this.getReview();
       break;
     }
   }
@@ -326,4 +345,152 @@ export class UnitListComponent implements OnInit {
     });
   }
 
+  /* 첨부파일 컴포넌트와 데이터 sync */
+  syncFileList(e){
+    this.uploadFileList = [...e];
+  }
+
+  getReview() {
+    let param: any = {
+      AcomId: this.srch.AcomId,
+      mapcode: 'CommunityQuery.getReviewList'
+    };
+        this.postApi.movilaSelect(param, (res)=> {
+          if (res.header.status === CONSTANT.HttpStatus.OK) {
+            this.reviewlist = res.body.docs;
+            for (let i = 0; i < this.reviewlist.length; i++) {
+              this.reviewlist[i].moreButton = false;
+              this.reviewlist[i].updContents = false;
+            }
+            
+          console.log(this.reviewlist);
+          }
+        });
+  }
+
+  buttonMore(target){
+    target.moreButton = !target.moreButton;
+  }
+  
+  buttonUpd(target){
+    target.updContents = !target.updContents;
+    console.log(target);
+    console.log(this.reviewlist);
+    if (target.updContents) {
+      for (let i = 0; i < this.reviewlist.length; i++) {
+        if (target.ReviewId == this.reviewlist[i].ReviewId) {
+          target.updContents = true;
+          this.reviewupdform.controls['Content'].setValue(target.Contents);
+        }
+        else {
+          this.reviewlist[i].updContents = false;
+          console.log(this.reviewlist[i].updContents);
+        }
+      }
+    }
+  }
+
+  reviewReg(){
+    if(!this.session.user$.value) {
+      const data = {
+        msg: '로그인하지 않았습니다. 로그인하시겠습니까?',
+        ok: {
+          msg: '로그인',
+        },
+        cancel: {
+          msg: '취소',
+        }
+      };
+  
+      this.dialog.confirm(data).toPromise()
+      .then((res)=> {
+        if(res) {
+          if(res === 'ok') {
+            rootScope.savedUrl = this.router.url;
+            this.router.navigate(['/login']);
+          }else {
+            return;
+          }
+        }
+      });
+    }
+
+    if(isNullOrEmpty(this.reviewform.controls['Content'].value)){
+      this.dialog.alert({msg:'리뷰를 작성해 주세요.'});
+      return;
+    }
+    const data = {
+      MemId: rootScope.gVariable.MemId,
+      AcomId: this.srch.AcomId,
+      Contents: this.reviewform.controls['Content'].value,
+      Score: 5,
+      mapcode: 'CommunityQuery.insertReview'
+    };
+    this.postApi.movilaInsert(data, (res)=> {
+      if (res.header.status === CONSTANT.HttpStatus.OK) {
+        this.dialog.alert({msg:'등록되었습니다.'});
+        this.router.navigate(['/unit', JSON.stringify(this.srch)]);
+      }
+      console.log(res);
+    });
+    console.log(this.reviewform.controls['Content'].value); 
+  }
+
+  reviewDel(target) {
+    const dat = {
+      msg: '정말 삭제 하시겠습니까?',
+      ok: {
+        msg: '삭제',
+      },
+      cancel: {
+        msg: '취소',
+      }
+    };
+
+    this.dialog.confirm(dat).toPromise()
+    .then((res)=> {
+      if(res) {
+        if(res === 'ok') {
+          const data = {
+            ReviewId: target.ReviewId,
+            MemId: rootScope.gVariable.MemId,
+            AcomId: this.srch.AcomId,
+            mapcode: 'CommunityQuery.deleteReview'
+          };
+          this.postApi.movilaUpdate(data, (res)=> {
+            if (res.header.status === CONSTANT.HttpStatus.OK) {
+              this.dialog.alert({msg:'삭제되었습니다.'});
+              this.setMenu('review');
+            }
+            console.log(res);
+          });
+        }else {
+          return;
+        }
+      }
+    });
+  }
+
+  reviewUpd(target) {
+    if(isNullOrEmpty(this.reviewupdform.controls['Content'].value)){
+      this.dialog.alert({msg:'리뷰를 작성해 주세요.'});
+      return;
+    }
+    const data = {
+      ReviewId: target.ReviewId,
+      MemId: rootScope.gVariable.MemId,
+      AcomId: this.srch.AcomId,
+      Contents: this.reviewupdform.controls['Content'].value,
+      Score: 5,
+      mapcode: 'CommunityQuery.updateReview'
+    };
+    this.postApi.movilaUpdate(data, (res)=> {
+      if (res.header.status === CONSTANT.HttpStatus.OK) {
+        this.dialog.alert({msg:'수정되었습니다.'});
+        this.router.navigate(['/unit', JSON.stringify(this.srch)]);
+      }
+      console.log(res);
+    });    
+  }
+  
 }

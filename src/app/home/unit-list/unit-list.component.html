@@ -24,7 +24,7 @@
                     <li [ngClass]="[selectedMenu === 'accom' ? 'focus' : '']" (click)="setMenu('accom')"><a>숙소정보</a>
                     </li>
                     <li [ngClass]="[selectedMenu === 'review' ? 'focus' : '']" (click)="setMenu('review')"><a>리뷰
-                            (<span>0</span>)</a></li>
+                            (<span>{{ reviewlist.length }}</span>)</a></li>
                 </ul>
             </nav>
         </div>
@@ -285,32 +285,40 @@
     <section id="sec_review mgt30" *ngIf="selectedMenu === 'review'">
         <div class="content">
             <div class="rv_write pdb50">
-                <textarea name="" id="" rows="5"></textarea>
+              <form [formGroup]="reviewform">
+                <textarea name="" id="" rows="5" formControlName="Content" placeholder="리뷰를 작성해 주세요."></textarea>
+                <!--파일첨부-->
                 <div class="rv_w_footer mgt10 clear">
                     <div class="leftBox">
-                        <label for="file_btn" class="file_btn"></label>
-                        <input type="file" id="file_btn">
-                        <span class="desc">사진은 최대 4장까지 업로드 가능합니다.</span>
+                        <app-file-attach (uploaded)="syncFileList($event)" [loadedFile]="uploadFileList" [refresh]="refreshFile"></app-file-attach>
                     </div>
+                    <!-- <div class="leftBox">
+                        <label for="file_btn" class="file_btn"></label>
+                        <input type="file" id="file_btn" accept="image/*" >
+                        <span class="desc">사진은 최대 4장까지 업로드 가능합니다.</span>
+                    </div> -->
                     <div class="rightBox">
-                        <button class="submit_btn primary_btn">등록</button>
+                        <button class="submit_btn primary_btn" type="submit" (click)="reviewReg()">등록</button>
                     </div>
                 </div>
+                <!--/파일첨부-->
+              </form>
             </div>
             <div class="rv_list">
-                <div class="rv_content">
+                <div class="rv_content" *ngFor ="let rev of reviewlist">
                     <!-- loop -->
                     <div class="rv_item">
+                      <div *ngIf="rev.updContents == false">
                         <div class="rv_header">
-                            <span>김율희</span> · <span>20.05.15</span>
+                            <span>{{rev.RegUserNm}}</span> · <span>{{rev.RegDate}}</span>
                         </div>
                         <div class="rv_body">
-                            <p>
-                                리뷰 내용입니다. 리뷰 내용입니다. 리뷰 내용입니다. 리뷰 내용입니다. 리뷰 내용입니다. 리뷰 내용입니다. 리뷰 내용입니다. 리뷰 내용입니다.
-                                리뷰 내용입니다. 리뷰 내용입니다. 리뷰 내용입니다. 리뷰 내용입니다. 리뷰 내용입니다. 리뷰 내용입니다. 리뷰 내용입니다. 리뷰 내용입니다.
-                                리뷰 내용입니다. 리뷰 내용입니다. <a href="#" class="more">더보기</a>
+                            <p [ngClass]="[rev.moreButton ? '' : 'txt_post']">
+                              {{rev.Contents}}  
                                 <!-- 일정 글자수 이후로 더보기 처리 -->
                             </p>
+                            <a class="more" (click) = "buttonMore(rev)" *ngIf="rev.Contents.length > 225 && !rev.moreButton ">더보기</a>
+                            <a class="more" (click) = "buttonMore(rev)" *ngIf="rev.moreButton">줄이기</a>
                             <div class="rv_pic">
                                 <ul class="ul_h">
                                     <li><img src="assets/images/thumb/thumb1.png" alt=""></li>
@@ -320,9 +328,25 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="rv_footer clear">
+                      </div>
+                      <div class ="rv_write" *ngIf="rev.updContents == true">
+                        <form [formGroup]="reviewupdform">
+                          <textarea name="" id="" rows="5" formControlName="Content" placeholder="리뷰를 작성해 주세요."></textarea>
+                          <div class="rv_w_footer mgt10 clear">
+                            <div class="leftBox">
+                                <label for="file_btn" class="file_btn"></label>
+                                <input type="file" id="file_btn" accept="image/*" >
+                                <span class="desc">사진은 최대 4장까지 업로드 가능합니다.</span>
+                            </div>
                             <div class="rightBox">
-                                <a href="#" class="mod_btn mgr10">수정</a><button class="del_btn">삭제</button>
+                                <button class="submit_btn primary_btn" type="submit" (click)="reviewUpd(rev)">수정</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                        <div class="rv_footer clear" *ngIf="rev.MemId == userid">
+                            <div class="rightBox">
+                                <a class="mod_btn mgr10" (click)="buttonUpd(rev)">수정</a><button class="del_btn" (click)="reviewDel(rev)">삭제</button>
                             </div>
                         </div>
                     </div>

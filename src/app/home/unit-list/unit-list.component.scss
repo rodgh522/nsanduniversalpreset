@@ -129,6 +129,9 @@
                 }
             }
         }
+        .txt_post {
+            @include textMultiEllipsis(3);
+          }
     }
     .rv_footer {
         padding: 0 20px;
