@@ -68,7 +68,6 @@ export class SearchBoxComponent implements OnInit {
 
   openCalendar(){
     if(ios) {
-
       const options: Options = {
         selectionMode: 'RANGE',
         disablePrevDates: true,
@@ -79,8 +78,13 @@ export class SearchBoxComponent implements OnInit {
           languageCode: 'kor',
         },
       };
-      this.dateRange = create(options);
-      this.dateRange.showDateRangePicker();
+      this.dateRange = create(options, ()=>{
+        console.log(';;');
+      });
+      this.dateRange.showDateRangePicker((res)=>{
+        console.log(res);
+        this.setDate(res);
+      });
     }else {
       const config: ModalDialogOptions = {
         viewContainerRef: this.vref,
