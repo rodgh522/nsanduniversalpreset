@@ -19,7 +19,7 @@ ul, li, ol{
 }
 
 a {
-    color: #000;
+    color: #333;
     text-decoration: none;
 }
 
@@ -38,8 +38,8 @@ img, fieldset, button, input {
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 h1, h2, h3, h4, h5, h6{
-    color: #1b3a57;
-    margin-bottom: 2px;
+    color: #333;
+    // margin-bottom: 2px;
     font-family: 'Noto Sans KR', sans-serif;
 }
 .flex-column{

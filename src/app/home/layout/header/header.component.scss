@@ -82,7 +82,7 @@
             .mobile_menu {
                 @include mobile_menu;
                 color: $black;
-                top: 100px;
+                top: 50px;
                 left: 20px;
                 margin-top: -8px;
                 height: 14px;
@@ -102,7 +102,7 @@
                 }
             }
             .logo {
-                margin-left: 50px;
+                margin-left: 70px;
             }
             .gnb {
                 display: none;

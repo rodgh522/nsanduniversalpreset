@@ -10,88 +10,86 @@
             </div>
             <ul class="nm_list">
                 <li class="list_head clear m_no">
-                    <div class="wd_35p item_title">숙소이름/객실정보</div>
-                    <div class="wd_20p">입실/퇴실</div>
-                    <div class="wd_15p">객실가격</div>
-                    <div class="wd_15p">옵션가격</div>
-                    <div class="wd_15p">예약금액</div>
+                    <div class=" item_title">숙소이름/객실정보</div>
+                    <div class="">입실/퇴실</div>
+                    <div class="">객실가격</div>
+                    <div class="">옵션가격</div>
+                    <div class="">예약금액</div>
                 </li>
                 <!-- loop -->
-                <li *ngFor="let item of data.rooms; let index = index">
-                    <div class="list_body">
-                        <div class="dp_td va_middle item_info">
-                            <div class="wd_35p item_title text-left">
-                                <h3>{{ data.acomNm }}</h3>
-                                <p>{{ item.roomNm }} / {{ data.straight }}박</p>
-                            </div>
-                            <div class="wd_20p item_time">
-                                <dl class="m_dl_h mg0auto">
-                                    <dt class="pc_no">입실</dt>
-                                    <dd>{{ data.dates[0] | customdate : 'kor' }} {{ data.checkin }}</dd>
-                                </dl>
-                                <dl class="m_dl_h mg0auto">
-                                    <dt class="pc_no">퇴실</dt>
-                                    <dd>{{ makeLastDay(data.dates[data.dates.length - 1]) | customdate : 'kor' }} {{ data.checkout }}</dd>
-                                </dl>
-                            </div>
-                            <div class="wd_15p">
-                                <dl class="m_dl_h">
-                                    <dt class="pc_no">객실가격</dt>
-                                    <dd [ngClass]="[item.salePrice && item.salePrice > 0 ? 'orig_price': '']">{{ item.roomPrice + item.addGuestPrice | comma }} 원</dd>
-                                </dl>
-                                <dl class="m_dl_h" *ngIf="item.salePrice && item.salePrice > 0">
-                                    <dt class="pc_no"></dt>
-                                    <dd>{{ item.roomPrice + item.addGuestPrice - item.salePrice | comma }} 원</dd>
-                                </dl>
-                            </div>
-                            <div class="wd_15p">
-                                <dl class="m_dl_h">
-                                    <dt class="pc_no">옵션가격</dt>
-                                    <dd>{{ item.addPetPrice + item.addOptionPrice | comma }} 원</dd>
-                                </dl>
-                            </div>
-                            <div class="wd_15p">
-                                <dl class="m_dl_h">
-                                    <dt class="pc_no">예약금액</dt>
-                                    <dd>{{ item.roomPrice + item.addGuestPrice + item.addPetPrice + item.addOptionPrice - (item.salePrice ? item.salePrice : 0) | comma}} 원</dd>
-                                </dl>
-                            </div>
+                <li class="list_body" *ngFor="let item of data.rooms; let index = index">
+                    <div class="dp_td va_middle item_info">
+                        <div class="item_title text-left">
+                            <h3>{{ data.acomNm }}</h3>
+                            <p>{{ item.roomNm }} / {{ data.straight }}박</p>
                         </div>
-                        <div class="row clear item_coupon">
-                            <div class="mgr50">
-                                <!-- 쿠폰적용 메세지 -->
+                        <div class="item_time">
+                            <dl class="m_dl_h mg0auto">
+                                <dt class="pc_no">입실</dt>
+                                <dd>{{ data.dates[0] | customdate : 'kor' }} {{ data.checkin }}</dd>
+                            </dl>
+                            <dl class="m_dl_h mg0auto">
+                                <dt class="pc_no">퇴실</dt>
+                                <dd>{{ makeLastDay(data.dates[data.dates.length - 1]) | customdate : 'kor' }} {{ data.checkout }}</dd>
+                            </dl>
+                        </div>
+                        <div>
+                            <dl class="m_dl_h">
+                                <dt class="pc_no">객실가격</dt>
+                                <dd [ngClass]="[item.salePrice && item.salePrice > 0 ? 'orig_price': '']">{{ item.roomPrice + item.addGuestPrice | comma }} 원</dd>
+                            </dl>
+                            <dl class="m_dl_h" *ngIf="item.salePrice && item.salePrice > 0">
+                                <dt class="pc_no"></dt>
+                                <dd>{{ item.roomPrice + item.addGuestPrice - item.salePrice | comma }} 원</dd>
+                            </dl>
+                        </div>
+                        <div>
+                            <dl class="m_dl_h">
+                                <dt class="pc_no">옵션가격</dt>
+                                <dd>{{ item.addPetPrice + item.addOptionPrice | comma }} 원</dd>
+                            </dl>
+                        </div>
+                        <div>
+                            <dl class="m_dl_h">
+                                <dt class="pc_no">예약금액</dt>
+                                <dd>{{ item.roomPrice + item.addGuestPrice + item.addPetPrice + item.addOptionPrice - (item.salePrice ? item.salePrice : 0) | comma}} 원</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row clear item_coupon">
+                        <div class="mgr50">
+                            <!-- 쿠폰적용 메세지 -->
                                 <div class="msg" *ngIf="item.coupon && item.coupon.resultCode === 0">
                                     <p>{{  item.coupon.msg }}</p>
-                                </div>
-                                <label>
-                                    <input type="checkbox" class="mgr10" [(ngModel)]="item.useCoupon" 
-                                        [disabled]="item.localYN" (change)="onChangeCoupon(item)">이용권/쿠폰적용</label>
                             </div>
-                            <div class="ip_div" *ngIf="item.useCoupon">
-                                <label class="mgr10">발행번호</label><input type="text" [(ngModel)]="item.PrintCode" placeholder="발행번호">
-                            </div>
-                            <div class="ip_div" *ngIf="item.useCoupon">
-                                <label class="mgr10">인증번호</label><input type="text" [(ngModel)]="item.VerifyCode" placeholder="인증번호">
-                            </div>
-                            <div class="btn_wrap" *ngIf="item.useCoupon">
-                                <button class="btn primary_btn" (click)="searchCoupon(item)">적용</button>
-                                <button class="btn cancel_btn" (click)="removeCoupon(item); resetCode(item)">적용취소</button>
-                            </div>
+                            <!-- //쿠폰적용 메세지 -->
+                            <label><input type="checkbox" class="mgr10"
+                                [(ngModel)]="item.useCoupon" [disabled]="item.localYN" (change)="onChangeCoupon(item)"> 이용권/쿠폰적용</label>
                         </div>
-                        <div class="row clear item_coupon">
-                            <div>
-                                <label *ngIf="data.localYN === 'Y' && data.localRate && data.localRate > 0">
-                                    <input type="checkbox" class="mgr10" (click)="localDisc($event, item, index)" 
-                                        [disabled]="item.useCoupon" [(ngModel)]="item.localYN">지역민 할인
-                                </label>
-                            </div>
-                            <div class="fl_right item_price va_middle">
-                                <span class="mgr10">결제예정금액</span>
-                                <span class="price">{{ item.roomPrice + item.addGuestPrice + item.addPetPrice + item.addOptionPrice - (item.salePrice ? item.salePrice : 0) | comma}} 원</span>
-                            </div>
+                        <div class="ip_div" *ngIf="item.useCoupon">
+                            <label>발행번호</label><input type="text" [(ngModel)]="item.PrintCode" placeholder="발행번호">
+                        </div>
+                        <div class="ip_div" *ngIf="item.useCoupon">
+                            <label>인증번호</label><input type="text" [(ngModel)]="item.VerifyCode" placeholder="인증번호">
+                        </div>
+                        <div class="btn_wrap" *ngIf="item.useCoupon">
+                            <button class="btn primary_btn" (click)="searchCoupon(item)">적용</button>
+                            <button class="btn cancel_btn" (click)="removeCoupon(item); resetCode(item)">적용취소</button>
+                        </div>
+                    </div>
+                    <div class="row clear item_coupon">
+                        <div>
+                            <label *ngIf="data.localYN === 'Y' && data.localRate && data.localRate > 0">
+                                <input type="checkbox" class="mgr10" (click)="localDisc($event, item, index)" [disabled]="item.useCoupon" [(ngModel)]="item.localYN"> 지역민 할인
+                            </label>
+                        </div>
+                        <div class="fl_right item_price va_middle">
+                            <span class="mgr10">결제예정금액</span>
+                            <span class="price">{{ item.roomPrice + item.addGuestPrice + item.addPetPrice + item.addOptionPrice - (item.salePrice ? item.salePrice : 0) | comma}} 원</span>
                         </div>
                     </div>
                 </li>
+                <!-- //loop -->
             </ul>
             <div class="total_price fl_right">
                 <dl class="va_middle" *ngIf="data.shipping">
@@ -113,12 +111,12 @@
                 </div>
                 <div class="input_wrap">
                     <div>
-                        <label for="" class="es">*주문자</label>
+                        <label for="" class="es">주문자</label>
                         <input type="text" placeholder="주문자 이름" formControlName="GuestNm"
                             [ngStyle]="{'borderColor': checkValid('GuestNm') ? '#f00': '#ddd'}">
                     </div>
                     <div>
-                        <label for="" class="es">*휴대폰 번호</label>
+                        <label for="" class="es">휴대폰 번호</label>
                         <input type="text" placeholder="휴대폰 번호" formControlName="Mobile"
                             [ngStyle]="{'borderColor': checkValid('Mobile') ? '#f00': '#ddd'}">
                     </div>
@@ -128,14 +126,15 @@
                         <input type="text" class="mgb10" placeholder="주소">
                         <input type="text" placeholder="상세주소">
                     </div> -->
-                    <div class="em_box">
+                    <div class="email_box">
                         <label for="">이메일</label>
-                        <input type="text" placeholder="아이디" formControlName="Email">
-                        <!-- <input type="text" class="em_hst" placeholder="@email.com" formControlName="emailGroup">
-                        <select class="em_hst fl_right" (change)="formInfo.controls.emailGroup = ">
-                            <option value="">gmail.com</option>
+                        <input type="text" class="email_id" formControlName="Email"placeholder="아이디">
+                        <span>@</span>
+                        <!-- <input type="text" class="email_hst" formControlName="emailGroup" placeholder="email.com">
+                        <select class="email_hst fl_right" (change)="formInfo.controls.emailGroup = ">
                             <option value="">naver.com</option>
-                            <option value="">hanmail.net</option>
+                            <option value="">daum.com</option>
+                            <option value="">gmail.com</option>
                             <option value="">직접 입력</option>
                         </select> -->
                     </div>

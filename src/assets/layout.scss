@@ -230,32 +230,32 @@ h2 {
 }
 
 /** 서브 비주얼 **/
-#sub_visual .content {
-    height: 400px;
-    background: url('#{$img_url}sub_visual.png') 50% 50% no-repeat;
-    .black_bg {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(51, 51, 51, 0.5);
-        .sub_title {
-            position: absolute;
-            left: 60px;
-            bottom: 50px;
-            h2 {
-                margin: 0 0 10px 0;
-                font-size: $font_xl;
-                color: $white;
-            }
-            p {
-                color: $light_gray_d;
-            }
-            @include tablet {
-                left: 30px;
-            }
-        }
-    }
-}
+// #sub_visual .content {
+//     height: 400px;
+//     background: url('#{$img_url}sub_visual.png') 50% 50% no-repeat;
+//     .black_bg {
+//         position: relative;
+//         width: 100%;
+//         height: 100%;
+//         background-color: rgba(51, 51, 51, 0.5);
+//         .sub_title {
+//             position: absolute;
+//             left: 60px;
+//             bottom: 50px;
+//             h2 {
+//                 margin: 0 0 10px 0;
+//                 font-size: $font_xl;
+//                 color: $white;
+//             }
+//             p {
+//                 color: $light_gray_d;
+//             }
+//             @include tablet {
+//                 left: 30px;
+//             }
+//         }
+//     }
+// }
 
 /** 예약박스 **/
 .reserv_box {
@@ -285,6 +285,12 @@ h2 {
             dd {
                 font-size: $font_m;
                 cursor: pointer;
+            }
+            @include desktop {
+                margin-bottom: 20px;
+                &:last-child {
+                    margin-bottom: 0;
+                }
             }
         }
         &.reserv_btn {
