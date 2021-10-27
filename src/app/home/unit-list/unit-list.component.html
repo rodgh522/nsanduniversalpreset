@@ -3,11 +3,11 @@
 </div>
 <div id="main">
     <section id="sub_visual" *ngIf="data">
-        <div class="content accom_info_top">
-            <div class="image_area">
+        <div class="content accom_info_top clear">
+            <div class="image_area leftBox">
                 <app-swiper imageHeight="280px" thumbHeight="110px" [images]="data.uploadFileList"></app-swiper>
             </div>
-            <div class="info_area">
+            <div class="info_area leftBox">
                 <div>
                     <h2>{{ data.AcomNm }}</h2>
                     <p>{{ data.Addr1 }}</p>
@@ -152,8 +152,7 @@
                                 </div>
                                 <div class="list_selected">
                                     <button [ngClass]="[item.selected ? 'focus' : '', item.isBlocked ? 'disabled' : '']"
-                                        (click)="setPrice(!item.selected, item, item.RoomId)"><i class="fa fa-check"
-                                            *ngIf="item.selected"></i> 선택</button>
+                                        (click)="setPrice(!item.selected, item, item.RoomId)"><i class="fa fa-check"></i> 선택</button>
                                 </div>
                             </div>
                         </div>
