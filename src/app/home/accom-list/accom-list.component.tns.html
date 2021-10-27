@@ -46,14 +46,14 @@
                         <Label row="1" class="item-name" textwrap="true"
                             verticalAlignment="bottom"
                             horizontalAlignment="left" [text]="item.AcomNm"></Label>
-                        <Label row="2" class="item-org-price" textwrap="true" *ngIf="saleRate > 0"
+                        <Label row="2" class="item-org-price" textwrap="true" *ngIf="item.saleRate > 0"
                             verticalAlignment="bottom"
                             horizontalAlignment="left" text="{{ item.DFTPrice | comma }}원"></Label>
                         <GridLayout row="3" rows="auto" columns="auto,auto">
                             <Label row="1" col="0" class="item-price"
                                 textwrap="true" verticalAlignment="top"
                                 horizontalAlignment="left" text="{{ item.price | comma }}원"></Label>
-                            <Label col="1" row="1" class="sale-rate" *ngIf="saleRate > 0"
+                            <Label col="1" row="1" class="sale-rate" *ngIf="item.saleRate > 0"
                                 text="{{ item.saleRate }}%"></Label>
                         </GridLayout>
                     </GridLayout>
