@@ -85,7 +85,7 @@
                 <ul class="ul_h">
                     <!-- loop -->
                     <li *ngFor="let item of recommandList" (click)="goDetail(item.AcomId)">
-                        <a href="#">
+                        <a>
                             <div class="recomm_item_img">
                                 <div class="recomm_item_desc">
                                     <p class="loc_tag">{{ item.Addr1 | sido }}</p>
@@ -118,7 +118,7 @@
                 <ul class="nm_list">
                     <!-- loop -->
                     <li class="list_body" *ngFor="let item of list" (click)="goDetail(item.AcomId)">
-                        <a href="#">
+                        <a>
                             <div class="dp_td item_info">
                                 <div class="item_thumb">
                                     <img src="{{ item.link }}" alt="">
@@ -141,22 +141,6 @@
                     </li>
                     <!-- //loop -->
                 </ul>
-                <!-- <div class="pagination">
-                    <a href="#" class="pre_end"><span class="blind">처음</span></a>
-                    <a href="#" class="pre"><span class="blind">이전</span></a>
-                    <a href="#">1</a>
-                    <strong>2</strong>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">6</a>
-                    <a href="#">7</a>
-                    <a href="#">8</a>
-                    <a href="#">9</a>
-                    <a href="#">10</a>
-                    <a href="#" class="next"><span class="blind">다음</span></a>
-                    <a href="#" class="next_end"><span class="blind">끝</span></a>
-                </div> -->
             </div>
         </div>
     </section>
