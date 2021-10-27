@@ -1,18 +1,74 @@
-<div class="content-wrapper">
-    <div class="login-container">
-        <h2>Movila Login</h2>
-        <div class="login-content">
-            <form [formGroup]="loginform" class="flex-column">
-                <input type="text" formControlName="LoginId" placeholder="아이디"
-                    [ngStyle]="{'border-color': checkValid('LoginId') ? '#f00' : '#ddd'}">
-                <input type="text" formControlName="Pwd" placeholder="패스워드"
-                    [ngStyle]="{'border-color': checkValid('Pwd') ? '#f00' : '#ddd'}">
-                <mat-checkbox color="primary" formControlName="stayChecked">로그인 유지</mat-checkbox>
-                <button type="submit" (click)="signIn()">로그인</button>
-            </form>
-            <a routerLink="/admin">아이디찾기</a><span> / </span>
-            <a routerLink="">비밀번호찾기</a><span> / </span>
-            <a routerLink="/join">회원가입</a>
-        </div>
+<div class="sub_title text-center">
+    <div class="content">
+        <h2>로그인</h2>
     </div>
 </div>
+<section class="sec_login">
+    <div class="content">
+        <!-- 회원 로그인 -->
+        <div class="loginWrap member">
+            <nav class="sub_tab">
+                <ul class="ul_h">
+                    <li><a href="#" class="focus">회원 로그인</a></li>
+                    <li><a href="#">비회원 로그인</a></li>
+                </ul>
+            </nav>
+            <div class="input_wrap">
+                <form [formGroup]="loginform" class="flex-column">
+                    <div>
+                        <input type="text" formControlName="LoginId"
+                            [ngStyle]="{'border-color': checkValid('LoginId') ? '#f00' : '#ddd'}" placeholder="아이디">
+                    </div>
+                    <div>
+                        <input type="password" formControlName="Pwd"
+                            [ngStyle]="{'border-color': checkValid('Pwd') ? '#f00' : '#ddd'}" placeholder="비밀번호">
+                    </div>
+                    <div class="log_util text-left mgb10">
+                        <input type="checkbox" id="cb1" class="mgr05" formControlName="stayChecked"><label for="cb1">자동로그인</label>
+                    </div>
+                    <div>
+                        <button class="primary_btn login_btn" type="submit" (click)="signIn()">로그인</button>
+                    </div>
+                </form>
+                <div class="log_util mgt10">
+                    <ul class="ul_h">
+                        <li><a routerLink="/join">회원가입</a></li>
+                        <li><a routerLink="/admin">아이디 찾기</a></li>
+                        <li><a routerLink="">비밀번호 찾기</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="log_desc">
+                <p class="mgb30">모빌라 회원이 되면?</p>
+                <span>
+                    모빌라 멤버는 단체나 기업 직원의 임직원에게 부여되는 서비스 등급입니다.<br>
+                    모빌라 멤버 회원 가입을 원하시는 개인 회원님은 회원 가입 후 1:1 문의 게시판에<br>
+                    소속정보 [단체/회사명, 부서/소속명, 연락처]를 남겨주시면 검토 후 라온 멤버로 등업해 드립니다.
+                </span>
+            </div>
+        </div>
+        <!-- //회원 로그인 -->
+
+        <!-- 비회원 로그인 -->
+        <div class="loginWrap nonmember" style="display: none;">
+            <nav class="sub_tab">
+                <ul class="ul_h">
+                    <li><a href="#">회원 로그인</a></li>
+                    <li><a href="#" class="focus">비회원 로그인</a></li>
+                </ul>
+            </nav>
+            <div class="input_wrap">
+                <div>
+                    <input type="text" placeholder="주문번호">
+                </div>
+                <div>
+                    <input type="password" placeholder="비밀번호">
+                </div>
+                <div>
+                    <button class="primary_btn login_btn">조회</button>
+                </div>
+            </div>
+        </div>
+        <!-- ..비회원 로그인 -->
+    </div>
+</section>

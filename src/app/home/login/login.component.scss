@@ -1,55 +1,47 @@
-.content-wrapper{
-    background-color: #f5f5f5;
-    height: 100%;
-}
+@import '/src/assets/var';
 
-.login-container{
-    max-width: 550px;
-    margin: 0 auto;
-    padding-top: 50px;
-    text-align: center;
-}
+/** 로그인 **/
+.sec_login .sub_tab ul li { width: 50%; }
 
-.login-content{
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 2px;
-    margin: 0 20px;
-    padding-bottom: 20px;
-
-    form{
-        margin: 10px 50px;
-        input{
-            margin: 5px 0;
-            height: 50px;
-            text-indent: 2px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        button{
-            background-color: yellowgreen;
-            margin: 10px 0;
-            height: 50px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        mat-checkbox{
-            text-align: initial;
-            font-size: 13px;
-            color: #444;
+.loginWrap {
+    width: 95%;
+    max-width: 600px;
+    margin: 0 auto 150px auto;
+    .input_wrap {
+        max-width: 420px;
+        margin: 50px auto;
+        & > div {
+            margin-bottom: 0;
+            text-align: center;
+            .login_btn {
+                width: 100%;
+                height: 50px;
+                font-size: $font_def;
+            }
+            &.log_util {
+                ul {
+                    display: inline-block;
+                    li {
+                        a {
+                            color: $light_gray;
+                            font-size: $font_s;
+                        }
+                        @include miniBar(0 15px, #ddd);
+                    }
+                }
+            }
         }
     }
-
-    > a{
-        font-size: 13px;
-        color: #aaa;
-        
-        &:hover{
-            color: #000;
+    .log_desc {
+        padding: 40px 20px;
+        background: $gray_bg;
+        p {
+            color: $gray;
+            font-size: $font_def;
         }
-    }
-    > span{
-        font-size: 13px;
-        color: #aaa;
+        span {
+            color: $light_gray;
+            font-size: $font_xs;
+        }
     }
 }

@@ -1,62 +1,216 @@
-@charset "UTF-8";
+@import '/src/assets/var';
+
 /*** 예약정보 ***/
-#sec_orderInfo .sub_title { margin-top: 80px; border-top: 1px solid #eee; }
+#sec_orderInfo {
+    .sub_title {
+        margin-top: 80px;
+        // border-top: $gray_border;
+    }
+    .list_head {
+        div {
+            @include td(1, 35%);
+            @include td(2, 20%);
+            @include td(3, 15%);
+            @include td(4, 15%);
+            @include td(5, 15%);
+        }
+        div:not(:last-child) {
+            border-right: $basic_border;
+        }
+    }
+    .list_body {
+        padding: 0;
+        .item_info {
+            min-height: 120px;
+            padding: 10px 0;
+            text-align: center;
+            div {
+                @include td(1, 35%);
+                @include td(2, 20%);
+                @include td(3, 15%);
+                @include td(4, 15%);
+                @include td(5, 15%);
+            }
+            div:not(:last-child) {
+                border-right: $basic_border;
+            }
+        }
+        .item_coupon {
+            background: $gray_bg;
+            border-top: $gray_border;
+            div {
+                position: relative;
+                float: left;
+                height: 40px;
+                margin-right: 30px;
+                line-height: 35px;
+                .msg {
+                    position: absolute;
+                    top: -20px;
+                    left: 20px;
+                    min-width: 150px;
+                    height: 24px;
+                    margin: 0;
+                    padding: 0 10px;
+                    background: $black;
+                    color: $white;
+                    border-radius: 8px;
+                    line-height: 24px;
+                    font-size: $font_xxs;
+                    white-space: nowrap;
+                    &:after {
+                        position: absolute;
+                        left: 20px;
+                        bottom: -5px;
+                        width: 0;
+                        height: 0;
+                        border: 5px solid transparent;
+                        border-bottom-width: 0;
+                        border-top-color: $black;
+                        content: '';
+                    }
+                }
+                button {
+                    width: 80px;
+                    height: 36px;
+                    &.cancel_btn {
+                        border: 0;
+                        color: $light_gray;
+                        font-size: $font_xs;
+                    }
+                }
+            }
+            .ip_div label {
+                color: $gray;
+                font-size: $font_xs;
+            }
+            .ip_div label + input[type=text] {
+                @include basicInput;
+                margin-left: 10px;
+            }
+            .item_price {
+                margin-right: 0;
+                font-size: $font_m;
+                span {
+                    vertical-align: middle;
+                    &:first-child {
+                        color: $light_gray;
+                        font-size: $font_xs;
+                    }
+                }
+            }
+        }
+        .item_coupon + .item_coupon {
+            padding-top: 0;
+            border-top: 0;
+        }
+    }
+    .total_price {
+        margin-top: 20px;
+        dt {
+            display: inline;
+            color: $gray;
+        }
+        dd {
+            display: inline;
+            font-size: $font_l;
+            font-weight: 600;
+        }
+    }
+}
 
-#sec_orderInfo .nm_list .list_head div:not(:last-child) { border-right: 1px solid #ddd; }
-
-#sec_orderInfo .nm_list .list_body .item_info { min-height: 120px; padding: 10px 0; text-align: center; }
-
-#sec_orderInfo .nm_list .list_body .item_info div:not(:last-child) { border-right: 1px solid #ddd; }
-
-#sec_orderInfo .nm_list .list_body .item_coupon { background: #fbfbfb; border-top: 1px solid #eee; }
-
-#sec_orderInfo .nm_list .list_body .item_coupon div { position: relative; float: left; height: 40px; margin-right: 30px; line-height: 35px; }
-
-#sec_orderInfo .nm_list .list_body .item_coupon div .msg { position: absolute; top: -20px; left: 20px; min-width: 150px; height: 24px; margin: 0; padding: 0 10px; background: #333; color: #fff; border-radius: 8px; line-height: 24px; font-size: 13px; white-space: nowrap; }
-
-#sec_orderInfo .nm_list .list_body .item_coupon div .msg:after { position: absolute; left: 20px; bottom: -5px; width: 0; height: 0; border: 5px solid transparent; border-bottom-width: 0; border-top-color: #333; content: ''; }
-
-#sec_orderInfo .nm_list .list_body .item_coupon div button { width: 80px; min-width: 80px; height: 36px; padding: 3px 8px; border: 1px solid #ddd; border: 1px solid #333; }
-
-#sec_orderInfo .nm_list .list_body .item_coupon div button.cancel_btn { border: 0; color: #aaa; font-size: 14px; }
-
-#sec_orderInfo .nm_list .list_body .item_coupon .ip_div label { color: #666; font-size: 14px; }
-
-#sec_orderInfo .nm_list .list_body .item_coupon .ip_div label + input[type=text] { width: auto; min-width: 80px; height: 36px; padding: 3px 8px; border: 1px solid #ddd; margin-left: 10px; }
-
-#sec_orderInfo .nm_list .list_body .item_coupon .item_price { margin-right: 0; font-size: 18px; }
-
-#sec_orderInfo .nm_list .list_body .item_coupon .item_price span { vertical-align: middle; }
-
-#sec_orderInfo .nm_list .list_body .item_coupon .item_price span:first-child { color: #aaa; font-size: 14px; }
-
-#sec_orderInfo .nm_list .list_body .item_coupon + .item_coupon { padding-top: 0; border-top: 0; }
 
 /*** 주문자정보 + 추가 요청사항 ***/
-.input_wrap { max-width: 500px; }
+.input_wrap {
+    max-width: 500px;
+}
+
 
 /*** 결제방식선택 ***/
-#sec_orderPayment { margin-top: 80px; padding: 40px 0; background: #fbfbfb; }
+#sec_orderPayment {
+    margin-top: 80px;
+    padding: 40px 0;
+    background: $gray_bg;
+    .sub_title h2 {
+        margin-top: 0;
+    }
+    ul li {
+        margin-right: 30px;
+    }
+}
 
-#sec_orderPayment .sub_title h2 { margin-top: 0; }
-
-#sec_orderPayment ul li { margin-right: 30px; }
 
 /** mediaquery **/
-@media (max-width: 1200px) { #sec_orderInfo .nm_list .list_body .item_info div:not(:last-child) { border-right: 0; }
-  .item_coupon div { clear: both; float: left; height: auto; margin-right: 0 !important; margin-bottom: 10px; }
-  .item_coupon div .item_price { width: auto; }
-  .item_coupon div button { width: 120px; height: 46px; }
-  .item_coupon .ip_div { width: 100%; height: auto; } }
-
-@media (max-width: 800px) { #sec_orderInfo .list_body .item_info { text-align: left; padding: 20px; }
-  #sec_orderInfo .list_body .item_info .item_title { padding-left: 0; }
-  #sec_orderInfo .list_body .item_info div { border-right: 0; }
-  #sec_orderInfo .list_body .item_info div dl dt { width: 150px; color: #aaa; text-align: left; font-size: 14px; line-height: 24px; }
-  #sec_orderInfo .list_body .item_coupon div button { width: 100%; }
-  #sec_orderInfo .list_body .item_coupon .ip_div { width: 100%; }
-  #sec_orderInfo .list_body .item_coupon .ip_div label { display: none; }
-  #sec_orderInfo .list_body .item_coupon .ip_div label + input[type=text] { width: 100%; margin-left: 0 !important; }
-  #sec_orderInfo .list_body .item_coupon .ip_div .btn_wrap { display: block; width: 100%; height: auto; margin: 10px 0; text-align: right; } }
-
-.orig_price { text-decoration: line-through; color: #999; font-size: 15px; }
+@include desktop {
+    #sec_orderInfo {
+        .list_body {
+            .item_info {
+                div:last-child {
+                    border-right: 0;
+                }
+            }
+            .item_coupon {
+                div {
+                    clear: both;
+                    float: left;
+                    height: auto;
+                    margin-right: 0 !important;
+                    margin-bottom: 10px;
+                    .item_price {
+                        width: auto;
+                    }
+                    button {
+                        width: 120px;
+                        height: 46px;
+                    }
+                }
+                .ip_div {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+        }
+    }
+}
+@include tablet {
+    #sec_orderInfo {
+        .list_body {
+            .item_info {
+                text-align: left;
+                padding: 20px;
+                .item_title {
+                    padding-left: 0;
+                }
+                div {
+                    border-right: 0 !important;
+                    dl dt {
+                        width: 150px;
+                        color: $light_gray;
+                        text-align: left;
+                        font-size: $font_xs;
+                        line-height: 24px;
+                    }
+                }
+            }
+            .item_coupon {
+                .ip_div {
+                    width: 100%;
+                    label {
+                        display: none;
+                    }
+                    label + input[type=text] {
+                        width: 100%;
+                        margin-left: 0 !important;
+                    }
+                    .btn_wrap {
+                        display: block;
+                        width: 100%;
+                        height: auto;
+                        margin: 10px 0;
+                        text-align: right;
+                    }
+                }
+            }
+        }
+    }
+}
