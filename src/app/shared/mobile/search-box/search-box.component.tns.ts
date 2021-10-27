@@ -1,13 +1,15 @@
 import { Component, EventEmitter, OnInit, Output, ViewContainerRef } from '@angular/core';
 import { ModalDialogOptions, ModalDialogService, RouterExtensions } from '@nativescript/angular';
 import { action } from '@nativescript/core';
-import { isNullOrEmpty } from '@src/app/global/global';
+import { ios } from '@nativescript/core/application';
+import { isNullOrEmpty, rootScope } from '@src/app/global/global';
 import { SearchService } from '@src/app/service/search.service';
+import { create } from 'nativescript-ngx-date-range';
+import { Options } from 'nativescript-ngx-date-range/ngx-date-range.common';
 import { DatePickerComponent } from '../date-picker/date-picker.component.tns';
 import { SetGuestsComponent } from '../set-guests/set-guests.component.tns';
-
 const today = new Date();
-
+declare const UIModalPresentationStyle;
 @Component({
   selector: 'ns-search-box',
   templateUrl: './search-box.component.tns.html',
@@ -16,6 +18,7 @@ const today = new Date();
 export class SearchBoxComponent implements OnInit {
 
   @Output() onSearch = new EventEmitter;
+  dateRange;
   srch: any = {};
   toggle: any = {};
   area = '전국';
@@ -40,7 +43,6 @@ export class SearchBoxComponent implements OnInit {
       Sido: []
     } 
     : this.searchService.srch
-    console.log(this.srch);
   }
 
   searchArea(){
@@ -54,7 +56,8 @@ export class SearchBoxComponent implements OnInit {
 
   setGuests(){
     const config: ModalDialogOptions = {
-      viewContainerRef: this.vref,
+      viewContainerRef: rootScope.vcRef,
+      fullscreen: false,
       context: this.guest
     };
     this.modalService.showModal(SetGuestsComponent, config).
@@ -64,18 +67,35 @@ export class SearchBoxComponent implements OnInit {
   }
 
   openCalendar(){
-    const config: ModalDialogOptions = {
-      viewContainerRef: this.vref,
-      fullscreen: true
-    };
-    this.modalService.showModal(DatePickerComponent, config).
-    then((res)=> {
-      if(res) {
-        this.setDate(res);
-      }
-    });
-  }
+    if(ios) {
 
+      const options: Options = {
+        selectionMode: 'RANGE',
+        disablePrevDates: true,
+        simpleDateFormat: 'YYYY MMMM',
+        selectToday: true,
+        language: {
+          countryCode: 'KOR',
+          languageCode: 'kor',
+        },
+      };
+      this.dateRange = create(options);
+      this.dateRange.showDateRangePicker();
+    }else {
+      const config: ModalDialogOptions = {
+        viewContainerRef: this.vref,
+        fullscreen: false,
+      };
+      this.modalService.showModal(DatePickerComponent, config).
+      then((res)=> {
+        if(res) {
+          console.log(res);
+          this.setDate(res);
+        }
+      });
+    }
+          
+  }
   setDate(range: any){
     
     if(range.startDate === '') {

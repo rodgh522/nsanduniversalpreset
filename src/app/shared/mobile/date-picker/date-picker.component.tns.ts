@@ -17,15 +17,18 @@ export class DatePickerComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const options = new Options();
-    options.selectionMode = 'RANGE';
-    options.disablePrevDates = true;
-    options.language = {
-      countryCode: 'KOR',
-      languageCode: 'kor',
+    const options: Options = {
+      selectionMode: 'RANGE',
+      disablePrevDates: true,
+      simpleDateFormat: 'YYYY MMMM',
+      selectToday: true,
+      language: {
+        countryCode: 'KOR',
+        languageCode: 'kor',
+      },
     };
-    options.simpleDateFormat = 'YYYY MMMM'
     this.dateRange = create(options);
+    this.dateRange.showDateRangePicker();
   }
 
   close(action){    
