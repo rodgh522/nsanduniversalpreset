@@ -40,6 +40,10 @@ section {
 .reserv_box .reserv_layer.loc { top: 149px; border-top: 0; }
 .reserv_box .reserv_layer.number { top: 149px; border-top: 0; }
 .reserv_btn { cursor: pointer; }
+@include desktop {
+    .reserv_box .reserv_layer.loc { top: 187px; }
+    .reserv_box .reserv_layer.number { top: 187px; }
+}
 
 
 /** sec_popular **/

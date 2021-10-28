@@ -8,6 +8,7 @@
             <nav class="util">
                 <ul>
                     <li><a href="http://59.15.3.210:8058/#/login" target="_blank">파트너센터</a></li>
+                    <li><a href="http://59.15.3.210:8058/#/login" target="_blank">{{outerWidth}}</a></li>
                     <li *ngIf="!isLoggedIn"><a (click)="goLogin()">LOGIN</a></li>
                     <li *ngIf="isLoggedIn"><a (click)="logout()">MYPAGE</a></li>
                 </ul>
@@ -19,7 +20,7 @@
             <a [ngClass]="['mobile_menu', mobMenuToggle ? 'active' : '']" (click)="mobMenuToggle = !mobMenuToggle">모바일메뉴</a>
             <h1 class="logo"><a href="#"><img src="./assets/images/logo.png" alt="모빌라"></a></h1>
             <nav class="gnb"
-                [ngStyle]="{'display': mobMenuToggle ? 'block' : 'none'}">
+                [ngStyle]="{'display': outerWidth > 1200 ? 'block' : (mobMenuToggle ? 'block' : 'none')}">
                 <ul>
                     <li><a href="#">모빌라캠핑장</a></li>
                     <li><a href="#">모빌라홀캠핑장</a></li>

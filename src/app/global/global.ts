@@ -1,3 +1,4 @@
+import { ViewContainerRef } from "@angular/core";
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from "@angular/forms";
 
 declare global {
@@ -39,6 +40,7 @@ Date.prototype.toStrFormat = function(){
 
 export namespace rootScope{
   export let windowSize: any = {};
+  export let vcRef: ViewContainerRef;
   export let savedUrl: string;
   export let currentLanguage = '';
   export let navbarToggle: boolean;

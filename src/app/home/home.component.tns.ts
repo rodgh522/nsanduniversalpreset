@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { rootScope } from '../global/global';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   title = 'movila';
 
-  constructor() { }
+  constructor(
+    public vcr: ViewContainerRef
+  ) { 
+    rootScope.vcRef = this.vcr;
+  }
 
   ngOnInit() {
     console.log('home component');

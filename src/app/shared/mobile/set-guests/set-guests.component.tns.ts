@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalDialogParams } from '@nativescript/angular';
+import { ModalDialogParams, registerElement } from '@nativescript/angular';
+import { ModalStack, overrideModalViewMethod } from 'nativescript-windowed-modal';
 
 @Component({
   selector: 'ns-set-guests',
@@ -13,7 +14,10 @@ export class SetGuestsComponent implements OnInit {
   
   constructor(
     private modalRef: ModalDialogParams
-  ) { }
+  ) { 
+    overrideModalViewMethod();
+    registerElement('ModalStack', ()=> ModalStack);
+  }
 
   ngOnInit(): void {
     this.guest = this.modalRef.context;
