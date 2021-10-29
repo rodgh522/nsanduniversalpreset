@@ -1,1 +1,13 @@
-<Button text="swiper works!" class="btn btn-primary"></Button>
+<GridLayout>
+    <Carousel #carousel [items]="images" 
+        (pageChanged)="onSwipe($event)" 
+        showIndicator="true" indicatorColor="#000"
+        indicatorOffset="0, -10"
+        >
+        <CarouselItem *ngFor="let item of images" verticalAlignment="middle">
+            <GridLayout>
+                <Image [src]="item.link" stretch="aspectFill"></Image>
+            </GridLayout>
+        </CarouselItem>
+    </Carousel>
+</GridLayout>

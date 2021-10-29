@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Page, ScrollEventData, ScrollView, View } from '@nativescript/core';
 import { StaticVariableService } from '../../global/static-variable';
 import { PostApiService } from '../../service/post-api.service.tns';
 import { Subscription } from 'rxjs';
-import { Http, HttpResponse } from "@nativescript/core";
+import { ActivatedRoute } from '@angular/router';
+import { Carousel, CarouselCommon, CarouselUtil } from 'nativescript-carousel';
+import { SearchService } from '@src/app/service/search.service';
 
 @Component({
   selector: 'app-unit-list',
   templateUrl: './unit-list.component.tns.html',
   styleUrls: ['./unit-list.component.tns.scss']
 })
-export class UnitListComponent implements OnInit {
+export class UnitListComponent implements OnInit, OnDestroy {
 
+  @ViewChild('topView', { static: false}) topView: ElementRef<Carousel>;
   dataloader = false;
   selectedMenu = 'room';
   srch: any = {};
@@ -30,11 +33,15 @@ export class UnitListComponent implements OnInit {
     private _page: Page,
     private postApi: PostApiService,
     private staticVariable: StaticVariableService,
+    private activateRouter: ActivatedRoute,
+    private searchService: SearchService
   ) { 
 
+    const param = this.activateRouter.snapshot.params;
+    console.log(this.searchService.srch);
     this.srch = {
-      AcomId: "2S1I44TF16",
-      dates: [new Date()]
+      AcomId: param.acomId,
+      dates: this.searchService.srch.dates
     };
   }
 
@@ -45,28 +52,12 @@ export class UnitListComponent implements OnInit {
     // this.http();
   }
 
-  http(){
-    let param = {
-      ...this.srch,
-      mapcode: 'getAcomDetail',
-      dates: this.changeFormat(this.srch.dates),
-      ChCode: '',
-      straight: 1
-    };
-    Http.request({
-      url: "http://59.15.3.210:8058/home/getAcomDetail.json",
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      content: JSON.stringify(param),
-    }).then(
-      (response: HttpResponse) => {
-        const result = response.content.toJSON();
-        console.log(`Http POST Result: ${result}`)
-      },
-      (e) => {
-        console.error(e);
-      }
-    );
+  @HostListener('unloaded')
+  ngOnDestroy(){
+    console.log('unit destroyed')
+  }
+
+  setSlide(){
   }
 
   onScroll(event: ScrollEventData, scrollView: ScrollView, topView: View) {
@@ -86,7 +77,7 @@ export class UnitListComponent implements OnInit {
 
   getData(){
     this.dataloader = true;
-
+    clearInterval();
     let param = {
       ...this.srch,
       mapcode: 'getAcomDetail',
@@ -134,6 +125,10 @@ export class UnitListComponent implements OnInit {
       a.selected = false;
       return a;
     });
+  }
+
+  onSwipe(args){
+
   }
 
 }

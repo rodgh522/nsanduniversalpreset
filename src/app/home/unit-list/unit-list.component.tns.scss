@@ -1,1 +1,25 @@
 /* Add mobile styles for the component here.  */
+.acom_label{
+    text-align: center;
+}
+
+.room_img{
+    width: 40%;
+}
+
+.accom_info{
+    color: #1b3a57;
+    margin-top: 10;
+    &.accom_name{
+        font-size: 20;
+    }
+}
+.menu_container{
+    margin-top: 20;
+    border-bottom-width: 1;
+    border-color: #ddd;
+    padding-bottom: 10;
+    Label{ 
+        color: #1b3a57;
+    }
+}
