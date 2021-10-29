@@ -8,35 +8,124 @@
             <Label [text]="data.Addr1" class="accom_info accom_addr"></Label>
             <Label [text]="data.Intro" class="accom_info accom_intro"></Label>
             <GridLayout rows="*" columns="*, *, *, *" class="menu_container">
-                <Label class="acom_label" row="0" col="0" text="객실/예약"></Label>
-                <Label class="acom_label" row="0" col="1" text="숙소정보"></Label>
-                <Label class="acom_label" row="0" col="2" text="객실문의"></Label>
-                <Label class="acom_label" row="0" col="3" text="리뷰(0)"></Label>
+                <Label [ngClass]="['acom_label', selectedMenu === 0 ? 'highlight_menu' : '']" (tap)="selectedMenu = 0" row="0" col="0" text="객실/예약"></Label>
+                <Label [ngClass]="['acom_label', selectedMenu === 1 ? 'highlight_menu' : '']" (tap)="selectedMenu = 1" row="0" col="1" text="숙소정보"></Label>
+                <Label [ngClass]="['acom_label', selectedMenu === 2 ? 'highlight_menu' : '']" (tap)="selectedMenu = 2" row="0" col="2" text="객실문의"></Label>
+                <Label [ngClass]="['acom_label', selectedMenu === 3 ? 'highlight_menu' : '']" (tap)="selectedMenu = 3" row="0" col="3" text="리뷰(0)"></Label>
             </GridLayout>
-            <StackLayout>
-                <Label text="예약일정"></Label>
-                <Label text="10-29 ~ 10-30"></Label>
-            </StackLayout>
-            <StackLayout width="100%" backgroundColor="white" padding="10">
-                <StackLayout *ngFor="let item of data.rooms">
-                    <GridLayout rows="*" columns="auto, *">
-                        <Image row="0" col="0" stretch="aspectFill" [src]="item.photo" class="room_img"></Image>
-                        <GridLayout row="0" col="1" rows="auto, auto, auto">
-                            <Label row="0" text="available"></Label>
-                            <Label row="1" [text]="item.RoomNm"></Label>
-                            <StackLayout row="2">
-                                <Label text="guests: {{ item.Adult}} "></Label>
+            <StackLayout *ngIf="selectedMenu === 0">
+                <StackLayout class="booking_range" (tap)="openCalendar()">
+                    <Label text="예약일정" class="booking_text"></Label>
+                    <Label text="{{ startDate | customdate : 'mm.dd(day)' }} ~ {{ endDate | customdate : 'mm.dd(day)' }} / {{ srch.straight }}박"  class="booking_date"></Label>
+                </StackLayout>
+                <StackLayout width="100%" backgroundColor="white" padding="10">
+                    <StackLayout *ngFor="let item of data.rooms" class="room_container">
+                        <GridLayout rows="*" columns="auto, *">
+                            <Image row="0" col="0" stretch="aspectFill" [src]="item.photo" class="room_img"></Image>
+                            <GridLayout row="0" col="1" rows="auto, auto, auto" horizontalAlignment="right">
+                                <Label row="0" horizontalAlignment="left" [ngClass]="['tag', item.isBlocked ? 'red' : 'green']" 
+                                    text="{{ item.isBlocked ? '예약완료' : '예약가능'}}"></Label>
+                                <Label row="1" [text]="item.roomNm" class="room_name"></Label>
+                                <StackLayout row="2" class="room_info_container">
+                                    <Label text="인원: 기준 {{ item.baseInfo[0].GuestStd }}명 / 최대 {{ item.baseInfo[0].GuestMax }}명
+                                        영/유아기준: {{ item.baseInfo[0].InfantMonth}}개월"></Label>
+                                    <Label *ngIf="item.baseInfo[0].PetMax > 0" text="애견: 기준 {{ item.baseInfo[0].PetStd }}마리 / 최대 {{ item.baseInfo[0].PetMax }}마리"></Label>
+                                    <Label *ngIf="!item.baseInfo[0].PetMax && item.baseInfo[0].PetMax == 0" text="애견입실불가"></Label>
+                                    <Label text="유형/크기: {{ item.baseInfo[0].UnitTy === 'CARAVAN' ? '카라반' : '글램핑' }}/{{
+                                        item.baseInfo[0].UnitWidth }}평"></Label>
+                                    <!-- <StackLayout orientation="horizontal">
+                                        <Label text="시설: "></Label>
+                                        <Label *ngFor="let fac of item.facInfo; last as isLast" [text]="fac.CodeValue">
+                                            <Label text=", " *ngIf="!isLast"></Label>
+                                        </Label>
+                                    </StackLayout> -->
+
+                                    <StackLayout horizontalAlignment="right" class="price_info">
+                                        <GridLayout columns="auto, auto" horizontalAlignment="right">
+                                            <Label text="{{ 20 }}%" col="0" marginRight="5" color="#93b85f"></Label>
+                                            <Label text="{{ item.DFTPrice | comma }}" col="1" class="orig_price"></Label>
+                                        </GridLayout>
+                                        <Label text="{{ item.roomPrice + item.addGuestPrice + item.addPetPrice +
+                                            item.addOptionPrice | comma }}원" class="price_room"></Label>
+                                    </StackLayout>
+                                </StackLayout>
+                            </GridLayout>
+                        </GridLayout>
+                        <StackLayout class="add_guest">
+                            <Label text="인원추가" class="add_guest_text"></Label>
+                            <GridLayout columns="*, *" class="add_control">
+                                <Label text="성인" col="0"></Label>
+                                <GridLayout col="1" columns="*, auto, *" class="count_control">
+                                    <Label col="0" class="btn_minus" text="-" (tap)="setGuest(item, 'adult', '-')"></Label>
+                                    <Label col="1" class="num_indicator" text="{{ item.adult }}"></Label>
+                                    <Label col="2" class="btn_plus" text="+" (tap)="setGuest(item, 'adult', '+')"></Label>
+                                </GridLayout>
+                            </GridLayout>
+                            <GridLayout columns="*, *" class="add_control">
+                                <Label text="영/유아" col="0"></Label>
+                                <GridLayout col="1" columns="*, auto, *" class="count_control">
+                                    <Label col="0" class="btn_minus" text="-" (tap)="setGuest(item, 'infant', '-')"></Label>
+                                    <Label col="1" class="num_indicator" text="{{ item.infant }}"></Label>
+                                    <Label col="2" class="btn_plus" text="+" (tap)="setGuest(item, 'infant', '+')"></Label>
+                                </GridLayout>
+                            </GridLayout>
+                            <GridLayout columns="*, *" class="add_control">
+                                <Label text="애견" col="0"></Label>
+                                <GridLayout col="1" columns="*, auto, *" class="count_control">
+                                    <Label col="0" class="btn_minus" text="-" (tap)="setPet(item, '-')"></Label>
+                                    <Label col="1" class="num_indicator" text="{{ item.pet }}"></Label>
+                                    <Label col="2" class="btn_plus" text="+" (tap)="setPet(item, '+')"></Label>
+                                </GridLayout>
+                            </GridLayout>
+                        </StackLayout>
+                        <GridLayout rows="auto, auto" columns="*, auto" class="add_option">
+                            <GridLayout row="0" col="0" columns="auto, auto" (tap)="openOptionList(item)">
+                                <Label text="옵션추가" fontWeight="bold" col="0"></Label>
+                                <Image src="~/assets/images/s_arrow.png" col="1" width="10"></Image>
+                            </GridLayout>
+                            <StackLayout row="1">
+                                <GridLayout columns="*, *" class="add_control" *ngFor="let opt of item.options; let index = index">
+                                    <GridLayout rows="auto, auto" columns="auto, auto, auto" col="0">
+                                        <Image src="~/assets/images/del_btn.png" width="10" stretch="aspectFill" row="0" col="0" class="btn_del" (tap)="delOption(item, index)"></Image>
+                                        <Label marginLeft="-35" text="{{ opt.ItemNm }}" row="0" col="1"></Label>
+                                        <Label text="현장결제" *ngIf="opt.CashYN === 'Y'" class="opt_condition option_condition_cash" row="0" col="2"></Label>
+                                        <Label text="배송비" *ngIf="opt.DeliveryYN === 'Y'" class="opt_condition option_condition_delivery" row="0" col="2"></Label>
+                                        <Label text="{{ opt.ItemPrice | comma }}원" row="1" col="0" fontSize="15"></Label>
+                                    </GridLayout>
+                                    <GridLayout col="1" columns="*, auto, *" class="count_control">
+                                        <Label col="0" class="btn_minus" text="-" (tap)="setOption(item, opt, '-')"></Label>
+                                        <Label col="1" class="num_indicator" text="{{ opt.totalCnt }}"></Label>
+                                        <Label col="2" class="btn_plus" text="+" (tap)="setOption(item, opt, '+')"></Label>
+                                    </GridLayout>
+                                </GridLayout>
                             </StackLayout>
                         </GridLayout>
+                        <GridLayout class="btn_select"
+                            [ngClass]="[item.selected ? 'focus' : '']"
+                            (tap)="setPrice(!item.selected, item, item.RoomId)">
+                            <GridLayout rows="*" columns="auto, auto" horizontalAlignment="center">
+                                <Image row="0" src="~/assets/images/checkmark.png" col="0" width="25" stretch="aspectFill"></Image>
+                                <Button row="0" text="선택" col="1" fontSize="18" marginLeft="5"></Button>
+                            </GridLayout>
+                        </GridLayout>
+                    </StackLayout>
+                    <GridLayout rows="*" columns="auto, auto" horizontalAlignment="right" marginTop="-20" marginBottom="20">
+                        <Label col="0" class="payment_text" text="총 결제금액"></Label>
+                        <Label col="1" class="payment_price" text="{{ totalPrice() | comma }}원"></Label>
                     </GridLayout>
-                    <GridLayout rows="*" columns="*, auto">
-                        <StackLayout row="0" col="0">
-                            <Label text="옵션추가"></Label>
-                        </StackLayout>
-                        <Button text="선택" row="0" col="1"></Button>
-                    </GridLayout>
+                    <Button text="예약하기" [ngClass]="['btn_submit', totalPrice() > 0 ? 'available' : '']"></Button>
                 </StackLayout>
-			</StackLayout>
+            </StackLayout>
+            <StackLayout *ngIf="selectedMenu === 1">
+                <Label text="info"></Label>
+            </StackLayout>
+            <StackLayout *ngIf="selectedMenu === 2">
+                <Label text="inquire"></Label>
+            </StackLayout>
+            <StackLayout *ngIf="selectedMenu === 3">
+                <Label text="review"></Label>
+            </StackLayout>
         </StackLayout>
     </ScrollView>
+    <NgxDateRange></NgxDateRange>
 </GridLayout>

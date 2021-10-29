@@ -10,16 +10,172 @@
 .accom_info{
     color: #1b3a57;
     margin-top: 10;
+    font-size: 15;
     &.accom_name{
         font-size: 20;
     }
 }
 .menu_container{
     margin-top: 20;
-    border-bottom-width: 1;
-    border-color: #ddd;
-    padding-bottom: 10;
     Label{ 
+        border-bottom-width: 1;
+        border-color: #ddd;
+        padding-bottom: 10;
         color: #1b3a57;
+    }
+    .highlight_menu{
+        font-weight: bold;
+        border-color: #1b3a57;
+    }
+}
+.booking_range{
+    margin: 20 0;
+    padding: 0 20;
+    padding-bottom: 20;
+    border-bottom-width: 2;
+    border-color: #1b3a57;
+    .booking_text{
+        font-size: 15;
+        color: #aaa;
+        margin-bottom: 10;
+    }
+    .booking_date{
+        font-size: 18;
+    }
+}
+
+.room_container{
+    border-bottom-width: 1;
+    border-color: #1b3a57;
+    margin-bottom: 20;
+}
+.room_name{
+    font-size: 20;
+    color: #1b3a57;
+    margin-bottom: 10;
+}
+
+.tag{
+    color: #eee;
+    font-size: 12;
+    width: 60;
+    padding: 2 5;
+    border-radius: 10;
+    text-align: center;
+    &.red { background: #d87474; }
+    &.green { background: #93b85f; }
+}
+    
+.room_info_container{
+    font-size: 14;
+}
+
+.add_guest{
+    margin-top: 10;
+    border-top-width: 1;
+    border-color: #eee;
+    padding: 10 0;
+    *{
+        margin: 2 0;
+    }
+    .add_guest_text{
+        font-weight: bold;
+    }
+}
+.add_control{
+    margin: 5 0;
+    &> Label{
+        font-size: 13;
+    }
+    .count_control {
+        height: 40;
+        border-width: 1;
+        border-color: #eee;
+        Label{
+            text-align: center;
+            border-color: #eee;
+            padding: 5 0;
+            &.btn_minus { border-right-width: 1;}
+            &.num_indicator{ width: 80;}
+            &.btn_plus { border-left-width: 1;}
+        }
+    }
+}
+
+.add_option {
+    border-top-width: 1;
+    border-color: #eee;
+    padding: 10 0;
+    border-bottom-width: 1;
+    margin-bottom: 10;
+
+    .opt_condition{
+
+        border-width: 1;
+        border-radius: 10;
+        padding: 2 5;
+        margin-left: 5;
+        font-size: 12;
+        &.option_condition_cash{
+            border-color: #6e8;
+        }
+        
+        &.option_condition_delivery{
+            border-color: #ff7f50;
+        }
+    }
+}
+
+.btn_select{
+    width: 100%;
+    padding: 10;
+    border-width: 1;
+    border-color: #eee;
+    margin-bottom: 10;
+
+
+    &.focus{
+        background-color: #93b85f;
+        font-weight: 500;
+    }
+
+}
+
+.price_info{
+    margin-top: 10;
+    .orig_price{
+        text-decoration: line-through;
+        color: #aaa;
+    }
+    .price_room{
+        font-size: 20;
+        text-align: right;
+    }
+}
+
+.btn_del{
+    margin-left: -45;
+}
+
+.payment_text{
+    font-size: 18;
+    color: #999;
+    margin-right: 20;
+}
+.payment_price{
+    font-size: 25;
+    color: #93b85f;
+}
+.btn_submit{
+
+    border-width: 1;
+    border-color: #93b85f;
+    padding: 20 30;
+    color: #1b3a57;
+    font-weight: bold;
+    width: 200;
+    &.available{
+        background-color: #93b85f;
+        color: #fff;
     }
 }

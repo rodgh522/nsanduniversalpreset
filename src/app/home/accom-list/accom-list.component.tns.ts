@@ -34,7 +34,7 @@ export class AccomListComponent implements OnInit, OnDestroy {
         this.srch = this.searchService.srch;
         this.getList();
     }
-
+    
     ngOnDestroy(){
     }
 
