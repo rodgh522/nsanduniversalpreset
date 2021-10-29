@@ -78,9 +78,7 @@ export class SearchBoxComponent implements OnInit {
           languageCode: 'kor',
         },
       };
-      this.dateRange = create(options, ()=>{
-        console.log(';;');
-      });
+      this.dateRange = create(options);
       this.dateRange.showDateRangePicker((res)=>{
         console.log(res);
         this.setDate(res);
