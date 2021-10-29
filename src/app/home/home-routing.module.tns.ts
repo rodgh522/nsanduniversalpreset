@@ -13,7 +13,7 @@ const routes: Routes = [
     children: [
       { path: 'main', component: MainComponent },
       { path: 'accom', component: AccomListComponent },
-      { path: 'unit', component: UnitListComponent },
+      { path: 'unit/:acomId', component: UnitListComponent },
     ]
   },
   { path: 'login', component: LoginComponent}

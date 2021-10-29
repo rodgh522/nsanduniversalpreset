@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { registerElement } from '@nativescript/angular';
+import { Carousel, CarouselItem } from 'nativescript-carousel';
 import { rootScope } from '../global/global';
 
 @Component({
@@ -16,7 +18,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('home component');
+    registerElement('Carousel', ()=> Carousel);
+    registerElement('CarouselItem', ()=> CarouselItem);
   }
   
 }

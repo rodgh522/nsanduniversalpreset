@@ -23,7 +23,8 @@ export class AccomListComponent implements OnInit, OnDestroy {
         private routerExtensions: RouterExtensions,
         private searchService: SearchService,
         private postApi: PostApiService,
-        private staticVariable: StaticVariableService
+        private staticVariable: StaticVariableService,
+        private router: Router
     ) {
 
         //Set up to get data from shared service to help moving from mocking data to real API calls in the future
@@ -31,7 +32,6 @@ export class AccomListComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.srch = this.searchService.srch;
-        console.log(this.srch);
         this.getList();
     }
 
@@ -91,5 +91,7 @@ export class AccomListComponent implements OnInit, OnDestroy {
         this.getList();
     }
 
-
+    goUnit(id: string){
+      this.router.navigateByUrl('unit/' + id);
+    }
 }
