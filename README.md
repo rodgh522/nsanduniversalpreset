@@ -3,6 +3,12 @@
 $ ng new [project name] --collection=@nativescript/schematics --shared --style=scss
 ```
 
+# command
+  - $ tns --h
+
+# console
+  - console.log 대신 console.dir 사용 (Object 형식 확인)
+
 # Basic Setting
 
 ## node version

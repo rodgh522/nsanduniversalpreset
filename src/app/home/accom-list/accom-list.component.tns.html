@@ -13,13 +13,14 @@
         <Label text="이 지역 추천상품" class="list-regular-title"></Label>
         <ScrollView orientation="horizontal" scrollBarIndicatorVisible="false">
             <StackLayout orientation="horizontal">
-                <StackLayout margin="10" *ngFor="let item of recommandList">
-                    <StackLayout height="110" width="125" borderRadius="5" boxSizing="border-box" [backgroundImage]="item.link">
-                        <Button horizontalAlignment="left" marginRight="5"
-                            marginTop="0" width="60" height="40" text="{{ item.Addr1 | sido }}"
+                <StackLayout margin="10" *ngFor="let item of recommandList" (tap)="goUnit(item.AcomId)">
+                    <Image  height="110" width="125" borderRadius="5" boxSizing="border-box" [src]="item.link"
+                        stretch="aspectFill">
+                        <Label horizontalAlignment="left" marginRight="5" class="accom_sido"
+                        marginTop="0" width="60" height="40" text="{{ item.Addr1 | sido | substr : 2}}"
                             color="#fff" backgroundColor="#333">
-                        </Button>
-                    </StackLayout>
+                        </Label>
+                    </Image>
                     <Label fontSize="14" color="#000" [text]="item.AcomNm">
                     </Label>
                     <Label fontSize="12" color="#999999" text="{{ item.price | comma }}원">
@@ -39,7 +40,7 @@
         <StackLayout class="line" width="100%" row="1"></StackLayout>
             <StackLayout class="main">
                 <StackLayout class="content" *ngFor="let item of list">
-                    <Image class="card-img" [src]="item.link"></Image>
+                    <Image class="card-img" [src]="item.link" stretch="aspectFill"></Image>
                     <GridLayout width="100%" rows="auto, auto, auto, auto"
                         class="accom-info" verticalAlignment="center">
                         <Label text="{{ item.Addr1 | sido }}" row="0" class="accom-area"></Label>

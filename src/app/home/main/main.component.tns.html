@@ -1,8 +1,8 @@
 <GridLayout>
     <ScrollView #scrollView (scroll)="onScroll($event, scrollView, topView)">
         <StackLayout>
-            <StackLayout #topView height="250" backgroundImage="~/assets/images/visual.png">
-            </StackLayout>
+            <Image #topView stretch="aspectFill" height="250" src="~/assets/images/visual.png">
+            </Image>
 
             <StackLayout marginLeft="10" marginRight="10" marginTop="-30">
                 <ns-search-box></ns-search-box>
@@ -12,12 +12,12 @@
                 <ScrollView orientation="horizontal" scrollBarIndicatorVisible="false">
                     <StackLayout orientation="horizontal">
                         <StackLayout margin="10">
-                            <StackLayout height="110" width="125" borderRadius="5" backgroundImage="~/assets/images/thumb/thumb1.png">
+                            <Image stretch="aspectFill" height="110" width="125" borderRadius="5" src="~/assets/images/thumb/thumb1.png">
                                 <Button horizontalAlignment="left" marginRight="5"
                                     marginTop="0" width="60" height="40" text="가평"
                                     color="#fff" backgroundColor="#333">
                                 </Button>
-                            </StackLayout>
+                            </Image>
                             <Label fontSize="14" color="#000" text="남이섬 베스트 카라반">
                             </Label>
                             <Label fontSize="12" color="#999999" text="50,000">

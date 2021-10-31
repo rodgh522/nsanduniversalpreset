@@ -16,6 +16,7 @@ import { AccomListComponent } from './accom-list/accom-list.component.tns';
 /* Pipe */
 import { SidoPipe } from '@src/app/pipe/sido.pipe';
 import { CommaPipe } from '@src/app/pipe/comma.pipe';
+import { SubstrPipe } from '../pipe/substr.pipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { CommaPipe } from '@src/app/pipe/comma.pipe';
     FooterComponent,
     UnitListComponent,
     AccomListComponent,
-    SidoPipe, CommaPipe
+    SidoPipe, CommaPipe, SubstrPipe
   ],
   imports: [
     NativeScriptCommonModule,

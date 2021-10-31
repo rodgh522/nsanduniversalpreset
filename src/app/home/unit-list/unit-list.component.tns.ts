@@ -1,19 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { Page, ScrollEventData, ScrollView, View } from '@nativescript/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { action, Page, ScrollEventData, ScrollView, View } from '@nativescript/core';
 import { StaticVariableService } from '../../global/static-variable';
 import { PostApiService } from '../../service/post-api.service.tns';
 import { Subscription } from 'rxjs';
-import { Http, HttpResponse } from "@nativescript/core";
+import { ActivatedRoute } from '@angular/router';
+import { Carousel, CarouselCommon, CarouselUtil } from 'nativescript-carousel';
+import { SearchService } from '@src/app/service/search.service';
+import { Options } from 'nativescript-ngx-date-range/ngx-date-range.common';
+import { ios } from '@nativescript/core/application';
+import { create } from 'nativescript-ngx-date-range';
+import { ModalDialogOptions, ModalDialogService } from '@nativescript/angular';
+import { DatePickerComponent } from '@src/app/shared/mobile/date-picker/date-picker.component.tns';
 
 @Component({
   selector: 'app-unit-list',
   templateUrl: './unit-list.component.tns.html',
   styleUrls: ['./unit-list.component.tns.scss']
 })
-export class UnitListComponent implements OnInit {
+export class UnitListComponent implements OnInit, OnDestroy {
 
+  @ViewChild('topView', { static: false}) topView: ElementRef<Carousel>;
   dataloader = false;
-  selectedMenu = 'room';
   srch: any = {};
   subscription: Array<Subscription> = [];
   today = new Date();
@@ -25,17 +32,23 @@ export class UnitListComponent implements OnInit {
   reserve = [];
   accomInfo;
   review;
+  selectedMenu = 0;
+  options = [];
+  dateRange;
   
   constructor(
     private _page: Page,
     private postApi: PostApiService,
     private staticVariable: StaticVariableService,
+    private activateRouter: ActivatedRoute,
+    private searchService: SearchService,
+    private modalService: ModalDialogService,
+    private vref: ViewContainerRef,
   ) { 
 
-    this.srch = {
-      AcomId: "2S1I44TF16",
-      dates: [new Date()]
-    };
+    const param = this.activateRouter.snapshot.params;
+    this.srch = this.searchService.srch;
+    this.srch.AcomId = param.acomId;
   }
 
   ngOnInit(): void {
@@ -45,60 +58,77 @@ export class UnitListComponent implements OnInit {
     // this.http();
   }
 
-  http(){
-    let param = {
-      ...this.srch,
-      mapcode: 'getAcomDetail',
-      dates: this.changeFormat(this.srch.dates),
-      ChCode: '',
-      straight: 1
-    };
-    Http.request({
-      url: "http://59.15.3.210:8058/home/getAcomDetail.json",
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      content: JSON.stringify(param),
-    }).then(
-      (response: HttpResponse) => {
-        const result = response.content.toJSON();
-        console.log(`Http POST Result: ${result}`)
-      },
-      (e) => {
-        console.error(e);
-      }
-    );
+  @HostListener('unloaded')
+  ngOnDestroy(){
+    console.log('unit destroyed')
   }
 
-  onScroll(event: ScrollEventData, scrollView: ScrollView, topView: View) {
-    // If the header content is still visiible
-    // console.log(scrollView.verticalOffset);
-    if (scrollView.verticalOffset < 250) {
-        const offset = scrollView.verticalOffset / 2;
-        if (scrollView.ios) {
-            // iOS adjust the position with an animation to create a smother scrolling effect. 
-            topView.animate({ translate: { x: 0, y: offset } }).then(() => { }, () => { });
-        } else {
-            // Android, animations are jerky so instead just adjust the position without animation.
-            topView.translateY = Math.floor(offset);
+  openCalendar(){
+    if(ios) {
+      const options: Options = {
+        selectionMode: 'RANGE',
+        disablePrevDates: true,
+        simpleDateFormat: 'YYYY MMMM',
+        selectToday: true,
+        language: {
+          countryCode: 'KOR',
+          languageCode: 'kor',
+        },
+      };
+      this.dateRange = create(options);
+      this.dateRange.showDateRangePicker((res)=>{
+        console.log(res);
+        this.setDate(res);
+      });
+    }else {
+      const config: ModalDialogOptions = {
+        viewContainerRef: this.vref,
+        fullscreen: false,
+      };
+      this.modalService.showModal(DatePickerComponent, config).
+      then((res)=> {
+        if(res) {
+          console.log(res);
+          this.setDate(res);
         }
+      });
     }
+  }
+
+  setDate(range: any){
+    if(range.startDate === '') {
+      return;
+    }
+
+    this.startDate = new Date(range.startDate);
+    this.endDate = range.endDate ? new Date(range.endDate) : new Date(this.startDate.getFullYear(), this.startDate.getMonth(), this.startDate.getDate() + 1);
+    this.makeDateRange();
+  }
+
+  makeDateRange(){
+    this.srch.dates = [];
+    let date = this.startDate;
+    while(date < this.endDate) {
+      this.srch.dates.push(date);
+      date = new Date(Date.parse(date.toString()) + 1000 * 60 * 60 * 24);
+    }
+    this.srch.straight = this.srch.dates.length;
   }
 
   getData(){
     this.dataloader = true;
-
+    clearInterval();
     let param = {
       ...this.srch,
       mapcode: 'getAcomDetail',
       dates: this.changeFormat(this.srch.dates),
       ChCode: '',
-      straight: 1,
-      GuestMax: 2
     };
     this.postApi.home(param, (res)=> {
       this.dataloader = false;
       if(res.header.status === 200) {
         this.data = res.body.docs[0];
+        this.setOptionList(this.data.options)
         this.prepRoomInfo(this.data.rooms);
       }
     });
@@ -136,4 +166,118 @@ export class UnitListComponent implements OnInit {
     });
   }
 
+  setOptionList(list: Array<any>){
+    this.options = [];
+    list.forEach((res)=> {
+      this.options.push(res.ItemNm);
+    });
+  }
+
+  openOptionList(target){
+    console.dir(target);
+    action('옵션상품', '닫기', this.options).then((res)=> {
+      if(res !== '닫기') {
+        this.addOption(target, res);
+      }
+    });
+  }
+  
+  addOption(target, pickedUpOption){
+    const duple = target.options.filter(a=> a.ItemNm === pickedUpOption);
+    if(duple.length > 0) {
+      return;
+    }
+    const item = this.data.options.filter(a=> a.ItemNm === pickedUpOption);
+    if(item.length > 0) {
+      item[0].totalCnt = 1;
+      target.options.push(item[0]);
+    }
+    this.setOption(target, item[0], '-');
+  }
+
+  setGuest(room, target, action){
+    if(action === '+') {
+      if(room.adult + room.infant < room.maxGuest) {
+        room[target]++;
+      }
+    }else {
+      if(room[target] > 0) {
+        room[target]--;
+      }
+    }
+    const adult = room.baseInfo[0].Adult;
+    const infant = room.baseInfo[0].Infant;
+    if(room.adult + room.infant > room.baseInfo[0].GuestStd) {    // 성인 + 유아 > 기준인원
+      if(room.baseInfo[0].GuestStd - room.adult < 0){             // 기준인원 < 성인
+        room.addGuestPrice = ((room.adult - room.baseInfo[0].GuestStd) * (adult ? adult : 0)) * this.srch.straight;
+        room.addGuestPrice += (room.infant * (infant ? infant : 0)) * this.srch.straight;
+      }else {                                                     // 기준인원 > 성인
+        room.addGuestPrice = (((room.adult + room.infant) - room.baseInfo[0].GuestStd) * (infant ? infant : 0)) * this.srch.straight;
+      }
+    }else{
+      room.addGuestPrice = 0;
+    }
+  }
+
+  setOption(item, option, action){
+    let price = 0;
+    if(action === '+') {
+      option.totalCnt++;
+    }else {
+      option.totalCnt -= option.totalCnt > 1 ? 1 : 0;
+    }
+
+    item.options.forEach((a)=> {
+      price += a.CashYN === 'Y' ? 0 : a.totalCnt * a.ItemPrice;
+    });
+    item.addOptionPrice = price;
+  }
+
+  delOption(item, idx){
+    let price = 0;
+    item.options.splice(idx, 1);
+
+    item.options.forEach((a)=> {
+      price += a.totalCnt * a.ItemPrice;
+    });
+    item.addOptionPrice = price;
+  }
+
+  setPet(item, action){
+    if(action === '+') {
+      item.pet += item.baseInfo[0].PetMax && item.baseInfo[0].PetMax > item.pet ? 1 : 0;
+    }else {
+      item.pet -= item.pet > 0 ? 1 : 0;
+    }
+    if(item.pet > item.baseInfo[0].PetStd) {
+      item.addPetPrice = ((item.pet - item.baseInfo[0].PetStd) * item.baseInfo[0].PetAdd) * this.srch.straight;
+    }else {
+      item.addPetPrice = 0;
+    }
+  }
+
+  setPrice(selected: boolean, item, roomId) {
+    if(item.BlockYN === 'Y' || item.reservedCnt > 0) {
+      return;
+    }
+    item.selected = selected;
+    if(selected) {
+      const idx = this.list.findIndex(a=> a.RoomId === roomId);
+      if(idx > -1) {
+        this.reserve.push(this.list[idx]);
+      }
+    }else {
+      const idx = this.reserve.findIndex(a=> a.RoomId === roomId);
+      this.reserve.splice(idx, 1);
+    }
+  }
+
+  totalPrice(){
+    let price = 0;
+    this.reserve.forEach((a)=> {
+      price += a.roomPrice + a.addGuestPrice + a.addPetPrice + a.addOptionPrice;
+    });
+    return price;
+  }
+  
 }

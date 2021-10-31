@@ -1,0 +1,16 @@
+<GridLayout height="100" width="100">
+    <RadRadialGauge>
+        <RadialScale tkRadialGaugeScales startAngle="-90" sweepAngle="360">
+            <ScaleStyle tkRadialScaleStyle ticksVisible="false" labelsVisible="false" lineThickness="0"></ScaleStyle>
+            <RadialBarIndicator tkRadialScaleIndicators minimum="0" maximum="100">
+                <BarIndicatorStyle tkRadialBarIndicatorStyle fillColor="#99a" cap="Round" barWidth="0.1">
+                </BarIndicatorStyle>
+            </RadialBarIndicator>
+            <RadialBarIndicator tkRadialScaleIndicators minimum="0" [maximum]="progress" isAnimated="true">
+                <BarIndicatorStyle tkRadialBarIndicatorStyle fillColor="#45a" cap="Round" barWidth="0.1">
+                </BarIndicatorStyle>
+            </RadialBarIndicator>
+        </RadialScale>
+    </RadRadialGauge>
+    <Label text="click" (tap)="change()"></Label>
+</GridLayout>

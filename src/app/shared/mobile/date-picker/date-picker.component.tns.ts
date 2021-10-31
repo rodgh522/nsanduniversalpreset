@@ -28,7 +28,6 @@ export class DatePickerComponent implements OnInit {
       },
     };
     this.dateRange = create(options);
-    this.dateRange.showDateRangePicker();
   }
 
   close(action){    
