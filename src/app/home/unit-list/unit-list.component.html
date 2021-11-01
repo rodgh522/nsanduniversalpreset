@@ -340,8 +340,8 @@
                                 <button class="submit_btn primary_btn" (click) = "buttonComm(rev)">답글 달기</button>
                             </div>
                             <div class="rv_pic">
-                                <ul class="ul_h"  *ngFor ="let revf of rev.uploadfileList">
-                                    <li><img src="{{revf.link}}" alt=""></li>
+                                <ul class="ul_h">
+                                    <li *ngFor ="let revf of rev.uploadfileList"><img src="{{revf.link}}" alt=""></li>
                                 </ul>
                             </div>
                         </div>
@@ -511,8 +511,8 @@
                             <a class="more" (click) = "buttonMore(que)" *ngIf="que.Contents.length > 225 && !que.moreButton ">더보기</a>
                             <a class="more" (click) = "buttonMore(que)" *ngIf="que.moreButton">줄이기</a>
                             <div class="rv_pic">
-                                <ul class="ul_h"  *ngFor ="let quef of que.uploadfileList">
-                                    <li><img src="{{quef.link}}" alt=""></li>
+                                <ul class="ul_h">
+                                    <li *ngFor ="let quef of que.uploadfileList"><img src="{{quef.link}}" alt=""></li>
                                 </ul>
                             </div>
                             <div>

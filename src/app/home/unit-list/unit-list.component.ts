@@ -855,8 +855,10 @@ export class UnitListComponent implements OnInit {
         }
         else {
           this.questionlist[i].updContents = false; 
-          for (let j = 0; j < this.questionlist[i].questioncommlist.length; j++) {
-            this.questionlist[i].questioncommlist[j].updComment = false;
+          if (this.questionlist[i].questioncommlist) {
+            for (let j = 0; j < this.questionlist[i].questioncommlist.length; j++) {
+              this.questionlist[i].questioncommlist[j].updComment = false;
+            }
           }
         }
       }
