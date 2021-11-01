@@ -25,11 +25,15 @@ export class UnitListComponent implements OnInit {
 
   reviewform: FormGroup;
   reviewupdform: FormGroup;
+  questionform: FormGroup;
+  questionupdform: FormGroup;
   reviewcommform: FormGroup;
   reviewcommupdform: FormGroup;
   uploadFileList = [];
   uploadReviewFileList = [];
   uploadReviewUpdFileList = [];
+  uploadQuestionFileList = [];
+  uploadQuestionUpdFileList = [];
   refreshFile = 0;
   
   dataloader = false;
@@ -43,6 +47,7 @@ export class UnitListComponent implements OnInit {
   data: any = {};
   list = [];
   reviewlist = [];
+  questionlist = [];
   reserve = [];
   accomInfo;
   review;
@@ -73,6 +78,12 @@ export class UnitListComponent implements OnInit {
     this.reviewcommupdform = fb.group({
       Content: ['', []]
     });
+    this.questionform = fb.group({
+      Content: ['', []]
+    });
+    this.questionupdform = fb.group({
+      Content: ['', []]
+    });
 
     this.srch = JSON.parse(this.activeRouter.snapshot.params.param);
     this.setDateData();
@@ -85,6 +96,7 @@ export class UnitListComponent implements OnInit {
 
       this.getData();
       this.getReview();
+      this.getQuestion();
     }
   }
   
@@ -296,6 +308,11 @@ export class UnitListComponent implements OnInit {
       case 'review':
         //if(!this.reviewlist) {
           this.getReview();
+        //}
+      break;
+      case 'question':
+        //if(!this.questionlist) {
+          this.getQuestion();
         //}
       break;
     }
@@ -688,7 +705,7 @@ export class UnitListComponent implements OnInit {
     }
 
     if(isNullOrEmpty(this.reviewcommform.controls['Content'].value)){
-      this.dialog.alert({msg:'리뷰를 작성해 주세요.'});
+      this.dialog.alert({msg:'답글을 작성해 주세요.'});
       return;
     }
     const data = {
@@ -709,7 +726,7 @@ export class UnitListComponent implements OnInit {
   
   reviewcommUpd(target) {
     if(isNullOrEmpty(this.reviewcommupdform.controls['Content'].value)){
-      this.dialog.alert({msg:'리뷰를 작성해 주세요.'});
+      this.dialog.alert({msg:'답글을 작성해 주세요.'});
       return;
     }
     const data = {
@@ -736,5 +753,234 @@ export class UnitListComponent implements OnInit {
     }
 
   }
+  
+  /* 첨부파일 컴포넌트와 데이터 sync */
+  syncQFileList(e){
+    this.uploadQuestionFileList = [...e];
+  }
+  /* 첨부파일 컴포넌트와 데이터 sync */
+  syncQUpdFileList(e){
+    this.uploadQuestionUpdFileList = [...e];
+  }
 
+  getQuestion() {
+    this.loginUserId = rootScope.gVariable.MemId;
+    this.dataloader = true;
+    let param: any = {
+      AcomId: this.srch.AcomId,
+      mapcode: 'getQuestionList'
+    };
+    
+
+    this.postApi.home(param, (res)=> {
+      if (res.header.status === CONSTANT.HttpStatus.OK) {
+        this.questionlist = res.body.docs[0].list;
+        for (let i = 0; i < this.questionlist.length; i++) {
+          this.questionlist[i].moreButton = false;
+          this.questionlist[i].updContents = false;
+          this.questionlist[i].commButton = false;
+          const questionday = new Date(this.questionlist[i].RegDate);
+          this.questionlist[i].RegDate = questionday.toLocaleDateString();
+          var filelist = [];
+          this.questionlist[i].uploadfileList.forEach(e => {
+            var flist ={
+              id : e.fileId,
+              isLoaded : true,
+              link : this.staticVariable.getUrl2('/attach/file/' + e.PhysicalFileNm + '/download.do?userkey=' + this.questionlist[i].MemId),
+              fileName : e.LogicalFileNm,
+              size : e.FileSize,
+              fileKey : e.PhysicalFileNm,
+              path : e.PhysicalPath,
+              downloadCnt : e.DownloadCnt,
+              delState: ""
+            };
+            filelist.push(flist);
+            this.questionlist[i].uploadfileList = filelist.map(a => {
+              let b = a;
+              return b;
+            });
+          });
+          this.getQuestionComment(this.questionlist[i]);
+        }
+        this.dataloader = false;
+        console.log(this.questionlist);
+      }
+    }); 
+    setTimeout(()=> {
+      this.refreshFile = 0;
+    }, 500);
+  }
+  getQuestionComment(list) {
+    let param: any = {
+      AcomId: this.srch.AcomId,
+      QuestionId: list.QuestionId,
+      mapcode: 'CommunityQuery.getQuestionComment'
+    };
+        this.postApi.movilaSelect(param, (res)=> {
+          if (res.header.status === CONSTANT.HttpStatus.OK) {
+            if (res.body.docCnt > 0) {
+              list['questioncommlist'] = res.body.docs;
+              for (let i = 0; i < list['questioncommlist'].length; i++) {
+                list['questioncommlist'][i].moreButton = false;
+                list['questioncommlist'][i].updComment = false;
+                const questioncommday = new Date(list['questioncommlist'][i].RegDate);
+                list['questioncommlist'][i].RegDate = questioncommday.toLocaleDateString();
+              } 
+            }
+          }
+        });
+  }
+
+  buttonQComm(target){
+    target.commButton = !target.commButton;
+    if (target.commButton) {
+      for (let i = 0; i < this.questionlist.length; i++) {
+        if (target.QuestionId == this.questionlist[i].QuestionId) {
+          target.commButton = true;
+        }
+        else {
+          this.questionlist[i].commButton = false;
+        }
+      }
+    }
+  }
+  
+  buttonQUpd(target){
+    target.updContents = !target.updContents;
+    if (target.updContents) {
+      for (let i = 0; i < this.questionlist.length; i++) {
+        if (target.QuestionId == this.questionlist[i].QuestionId) {
+          target.updContents = true;
+          this.questionupdform.controls['Content'].setValue(target.Contents);
+        }
+        else {
+          this.questionlist[i].updContents = false; 
+          for (let j = 0; j < this.questionlist[i].questioncommlist.length; j++) {
+            this.questionlist[i].questioncommlist[j].updComment = false;
+          }
+        }
+      }
+    }
+  }
+
+  questionReg(){
+    if(!this.session.user$.value) {
+      const data = {
+        msg: '로그인하지 않았습니다. 로그인하시겠습니까?',
+        ok: {
+          msg: '로그인',
+        },
+        cancel: {
+          msg: '취소',
+        }
+      };
+  
+      this.dialog.confirm(data).toPromise()
+      .then((res)=> {
+        if(res) {
+          if(res === 'ok') {
+            rootScope.savedUrl = this.router.url;
+            this.router.navigate(['/login']);
+          }else {
+            return;
+          }
+        }
+      });
+    }
+
+    if(isNullOrEmpty(this.questionform.controls['Content'].value)){
+      this.dialog.alert({msg:'문의 사항을 작성해 주세요.'});
+      return;
+    }
+    const data = {
+      MemId: rootScope.gVariable.MemId,
+      AcomId: this.srch.AcomId,
+      Contents: this.questionform.controls['Content'].value,
+      mapcode: 'CommunityQuery.insertQuestion',
+      uploadFileList: this.uploadQuestionFileList,
+      tableNm: 'question'
+    };
+    this.postApi.movilaInsert(data, (res)=> {
+      if (res.header.status === CONSTANT.HttpStatus.OK) {
+        this.dialog.alert({msg:'등록되었습니다.'});
+
+        this.questionform.controls['Content'].setValue('');
+        this.uploadQuestionFileList = [];
+        this.refreshFile++;
+
+        this.getQuestion();
+        this.router.navigate(['/unit', JSON.stringify(this.srch)]);
+        
+        
+      }
+    });
+  }
+
+  questionDel(target) {
+    const dat = {
+      msg: '정말 삭제 하시겠습니까?',
+      ok: {
+        msg: '삭제',
+      },
+      cancel: {
+        msg: '취소',
+      }
+    };
+
+    this.dialog.confirm(dat).toPromise()
+    .then((res)=> {
+      if(res) {
+        if(res === 'ok') {
+          const data = {
+            QuestionId: target.QuestionId,
+            MemId: rootScope.gVariable.MemId,
+            AcomId: this.srch.AcomId,
+            mapcode: 'CommunityQuery.deleteQuestion'
+          };
+          this.postApi.movilaUpdate(data, (res)=> {
+            if (res.header.status === CONSTANT.HttpStatus.OK) {
+              this.dialog.alert({msg:'삭제되었습니다.'});
+              this.getQuestion();
+              this.router.navigate(['/unit', JSON.stringify(this.srch)]);
+            }
+          });
+        }else {
+          return;
+        }
+      }
+    });
+  }
+
+
+  questionUpd(target) {
+    if(isNullOrEmpty(this.questionupdform.controls['Content'].value)){
+      this.dialog.alert({msg:'문의 사항을 작성해 주세요.'});
+      return;
+    }
+    
+    const data = {
+      QuestionId: target.QuestionId,
+      MemId: rootScope.gVariable.MemId,
+      AcomId: this.srch.AcomId,
+      Contents: this.questionupdform.controls['Content'].value,
+      mapcode: 'CommunityQuery.updateQuestion',
+      uploadFileList: [...this.uploadQuestionUpdFileList, ...target.uploadfileList],
+      tableNm: 'question',
+      TableId: target.QuestionId
+    };
+    this.postApi.movilaUpdate(data, (res)=> {
+      if (res.header.status === CONSTANT.HttpStatus.OK) {
+        this.dialog.alert({msg:'수정되었습니다.'});
+
+        this.questionupdform.controls['Content'].setValue('');
+        this.uploadQuestionUpdFileList = [];
+        this.refreshFile++;
+
+        this.getQuestion();
+        this.router.navigate(['/unit', JSON.stringify(this.srch)]);
+      }
+    }); 
+  }
+  
+  
 }
