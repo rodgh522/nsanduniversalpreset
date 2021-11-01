@@ -25,7 +25,11 @@ export class UnitListComponent implements OnInit {
 
   reviewform: FormGroup;
   reviewupdform: FormGroup;
+  reviewcommform: FormGroup;
+  reviewcommupdform: FormGroup;
   uploadFileList = [];
+  uploadReviewFileList = [];
+  uploadReviewUpdFileList = [];
   refreshFile = 0;
   
   dataloader = false;
@@ -42,7 +46,7 @@ export class UnitListComponent implements OnInit {
   reserve = [];
   accomInfo;
   review;
-  userid = rootScope.gVariable.MemId;
+  loginUserId;
 
   constructor(
     private fb: FormBuilder,
@@ -56,9 +60,17 @@ export class UnitListComponent implements OnInit {
     this.maxDay = new Date(Date.parse(this.today.toString()) + 30 * 1000 * 60 * 60 * 24);
 
     this.reviewform = fb.group({
-      Content: ['', []]
+      Content: ['', []],
+      Score: ['', []]
     });
     this.reviewupdform = fb.group({
+      Content: ['', []],
+      Score: ['', []]
+    });
+    this.reviewcommform = fb.group({
+      Content: ['', []]
+    });
+    this.reviewcommupdform = fb.group({
       Content: ['', []]
     });
 
@@ -75,6 +87,7 @@ export class UnitListComponent implements OnInit {
       this.getReview();
     }
   }
+  
 
   setDateData(){
     this.srch.dates = this.srch.dates.map((a)=> {
@@ -281,7 +294,9 @@ export class UnitListComponent implements OnInit {
         }
       break;
       case 'review':
-        this.getReview();
+        //if(!this.reviewlist) {
+          this.getReview();
+        //}
       break;
     }
   }
@@ -347,44 +362,137 @@ export class UnitListComponent implements OnInit {
 
   /* 첨부파일 컴포넌트와 데이터 sync */
   syncFileList(e){
-    this.uploadFileList = [...e];
+    this.uploadReviewFileList = [...e];
+  }
+  /* 첨부파일 컴포넌트와 데이터 sync */
+  syncUpdFileList(e){
+    this.uploadReviewUpdFileList = [...e];
   }
 
   getReview() {
+    this.loginUserId = rootScope.gVariable.MemId;
+    this.dataloader = true;
     let param: any = {
       AcomId: this.srch.AcomId,
-      mapcode: 'CommunityQuery.getReviewList'
+      mapcode: 'getReviewList'
+    };
+    
+
+    this.postApi.home(param, (res)=> {
+      if (res.header.status === CONSTANT.HttpStatus.OK) {
+        this.reviewlist = res.body.docs[0].list;
+        for (let i = 0; i < this.reviewlist.length; i++) {
+          this.reviewlist[i].moreButton = false;
+          this.reviewlist[i].updContents = false;
+          this.reviewlist[i].commButton = false;
+          const reviewday = new Date(this.reviewlist[i].RegDate);
+          this.reviewlist[i].RegDate = reviewday.toLocaleDateString();
+          var filelist = [];
+          this.reviewlist[i].uploadfileList.forEach(e => {
+            var flist ={
+              id : e.fileId,
+              isLoaded : true,
+              link : this.staticVariable.getUrl2('/attach/file/' + e.PhysicalFileNm + '/download.do?userkey=' + this.reviewlist[i].MemId),
+              fileName : e.LogicalFileNm,
+              size : e.FileSize,
+              fileKey : e.PhysicalFileNm,
+              path : e.PhysicalPath,
+              downloadCnt : e.DownloadCnt,
+              delState: ""
+            };
+            filelist.push(flist);
+            this.reviewlist[i].uploadfileList = filelist.map(a => {
+              let b = a;
+              return b;
+            });
+          });
+          this.getReviewComment(this.reviewlist[i]);
+        }
+        this.dataloader = false;
+        console.log(this.reviewlist);
+      }
+    }); 
+    setTimeout(()=> {
+      this.refreshFile = 0;
+    }, 500);
+  }
+  getReviewComment(list) {
+    let param: any = {
+      AcomId: this.srch.AcomId,
+      ReviewId: list.ReviewId,
+      mapcode: 'CommunityQuery.getReviewComment'
     };
         this.postApi.movilaSelect(param, (res)=> {
           if (res.header.status === CONSTANT.HttpStatus.OK) {
-            this.reviewlist = res.body.docs;
-            for (let i = 0; i < this.reviewlist.length; i++) {
-              this.reviewlist[i].moreButton = false;
-              this.reviewlist[i].updContents = false;
-            }
-            
-          console.log(this.reviewlist);
+            list['reviewcommlist'] = res.body.docs;
+            for (let i = 0; i < list['reviewcommlist'].length; i++) {
+              list['reviewcommlist'][i].moreButton = false;
+              list['reviewcommlist'][i].updComment = false;
+              const reviewcommday = new Date(list['reviewcommlist'][i].RegDate);
+              list['reviewcommlist'][i].RegDate = reviewcommday.toLocaleDateString();
+            } 
           }
         });
   }
 
+  
   buttonMore(target){
     target.moreButton = !target.moreButton;
+  }
+
+  buttonComm(target){
+    target.commButton = !target.commButton;
+    if (target.commButton) {
+      for (let i = 0; i < this.reviewlist.length; i++) {
+        if (target.ReviewId == this.reviewlist[i].ReviewId) {
+          target.commButton = true;
+        }
+        else {
+          this.reviewlist[i].commButton = false;
+        }
+      }
+    }
   }
   
   buttonUpd(target){
     target.updContents = !target.updContents;
-    console.log(target);
-    console.log(this.reviewlist);
     if (target.updContents) {
       for (let i = 0; i < this.reviewlist.length; i++) {
         if (target.ReviewId == this.reviewlist[i].ReviewId) {
           target.updContents = true;
           this.reviewupdform.controls['Content'].setValue(target.Contents);
+          this.reviewupdform.controls['Score'].setValue(target.Score);
+        }
+        else {
+          this.reviewlist[i].updContents = false; 
+          for (let j = 0; j < this.reviewlist[i].reviewcommlist.length; j++) {
+            this.reviewlist[i].reviewcommlist[j].updComment = false;
+          }
+        }
+      }
+    }
+  }
+
+  buttonCommUpd(target){
+    target.updComment = !target.updComment;
+    if (target.updComment) {
+      for (let i = 0; i < this.reviewlist.length; i++) {
+        if (target.ReviewId == this.reviewlist[i].ReviewId) {
+          for (let j = 0; j < this.reviewlist[i].reviewcommlist.length; j++) {
+            if (target.ReviewCommId == this.reviewlist[i].reviewcommlist[j].ReviewCommId) {
+              target.updComment = true;
+              this.reviewcommupdform.controls['Content'].setValue(target.Contents);
+            }
+            else {
+              this.reviewlist[i].reviewcommlist[j].updComment = false;
+            }
+          }
         }
         else {
           this.reviewlist[i].updContents = false;
-          console.log(this.reviewlist[i].updContents);
+          for (let j = 0; j < this.reviewlist[i].reviewcommlist.length; j++) {
+            this.reviewlist[i].reviewcommlist[j].updComment = false;
+          }
         }
       }
     }
@@ -419,21 +527,34 @@ export class UnitListComponent implements OnInit {
       this.dialog.alert({msg:'리뷰를 작성해 주세요.'});
       return;
     }
+    if(isNullOrEmpty(this.reviewform.controls['Score'].value)){
+      this.dialog.alert({msg:'평점을 선택해 주세요.'});
+      return;
+    }
     const data = {
       MemId: rootScope.gVariable.MemId,
       AcomId: this.srch.AcomId,
       Contents: this.reviewform.controls['Content'].value,
-      Score: 5,
-      mapcode: 'CommunityQuery.insertReview'
+      Score: this.reviewform.controls['Score'].value,
+      mapcode: 'CommunityQuery.insertReview',
+      uploadFileList: this.uploadReviewFileList,
+      tableNm: 'review'
     };
     this.postApi.movilaInsert(data, (res)=> {
       if (res.header.status === CONSTANT.HttpStatus.OK) {
         this.dialog.alert({msg:'등록되었습니다.'});
+
+        this.reviewform.controls['Content'].setValue('');
+        this.reviewform.controls['Score'].setValue('');
+        this.uploadReviewFileList = [];
+        this.refreshFile++;
+
+        this.getReview();
         this.router.navigate(['/unit', JSON.stringify(this.srch)]);
+        
+        
       }
-      console.log(res);
     });
-    console.log(this.reviewform.controls['Content'].value); 
   }
 
   reviewDel(target) {
@@ -460,9 +581,43 @@ export class UnitListComponent implements OnInit {
           this.postApi.movilaUpdate(data, (res)=> {
             if (res.header.status === CONSTANT.HttpStatus.OK) {
               this.dialog.alert({msg:'삭제되었습니다.'});
-              this.setMenu('review');
+              this.getReview();
+              this.router.navigate(['/unit', JSON.stringify(this.srch)]);
             }
-            console.log(res);
+          });
+        }else {
+          return;
+        }
+      }
+    });
+  }
+
+  reviewCommDel(target) {
+    const dat = {
+      msg: '정말 삭제 하시겠습니까?',
+      ok: {
+        msg: '삭제',
+      },
+      cancel: {
+        msg: '취소',
+      }
+    };
+
+    this.dialog.confirm(dat).toPromise()
+    .then((res)=> {
+      if(res) {
+        if(res === 'ok') {
+          const data = {
+            ReviewCommId: target.ReviewCommId,
+            MemId: rootScope.gVariable.MemId,
+            mapcode: 'CommunityQuery.deleteReviewComment'
+          };
+          this.postApi.movilaUpdate(data, (res)=> {
+            if (res.header.status === CONSTANT.HttpStatus.OK) {
+              this.dialog.alert({msg:'삭제되었습니다.'});
+              this.getReview();
+              this.router.navigate(['/unit', JSON.stringify(this.srch)]);
+            }
           });
         }else {
           return;
@@ -476,21 +631,110 @@ export class UnitListComponent implements OnInit {
       this.dialog.alert({msg:'리뷰를 작성해 주세요.'});
       return;
     }
+    if(isNullOrEmpty(this.reviewupdform.controls['Score'].value)){
+      this.dialog.alert({msg:'평점을 선택해 주세요.'});
+      return;
+    }
+    
     const data = {
       ReviewId: target.ReviewId,
       MemId: rootScope.gVariable.MemId,
       AcomId: this.srch.AcomId,
       Contents: this.reviewupdform.controls['Content'].value,
-      Score: 5,
-      mapcode: 'CommunityQuery.updateReview'
+      Score: this.reviewupdform.controls['Score'].value,
+      mapcode: 'CommunityQuery.updateReview',
+      uploadFileList: [...this.uploadReviewUpdFileList, ...target.uploadfileList],
+      tableNm: 'review',
+      TableId: target.ReviewId
     };
     this.postApi.movilaUpdate(data, (res)=> {
       if (res.header.status === CONSTANT.HttpStatus.OK) {
         this.dialog.alert({msg:'수정되었습니다.'});
+
+        this.reviewupdform.controls['Content'].setValue('');
+        this.reviewupdform.controls['Score'].setValue('');
+        this.uploadReviewUpdFileList = [];
+        this.refreshFile++;
+
+        this.getReview();
         this.router.navigate(['/unit', JSON.stringify(this.srch)]);
       }
-      console.log(res);
-    });    
+    }); 
   }
   
+  reviewcommReg(list){
+    if(!this.session.user$.value) {
+      const data = {
+        msg: '로그인하지 않았습니다. 로그인하시겠습니까?',
+        ok: {
+          msg: '로그인',
+        },
+        cancel: {
+          msg: '취소',
+        }
+      };
+  
+      this.dialog.confirm(data).toPromise()
+      .then((res)=> {
+        if(res) {
+          if(res === 'ok') {
+            rootScope.savedUrl = this.router.url;
+            this.router.navigate(['/login']);
+          }else {
+            return;
+          }
+        }
+      });
+    }
+
+    if(isNullOrEmpty(this.reviewcommform.controls['Content'].value)){
+      this.dialog.alert({msg:'리뷰를 작성해 주세요.'});
+      return;
+    }
+    const data = {
+      MemId: rootScope.gVariable.MemId,
+      ReviewId: list.ReviewId,
+      Contents: this.reviewcommform.controls['Content'].value,
+      mapcode: 'CommunityQuery.insertReviewComment'
+    };
+    this.postApi.movilaInsert(data, (res)=> {
+      if (res.header.status === CONSTANT.HttpStatus.OK) {
+        this.dialog.alert({msg:'등록되었습니다.'});
+        this.getReview();
+        this.router.navigate(['/unit', JSON.stringify(this.srch)]);
+        this.reviewcommform.controls['Content'].setValue('');
+      }
+    });
+  }
+  
+  reviewcommUpd(target) {
+    if(isNullOrEmpty(this.reviewcommupdform.controls['Content'].value)){
+      this.dialog.alert({msg:'리뷰를 작성해 주세요.'});
+      return;
+    }
+    const data = {
+      ReviewCommId: target.ReviewCommId,
+      MemId: rootScope.gVariable.MemId,
+      Contents: this.reviewcommupdform.controls['Content'].value,
+      mapcode: 'CommunityQuery.updateReviewComment'
+    };
+    this.postApi.movilaUpdate(data, (res)=> {
+      if (res.header.status === CONSTANT.HttpStatus.OK) {
+        this.dialog.alert({msg:'수정되었습니다.'});
+        this.getReview();
+        this.router.navigate(['/unit', JSON.stringify(this.srch)]);
+        this.reviewcommupdform.controls['Content'].setValue('');
+      }
+    });    
+  }
+  changeValue(value, item){
+    if (value == '') {
+      item.delState = 'delete';
+    }
+    else if (value == 'delete') {
+      item.delState  = '';
+    }
+
+  }
+
 }

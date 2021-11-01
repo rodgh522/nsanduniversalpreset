@@ -288,15 +288,26 @@
                 <textarea name="" id="" rows="5" formControlName="Content" placeholder="리뷰를 작성해 주세요."></textarea>
                 <!--파일첨부-->
                 <div class="rv_w_footer mgt10 clear">
-                    <div class="leftBox">
-                        <app-file-attach (uploaded)="syncFileList($event)" [loadedFile]="uploadFileList" [refresh]="refreshFile"></app-file-attach>
+                    <div>
+                        <app-img-attach (uploaded)="syncFileList($event)" [loadedFile]="uploadReviewFileList" [refresh]="refreshFile"></app-img-attach>
                     </div>
+                    <!-- <div class="leftBox">
+                        <app-img-multi [(files)]="uploadFileList"></app-img-multi>
+                    </div> -->
                     <!-- <div class="leftBox">
                         <label for="file_btn" class="file_btn"></label>
                         <input type="file" id="file_btn" accept="image/*" >
                         <span class="desc">사진은 최대 4장까지 업로드 가능합니다.</span>
                     </div> -->
                     <div class="rightBox">
+                        평점&nbsp;&nbsp;
+                        <span style="color: #ff6600;">
+                            <input name="score" type="radio" formControlName="Score" name="Score" value="1">★&nbsp;&nbsp;
+                            <input name="score" type="radio" formControlName="Score" name="Score" value="2">★★&nbsp;&nbsp;
+                            <input name="score" type="radio" formControlName="Score" name="Score" value="3">★★★&nbsp;&nbsp;
+                            <input name="score" type="radio" formControlName="Score" name="Score" value="4">★★★★&nbsp;&nbsp;
+                            <input name="score" type="radio" formControlName="Score" name="Score" value="5">★★★★★&nbsp;&nbsp;
+                        </span>
                         <button class="submit_btn primary_btn" type="submit" (click)="reviewReg()">등록</button>
                     </div>
                 </div>
@@ -309,7 +320,12 @@
                     <div class="rv_item">
                       <div *ngIf="rev.updContents == false">
                         <div class="rv_header">
-                            <span>{{rev.RegUserNm}}</span> · <span>{{rev.RegDate}}</span>
+                            <span>{{rev.RegUserNm}}</span> · <span>{{rev.RegDate}}</span>&nbsp;&nbsp;
+                            <span style="color: #ff6600;" *ngIf="rev.Score == 1">★</span>
+                            <span style="color: #ff6600;" *ngIf="rev.Score == 2">★★</span>
+                            <span style="color: #ff6600;" *ngIf="rev.Score == 3">★★★</span>
+                            <span style="color: #ff6600;" *ngIf="rev.Score == 4">★★★★</span>
+                            <span style="color: #ff6600;" *ngIf="rev.Score == 5">★★★★★</span>
                         </div>
                         <div class="rv_body">
                             <p [ngClass]="[rev.moreButton ? '' : 'txt_post']">
@@ -318,12 +334,12 @@
                             </p>
                             <a class="more" (click) = "buttonMore(rev)" *ngIf="rev.Contents.length > 225 && !rev.moreButton ">더보기</a>
                             <a class="more" (click) = "buttonMore(rev)" *ngIf="rev.moreButton">줄이기</a>
+                            <div>
+                                <button class="submit_btn primary_btn" (click) = "buttonComm(rev)">답글 달기</button>
+                            </div>
                             <div class="rv_pic">
-                                <ul class="ul_h">
-                                    <li><img src="assets/images/thumb/thumb1.png" alt=""></li>
-                                    <li><img src="assets/images/thumb/thumb2.png" alt=""></li>
-                                    <li><img src="assets/images/thumb/thumb3.png" alt=""></li>
-                                    <li><img src="assets/images/thumb/thumb4.png" alt=""></li>
+                                <ul class="ul_h"  *ngFor ="let revf of rev.uploadfileList">
+                                    <li><img src="{{revf.link}}" alt=""></li>
                                 </ul>
                             </div>
                         </div>
@@ -332,39 +348,108 @@
                         <form [formGroup]="reviewupdform">
                           <textarea name="" id="" rows="5" formControlName="Content" placeholder="리뷰를 작성해 주세요."></textarea>
                           <div class="rv_w_footer mgt10 clear">
-                            <div class="leftBox">
-                                <label for="file_btn" class="file_btn"></label>
-                                <input type="file" id="file_btn" accept="image/*" >
-                                <span class="desc">사진은 최대 4장까지 업로드 가능합니다.</span>
+                            <div>
+                                <app-img-attach (uploaded)="syncUpdFileList($event)" [loadedFile]="uploadReviewUpdFileList" [refresh]="refreshFile"></app-img-attach>
+                            </div>
+                            <div>
+                              <div>
+                                <div>
+                                  <div>
+                                    <table width="100%">
+                                      <colgroup>
+                                        <col style="width: *">
+                                        <col style="width: 140px;">
+                                        <col style="width: 50px;">
+                                      </colgroup>
+                                      <thead>
+                                        <tr>
+                                          <th><span>파일명</span></th>
+                                          <th><span>파일크기</span></th>
+                                          <th><span>삭제</span></th>
+                                        </tr>
+                                      </thead>
+                                      <tbody *ngFor="let revf of rev.uploadfileList">
+                                        <tr>
+                                          <td><span><a href="{{revf.link}}" target="attach">{{revf.fileName}}</a></span></td>
+                                          <td><span>{{revf.size}}</span></td>
+                                          <td> <input type="checkbox" (click) = "changeValue(revf.delState, revf)"></td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                             <div class="rightBox">
+                                평점&nbsp;&nbsp;
+                                <span style="color: #ff6600;">
+                                    <input type="radio" formControlName="Score" name="Score" value="1">★&nbsp;&nbsp;
+                                    <input type="radio" formControlName="Score" name="Score" value="2">★★&nbsp;&nbsp;
+                                    <input type="radio" formControlName="Score" name="Score" value="3">★★★&nbsp;&nbsp;
+                                    <input type="radio" formControlName="Score" name="Score" value="4">★★★★&nbsp;&nbsp;
+                                    <input type="radio" formControlName="Score" name="Score" value="5">★★★★★&nbsp;&nbsp;
+                                </span>
                                 <button class="submit_btn primary_btn" type="submit" (click)="reviewUpd(rev)">수정</button>
                             </div>
                           </div>
                         </form>
                       </div>
-                        <div class="rv_footer clear" *ngIf="rev.MemId == userid">
+                        <div class="rv_footer clear" *ngIf="rev.MemId == loginUserId">
                             <div class="rightBox">
-                                <a class="mod_btn mgr10" (click)="buttonUpd(rev)">수정</a><button class="del_btn" (click)="reviewDel(rev)">삭제</button>
+                                <a class="mod_btn mgr10" (click)="buttonUpd(rev)">{{rev.updContents ? '닫기' : '수정'}}</a><button class="del_btn" *ngIf="rev.updContents == false" (click)="reviewDel(rev)">삭제</button>
                             </div>
                         </div>
                     </div>
                     <!-- //loop -->
                     <!-- 답글인 경우 -->
-                    <div class="rv_item rv_reply">
+                    <div class="rv_item rv_reply" *ngFor="let rec of rev.reviewcommlist">
+                      <div *ngIf="rec.updComment == false">
                         <div class="rv_header">
-                            <span>관리자</span> · <span>20.05.15</span>
+                          <span>{{rec.URegUserNm ? rec.URegUserNm : (rec.MRegUserNm ? rec.MRegUserNm : '')}}</span> · <span>{{rec.RegDate}}</span>
                         </div>
                         <div class="rv_body">
-                            <p>
-                                리뷰 감사합니다 ^^
-                            </p>
+                          <p [ngClass]="[rec.moreButton ? '' : 'txt_post']">
+                            {{rec.Contents}}
+                          </p>
+                          <a class="more" (click) = "buttonMore(rec)" *ngIf="rec.Contents.length > 225 && !rec.moreButton ">더보기</a>
+                          <a class="more" (click) = "buttonMore(rec)" *ngIf="rec.moreButton">줄이기</a>
                         </div>
-                        <div class="rv_footer clear">
+                      </div>
+                      <div class ="rv_write" *ngIf="rec.updComment == true">
+                        <form [formGroup]="reviewcommupdform">
+                          <textarea name="" id="" rows="5" formControlName="Content" placeholder="답글을 작성해 주세요."></textarea>
+                          <div class="rv_w_footer mgt10 clear">
+                            <!-- <div class="leftBox">
+                                <label for="file_btn" class="file_btn"></label>
+                                <input type="file" id="file_btn" accept="image/*" >
+                                <span class="desc">사진은 최대 4장까지 업로드 가능합니다.</span>
+                            </div> -->
                             <div class="rightBox">
-                                <a href="#" class="mod_btn mgr10">수정</a><button class="del_btn">삭제</button>
+                                <button class="submit_btn primary_btn" type="submit" (click)="reviewcommUpd(rec)">수정</button>
                             </div>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="rv_footer clear" *ngIf="rec.RegUser == loginUserId">
+                        <div class="rightBox">
+                          <a class="mod_btn mgr10" (click)="buttonCommUpd(rec)">{{rec.updComment ? '닫기' : '수정'}}</a><button class="del_btn" *ngIf="rec.updComment == false" (click)="reviewCommDel(rec)">삭제</button>
                         </div>
+                      </div>
+                    </div>
+                    <div class ="rv_write" *ngIf="rev.commButton == true">
+                      <form [formGroup]="reviewcommform">
+                        <textarea name="" id="" rows="5" formControlName="Content" placeholder="답글을 작성해 주세요."></textarea>
+                        <div class="rv_w_footer mgt10 clear">
+                          <!-- <div class="leftBox">
+                              <label for="file_btn" class="file_btn"></label>
+                              <input type="file" id="file_btn" accept="image/*" >
+                              <span class="desc">사진은 최대 4장까지 업로드 가능합니다.</span>
+                          </div> -->
+                          <div class="rightBox">
+                              <button class="submit_btn primary_btn" type="submit" (click)="reviewcommReg(rev)">등록</button>
+                          </div>
+                        </div>
+                      </form>
                     </div>
                     <!-- //답글인 경우 -->
                 </div>

@@ -24,6 +24,7 @@ import { SwiperComponent } from '@src/app/shared/swiper/swiper.component';
 import { ImgViewerComponent } from '@src/app/shared/modal/img-viewer/img-viewer.component';
 import { ConfirmComponent } from '@src/app/shared/modal/confirm/confirm.component';
 import { DatePickerComponent } from '@src/app/shared/mobile/date-picker/date-picker.component';
+import { ImgAttachComponent } from '@src/app/shared/img-attach/img-attach.component';
 
 export function createTranslateLoader(http: HttpClient){
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -33,7 +34,7 @@ export function createTranslateLoader(http: HttpClient){
   declarations: [
     FileAttachComponent,
     AlertComponent, FileDropZoneDirective, FilesizePipe, ImgSingleComponent, ImgMultiComponent, SwiperComponent, ImgViewerComponent, 
-    ConfirmComponent, DatePickerComponent
+    ConfirmComponent, DatePickerComponent, ImgAttachComponent
   ],
   imports: [
     CommonModule, 
@@ -55,7 +56,7 @@ export function createTranslateLoader(http: HttpClient){
     FilesizePipe,
 
     /* Component */
-    AlertComponent, FileAttachComponent, ImgSingleComponent, ImgMultiComponent,
+    AlertComponent, FileAttachComponent, ImgSingleComponent, ImgMultiComponent, ImgAttachComponent,
     SwiperComponent
   ]
 })
