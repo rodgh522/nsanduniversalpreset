@@ -1,12 +1,13 @@
-import { Component, EventEmitter, OnInit, Output, ViewContainerRef } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { ModalDialogOptions, ModalDialogService, RouterExtensions } from '@nativescript/angular';
-import { action } from '@nativescript/core';
+import { action, isIOS } from '@nativescript/core';
 import { ios } from '@nativescript/core/application';
 import { isNullOrEmpty, rootScope } from '@src/app/global/global';
 import { SearchService } from '@src/app/service/search.service';
 import { create } from 'nativescript-ngx-date-range';
 import { Options } from 'nativescript-ngx-date-range/ngx-date-range.common';
 import { DatePickerComponent } from '../date-picker/date-picker.component.tns';
+import { RerenderComponent } from '../rerender/rerender.component.tns';
 import { SetGuestsComponent } from '../set-guests/set-guests.component.tns';
 const today = new Date();
 declare const UIModalPresentationStyle;
@@ -18,6 +19,7 @@ declare const UIModalPresentationStyle;
 export class SearchBoxComponent implements OnInit {
 
   @Output() onSearch = new EventEmitter;
+  @ViewChild ('calendar') templateRef: TemplateRef<any>;
   dateRange;
   srch: any = {};
   toggle: any = {};
@@ -25,6 +27,7 @@ export class SearchBoxComponent implements OnInit {
   guest = 2;
   startDate = today;
   endDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+  isIos = isIOS;
 
   constructor(
     private modalService: ModalDialogService,
@@ -35,14 +38,27 @@ export class SearchBoxComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.srch = isNullOrEmpty(this.searchService.srch) ? 
-    {
-      GuestMax: 2,
-      dates: [this.startDate],
-      straight: 1,
-      Sido: []
-    } 
-    : this.searchService.srch
+    this.srch = this.searchService.srch;
+    console.dir(this.searchService.srch);
+    this.initData();
+  }
+
+  initData(){
+    this.area = this.srch.Sido.length === 0 ? this.area : this.putTogether();
+    this.guest = this.srch.GuestMax;
+    this.startDate = this.srch.dates[0];
+    this.endDate = new Date(Date.parse(this.srch.dates[this.srch.dates.length - 1].toString()) + 1000 * 60 * 60 * 24);
+  }
+
+  putTogether(){
+    let result = '';
+    this.srch.Sido.forEach((a, idx)=> {
+      result += a;
+      if(idx < this.srch.Sido.length - 1) {
+        result += '/';
+      }
+    });
+    return result;
   }
 
   searchArea(){
@@ -82,6 +98,7 @@ export class SearchBoxComponent implements OnInit {
       this.dateRange.showDateRangePicker((res)=>{
         console.log(res);
         this.setDate(res);
+        this.rerender();
       });
     }else {
       const config: ModalDialogOptions = {
@@ -96,10 +113,9 @@ export class SearchBoxComponent implements OnInit {
         }
       });
     }
-          
   }
+
   setDate(range: any){
-    
     if(range.startDate === '') {
       return;
     }
@@ -125,4 +141,12 @@ export class SearchBoxComponent implements OnInit {
     this.onSearch.emit();
   }
 
+  rerender(){
+    const config = {
+      viewContainerRef: rootScope.vcRef,
+      fullscreen: true,
+      dimAmount: 0
+    };
+    this.modalService.showModal(RerenderComponent, config);
+  }
 }

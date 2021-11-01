@@ -11,6 +11,7 @@ import { ios } from '@nativescript/core/application';
 import { create } from 'nativescript-ngx-date-range';
 import { ModalDialogOptions, ModalDialogService } from '@nativescript/angular';
 import { DatePickerComponent } from '@src/app/shared/mobile/date-picker/date-picker.component.tns';
+import { RerenderComponent } from '@src/app/shared/mobile/rerender/rerender.component.tns';
 
 @Component({
   selector: 'app-unit-list',
@@ -79,6 +80,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
       this.dateRange.showDateRangePicker((res)=>{
         console.log(res);
         this.setDate(res);
+        this.rerender();
       });
     }else {
       const config: ModalDialogOptions = {
@@ -278,6 +280,16 @@ export class UnitListComponent implements OnInit, OnDestroy {
       price += a.roomPrice + a.addGuestPrice + a.addPetPrice + a.addOptionPrice;
     });
     return price;
+  }
+
+  rerender(){
+    const config = {
+      viewContainerRef: this.vref,
+      fullscreen: true,
+      dimAmount: 0
+      
+    };
+    this.modalService.showModal(RerenderComponent, config);
   }
   
 }
