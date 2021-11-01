@@ -12,6 +12,7 @@ import { create } from 'nativescript-ngx-date-range';
 import { ModalDialogOptions, ModalDialogService } from '@nativescript/angular';
 import { DatePickerComponent } from '@src/app/shared/mobile/date-picker/date-picker.component.tns';
 import { RerenderComponent } from '@src/app/shared/mobile/rerender/rerender.component.tns';
+import { rootScope } from '@src/app/global/global';
 
 @Component({
   selector: 'app-unit-list',
@@ -78,9 +79,8 @@ export class UnitListComponent implements OnInit, OnDestroy {
       };
       this.dateRange = create(options);
       this.dateRange.showDateRangePicker((res)=>{
-        console.log(res);
         this.setDate(res);
-        this.rerender();
+        this.getData();
       });
     }else {
       const config: ModalDialogOptions = {
@@ -90,8 +90,8 @@ export class UnitListComponent implements OnInit, OnDestroy {
       this.modalService.showModal(DatePickerComponent, config).
       then((res)=> {
         if(res) {
-          console.log(res);
           this.setDate(res);
+          this.getData();
         }
       });
     }
@@ -119,7 +119,6 @@ export class UnitListComponent implements OnInit, OnDestroy {
 
   getData(){
     this.dataloader = true;
-    clearInterval();
     let param = {
       ...this.srch,
       mapcode: 'getAcomDetail',
@@ -130,9 +129,10 @@ export class UnitListComponent implements OnInit, OnDestroy {
       this.dataloader = false;
       if(res.header.status === 200) {
         this.data = res.body.docs[0];
-        this.setOptionList(this.data.options)
+        this.setOptionList(this.data.options);
         this.prepRoomInfo(this.data.rooms);
       }
+      this.rerender();
     });
   }
 
@@ -284,7 +284,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
 
   rerender(){
     const config = {
-      viewContainerRef: this.vref,
+      viewContainerRef: rootScope.vcRef,
       fullscreen: true,
       dimAmount: 0
       

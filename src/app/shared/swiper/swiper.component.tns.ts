@@ -23,13 +23,13 @@ export class SwiperComponent implements OnInit, OnChanges, OnDestroy, AfterViewI
 
   ngAfterViewInit(){
     // initialize carousel
-    setTimeout(()=> {
-      this.carousel.nativeElement.refresh();
-    }, 500);
   }
   
   ngOnChanges(){
     if(this.images && this.images.length > 0) {
+      setTimeout(()=> {
+        this.carousel.nativeElement.refresh();
+      }, 500);
       this.images.map(a=> a.link = this.staticVariable.getFileDownloadUrl(a.PhysicalFileNm));
     }
   }
