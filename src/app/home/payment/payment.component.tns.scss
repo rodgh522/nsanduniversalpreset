@@ -1,1 +1,115 @@
 /* Add mobile styles for the component here.  */
+.stack_0{
+    &> Label {
+        font-size: 30;
+        color: #1b3a57;
+    }
+
+    .addition_price_info_box{
+        border-width: 1;
+        border-color: #eee;
+        padding: 20;
+        .price_info_text{
+            margin-bottom: 10;
+        }
+        .price_info_shipping{
+            font-size: 12;
+            color: #aaa;
+        }
+    }
+}
+
+.stack_1{
+    margin-top: 20;
+    padding-top: 20;
+    border-top-width: 1;
+    border-color: #1b3a57;
+
+    .each_room {
+        .room_acomNm {
+            font-size: 20;
+            color: #1b3a57;
+            margin-bottom: 20;
+        }
+        .room_roomNm{
+            font-size: 15;
+        }
+
+        .col_0{
+            width: 30%;
+            color: #aaa;
+            margin: 5 0;
+        }
+        .col_1{ }
+        .orig_price{
+            text-decoration: line-through;
+            color: #aaa;
+        }
+    }
+
+    .promotion_box{
+        border-top-width: 1;
+        border-bottom-width: 1;
+        border-color: #eee;
+        background-color: #f6f6f6;
+        &>*{
+            margin: 8 10;
+
+            .pay_text{
+                color: #aaa;
+                font-size: 13;
+                margin-right: 10;
+            }
+        }
+        margin-top: 10;
+        margin-bottom: 20;
+    }
+}
+
+.checkbox_txt{text-align: left;}
+.coupon_box{
+    TextField{
+        font-size: 12;
+        padding-left: 5;
+        width: 120;
+        border-width: 1;
+        border-color: #aaa;
+    }
+    &> *{
+        margin-right: 10;
+    }
+}
+
+.final_price_box{
+    .final_text{
+        width: 100;
+        margin-right: 20;
+
+        &.shipping_text{font-size: 13; color: #aaa;}
+        &.price_text{color: #1b3a57; font-size: 18;}
+    }
+    * {
+        text-align: right;
+    }
+    .price_won{color: #93b85f;}
+}
+
+.stack_3{
+    &>Label{
+        color: #1b3a57;
+        font-size: 30;
+    }
+    .pay_method{
+        Label{
+            border-width: 1;
+            border-color: #aaa;
+            padding: 5;
+            margin: 5;
+
+            &.selected{
+                border-color: #1b3a57;
+                color: #1b3a57;
+            }
+        }
+    }
+}

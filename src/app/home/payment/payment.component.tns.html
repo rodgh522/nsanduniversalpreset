@@ -1,1 +1,112 @@
-<Button text="payment works!" class="btn btn-primary"></Button>
+<GridLayout padding="20" marginBottom="50">
+    <ScrollView scrollBarIndicatorVisible="false">
+        <StackLayout>
+            <StackLayout class="stack_0">
+                <Label text="예약정보"></Label>
+                <StackLayout class="addition_price_info_box">
+                    <Label text="추가금액 안내" class="price_info_text"></Label>
+                    <Label text="캠핑푸드는 50,000원 미만일 경우 배송비 3,000원이 추가됩니다." class="price_info_shipping"></Label>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout class="stack_1">
+                <StackLayout class="each_room" *ngFor="let item of data.rooms; let index = index">
+                    <Label text="{{ data.acomNm }}" class="room_acomNm"></Label>
+                    <Label text="{{ item.roomNm }} / {{ data.straight }}박" class="room_roomNm"></Label>
+                    <GridLayout rows="*, *, *, *, *">
+                        <GridLayout columns="auto, *" row="0">
+                            <Label text="입실" class="col_0" col="0"></Label>
+                            <Label text="{{ data.dates[0] | customdate : 'mm.dd(day)' }} {{ data.checkin }}" class="col_1" col="1"></Label>
+                        </GridLayout>
+                        <GridLayout columns="auto, *" row="1">
+                            <Label text="퇴실" class="col_0" col="0"></Label>
+                            <Label text="{{ makeLastDay(data.dates[data.dates.length - 1]) | customdate : 'mm.dd(day)' }} {{ data.checkout }}" class="col_1" col="1"></Label>
+                        </GridLayout>
+                        <GridLayout rows="auto, auto" columns="auto, *" row="2">
+                            <Label text="객실가격" class="col_0" col="0" row="0"></Label>
+                            <Label [ngClass]="['col_1', item.salePrice && item.salePrice > 0 ? 'orig_price': '']" 
+                                text="{{ item.roomPrice + item.addGuestPrice | comma }}원" row="0" col="1"></Label>
+                            <Label *ngIf="item.salePrice && item.salePrice > 0"
+                                text="{{ item.roomPrice + item.addGuestPrice - item.salePrice | comma }} 원" row="1" col="1"></Label>
+                        </GridLayout>
+                        <GridLayout columns="auto, *" row="3">
+                            <Label text="옵션가격" class="col_0" col="0"></Label>
+                            <Label text="{{ item.addPetPrice + item.addOptionPrice | comma }} 원" 
+                                class="col_1" col="1"></Label>
+                        </GridLayout>
+                        <GridLayout columns="auto, *" row="4">
+                            <Label text="예약금액" class="col_0" col="0"></Label>
+                            <Label text="{{ item.roomPrice + item.addGuestPrice + item.addPetPrice + item.addOptionPrice - (item.salePrice ? item.salePrice : 0) | comma}} 원" 
+                                class="col_1" col="1"></Label>
+                        </GridLayout>
+                    </GridLayout>
+                    <StackLayout class="promotion_box">
+                        <GridLayout columns="auto, auto">
+                            <StackLayout col="0">
+                                <CheckBox #coupon checked="false"></CheckBox>
+                            </StackLayout>
+                            <Label text=" " col="0" (tap)="onChangeCoupon(item, index)"></Label>
+                            <Label text="이용권/쿠폰 적용" col="1" class="checkbox_txt" (tap)="onChangeCoupon(item, index)"></Label>
+                        </GridLayout>
+                        <GridLayout columns="auto, auto, auto, auto" class="coupon_box" *ngIf="item.useCoupon">
+                            <TextField [(ngModel)]="item.PrintCode" hint="발행번호" col="0" class="input"
+                                isEnabled="true"></TextField>
+                            <TextField [(ngModel)]="item.VerifyCode" hint="인증번호" col="1"></TextField>
+                            <Button text="적용" col="2" (tap)="searchCoupon(item)"></Button>
+                            <Button text="적용취소" col="3" (tap)="removeCoupon(item); resetCode(item)"></Button>
+                        </GridLayout>
+                        <GridLayout columns="auto, auto" *ngIf="data.localYN === 'Y' && data.localRate && data.localRate > 0">
+                            <StackLayout col="0">
+                                <CheckBox #locally></CheckBox>
+                            </StackLayout>
+                            <Label text=" " (tap)="onCheckPromotion(item, index)" col="0"></Label>
+                            <Label text="지역민 할인" class="checkbox_txt" (tap)="onCheckPromotion(item, index)" col="1"></Label>
+                        </GridLayout>
+                        <Label text="{{ item.coupon.msg }}" *ngIf="item.coupon && item.coupon.resultCode === 0"></Label>
+                        <GridLayout columns="auto, auto" horizontalAlignment="right">
+                            <Label text="결제금액" col="0" class="pay_text"></Label>
+                            <Label text="{{ item.roomPrice + item.addGuestPrice + item.addPetPrice + item.addOptionPrice - (item.salePrice ? item.salePrice : 0) | comma}} 원" col="1"></Label>
+                        </GridLayout>
+                    </StackLayout>
+                </StackLayout>
+                <GridLayout rows="auto, auto" columns="auto, auto" horizontalAlignment="right" class="final_price_box">
+                    <Label class="final_text shipping_text" text="+배송비" *ngIf="data.shipping" row="0" col="0"></Label>
+                    <Label class="" text="3,000원" *ngIf="data.shipping" row="0" col="1"></Label>
+                    <Label class="final_text price_text" text="총 결제금액" row="1" col="0"></Label>
+                    <Label class="price_won" text="{{ finalPrice() | comma }}원" row="1" col="1"></Label>
+                </GridLayout>
+            </StackLayout>
+            <StackLayout class="stack_2">
+                <Label text="주문자정보"></Label>
+                <StackLayout>
+                    <Label text="주문자"></Label>
+                    <TextField hint="주문자 이름" keyboardType="email" [(ngModel)]="form.GuestNm" class="input"></TextField>
+                </StackLayout>
+                <StackLayout>
+                    <Label text="휴대폰 번호"></Label>
+                    <TextField hint="휴대폰 번호" keyboardType="phone" [(ngModel)]="form.Mobile"></TextField>
+                </StackLayout>
+                <StackLayout>
+                    <Label text="이메일"></Label>
+                    <TextField hint="이메일" keyboardType="email" [(ngModel)]="form.Email"></TextField>
+                </StackLayout>
+                <StackLayout>
+                    <Label text="추가요청사항"></Label>
+                    <TextField hint="요청사항" keyboardType="email" [(ngModel)]="form.Memo"></TextField>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout class="stack_3">
+                <Label text="결제방식"></Label>
+                <GridLayout rows="auto, auto" class="pay_method">
+                    <GridLayout row="0" columns="auto, auto, auto">
+                        <Label text="신용카드" col="0" [ngClass]="[payMethod === 'CARD' ? 'selected' : '']" (tap)="payMethod = 'CARD'"></Label>
+                        <Label text="계좌이체" col="1" [ngClass]="[payMethod === 'CASH' ? 'selected' : '']" (tap)="payMethod = 'CASH'"></Label>
+                        <Label text="무통장입금" col="2" [ngClass]="[payMethod === 'BANK' ? 'selected' : '']" (tap)="payMethod = 'BANK'"></Label>
+                    </GridLayout>
+                    <GridLayout row="1" columns="auto, auto, auto">
+                        <Label text="추가결제" col="0" [ngClass]="[payMethod === 'ADDD' ? 'selected' : '']" (tap)="payMethod = 'ADDD'"></Label>
+                    </GridLayout>
+                </GridLayout>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</GridLayout>

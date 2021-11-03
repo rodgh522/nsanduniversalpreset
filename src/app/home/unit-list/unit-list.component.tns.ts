@@ -3,7 +3,7 @@ import { action, Page, ScrollEventData, ScrollView, View } from '@nativescript/c
 import { StaticVariableService } from '../../global/static-variable';
 import { PostApiService } from '../../service/post-api.service.tns';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Carousel, CarouselCommon, CarouselUtil } from 'nativescript-carousel';
 import { SearchService } from '@src/app/service/search.service';
 import { Options } from 'nativescript-ngx-date-range/ngx-date-range.common';
@@ -46,6 +46,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
     private searchService: SearchService,
     private modalService: ModalDialogService,
     private vref: ViewContainerRef,
+    private router: Router
   ) { 
 
     const param = this.activateRouter.snapshot.params;
@@ -126,6 +127,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
       ChCode: '',
     };
     this.postApi.home(param, (res)=> {
+      this.reserve = [];
       this.dataloader = false;
       if(res.header.status === 200) {
         this.data = res.body.docs[0];
@@ -280,6 +282,26 @@ export class UnitListComponent implements OnInit, OnDestroy {
       price += a.roomPrice + a.addGuestPrice + a.addPetPrice + a.addOptionPrice;
     });
     return price;
+  }
+
+  goPayment(){
+    if(this.reserve.length === 0) {
+      return;
+    }
+    
+    let param = { 
+      ...this.srch, 
+      acomNm: this.data.AcomNm,
+      checkin: this.data.CheckinTime,
+      checkout: this.data.CheckoutTime,
+      localYN: this.data.LocalDiscYN,
+      localRate: this.data.LocalRate,
+      localMax: this.data.LocalMax,
+      rooms: [ ...this.reserve ]
+    };
+    rootScope.paymentData = param;
+
+    this.router.navigate(['/payment']);
   }
 
   rerender(){

@@ -113,7 +113,7 @@
                         <Label col="0" class="payment_text" text="총 결제금액"></Label>
                         <Label col="1" class="payment_price" text="{{ totalPrice() | comma }}원"></Label>
                     </GridLayout>
-                    <Button text="예약하기" [ngClass]="['btn_submit', totalPrice() > 0 ? 'available' : '']"></Button>
+                    <Button text="예약하기" [ngClass]="['btn_submit', totalPrice() > 0 ? 'available' : '']" (tap)="goPayment()"></Button>
                 </StackLayout>
             </StackLayout>
             <StackLayout *ngIf="selectedMenu === 1">
