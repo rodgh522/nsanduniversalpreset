@@ -621,7 +621,21 @@ h2 {
     }
 }
 
+/* 파일첨부 위젯 */
+.file-widget {
+    .widget-body {
+        padding: 20px 0;
+    }
 
+    button.mat-raised-button {
+        border-radius: 0;
+        box-shadow: none;
+
+        &.mat-primary {
+            background-color: #333;
+        }
+    }
+}
 
 /** pagination **/
 .pagination {
