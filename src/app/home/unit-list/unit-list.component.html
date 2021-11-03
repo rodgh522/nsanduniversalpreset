@@ -25,6 +25,8 @@
                     </li>
                     <li [ngClass]="[selectedMenu === 'review' ? 'focus' : '']" (click)="setMenu('review')"><a>리뷰
                             (<span>{{ reviewlist.length }}</span>)</a></li>
+                    <li [ngClass]="[selectedMenu === 'question' ? 'focus' : '']" (click)="setMenu('question')"><a>상품 문의
+                            (<span>{{ questionlist.length }}</span>)</a></li>
                 </ul>
             </nav>
         </div>
@@ -338,8 +340,8 @@
                                 <button class="submit_btn primary_btn" (click) = "buttonComm(rev)">답글 달기</button>
                             </div>
                             <div class="rv_pic">
-                                <ul class="ul_h"  *ngFor ="let revf of rev.uploadfileList">
-                                    <li><img src="{{revf.link}}" alt=""></li>
+                                <ul class="ul_h">
+                                    <li *ngFor ="let revf of rev.uploadfileList"><img src="{{revf.link}}" alt=""></li>
                                 </ul>
                             </div>
                         </div>
@@ -450,6 +452,139 @@
                           </div>
                         </div>
                       </form>
+                    </div>
+                    <!-- //답글인 경우 -->
+                </div>
+                <!-- <div class="pagination pg_s">
+                    <a href="#" class="pre_end"><span class="blind">처음</span></a>
+                    <a href="#" class="pre"><span class="blind">이전</span></a>
+                    <a href="#">1</a>
+                    <strong>2</strong>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">5</a>
+                    <a href="#" class="next"><span class="blind">다음</span></a>
+                    <a href="#" class="next_end"><span class="blind">끝</span></a>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <section id="sec_question mgt30" *ngIf="selectedMenu === 'question'">
+        <div class="content">
+            <div class="rv_write pdb50">
+              <form [formGroup]="questionform">
+                <textarea name="" id="" rows="5" formControlName="Content" placeholder="문의를 작성해 주세요."></textarea>
+                <!--파일첨부-->
+                <div class="rv_w_footer mgt10 clear">
+                    <div>
+                        <app-img-attach (uploaded)="syncQFileList($event)" [loadedFile]="uploadQuestionFileList" [refresh]="refreshFile"></app-img-attach>
+                    </div>
+                    <!-- <div class="leftBox">
+                        <app-img-multi [(files)]="uploadFileList"></app-img-multi>
+                    </div> -->
+                    <!-- <div class="leftBox">
+                        <label for="file_btn" class="file_btn"></label>
+                        <input type="file" id="file_btn" accept="image/*" >
+                        <span class="desc">사진은 최대 4장까지 업로드 가능합니다.</span>
+                    </div> -->
+                    <div class="rightBox">
+                        <button class="submit_btn primary_btn" type="submit" (click)="questionReg()">등록</button>
+                    </div>
+                </div>
+                <!--/파일첨부-->
+              </form>
+            </div>
+            <div class="rv_list">
+                <div class="rv_content" *ngFor ="let que of questionlist">
+                    <!-- loop -->
+                    <div class="rv_item">
+                      <div *ngIf="que.updContents == false">
+                        <div class="rv_header">
+                          <span>{{que.questioncommlist ? '답변 완료' : '미답변'}}</span> · <span>{{que.RegUserNm}}</span> · <span>{{que.RegDate}}</span>&nbsp;&nbsp;
+                        </div>
+                        <div class="rv_body">
+                            <p [ngClass]="[que.moreButton ? '' : 'txt_post']">
+                              {{que.Contents}}  
+                                <!-- 일정 글자수 이후로 더보기 처리 -->
+                            </p>
+                            <a class="more" (click) = "buttonMore(que)" *ngIf="que.Contents.length > 225 && !que.moreButton ">더보기</a>
+                            <a class="more" (click) = "buttonMore(que)" *ngIf="que.moreButton">줄이기</a>
+                            <div class="rv_pic">
+                                <ul class="ul_h">
+                                    <li *ngFor ="let quef of que.uploadfileList"><img src="{{quef.link}}" alt=""></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <button class="submit_btn primary_btn" *ngIf="que.questioncommlist" (click) = "buttonQComm(que)">{{que.commButton ? '닫기' : '답변'}}</button>
+                            </div>
+                        </div>
+                      </div>
+                      <div class ="rv_write" *ngIf="que.updContents == true">
+                        <form [formGroup]="questionupdform">
+                          <textarea name="" id="" rows="5" formControlName="Content" placeholder="답글을 작성해 주세요."></textarea>
+                          <div class="rv_w_footer mgt10 clear">
+                            <div>
+                                <app-img-attach (uploaded)="syncQUpdFileList($event)" [loadedFile]="uploadQuestionUpdFileList" [refresh]="refreshFile"></app-img-attach>
+                            </div>
+                            <div>
+                              <div>
+                                <div>
+                                  <div>
+                                    <table width="100%">
+                                      <colgroup>
+                                        <col style="width: *">
+                                        <col style="width: 140px;">
+                                        <col style="width: 50px;">
+                                      </colgroup>
+                                      <thead>
+                                        <tr>
+                                          <th><span>파일명</span></th>
+                                          <th><span>파일크기</span></th>
+                                          <th><span>삭제</span></th>
+                                        </tr>
+                                      </thead>
+                                      <tbody *ngFor="let quef of que.uploadfileList">
+                                        <tr>
+                                          <td><span><a href="{{quef.link}}" target="attach">{{quef.fileName}}</a></span></td>
+                                          <td><span>{{quef.size}}</span></td>
+                                          <td> <input type="checkbox" (click) = "changeValue(quef.delState, quef)"></td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="rightBox">
+                                <button class="submit_btn primary_btn" type="submit" (click)="questionUpd(que)">수정</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                        <div class="rv_footer clear" *ngIf="que.MemId == loginUserId">
+                            <div class="rightBox">
+                                <a class="mod_btn mgr10" (click)="buttonQUpd(que)">{{que.updContents ? '닫기' : '수정'}}</a><button class="del_btn" *ngIf="que.updContents == false" (click)="questionDel(que)">삭제</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //loop -->
+                    <!-- 답글인 경우 -->
+                    <div *ngIf="que.commButton == true">
+                      <div class="rv_item rv_reply" *ngFor="let quc of que.questioncommlist">
+                        <div *ngIf="quc.updComment == false">
+                          <div class="rv_header">
+                            <span>{{quc.URegUserNm ? quc.URegUserNm : (quc.MRegUserNm ? quc.MRegUserNm : '')}}</span> · <span>{{quc.RegDate}}</span>
+                          </div>
+                          <div class="rv_body">
+                            <p [ngClass]="[quc.moreButton ? '' : 'txt_post']">
+                              {{quc.Contents}}
+                            </p>
+                            <a class="more" (click) = "buttonMore(quc)" *ngIf="quc.Contents.length > 225 && !quc.moreButton ">더보기</a>
+                            <a class="more" (click) = "buttonMore(quc)" *ngIf="quc.moreButton">줄이기</a>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                     <!-- //답글인 경우 -->
                 </div>
