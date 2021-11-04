@@ -9,16 +9,16 @@ import { PaymentComponent } from './payment/payment.component.tns';
 import { UnitListComponent } from './unit-list/unit-list.component.tns';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/main', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '', component: HomeComponent,
     children: [
       { path: 'main', component: MainComponent },
       { path: 'accom', component: AccomListComponent },
       { path: 'unit/:acomId', component: UnitListComponent },
       { path: 'payment', component: PaymentComponent },
+      { path: 'login', component: LoginComponent}
     ]
-  },
-  { path: 'login', component: LoginComponent}
+  }
 ];
 
 @NgModule({
