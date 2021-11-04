@@ -34,6 +34,7 @@
     "@angular/router": "~11.2.7",
     "@nativescript/angular": "~11.8.0",
     "@nativescript/core": "^8.0.0",
+    "@nativescript/firebase": "^11.1.3",
     "@nativescript/theme": "~3.0.0",
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
