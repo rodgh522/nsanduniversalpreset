@@ -99,11 +99,21 @@
     .rv_header {
         color: $light_gray_b;
         font-size: $font_xs;
+        .score {
+            position: relative;
+            top: -2px;
+        }
     }
     .rv_body {
         margin: 10px 0;
+        .reply_btn {
+            color: $gray;
+            font-size: $font_xs;
+            &:hover {
+                color: $light_gray;
+            }
+        }
         .more {
-            margin-left: 5px;
             color: $point;
             font-size: 15px;
             &:hover {
@@ -131,7 +141,7 @@
         }
         .txt_post {
             @include textMultiEllipsis(3);
-          }
+        }
     }
     .rv_footer {
         padding: 0 20px;
@@ -160,6 +170,14 @@
         .rv_footer {
             padding: 0;
         }
+    }
+}
+
+.rv_content {
+    .rv_write {
+        margin-top: 10px;
+        margin-bottom: 20px;
+        border-bottom: 0;
     }
 }
 
@@ -219,5 +237,20 @@
         &.option_condition_delivery{
             border: 1px solid #ff7f50;
         }
+    }
+}
+
+/* 평점 */
+.score {
+    li {
+        line-height: 40px;
+        margin-right: 20px;
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+    label {
+        font-size: $font_xs;
+        color: $black;
     }
 }
