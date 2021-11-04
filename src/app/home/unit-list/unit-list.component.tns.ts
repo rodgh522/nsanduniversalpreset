@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { action, Page, ScrollEventData, ScrollView, View } from '@nativescript/core';
+import { action, isIOS, Page, ScrollEventData, ScrollView, View } from '@nativescript/core';
 import { StaticVariableService } from '../../global/static-variable';
 import { PostApiService } from '../../service/post-api.service.tns';
 import { Subscription } from 'rxjs';
@@ -37,6 +37,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
   selectedMenu = 0;
   options = [];
   dateRange;
+  isIos = isIOS;
   
   constructor(
     private _page: Page,

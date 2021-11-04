@@ -105,7 +105,7 @@
                             (tap)="setPrice(!item.selected, item, item.RoomId)">
                             <GridLayout rows="*" columns="auto, auto" horizontalAlignment="center">
                                 <Image row="0" src="~/assets/images/checkmark.png" col="0" width="25" stretch="aspectFill"></Image>
-                                <Button row="0" text="선택" col="1" fontSize="18" marginLeft="5"></Button>
+                                <Label row="0" text="선택" col="1" fontSize="18" marginLeft="5"></Label>
                             </GridLayout>
                         </GridLayout>
                     </StackLayout>
@@ -127,5 +127,5 @@
             </StackLayout>
         </StackLayout>
     </ScrollView>
-    <NgxDateRange></NgxDateRange>
+    <NgxDateRange *ngIf="isIos"></NgxDateRange>
 </GridLayout>
