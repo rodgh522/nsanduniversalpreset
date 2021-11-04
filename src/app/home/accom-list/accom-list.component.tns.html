@@ -1,71 +1,69 @@
-<GridLayout>
+<GridLayout marginBottom="70">
+    <ScrollView class="list-wrapper">
+        <StackLayout>
 
+        
+        <StackLayout marginLeft="10" marginRight="10" marginTop="10" row="0">
+            <ns-search-box (onSearch)="triggerSearch()"></ns-search-box>
+        </StackLayout>
 
-<ScrollView class="list-wrapper">
-    <StackLayout>
-
-    
-    <StackLayout marginLeft="10" marginRight="10" marginTop="10" row="0">
-        <ns-search-box (onSearch)="triggerSearch()"></ns-search-box>
-    </StackLayout>
-
-    <StackLayout width="100%" backgroundColor="white" padding="10" >
-        <Label text="이 지역 추천상품" class="list-regular-title"></Label>
-        <ScrollView orientation="horizontal" scrollBarIndicatorVisible="false">
-            <StackLayout orientation="horizontal">
-                <StackLayout margin="10" *ngFor="let item of recommandList" (tap)="goUnit(item.AcomId)">
-                    <Image  height="110" width="125" borderRadius="5" boxSizing="border-box" [src]="item.link"
-                        stretch="aspectFill">
-                        <Label horizontalAlignment="left" marginRight="5" class="accom_sido"
-                        marginTop="0" width="60" height="40" text="{{ item.Addr1 | sido | substr : 2}}"
-                            color="#fff" backgroundColor="#333">
+        <StackLayout width="100%" backgroundColor="white" padding="10" >
+            <Label text="이 지역 추천상품" class="list-regular-title"></Label>
+            <ScrollView orientation="horizontal" scrollBarIndicatorVisible="false">
+                <StackLayout orientation="horizontal">
+                    <StackLayout margin="10" *ngFor="let item of recommandList" (tap)="goUnit(item.AcomId)">
+                        <Image  height="110" width="125" borderRadius="5" boxSizing="border-box" [src]="item.link"
+                            stretch="aspectFill">
+                            <Label horizontalAlignment="left" marginRight="5" class="accom_sido"
+                            marginTop="0" width="60" height="40" text="{{ item.Addr1 | sido | substr : 2}}"
+                                color="#fff" backgroundColor="#333">
+                            </Label>
+                        </Image>
+                        <Label fontSize="14" color="#000" [text]="item.AcomNm">
                         </Label>
-                    </Image>
-                    <Label fontSize="14" color="#000" [text]="item.AcomNm">
-                    </Label>
-                    <Label fontSize="12" color="#999999" text="{{ item.price | comma }}원">
-                    </Label>
+                        <Label fontSize="12" color="#999999" text="{{ item.price | comma }}원">
+                        </Label>
+                    </StackLayout>
                 </StackLayout>
-            </StackLayout>
-        </ScrollView>
-    </StackLayout>
-    
-    <!-- tab content1 -->
-    <StackLayout rows="auto, auto, *" row="2" width="100%" height="100%"
-        backgroundColor="white">
-        <GridLayout columns="auto, *" class="list-title" row="0" borderBottom="2">
-            <Label text="이 지역 일반상품" column="0" class="list-regular-title"></Label>
-            <Label text="전체 n개" column="1" class=""></Label>
-        </GridLayout>
-        <StackLayout class="line" width="100%" row="1"></StackLayout>
-            <StackLayout class="main">
-                <StackLayout class="content" *ngFor="let item of list">
-                    <Image class="card-img" [src]="item.link" stretch="aspectFill"></Image>
-                    <GridLayout width="100%" rows="auto, auto, auto, auto"
-                        class="accom-info" verticalAlignment="center">
-                        <Label text="{{ item.Addr1 | sido }}" row="0" class="accom-area"></Label>
-                        <Label row="1" class="item-name" textwrap="true"
-                            verticalAlignment="bottom"
-                            horizontalAlignment="left" [text]="item.AcomNm"></Label>
-                        <Label row="2" class="item-org-price" textwrap="true" *ngIf="item.saleRate > 0"
-                            verticalAlignment="bottom"
-                            horizontalAlignment="left" text="{{ item.DFTPrice | comma }}원"></Label>
-                        <GridLayout row="3" rows="auto" columns="auto,auto">
-                            <Label row="1" col="0" class="item-price"
-                                textwrap="true" verticalAlignment="top"
-                                horizontalAlignment="left" text="{{ item.price | comma }}원"></Label>
-                            <Label col="1" row="1" class="sale-rate" *ngIf="item.saleRate > 0"
-                                text="{{ item.saleRate }}%"></Label>
+            </ScrollView>
+        </StackLayout>
+        
+        <!-- tab content1 -->
+        <StackLayout rows="auto, auto, *" row="2" width="100%" height="100%"
+            backgroundColor="white">
+            <GridLayout columns="auto, *" class="list-title" row="0" borderBottom="2">
+                <Label text="이 지역 일반상품" column="0" class="list-regular-title"></Label>
+                <Label text="전체 n개" column="1" class=""></Label>
+            </GridLayout>
+            <StackLayout class="line" width="100%" row="1"></StackLayout>
+                <StackLayout class="main">
+                    <StackLayout class="content" *ngFor="let item of list">
+                        <Image class="card-img" [src]="item.link" stretch="aspectFill"></Image>
+                        <GridLayout width="100%" rows="auto, auto, auto, auto"
+                            class="accom-info" verticalAlignment="center">
+                            <Label text="{{ item.Addr1 | sido }}" row="0" class="accom-area"></Label>
+                            <Label row="1" class="item-name" textwrap="true"
+                                verticalAlignment="bottom"
+                                horizontalAlignment="left" [text]="item.AcomNm"></Label>
+                            <Label row="2" class="item-org-price" textwrap="true" *ngIf="item.saleRate > 0"
+                                verticalAlignment="bottom"
+                                horizontalAlignment="left" text="{{ item.DFTPrice | comma }}원"></Label>
+                            <GridLayout row="3" rows="auto" columns="auto,auto">
+                                <Label row="1" col="0" class="item-price"
+                                    textwrap="true" verticalAlignment="top"
+                                    horizontalAlignment="left" text="{{ item.price | comma }}원"></Label>
+                                <Label col="1" row="1" class="sale-rate" *ngIf="item.saleRate > 0"
+                                    text="{{ item.saleRate }}%"></Label>
+                            </GridLayout>
                         </GridLayout>
-                    </GridLayout>
-                    <StackLayout width="100%" marginTop="5" class="line"></StackLayout>
-                </StackLayout>
+                        <StackLayout width="100%" marginTop="5" class="line"></StackLayout>
+                    </StackLayout>
 
-            </StackLayout>
+                </StackLayout>
+        </StackLayout>
+
     </StackLayout>
 
-</StackLayout>
 
-
-</ScrollView>
+    </ScrollView>
 </GridLayout>

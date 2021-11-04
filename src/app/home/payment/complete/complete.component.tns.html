@@ -1,1 +1,9 @@
-<Button text="complete works!" class="btn btn-primary"></Button>
+<StackLayout class="content-wrap" verticalAlignment="center">
+  <Label text="예약완료"></Label>
+  <StackLayout *ngFor="let item of data.rooms" class="complete_room">
+   <Label [text]="item.roomNm" class="room_name"></Label>
+   <Label text="예약번호 : {{ item.ResvNo }}" class="room_resv_no"></Label>
+  </StackLayout>
+
+  <Button text="메인으로" class="btn_main" nsRouterLink="/main"></Button>
+</StackLayout>

@@ -79,19 +79,21 @@
                 <Label text="주문자정보"></Label>
                 <StackLayout>
                     <Label text="주문자"></Label>
-                    <TextField hint="주문자 이름" keyboardType="email" [(ngModel)]="form.GuestNm" class="input"></TextField>
+                    <TextField #userNm hint="주문자 이름" keyboardType="email" [(ngModel)]="form.GuestNm" 
+                        [ngStyle]="{'border-color': valid.name ? '#f22' : '#eee'}"></TextField>
                 </StackLayout>
                 <StackLayout>
                     <Label text="휴대폰 번호"></Label>
-                    <TextField hint="휴대폰 번호" keyboardType="phone" [(ngModel)]="form.Mobile"></TextField>
+                    <TextField #mobile hint="휴대폰 번호" keyboardType="phone" [(ngModel)]="form.Mobile"
+                        [ngStyle]="{'border-color': valid.mobile ? '#f22' : '#eee'}"></TextField>
                 </StackLayout>
                 <StackLayout>
                     <Label text="이메일"></Label>
-                    <TextField hint="이메일" keyboardType="email" [(ngModel)]="form.Email"></TextField>
+                    <TextField #email hint="이메일" keyboardType="email" [(ngModel)]="form.Email"></TextField>
                 </StackLayout>
                 <StackLayout>
                     <Label text="추가요청사항"></Label>
-                    <TextField hint="요청사항" keyboardType="email" [(ngModel)]="form.Memo"></TextField>
+                    <TextField #memo hint="요청사항" keyboardType="email" [(ngModel)]="form.Memo"></TextField>
                 </StackLayout>
             </StackLayout>
             <StackLayout class="stack_3">
@@ -105,6 +107,12 @@
                     <GridLayout row="1" columns="auto, auto, auto">
                         <Label text="추가결제" col="0" [ngClass]="[payMethod === 'ADDD' ? 'selected' : '']" (tap)="payMethod = 'ADDD'"></Label>
                     </GridLayout>
+                </GridLayout>
+            </StackLayout>
+            <StackLayout class="stack_4">
+                <GridLayout columns="auto, auto" horizontalAlignment="center">
+                    <Button text="이전" class="btn_back" col="0"></Button>
+                    <Button text="결제하기" class="btn_submit" col="1" (tap)="pay()"></Button>
                 </GridLayout>
             </StackLayout>
         </StackLayout>
