@@ -14,6 +14,7 @@ import { HomeRoutingModule } from './home-routing.module.tns';
 import { UnitListComponent } from './unit-list/unit-list.component.tns';
 import { AccomListComponent } from './accom-list/accom-list.component.tns';
 import { PaymentComponent } from './payment/payment.component.tns';
+import { CompleteComponent } from './payment/complete/complete.component.tns';
 
 /* Pipe */
 import { SidoPipe } from '@src/app/pipe/sido.pipe';
@@ -27,7 +28,7 @@ import { SubstrPipe } from '../pipe/substr.pipe';
     MainComponent,
     FooterComponent,
     UnitListComponent,
-    AccomListComponent, PaymentComponent, 
+    AccomListComponent, PaymentComponent, CompleteComponent,
 
     // Pipe
     SidoPipe, CommaPipe, SubstrPipe

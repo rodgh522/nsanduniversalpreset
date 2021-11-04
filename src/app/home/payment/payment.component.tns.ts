@@ -1,5 +1,7 @@
-import { Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { isIOS, TextField } from '@nativescript/core';
+import { Location } from '@angular/common';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Router } from '@angular/router';
+import { alert, TextField } from '@nativescript/core';
 import { rootScope } from '@src/app/global/global';
 import { PostApiService } from '@src/app/service/post-api.service.tns';
 
@@ -12,14 +14,23 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
   @ViewChildren('locally') locally: QueryList<any>;
   @ViewChildren('coupon') coupon: QueryList<any>;
+  
   userInfo;
   data: any;
-  form: any = {};
+  form: any = {
+    GuestNm: '',
+    Mobile: '',
+    Email: '',
+    Memo: ''
+  };
   couponList = [];
-  payMethod;
+  payMethod = 'CARD';
+  valid: any = {};
 
   constructor(
     private postApi: PostApiService,
+    private router: Router,
+    private location: Location
   ) { 
     this.userInfo = rootScope.gVariable;
   }
@@ -209,6 +220,87 @@ export class PaymentComponent implements OnInit, OnDestroy {
     });
     this.data.finalPrice = price += this.data.shipping ? 3000 : 0;
     return price;
+  }
+
+  validCheck(){
+    console.log(this.form);
+    if(this.form.GuestNm === undefined || this.form.GuestNm === ''){
+      this.valid.name = true;
+      return true;
+    }else if(this.form.Mobile === undefined || this.form.Mobile === '') {
+      this.valid.mobile = true;
+      return true;
+    }else if(this.payMethod === undefined || this.payMethod === '') {
+      return true;
+    }else{
+      return false;
+    }
+  }
+  
+  // 결제 후 예약
+  pay(){
+    if(this.validCheck()) {
+      return;
+    }
+    console.dir(this.form);
+    const payment = {
+      PayStatus: 'SUCCESS',
+      PaymentTy: this.payMethod,
+      PaymentNum: '12841893',
+      OrderTotal: this.data.finalPrice,
+      PayTotal: this.data.finalPrice,
+      CashReceipt: 'Y'
+    };
+
+    this.makeData();
+    let param = {
+      ...this.form, 
+      payment: payment,
+      rooms: this.data.rooms,
+      MemId: this.userInfo.MemId ? this.userInfo.MemId : '',
+      ResvStat: 'COMP',
+      ChCode: this.userInfo.ChCode ? this.userInfo.ChCode : '',
+      CheckinDt: this.data.dates[0].toStrFormat(),
+      CheckoutDt: this.makeLastDay(this.data.dates[this.data.dates.length - 1]).toStrFormat(),
+      mapcode: 'makeBooking'
+    };
+
+    console.dir(param);
+    this.postApi.home(param, (res)=>{
+      if(res.header.status === 200) {
+        const result = res.body.docs[0];
+        const args = {
+          rooms: result.rooms,
+          resvStat: result.ResvStat
+        };
+        this.router.navigate(['/complete', JSON.stringify(args)]);
+      }else if(res.header.status === 406) {
+        alert(res.body.docs[0].errMessage).then(()=> {
+          this.location.back();
+        })
+      }
+    });
+  }
+
+  makeData(){
+    // 할인 적용 항목
+    this.data.rooms.forEach((a)=> {
+      let discount: any;
+      if(a.coupon && a.coupon.resultCode === 1) {
+        discount = {
+          CouponId: a.coupon.result.CouponId,
+          Promotion: a.coupon.result.CouponNm,
+          PromotionPrice: a.salePrice
+        };
+      }else if(a.localYN) {
+        discount = {
+          CouponId: '',
+          Promotion: '지역민할인',
+          PromotionPrice: a.salePrice
+        };
+      }
+      a.discount = discount ? [discount] : [];
+    });
   }
 
   onFocus(e?){

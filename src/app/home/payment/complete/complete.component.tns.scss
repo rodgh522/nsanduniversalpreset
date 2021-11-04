@@ -1,1 +1,30 @@
 /* Add mobile styles for the component here.  */
+.content-wrap{
+  margin: 10;
+  margin-bottom: 70;
+  &>Label{
+    font-size: 30;
+    color: #1b3a57;
+  }
+
+  .complete_room{
+    margin-bottom: 20;
+    padding: 20;
+    border-color: #eee;
+    border-width: 1;
+    .room_name{
+      color: #777;
+      margin-bottom: 10;
+    }
+    .room_resv_no{
+      color: #aaa;
+    }
+  }
+
+  .btn_main{
+    width: 200;
+    padding: 20;
+    color: #fff;
+    background-color: #1b3a57;
+  }
+}

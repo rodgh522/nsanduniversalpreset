@@ -86,24 +86,53 @@
         margin-right: 20;
 
         &.shipping_text{font-size: 13; color: #aaa;}
-        &.price_text{color: #1b3a57; font-size: 18;}
+        &.price_text{color: #1b3a57; font-size: 15;}
     }
     * {
         text-align: right;
     }
-    .price_won{color: #93b85f;}
+    .price_won{
+        color: #93b85f;
+        font-size: 25;
+    }
+}
+
+.stack_2{
+    margin-top: 20;
+    &>Label{
+        color: #1b3a57;
+        font-size: 30;
+    }
+
+    StackLayout {
+        margin-top: 10;
+        Label {
+            font-size: 12;
+            color: #aaa;
+        }
+        TextField{
+            border-width: 1;
+            border-color: #eee;
+            padding: 15 5;
+        }
+    }
 }
 
 .stack_3{
+    margin-top: 20;
+    padding: 20 0;
+    background-color: #f6f6f6;
     &>Label{
         color: #1b3a57;
         font-size: 30;
     }
     .pay_method{
         Label{
+            text-align: center;
+            width: 100;
             border-width: 1;
             border-color: #aaa;
-            padding: 5;
+            padding: 10;
             margin: 5;
 
             &.selected{
@@ -112,4 +141,22 @@
             }
         }
     }
+}
+
+.stack_4{
+    margin-top: 20;
+    .btn_back{
+        width: 100;
+        padding: 10;
+    }
+    .btn_submit{
+        width: 100;
+        padding: 10;
+        background-color: #1b3a57;
+        color: #fff;
+    }
+}
+
+.err_focus{
+    border-color: #f22;
 }
