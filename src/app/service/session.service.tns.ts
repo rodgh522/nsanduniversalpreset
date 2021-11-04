@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { firebase, firebaseFunctions, firestore } from '@nativescript/firebase';
 import { BehaviorSubject } from 'rxjs';
 import { rootScope } from '../global/global';
 
@@ -13,29 +13,40 @@ export class SessionService {
   addAcom$ = new BehaviorSubject(null);
   fireState;
   constructor(
-    private auth: AngularFireAuth
   ) { 
 
   }
 
   signUp(id: string, pwd: string){
-    return this.auth.createUserWithEmailAndPassword(id + '@softzion.com', pwd);
+    // return this.auth.createUserWithEmailAndPassword(id + '@softzion.com', pwd);
   }
 
   signIn(id: string, pwd: string, stay: string, info: any){
-    return this.auth.setPersistence(stay).then(()=> {
-      return this.auth.signInWithEmailAndPassword(id + '@softzion.com', pwd).then(()=> {
-        this.user$.next(info);
-        rootScope.setUserSession(info);
-      });
+    return firebase.login({
+      type: firebase.LoginType.PASSWORD,
+      passwordOptions: {email: id + '@softzion.com', password: pwd},
+    }).then((res)=> {
+      this.user$.next(info);
+      console.dir(res);
+    }).catch(e=> {
+      console.dir(e);
     });
+    // return this.auth.setPersistence(stay).then(()=> {
+    //   return this.auth.signInWithEmailAndPassword(id + '@softzion.com', pwd).then(()=> {
+        
+    //     rootScope.setUserSession(info);
+    //   });
+    // });
   }
   
   signOut(){
-    return this.auth.signOut().then(()=> {
-      this.user$.next(null);
-      rootScope.sessionExpire();
+    firebase.logout().then(res=> {
+      console.dir(res);
     });
+    // return this.auth.signOut().then(()=> {
+    //   this.user$.next(null);
+    //   rootScope.sessionExpire();
+    // });
   }
 
   setAddAcom(data: any){

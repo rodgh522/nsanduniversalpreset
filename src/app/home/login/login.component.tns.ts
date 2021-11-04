@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { rootScope } from '@src/app/global/global';
 import { PostApiService } from '@src/app/service/post-api.service.tns';
-import { SessionService } from '@src/app/service/session.service';
+import { SessionService } from '@src/app/service/session.service.tns';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private postApi: PostApiService,
     private router: Router,
-    // private session: SessionService
+    private session: SessionService
   ) { }
 
   ngOnInit(): void {
@@ -59,19 +59,23 @@ export class LoginComponent implements OnInit {
     };
     const param = {...this.formData, ...config};
 
-    // this.postApi.login(param, (res)=> {
-    //   if(res.header.status === 200){
-    //     if(res.body.docCnt > 0){
-    //       const stayChecked = this.formData.autoLogin ? 'local' : 'session';
-    //       this.session.signIn(param.LoginId, param.Pwd, stayChecked, res.body.docs[0]).then(()=> {
-    //         this.router.navigateByUrl('/main');
-    //       });
-    //     }
-    //   }
-    // },
-    // (error)=> {
-    //   console.error('[Error]=> ' + error);
-    // });
+    this.postApi.login(param, (res)=> {
+      if(res.header.status === 200){
+        if(res.body.docCnt > 0){
+          const stayChecked = this.formData.autoLogin ? 'local' : 'session';
+          this.session.signIn(param.LoginId, param.Pwd, stayChecked, {}).then(()=> {
+            this.router.navigateByUrl('/main');
+          });
+        }
+      }
+    },
+    (error)=> {
+      console.error('[Error]=> ' + error);
+    });
+  }
+
+  signOut(){
+    this.session.signOut();
   }
 
 }

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "316045181441",
+    "project_id": "fir-adddb",
+    "storage_bucket": "fir-adddb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:316045181441:android:18766a1bd138a5d8987600",
+        "android_client_info": {
+          "package_name": "org.nativescript.movila"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "316045181441-3kahm330njo71tqv029f0kfkg22h6p0e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiUjQwFuWUto69TjcZUF1U-lzzJFdKGY8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "316045181441-3kahm330njo71tqv029f0kfkg22h6p0e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
