@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { getString, setString } from '@nativescript/core/application-settings';
+import { getString, setString, clear } from '@nativescript/core/application-settings';
 import { firebase, firebaseFunctions, firestore } from '@nativescript/firebase';
 import { BehaviorSubject } from 'rxjs';
 import { rootScope } from '../global/global';
@@ -51,6 +51,7 @@ export class SessionService {
   
   signOut(){
     return firebase.logout().then(()=> {
+      clear();
       this.user$.next(undefined);
     });
     // return this.auth.signOut().then(()=> {

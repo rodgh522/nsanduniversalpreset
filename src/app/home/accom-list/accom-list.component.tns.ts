@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterExtensions } from '@nativescript/angular';
+import { getString } from '@nativescript/core/application-settings';
 import { StaticVariableService } from '@src/app/global/static-variable';
 import { PostApiService } from '@src/app/service/post-api.service';
 import { SearchService } from '@src/app/service/search.service';
@@ -49,8 +50,7 @@ export class AccomListComponent implements OnInit, OnDestroy {
           tableNm: 'accom',
           IdName: 'AcomId',
           dates: this.changeFormat(this.srch.dates),
-        //   ChCode: sessionStorage.getItem('ChCode')
-          ChCode: null
+          ChCode: getString('ChCode'),
         };
         
         this.postApi.movilaSelect(param, (res)=> {

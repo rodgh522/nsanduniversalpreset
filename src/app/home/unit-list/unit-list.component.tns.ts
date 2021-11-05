@@ -13,6 +13,7 @@ import { ModalDialogOptions, ModalDialogService } from '@nativescript/angular';
 import { DatePickerComponent } from '@src/app/shared/mobile/date-picker/date-picker.component.tns';
 import { RerenderComponent } from '@src/app/shared/mobile/rerender/rerender.component.tns';
 import { rootScope } from '@src/app/global/global';
+import { getString } from '@nativescript/core/application-settings';
 
 @Component({
   selector: 'app-unit-list',
@@ -63,9 +64,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
   }
 
   @HostListener('unloaded')
-  ngOnDestroy(){
-    console.log('unit destroyed')
-  }
+  ngOnDestroy(){}
 
   openCalendar(){
     if(ios) {
@@ -125,7 +124,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
       ...this.srch,
       mapcode: 'getAcomDetail',
       dates: this.changeFormat(this.srch.dates),
-      ChCode: '',
+      ChCode: getString('ChCode'),
     };
     this.postApi.home(param, (res)=> {
       this.reserve = [];

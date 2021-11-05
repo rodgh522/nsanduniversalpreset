@@ -1,4 +1,4 @@
-<GridLayout marginBottom="70">
+<GridLayout>
     <ScrollView class="list-wrapper">
         <StackLayout>
 
@@ -19,10 +19,15 @@
                                 color="#fff" backgroundColor="#333">
                             </Label>
                         </Image>
-                        <Label fontSize="14" color="#000" [text]="item.AcomNm">
-                        </Label>
-                        <Label fontSize="12" color="#999999" text="{{ item.price | comma }}원">
-                        </Label>
+                        <Label fontSize="14" color="#000" [text]="item.AcomNm"></Label>
+                        <Label class="item-org-price" textwrap="true" *ngIf="item.saleRate > 0"
+                            verticalAlignment="bottom"
+                            horizontalAlignment="left" text="{{ item.DFTPrice | comma }}원"></Label>
+                        <GridLayout columns="auto, auto">
+                            <Label col="0" text="{{ item.price | comma }}원"></Label>
+                            <Label col="1" class="sale-rate" *ngIf="item.saleRate > 0"
+                                text="{{ item.saleRate }}%"></Label>
+                        </GridLayout>
                     </StackLayout>
                 </StackLayout>
             </ScrollView>
@@ -37,7 +42,7 @@
             </GridLayout>
             <StackLayout class="line" width="100%" row="1"></StackLayout>
                 <StackLayout class="main">
-                    <StackLayout class="content" *ngFor="let item of list">
+                    <StackLayout class="content" *ngFor="let item of list" (tap)="goUnit(item.AcomId)">
                         <Image class="card-img" [src]="item.link" stretch="aspectFill"></Image>
                         <GridLayout width="100%" rows="auto, auto, auto, auto"
                             class="accom-info" verticalAlignment="center">

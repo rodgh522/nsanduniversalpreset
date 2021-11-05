@@ -1,4 +1,4 @@
-<GridLayout padding="10">
+<GridLayout padding="0 10">
     <ScrollView scrollBarIndicatorVisible="false">
         <StackLayout>
             <StackLayout class="stack_0">
@@ -44,21 +44,21 @@
                             <StackLayout col="0">
                                 <CheckBox #coupon checked="false"></CheckBox>
                             </StackLayout>
-                            <Label text=" " col="0" (tap)="onChangeCoupon(item, index)"></Label>
+                            <Label text=" " col="0" height="30" (tap)="onChangeCoupon(item, index)"></Label>
                             <Label text="이용권/쿠폰 적용" col="1" class="checkbox_txt" (tap)="onChangeCoupon(item, index)"></Label>
                         </GridLayout>
                         <GridLayout columns="auto, auto, auto, auto" class="coupon_box" *ngIf="item.useCoupon">
                             <TextField [(ngModel)]="item.PrintCode" hint="발행번호" col="0" class="input"
                                 isEnabled="true"></TextField>
                             <TextField [(ngModel)]="item.VerifyCode" hint="인증번호" col="1"></TextField>
-                            <Button text="적용" col="2" (tap)="searchCoupon(item)"></Button>
-                            <Button text="적용취소" col="3" (tap)="removeCoupon(item); resetCode(item)"></Button>
+                            <Label text="적용" col="2" (tap)="searchCoupon(item)"></Label>
+                            <Label text="적용취소" col="3" (tap)="removeCoupon(item); resetCode(item)"></Label>
                         </GridLayout>
                         <GridLayout columns="auto, auto" *ngIf="data.localYN === 'Y' && data.localRate && data.localRate > 0">
                             <StackLayout col="0">
                                 <CheckBox #locally></CheckBox>
                             </StackLayout>
-                            <Label text=" " (tap)="onCheckPromotion(item, index)" col="0"></Label>
+                            <Label text=" " height="30" (tap)="onCheckPromotion(item, index)" col="0"></Label>
                             <Label text="지역민 할인" class="checkbox_txt" (tap)="onCheckPromotion(item, index)" col="1"></Label>
                         </GridLayout>
                         <Label text="{{ item.coupon.msg }}" *ngIf="item.coupon && item.coupon.resultCode === 0"></Label>
@@ -109,7 +109,7 @@
                     </GridLayout>
                 </GridLayout>
             </StackLayout>
-            <StackLayout class="stack_4">
+            <StackLayout class="stack_4" marginBottom="50">
                 <GridLayout columns="auto, auto" horizontalAlignment="center">
                     <Button text="이전" class="btn_back" col="0"></Button>
                     <Button text="결제하기" class="btn_submit" col="1" (tap)="pay()"></Button>
