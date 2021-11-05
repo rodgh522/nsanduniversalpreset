@@ -23,6 +23,7 @@ import { MypageComponent } from '@src/app/home/personal/mypage/mypage.component.
 import { SidoPipe } from '@src/app/pipe/sido.pipe';
 import { CommaPipe } from '@src/app/pipe/comma.pipe';
 import { SubstrPipe } from '@src/app/pipe/substr.pipe';
+import { MybookingDetailComponent } from '@src/app/home/personal/mypage/mybooking/mybooking-detail.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { SubstrPipe } from '@src/app/pipe/substr.pipe';
     AccomListComponent, PaymentComponent, CompleteComponent, MypageComponent,
     // InfoComponent, MybookingComponent,
     // Pipe
-    SidoPipe, CommaPipe, SubstrPipe, 
+    SidoPipe, CommaPipe, SubstrPipe, MybookingDetailComponent, 
   ],
   imports: [
     NativeScriptCommonModule, NativeScriptFormsModule,

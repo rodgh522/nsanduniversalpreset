@@ -29,7 +29,8 @@ const routes: Routes = [
         { path: 'complete/:param', component: CompleteComponent },
       ]},
   { path: 'login', component: LoginComponent },
-  { path: 'join', component: JoinComponent }
+  { path: 'join', component: JoinComponent },
+  { path: 'reservation/:param', component: MybookingComponent },
 ];
 
 @NgModule({

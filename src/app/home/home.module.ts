@@ -31,6 +31,7 @@ import { PaymentComponent } from '@src/app/home/payment/payment.component';
 import { CompleteComponent } from '@src/app/home/payment/complete/complete.component';
 import { SubstrPipe } from '@src/app/pipe/substr.pipe';
 import { MypageComponent } from '@src/app/home/personal/mypage/mypage.component';
+import { MybookingDetailComponent } from '@src/app/home/personal/mypage/mybooking/mybooking-detail.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import { MypageComponent } from '@src/app/home/personal/mypage/mypage.component'
 
     /* pipe */
     CustomdatePipe,
-    SidoPipe, CommaPipe, CompleteComponent, SubstrPipe, 
+    SidoPipe, CommaPipe, CompleteComponent, SubstrPipe, MybookingDetailComponent, 
   ],
   imports: [
     CommonModule,
