@@ -26,6 +26,9 @@
     border-color: #1b3a57;
 
     .each_room {
+        *{
+            vertical-align: middle;
+        }
         .room_acomNm {
             font-size: 20;
             color: #1b3a57;
@@ -66,7 +69,10 @@
     }
 }
 
-.checkbox_txt{text-align: left;}
+.checkbox_txt{
+    text-align: left;
+    vertical-align: middle;
+}
 .coupon_box{
     TextField{
         font-size: 12;
@@ -82,16 +88,17 @@
 
 .final_price_box{
     .final_text{
+        vertical-align: middle;
         width: 100;
         margin-right: 20;
-
         &.shipping_text{font-size: 13; color: #aaa;}
-        &.price_text{color: #1b3a57; font-size: 15;}
+        &.price_text{color: #1b3a57; font-size: 20;}
     }
     * {
         text-align: right;
     }
     .price_won{
+        vertical-align: bottom;
         color: #93b85f;
         font-size: 25;
     }

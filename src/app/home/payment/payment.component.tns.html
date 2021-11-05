@@ -1,4 +1,4 @@
-<GridLayout padding="20" marginBottom="50">
+<GridLayout padding="10">
     <ScrollView scrollBarIndicatorVisible="false">
         <StackLayout>
             <StackLayout class="stack_0">
@@ -79,21 +79,21 @@
                 <Label text="주문자정보"></Label>
                 <StackLayout>
                     <Label text="주문자"></Label>
-                    <TextField #userNm hint="주문자 이름" keyboardType="email" [(ngModel)]="form.GuestNm" 
+                    <TextField #userNm hint="주문자 이름" [(ngModel)]="form.GuestNm" 
                         [ngStyle]="{'border-color': valid.name ? '#f22' : '#eee'}"></TextField>
                 </StackLayout>
                 <StackLayout>
                     <Label text="휴대폰 번호"></Label>
-                    <TextField #mobile hint="휴대폰 번호" keyboardType="phone" [(ngModel)]="form.Mobile"
+                    <TextField #mobile hint="휴대폰 번호" [(ngModel)]="form.Mobile"
                         [ngStyle]="{'border-color': valid.mobile ? '#f22' : '#eee'}"></TextField>
                 </StackLayout>
                 <StackLayout>
                     <Label text="이메일"></Label>
-                    <TextField #email hint="이메일" keyboardType="email" [(ngModel)]="form.Email"></TextField>
+                    <TextField #email hint="이메일" [(ngModel)]="form.Email"></TextField>
                 </StackLayout>
                 <StackLayout>
                     <Label text="추가요청사항"></Label>
-                    <TextField #memo hint="요청사항" keyboardType="email" [(ngModel)]="form.Memo"></TextField>
+                    <TextField #memo hint="요청사항" [(ngModel)]="form.Memo"></TextField>
                 </StackLayout>
             </StackLayout>
             <StackLayout class="stack_3">

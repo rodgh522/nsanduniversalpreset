@@ -2,7 +2,6 @@ import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionService } from '@src/app/service/session.service.tns';
 import { Subscription } from 'rxjs';
-import { setString, getString } from '@nativescript/core/application-settings';
 
 @Component({
   selector: 'app-footer',
@@ -35,11 +34,4 @@ export class FooterComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl(goTo);
   }
 
-  setData(){
-    setString('name', 'host');
-  }
-
-  getData(){
-    console.log(getString('name'));
-  }
 }

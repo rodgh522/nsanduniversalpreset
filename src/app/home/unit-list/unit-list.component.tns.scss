@@ -174,8 +174,12 @@
     color: #1b3a57;
     font-weight: bold;
     width: 200;
+    text-align: center;
     &.available{
         background-color: #93b85f;
         color: #fff;
     }
+}
+.room_info{
+    text-align: right;
 }

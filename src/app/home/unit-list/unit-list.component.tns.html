@@ -21,14 +21,13 @@
                 <StackLayout width="100%" backgroundColor="white" padding="10">
                     <StackLayout *ngFor="let item of data.rooms" class="room_container">
                         <GridLayout rows="*" columns="auto, *">
-                            <Image row="0" col="0" stretch="aspectFill" [src]="item.photo" class="room_img"></Image>
+                            <Image row="0" col="0" stretch="aspectFill" [src]="item.photo" class="room_img" boxSizing="border-box" height="110"></Image>
                             <GridLayout row="0" col="1" rows="auto, auto, auto" horizontalAlignment="right">
                                 <Label row="0" horizontalAlignment="left" [ngClass]="['tag', item.isBlocked ? 'red' : 'green']" 
                                     text="{{ item.isBlocked ? '예약완료' : '예약가능'}}"></Label>
                                 <Label row="1" [text]="item.roomNm" class="room_name"></Label>
                                 <StackLayout row="2" class="room_info_container">
-                                    <Label text="인원: 기준 {{ item.baseInfo[0].GuestStd }}명 / 최대 {{ item.baseInfo[0].GuestMax }}명
-                                        영/유아기준: {{ item.baseInfo[0].InfantMonth}}개월"></Label>
+                                    <Label text="인원: 기준 {{ item.baseInfo[0].GuestStd }}명 / 최대 {{ item.baseInfo[0].GuestMax }}명"></Label>
                                     <Label *ngIf="item.baseInfo[0].PetMax > 0" text="애견: 기준 {{ item.baseInfo[0].PetStd }}마리 / 최대 {{ item.baseInfo[0].PetMax }}마리"></Label>
                                     <Label *ngIf="!item.baseInfo[0].PetMax && item.baseInfo[0].PetMax == 0" text="애견입실불가"></Label>
                                     <Label text="유형/크기: {{ item.baseInfo[0].UnitTy === 'CARAVAN' ? '카라반' : '글램핑' }}/{{
@@ -40,17 +39,17 @@
                                         </Label>
                                     </StackLayout> -->
 
-                                    <StackLayout horizontalAlignment="right" class="price_info">
-                                        <GridLayout columns="auto, auto" horizontalAlignment="right">
-                                            <Label text="{{ 20 }}%" col="0" marginRight="5" color="#93b85f"></Label>
-                                            <Label text="{{ item.DFTPrice | comma }}" col="1" class="orig_price"></Label>
-                                        </GridLayout>
-                                        <Label text="{{ item.roomPrice + item.addGuestPrice + item.addPetPrice +
-                                            item.addOptionPrice | comma }}원" class="price_room"></Label>
-                                    </StackLayout>
                                 </StackLayout>
                             </GridLayout>
                         </GridLayout>
+                        <StackLayout horizontalAlignment="right" class="price_info">
+                            <GridLayout columns="auto, auto" horizontalAlignment="right">
+                                <Label text="{{ 20 }}%" col="0" marginRight="5" color="#93b85f"></Label>
+                                <Label text="{{ item.DFTPrice | comma }}" col="1" class="orig_price"></Label>
+                            </GridLayout>
+                            <Label text="{{ item.roomPrice + item.addGuestPrice + item.addPetPrice +
+                                item.addOptionPrice | comma }}원" class="price_room"></Label>
+                        </StackLayout>
                         <StackLayout class="add_guest">
                             <Label text="인원추가" class="add_guest_text"></Label>
                             <GridLayout columns="*, *" class="add_control">
@@ -113,7 +112,7 @@
                         <Label col="0" class="payment_text" text="총 결제금액"></Label>
                         <Label col="1" class="payment_price" text="{{ totalPrice() | comma }}원"></Label>
                     </GridLayout>
-                    <Button text="예약하기" [ngClass]="['btn_submit', totalPrice() > 0 ? 'available' : '']" (tap)="goPayment()"></Button>
+                    <Label text="예약하기" [ngClass]="['btn_submit', totalPrice() > 0 ? 'available' : '']" (tap)="goPayment()"></Label>
                 </StackLayout>
             </StackLayout>
             <StackLayout *ngIf="selectedMenu === 1">
