@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { getString, setString } from '@nativescript/core/application-settings';
 import { rootScope } from '@src/app/global/global';
 import { PostApiService } from '@src/app/service/post-api.service.tns';
 import { SessionService } from '@src/app/service/session.service.tns';
@@ -63,7 +64,7 @@ export class LoginComponent implements OnInit {
       if(res.header.status === 200){
         if(res.body.docCnt > 0){
           const stayChecked = this.formData.autoLogin ? 'local' : 'session';
-          this.session.signIn(param.LoginId, param.Pwd, stayChecked, {}).then(()=> {
+          this.session.signIn(param.LoginId, param.Pwd, stayChecked, res.body.docs[0]).then(()=> {
             this.router.navigateByUrl('/main');
           });
         }
@@ -76,6 +77,14 @@ export class LoginComponent implements OnInit {
 
   signOut(){
     this.session.signOut();
+  }
+
+  setData(){
+    setString('name', 'host');
+  }
+
+  getData(){
+    console.log(getString('name'));
   }
 
 }

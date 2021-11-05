@@ -41,7 +41,7 @@
         <GridLayout #tabContents col="2" rows="*, *" class="menu-box"
             (tap)="onBottomNavTap('login')" verticalAlignment="middle">
             <Image class="nav_img" src="~/assets/images/fingerprint.png" row="0"></Image>
-            <Label class="fa-regular" text="로그인" verticalAlignment="bottom"
+            <Label class="fa-regular" text="{{ isLoggedIn ? '마이페이지' : '로그인' }}" verticalAlignment="bottom"
                 horizontalAlignment="center" fontSize="15" row="1">
             </Label>
         </GridLayout>

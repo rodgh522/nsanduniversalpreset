@@ -39,7 +39,6 @@ export class SearchBoxComponent implements OnInit {
   
   ngOnInit(): void {
     this.srch = this.searchService.srch;
-    console.dir(this.searchService.srch);
     this.initData();
   }
 
@@ -96,7 +95,6 @@ export class SearchBoxComponent implements OnInit {
       };
       this.dateRange = create(options);
       this.dateRange.showDateRangePicker((res)=>{
-        console.log(res);
         this.setDate(res);
         this.rerender();
       });
@@ -108,7 +106,6 @@ export class SearchBoxComponent implements OnInit {
       this.modalService.showModal(DatePickerComponent, config).
       then((res)=> {
         if(res) {
-          console.log(res);
           this.setDate(res);
         }
       });

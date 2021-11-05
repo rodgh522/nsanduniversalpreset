@@ -36,11 +36,9 @@ export class SwiperComponent implements OnInit, OnChanges, OnDestroy, AfterViewI
 
   @HostListener('unloaded')
   ngOnDestroy(){
-    console.log(this.carousel.nativeElement.onUnloaded());
   }
 
   onSwipe(e) {
-    console.log(e);
   }
 
 }

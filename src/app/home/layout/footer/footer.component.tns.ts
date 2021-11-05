@@ -1,23 +1,45 @@
-import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SelectedIndexChangedEventData } from '@nativescript/core/ui/tab-view';
+import { SessionService } from '@src/app/service/session.service.tns';
+import { Subscription } from 'rxjs';
+import { setString, getString } from '@nativescript/core/application-settings';
 
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.tns.html',
   styleUrls: ['./footer.component.tns.scss']
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent implements OnInit, OnDestroy {
 
+  isLoggedIn = false;
+  subscription: Subscription;
   constructor(
-    private router: Router
-  ) { }
-
-  ngOnInit(): void {
-    console.log('true');
+    private router: Router,
+    private session: SessionService
+  ) { 
+    this.subscription = this.session.user$.subscribe((res)=> {
+      this.isLoggedIn = res ? true : false;
+    });
   }
 
+  ngOnInit(): void {
+  }
+
+  @HostListener('unloaded')
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
+  }
+  
   onBottomNavTap(url: string): void {
-    this.router.navigateByUrl(url);
+    const goTo = url !== 'login' ? url : (this.isLoggedIn ? 'mypage' : 'login');
+    this.router.navigateByUrl(goTo);
+  }
+
+  setData(){
+    setString('name', 'host');
+  }
+
+  getData(){
+    console.log(getString('name'));
   }
 }

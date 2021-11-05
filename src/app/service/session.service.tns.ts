@@ -1,8 +1,17 @@
 import { Injectable } from '@angular/core';
+import { getString, setString } from '@nativescript/core/application-settings';
 import { firebase, firebaseFunctions, firestore } from '@nativescript/firebase';
 import { BehaviorSubject } from 'rxjs';
 import { rootScope } from '../global/global';
 
+const userInfoDefaultSet = {
+  ContractCode: '',
+  ContractNm: "",
+  MemNm: "",
+  MemId: "",
+  ChCode: "",
+  Mobile: ""
+};
 @Injectable({
   providedIn: 'root'
 })
@@ -25,9 +34,10 @@ export class SessionService {
     return firebase.login({
       type: firebase.LoginType.PASSWORD,
       passwordOptions: {email: id + '@softzion.com', password: pwd},
-    }).then((res)=> {
+    }).then(()=> {
+      console.dir(info);
+      this.setAppStorage(info);
       this.user$.next(info);
-      console.dir(res);
     }).catch(e=> {
       console.dir(e);
     });
@@ -40,8 +50,8 @@ export class SessionService {
   }
   
   signOut(){
-    firebase.logout().then(res=> {
-      console.dir(res);
+    firebase.logout().then(()=> {
+      this.user$.next(undefined);
     });
     // return this.auth.signOut().then(()=> {
     //   this.user$.next(null);
@@ -60,5 +70,19 @@ export class SessionService {
     sessionStorage['AcomId'] = data;
     rootScope.gVariable.AcomId = data;
     this.accomodation$.next(data);
+  }
+
+  setAppStorage(userInfo: any){
+    for(const key in userInfo) {
+      setString(key, userInfo[key]);
+    }
+  }
+
+  getAppStorage(){
+    let user: any = {};
+    for(const key in userInfoDefaultSet) {
+      user[key] = getString(key);
+    }
+    this.user$.next(user);
   }
 }
