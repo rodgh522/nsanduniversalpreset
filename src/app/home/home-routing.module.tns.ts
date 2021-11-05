@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component.tns';
 import { MainComponent } from './main/main.component.tns';
 import { CompleteComponent } from './payment/complete/complete.component.tns';
 import { PaymentComponent } from './payment/payment.component.tns';
+import { MypageComponent } from './personal/mypage/mypage.component.tns';
 import { UnitListComponent } from './unit-list/unit-list.component.tns';
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
       { path: 'unit/:acomId', component: UnitListComponent },
       { path: 'payment', component: PaymentComponent },
       { path: 'login', component: LoginComponent},
+      { path: 'mypage', component: MypageComponent},
       { path: 'complete/:param', component: CompleteComponent },
     ]
   }

@@ -50,7 +50,7 @@ export class SessionService {
   }
   
   signOut(){
-    firebase.logout().then(()=> {
+    return firebase.logout().then(()=> {
       this.user$.next(undefined);
     });
     // return this.auth.signOut().then(()=> {
