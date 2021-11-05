@@ -1,0 +1,30 @@
+.page-wrapper{
+    margin: 20px;
+}
+
+.input_wrap .form-input-group .input-field{
+    min-width: 80px;
+    max-width: 49%;
+    height: 50px;
+    padding: 3px 8px;
+    background: #fff;
+    color: #666;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.btn_common {
+    width: 100px;
+    height: 50px;
+    position: relative;
+    bottom: 5px;
+}
+
+.submit-container{
+    text-align: center;
+    > .btn_common {
+        width: 140px;
+        height: 60px;
+    }
+}

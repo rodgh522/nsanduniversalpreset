@@ -1,1 +1,51 @@
-<p>mypage works!</p>
+<div id="main">
+    <nav class="mp_snb">
+        <div class="content">
+            <span class="mp_title" routerLink="/mypage">마이페이지</span>
+            <ul class="ul_h">
+                <li><a routerLink="info">회원정보 수정</a></li>
+                <li><a routerLink="booking">예약조회</a></li>
+                <li><a href="#">1:1 문의</a></li>
+                <li><a href="#">이용문의</a></li>
+                <li><a href="#">이용후기</a></li>
+                <li><a (click)="logout()">로그아웃</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section class="sec_mp_index mgb80" *ngIf="depth === 1">
+        <div class="sub_title">
+            <div class="content">
+                <h2>마이페이지</h2>
+            </div>
+        </div>
+        <div class="content">
+            <ul class="mp_index ul_h">
+                <li>
+                    <dl>
+                        <dt>고객명</dt>
+                        <dd>홍길동<br>
+                            <a routerLink="info" class="desc">[ 회원정보 수정 ]</a>
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <a href="#">
+                        <dl>
+                            <dt>주문신청</dt>
+                            <dd><span class="num">0</span> 건</dd>
+                        </dl>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <dl>
+                            <dt>결제완료</dt>
+                            <dd><span class="num">0</span> 건</dd>
+                        </dl>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <router-outlet></router-outlet>
+</div>

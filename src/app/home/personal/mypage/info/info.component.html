@@ -1,0 +1,51 @@
+<div class="page-wrapper">
+    <section>
+        <div class="sub_title text-center">
+            <div class="content">
+                <h2>
+                    회원정보 수정
+                </h2>
+            </div>
+        </div>
+        <form [formGroup]="infoForm" *ngIf="user">
+            <article class="joinWrap mgb120">
+                <section class="content input_wrap mgauto800">
+                    <div>
+                        <h3>기본정보</h3>
+                    </div>
+                    <div>
+                        <label for="">비밀번호 변경</label>
+                    </div>
+                    <div>
+                        <label for="">사용자명</label>
+                        <input type="text" placeholder="이름" formControlName="MemNm">
+                    </div>
+                    <div>
+                        <label for="">휴대폰 번호 변경</label>
+                        <input type="text" placeholder="휴대폰 번호" formControlName="Mobile">
+                    </div>
+                    <div>
+                        <label for="">이메일</label>
+                        <input type="text" placeholder="이메일" formControlName="Email">
+                    </div>
+                    <div class="form-input-group">
+                        <label for="">주소</label>
+                        <div>
+                            <input type="text" formControlName="ZipCode" [ngClass]="['input-field']" placeholder="우편번호">
+                            <button class="primary_btn btn_common" (click)="srchAddr()">검색</button>
+                        </div>
+                        <input type="text" class="input-field" formControlName="Addr1" placeholder="주소">
+                        <input type="text" class="input-field" placeholder="상세주소" formControlName="Addr2">
+                    </div>
+                    <div>
+                        <label for="">협약사코드</label>
+                        <input type="text" placeholder="코드" formControlName="ContractCode">
+                    </div>
+                </section>
+            </article>
+        </form>
+    </section>
+    <div class="submit-container">
+        <button class="primary_btn btn_common" (click)="doSubmit()">저장</button>
+    </div>
+</div>

@@ -8,9 +8,8 @@
             <nav class="util">
                 <ul>
                     <li><a href="http://59.15.3.210:8058/#/login" target="_blank">파트너센터</a></li>
-                    <li><a href="http://59.15.3.210:8058/#/login" target="_blank">{{outerWidth}}</a></li>
                     <li *ngIf="!isLoggedIn"><a (click)="goLogin()">LOGIN</a></li>
-                    <li *ngIf="isLoggedIn"><a (click)="logout()">MYPAGE</a></li>
+                    <li *ngIf="isLoggedIn"><a routerLink="/mypage">MYPAGE</a></li>
                 </ul>
             </nav>
         </div>

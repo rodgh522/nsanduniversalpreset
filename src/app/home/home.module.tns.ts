@@ -16,6 +16,8 @@ import { AccomListComponent } from '@src/app/home/accom-list/accom-list.componen
 import { PaymentComponent } from '@src/app/home/payment/payment.component.tns';
 import { CompleteComponent } from '@src/app/home/payment/complete/complete.component.tns';
 import { MypageComponent } from '@src/app/home/personal/mypage/mypage.component.tns';
+// import { InfoComponent } from '@src/app/home/personal/mypage/info/info.component';
+// import { MybookingComponent } from '@src/app/home/personal/mypage/mybooking/mybooking.component';
 
 /* Pipe */
 import { SidoPipe } from '@src/app/pipe/sido.pipe';
@@ -30,9 +32,9 @@ import { SubstrPipe } from '@src/app/pipe/substr.pipe';
     FooterComponent,
     UnitListComponent,
     AccomListComponent, PaymentComponent, CompleteComponent, MypageComponent,
-
+    // InfoComponent, MybookingComponent,
     // Pipe
-    SidoPipe, CommaPipe, SubstrPipe
+    SidoPipe, CommaPipe, SubstrPipe, 
   ],
   imports: [
     NativeScriptCommonModule, NativeScriptFormsModule,

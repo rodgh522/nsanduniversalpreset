@@ -19,6 +19,8 @@ import { FooterComponent } from '@src/app/home/layout/footer/footer.component';
 import { MainComponent } from '@src/app/home/main/main.component';
 import { JoinComponent } from '@src/app/home/login/join/join.component';
 import { UnitListComponent } from '@src/app/home/unit-list/unit-list.component';
+import { InfoComponent } from '@src/app/home/personal/mypage/info/info.component';
+import { MybookingComponent } from '@src/app/home/personal/mypage/mybooking/mybooking.component';
 
 /* Pipe */
 import { CustomdatePipe } from '@src/app/pipe/customdate.pipe';
@@ -35,10 +37,11 @@ import { MypageComponent } from '@src/app/home/personal/mypage/mypage.component'
     HomeComponent,
     LoginComponent,
     HeaderComponent, FooterComponent, MainComponent, JoinComponent, UnitListComponent,
+    MypageComponent, AccomListComponent, PaymentComponent, InfoComponent, MybookingComponent, 
 
     /* pipe */
     CustomdatePipe,
-    AccomListComponent, SidoPipe, CommaPipe, PaymentComponent, CompleteComponent, SubstrPipe, MypageComponent
+    SidoPipe, CommaPipe, CompleteComponent, SubstrPipe, 
   ],
   imports: [
     CommonModule,
