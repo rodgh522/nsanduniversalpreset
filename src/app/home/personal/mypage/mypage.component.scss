@@ -1,4 +1,4 @@
-#sec_reserv_view .list_body .item_info > div:nth-child(1) { width: 25%; }
+.list_body .item_info > div:nth-child(1) { width: 25%; }
 
 @media (max-width: 800px) { #sec_reserv_view .list_body .item_info > div:nth-child(1) { width: 100% !important; } }
 

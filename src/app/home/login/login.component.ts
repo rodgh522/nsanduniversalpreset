@@ -14,6 +14,8 @@ import { CONSTANT } from '@src/assets/global-constant';
 export class LoginComponent implements OnInit {
 
   loginform: FormGroup;
+  selectedTab = 0;
+  srch: any = {};
 
   constructor(
     private fb: FormBuilder,
@@ -79,4 +81,9 @@ export class LoginComponent implements OnInit {
     return this.loginform.controls[target].touched && !this.loginform.controls[target].valid;
   }
 
+  searchBooking(){
+    const param = JSON.stringify(this.srch);
+    this.router.navigate(['/reservation', param]);
+  }
+  
 }

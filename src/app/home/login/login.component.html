@@ -6,11 +6,11 @@
 <section class="sec_login">
     <div class="content">
         <!-- 회원 로그인 -->
-        <div class="loginWrap member">
+        <div class="loginWrap member" *ngIf="selectedTab === 0">
             <nav class="sub_tab">
                 <ul class="ul_h">
-                    <li><a href="#" class="focus">회원 로그인</a></li>
-                    <li><a href="#">비회원 로그인</a></li>
+                    <li><a class="focus">회원 로그인</a></li>
+                    <li><a (click)="selectedTab = 1">비회원 로그인</a></li>
                 </ul>
             </nav>
             <form [formGroup]="loginform" class="flex-column">
@@ -52,22 +52,22 @@
         <!-- //회원 로그인 -->
 
         <!-- 비회원 로그인 -->
-        <div class="loginWrap nonmember" style="display: none;">
+        <div class="loginWrap nonmember" *ngIf="selectedTab === 1">
             <nav class="sub_tab">
                 <ul class="ul_h">
-                    <li><a href="#">회원 로그인</a></li>
-                    <li><a href="#" class="focus">비회원 로그인</a></li>
+                    <li><a (click)="selectedTab = 0">회원 로그인</a></li>
+                    <li><a class="focus">비회원 로그인</a></li>
                 </ul>
             </nav>
             <div class="input_wrap">
                 <div>
-                    <input type="text" placeholder="주문번호">
+                    <input type="text" placeholder="주문번호" [(ngModel)]="srch.resvNo">
                 </div>
                 <div>
-                    <input type="password" placeholder="비밀번호">
+                    <input type="password" placeholder="비밀번호" [(ngModel)]="srch.mobile">
                 </div>
                 <div>
-                    <button class="primary_btn login_btn">조회</button>
+                    <button class="primary_btn login_btn" (click)="searchBooking()">조회</button>
                 </div>
             </div>
         </div>
