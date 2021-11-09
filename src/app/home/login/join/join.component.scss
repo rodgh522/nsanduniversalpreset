@@ -39,18 +39,19 @@
             border-radius: 5px;
         }
 
-        .input-with-btn{
-            text-align: initial;
-            input{
-                width: 70%;
-                margin-right: 5px;
-            }
-            button{
-                border: 1px solid #a4b567;
-                height: 50px;
-                line-height: 47px;
-            }
-        }
+        // .input-with-btn{
+        //     text-align: initial;
+        //     input{
+        //         width: 70%;
+        //         margin-right: 5px;
+        //     }
+        //     button{
+        //         border: 1px solid #a4b567;
+        //         height: 50px;
+        //         line-height: 47px;
+        //     }
+        // }
+        
 
         mat-checkbox{
             text-align: initial;
@@ -58,15 +59,23 @@
             margin-top: 10px;
         }
 
-        .join-submit{
-            height: 50px;
-            border: 1px solid #abc;
-            margin-top: 40px;
-            background-color: #abc;
-            font-weight: bold;
-            cursor: pointer;
-        }
+        // .join-submit{
+        //     height: 50px;
+        //     border: 1px solid #abc;
+        //     margin-top: 40px;
+        //     background-color: #abc;
+        //     font-weight: bold;
+        //     cursor: pointer;
+        // }
     }
 }
 
 i{font-size: 12px;}
+
+#main { margin-top: 0; }
+
+.joinWrap {
+    width: 95%;
+    max-width: 500px;
+    margin: 0 auto 150px auto;
+}

@@ -3,7 +3,6 @@
         <div class="content">
             <h2>
                 회원가입
-                <p>02. 정보 입력</p>
             </h2>
         </div>
     </div>
@@ -21,11 +20,17 @@
                         [ngStyle]="{'borderColor': checkValid('LoginId') || (joinform.controls['LoginId'].valid && !isChecked) ? '#f00': '#ddd'}">
                 </div>
                 <div>
-                    <label for="">비밀번호</label>
-                    <i class="fa fa-info-circle" [matTooltip]="pwdTip"></i>
-                    <span *ngIf="checkValid('Pwd')" class="text-error"> * 8 ~ 16자, 숫자 혹은 특수문자 1개 이상(필수)</span>
-                    <input type="password" formControlName="Pwd" placeholder="패스워드" [ngStyle]="{'borderColor': checkValid('Pwd') ? '#f00': '#ddd'}">
-                    <input type="password" formControlName="rePwd" placeholder="패스워드 확인" [ngStyle]="{'borderColor': joinform.controls.rePwd.touched && checkPwd() ? '#f00': '#ddd'}">
+                    <label for="">
+                        비밀번호
+                        <i class="fa fa-info-circle" [matTooltip]="pwdTip"></i>
+                        <span *ngIf="checkValid('Pwd')" class="text-error"> * 8 ~ 16자, 숫자 혹은 특수문자 1개 이상(필수)</span>
+                    </label>
+                    <div>
+                        <input type="password" formControlName="Pwd" placeholder="패스워드" [ngStyle]="{'borderColor': checkValid('Pwd') ? '#f00': '#ddd'}">
+                    </div>
+                    <div>
+                        <input type="password" formControlName="rePwd" placeholder="패스워드 확인" [ngStyle]="{'borderColor': joinform.controls.rePwd.touched && checkPwd() ? '#f00': '#ddd'}">
+                    </div>
                 </div>
                 <div>
                     <label for="">사용자명</label>
@@ -35,29 +40,35 @@
                 <div>
                     <label for="">휴대폰 번호</label>
                     <span *ngIf="checkValid('Mobile')" class="text-error"> * 필수정보 입니다.</span>
-                    <div class="input-with-btn">
+                    <div class="input_with_btn">
                         <input type="text" formControlName="Mobile" placeholder="- 없이 번호만 입력" [ngStyle]="{'borderColor': checkValid('Mobile') ? '#f00': '#ddd'}">
-                        <button>인증번호 받기</button>
+                        <button class="default_btn">인증번호 받기</button>
+                    </div>
+                    <div class="input_with_btn">
                         <input type="text" placeholder="인증번호 입력" formControlName="sms">
-                        <button>인증번호 확인</button>
+                        <button class="primary_btn">인증번호 확인</button>
                     </div>
                 </div>
                 <div>
                     <label for="">협약사코드</label>
                     <input type="text" formControlName="ChCode" placeholder="협약사코드">
                 </div>
+                <div class="clear">
+                    <div class="leftBox">
+                        <p><b>개인정보 수집 및 이용 동의</b><span *ngIf="checkValid('agreement')" class="text-error"> * 필수</span></p>
+                    </div>
+                    <div class="rightBox">
+                        <a class="underline">보기</a>
+                    </div>
+                </div>
                 <div>
-                    <h4>개인정보 수집 및 이용 동의
-                        <span *ngIf="checkValid('agreement')" class="text-error"> * 필수</span>
-                        <a>보기</a>
-                    </h4>
                     <mat-checkbox color="primary" formControlName="agreement" [ngStyle]="{'color': checkValid('agreement') ? '#f00': '#000'}">동의합니다.</mat-checkbox>
-                    <button class="join-submit" (click)="sumbit()">가입</button>
+                    <!-- <button class="join-submit">가입</button> -->
                 </div>
             </section>
             <div class="content btn_wrap mgt50 text-center">
                 <button class="cancel_btn">취소</button>
-                <button class="primary_btn">가입신청</button>
+                <button class="primary_btn" (click)="sumbit()">가입신청</button>
             </div>
         </article>
     </form>
