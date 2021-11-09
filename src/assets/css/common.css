@@ -87,6 +87,12 @@ button { cursor: pointer; }
 .wd_95p  { width: 95% ; }
 .wd_100p { width: 100%; }
 
+
+/*********************************************************************/
+
+/* .mgauto600{ max-width: 600px; margin: 0 auto; }
+.mgauto800{ max-width: 800px; margin: 0 auto; } */
+
 /****************************패딩및마진********************************/
 .pdt03 {padding-top:3px !important;}
 .pdt05 {padding-top:5px !important;}

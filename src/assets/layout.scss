@@ -28,6 +28,9 @@ button + button {
 .point_c { color: $point; }
 .underline:hover { text-decoration: underline; }
 
+.btn_full {
+    @include button(100%, 50px);
+}
 .default_btn {
     border: $basic_border;
 }

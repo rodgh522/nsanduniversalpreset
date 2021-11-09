@@ -1,3 +1,7 @@
+#main {
+  margin-top: 150px;
+}
+
 .list_body .item_info > div:nth-child(1) { width: 25%; }
 
 @media (max-width: 800px) { #sec_reserv_view .list_body .item_info > div:nth-child(1) { width: 100% !important; } }
@@ -30,4 +34,4 @@
 @media (max-width: 800px) { .mp_index li { width: 100%; }
   .mp_index li:after { top: 0; width: 95%; height: 1px; transform: translateX(2.5%); } }
 
-.content > h2 { margin-top: 80px;}
+.content > h2 { margin: 80px 0 40px 0; }
