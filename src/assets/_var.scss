@@ -61,6 +61,12 @@ $font_xl : 32px;
     color: $gray;
     border: $basic_border;
 }
+@mixin button($width: auto, $height: 36px) {
+    width: $width;
+    min-width: 80px;
+    height: $height;
+    padding: 3px 8px;
+}
 @mixin blackButton($width: auto, $height: 36px) {
     width: $width;
     min-width: 80px;

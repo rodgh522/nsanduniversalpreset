@@ -26,7 +26,11 @@ button + button {
 .va_bottom { vertical-align: bottom;}
 
 .point_c { color: $point; }
+.underline:hover { text-decoration: underline; }
 
+.btn_full {
+    @include button(100%, 50px);
+}
 .default_btn {
     border: $basic_border;
 }
@@ -150,6 +154,8 @@ button + button {
         & > input[type=checkbox] + label {
             display: inline;
         }
+        & > div > input[type=text],
+        & > div > input[type=password],
         & > input[type=text],
         & > input[type=password],
         & > select {
@@ -196,6 +202,13 @@ button + button {
             span {
                 margin: 0 5px;
                 line-height: 50px;
+            }
+        }
+        .input_with_btn {
+            input[type=text] { max-width: 250px; }
+            button {
+                @include button(120px, 50px);
+                margin-bottom: 10px;
             }
         }
     }

@@ -8,21 +8,27 @@
             </div>
         </div>
         <form [formGroup]="infoForm" *ngIf="user">
-            <article class="joinWrap mgb120">
-                <section class="content input_wrap mgauto800">
+            <article class="joinWrap">
+                <section class="content input_wrap">
                     <div>
                         <h3>기본정보</h3>
-                    </div>
-                    <div>
-                        <label for="">비밀번호 변경</label>
                     </div>
                     <div>
                         <label for="">사용자명</label>
                         <input type="text" placeholder="이름" formControlName="MemNm">
                     </div>
                     <div>
-                        <label for="">휴대폰 번호 변경</label>
-                        <input type="text" placeholder="휴대폰 번호" formControlName="Mobile">
+                        <label for="">비밀번호</label>
+                        <button class="btn_full default_btn">비밀번호 변경</button>
+                    </div>
+                    <div>
+                        <label for="">휴대폰 번호</label>
+                        <div>
+                            <input type="text" placeholder="휴대폰 번호" formControlName="Mobile">
+                        </div>
+                        <div>
+                            <button class="btn_full primary_btn">휴대폰 번호 변경</button>
+                        </div>
                     </div>
                     <div>
                         <label for="">이메일</label>
