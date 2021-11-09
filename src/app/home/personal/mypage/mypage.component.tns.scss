@@ -1,1 +1,37 @@
 /* Add mobile styles for the component here.  */
+.my-top{
+    padding: 20;
+    background-color: #f6f6f6;
+    .my-name{
+        height: 70;
+        vertical-align: center;
+        font-size: 30;
+        color: #1b3a57;
+    }
+    .my-order{
+        height: 50;
+        .col_0{
+        }
+        .order-text{
+            margin-bottom: 5;
+        }
+        .order-count{
+            margin-left: 10;
+            font-size: 18;
+            color: #93b85f;
+        }
+        .vertcal-center{
+            vertical-align: center;
+        }
+    }
+}
+.my-menu-container{
+    padding: 0 20 20 20;
+    .my-menu-each{
+        padding: 20 0;
+        Label{
+            font-size: 20;
+            color: #333;
+        }
+    }
+}

@@ -16,14 +16,14 @@ import { AccomListComponent } from '@src/app/home/accom-list/accom-list.componen
 import { PaymentComponent } from '@src/app/home/payment/payment.component.tns';
 import { CompleteComponent } from '@src/app/home/payment/complete/complete.component.tns';
 import { MypageComponent } from '@src/app/home/personal/mypage/mypage.component.tns';
-// import { InfoComponent } from '@src/app/home/personal/mypage/info/info.component';
-// import { MybookingComponent } from '@src/app/home/personal/mypage/mybooking/mybooking.component';
+import { InfoComponent } from '@src/app/home/personal/mypage/info/info.component.tns';
+import { MybookingComponent } from '@src/app/home/personal/mypage/mybooking/mybooking.component.tns';
+import { MybookingDetailComponent } from '@src/app/home/personal/mypage/mybooking/mybooking-detail.component.tns';
 
 /* Pipe */
 import { SidoPipe } from '@src/app/pipe/sido.pipe';
 import { CommaPipe } from '@src/app/pipe/comma.pipe';
 import { SubstrPipe } from '@src/app/pipe/substr.pipe';
-import { MybookingDetailComponent } from '@src/app/home/personal/mypage/mybooking/mybooking-detail.component';
 
 @NgModule({
   declarations: [
@@ -33,9 +33,10 @@ import { MybookingDetailComponent } from '@src/app/home/personal/mypage/mybookin
     FooterComponent,
     UnitListComponent,
     AccomListComponent, PaymentComponent, CompleteComponent, MypageComponent,
-    // InfoComponent, MybookingComponent,
+    InfoComponent, MybookingComponent, MybookingDetailComponent, 
+    
     // Pipe
-    SidoPipe, CommaPipe, SubstrPipe, MybookingDetailComponent, 
+    SidoPipe, CommaPipe, SubstrPipe,
   ],
   imports: [
     NativeScriptCommonModule, NativeScriptFormsModule,

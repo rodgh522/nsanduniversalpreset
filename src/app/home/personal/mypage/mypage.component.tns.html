@@ -1,1 +1,36 @@
-<Button text="mypage works!" class="btn btn-primary" (tap)="signOut()"></Button>
+<GridLayout>
+    <ScrollView>
+        <StackLayout>
+            <StackLayout class="my-top">
+                <Label text="{{ user.MemNm }}" class="my-name" nsRouterLink="/info"></Label>
+                <GridLayout columns="*, *" class="my-order">
+                    <StackLayout col="0" class="col_0">
+                        <Label text="주문신청" class="order-text"></Label>
+                        <GridLayout columns="auto, auto">
+                            <Label text="0" col="0" class="order-count"></Label>
+                            <Label text="건" col="1" class="vertcal-center"></Label>
+                        </GridLayout>
+                    </StackLayout>
+                    <StackLayout col="1">
+                        <Label text="결제완료" class="order-text"></Label>
+                        <GridLayout columns="auto, auto">
+                            <Label text="0" col="0" class="order-count"></Label>
+                            <Label text="건" col="1" class="vertcal-center"></Label>
+                        </GridLayout>
+                    </StackLayout>
+                </GridLayout>
+            </StackLayout>
+            <StackLayout class="my-menu-container">
+                <StackLayout class="my-menu-each">
+                    <Label text="내정보" nsRouterLink="/info"></Label>
+                </StackLayout>
+                <StackLayout class="my-menu-each">
+                    <Label text="예약조회" nsRouterLink="/booking"></Label>
+                </StackLayout>
+                <StackLayout class="my-menu-each">
+                    <Label text="1:1문의" nsRouterLink="/info"></Label>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</GridLayout>
