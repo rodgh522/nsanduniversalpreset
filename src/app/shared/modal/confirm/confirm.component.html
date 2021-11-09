@@ -2,6 +2,6 @@
     <p>{{msg | translate}}</p>
 </div>
 <div mat-dialog-actions>
-    <button mat-button (click)="dialogRef.close('ok')">{{ ok.msg | translate}}</button>
-    <button mat-button (click)="dialogRef.close('cancel')">{{ cancel.msg | translate}}</button>
+    <button mat-button (click)="dialogRef.close(true)">{{ ok.msg | translate}}</button>
+    <button mat-button (click)="dialogRef.close(false)">{{ cancel.msg | translate}}</button>
 </div>

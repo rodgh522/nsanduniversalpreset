@@ -39,7 +39,7 @@
                     </tr>
                     <tr>
                         <td>총 결제금액</td>
-                        <td>{{ main.OrderTotal | comma }}원</td>
+                        <td>{{ main.OrderTotal ? main.OrderTotal : 0 | comma }}원</td>
                     </tr>
                 </table>
             </div>
@@ -51,7 +51,11 @@
         </div>
         <div class="sub_title">
             <div class="page_desc">
-                <span class="title title_baseInfo">{{ main.RoomNm }}</span>
+                <div>
+                    <span class="title title_baseInfo">{{ main.RoomNm }}</span>
+                    <span class="resv-stat">{{ resvStat[main.ResvStat] }}</span>
+                    <button *ngIf="main.availableCancle" class="btn-cancle" (click)="cancelBooking(main)">예약취소</button>
+                </div>
                 <table class="baseInfo">
                     <colgroup>
                         <col style="width: 150px;">
@@ -106,7 +110,11 @@
         </div>
         <div class="sub_title" *ngFor="let item of subs">
             <div class="page_desc">
-                <span class="title title_baseInfo">{{ item.RoomNm }}</span>
+                <div>
+                    <span class="title title_baseInfo">{{ item.RoomNm }}</span>
+                    <span class="resv-stat">{{ resvStat[main.ResvStat] }}</span>
+                    <button *ngIf="item.availableCancle" class="btn-cancle" (click)="cancelBooking(item)">예약취소</button>
+                </div>
                 <table class="baseInfo">
                     <colgroup>
                         <col style="width: 150px;">
