@@ -6,19 +6,20 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class CustomdatePipe implements PipeTransform {
 
   transform(origin: Date, ...args: unknown[]): unknown {
-    var result;
+    const date = typeof origin === 'number' ? new Date(origin) : origin;
+    let result: string;
     const day = ['일', '월', '화', '수', '목', '금', '토'];
-    if(origin) {
+    if(date) {
       switch (args[0]) {
         case 'kor':
           var days = ['일', '월', '화', '수', '목', '금', '토'];
-          result = origin.getFullYear() + '년 ' + (origin.getMonth() + 1) + '월 ' + origin.getDate() + '일(' + days[origin.getDay()] + ')';
+          result = date.getFullYear() + '년 ' + (date.getMonth() + 1) + '월 ' + date.getDate() + '일(' + days[date.getDay()] + ')';
         break;
         case 'mm.dd':
-          result = (origin.getMonth() + 1) + '.' + origin.getDate();
+          result = (date.getMonth() + 1) + '.' + date.getDate();
         break;
         case 'mm.dd(day)':
-          result = (origin.getMonth() + 1) + '.' + origin.getDate() + '(' + day[origin.getDay()] + ')';
+          result = (date.getMonth() + 1) + '.' + date.getDate() + '(' + day[date.getDay()] + ')';
       }
     }
     return result;

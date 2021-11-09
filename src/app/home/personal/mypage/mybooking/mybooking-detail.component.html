@@ -1,1 +1,158 @@
-<p>mybooking-detail works!</p>
+<div>
+    <div class="sub_title">
+        <div class="content">
+            <h2>예약조회</h2>
+            <p class="page_desc">
+                <span class="title">예약 취소/환불 안내</span>
+                <span>결제 완료된 예약 건은 위약금 및 부분 결제 취소 등의 이유로 사용자 취소/환불이 불가능합니다.<br>
+                고객센터(031-932-8188) 또는 1:1 게시판에 문의 주시기 바랍니다.</span>
+            </p>
+        </div>
+    </div>
+    <section class="content input_wrap mgauto800">
+        <div>
+            <h3>예약정보</h3>
+        </div>
+        <div class="sub_title">
+            <div class="page_desc">
+                <span class="title title_baseInfo">{{ main.AcomNm }}</span>
+                <span>{{ main.Addr1 }}</span><br>
+                <table class="baseInfo">
+                    <colgroup>
+                        <col style="width: 150px;">
+                    </colgroup>
+                    <tr>
+                        <td>입실</td>
+                        <td>{{ main.CheckinDt | customdate : 'mm.dd(day)' }}  {{ main.CheckinTime }}</td>
+                    </tr>
+                    <tr>
+                        <td>퇴실</td>
+                        <td>{{ main.CheckoutDt | customdate : 'mm.dd(day)' }}  {{ main.CheckoutTime }}</td>
+                    </tr>
+                    <tr>
+                        <td>예약자</td>
+                        <td>{{ main.GuestNm }}님</td>
+                    </tr>
+                    <tr>
+                        <td>연락처</td>
+                        <td>{{ main.Mobile }}</td>
+                    </tr>
+                    <tr>
+                        <td>총 결제금액</td>
+                        <td>{{ main.OrderTotal | comma }}원</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+    <section class="content input_wrap mgauto800">
+        <div>
+            <h3>객실정보</h3>
+        </div>
+        <div class="sub_title">
+            <div class="page_desc">
+                <span class="title title_baseInfo">{{ main.RoomNm }}</span>
+                <table class="baseInfo">
+                    <colgroup>
+                        <col style="width: 150px;">
+                    </colgroup>
+                    <tr>
+                        <td>예약번호</td>
+                        <td>{{ main.ResvNo }}</td>
+                    </tr>
+                    <tr>
+                        <td>인원</td>
+                        <td>성인 {{ main.Adult }}{{ main.Infant !== 0 ? ', 영/유아 ' + main.Infant : '' }}{{ main.Pet !== 0 ? ', 애견 ' + main.Pet : '' }}</td>
+                    </tr>
+                    <tr>
+                        <td>객실료</td>
+                        <td>{{ main.Price | comma }}원</td>
+                    </tr>
+                    <tr>
+                        <td>인원/애견추가 요금</td>
+                        <td> {{ main.AddGuestPrice | comma }}원/{{ main.AddPetPrice | comma}}원</td>
+                    </tr>
+                    <tr>
+                        <td>옵션추가</td>
+                        <td>
+                            <span *ngFor="let opt of main.options; let last = last">
+                                {{ opt.ItemNm }}({{ opt.Amount }}) <span *ngIf="!last">, </span>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>옵션추가 요금</td>
+                        <td> {{ calcOptionTotal(main.options) | comma }}원</td>
+                    </tr>
+                    <tr>
+                        <td>적용할인</td>
+                        <td>
+                            <span *ngFor="let coupon of main.coupons; let last = last">
+                                {{ coupon.Prmotion }} <span *ngIf="!last">, </span>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>할인금액</td>
+                        <td>{{ calcCouponTotal(main.coupons) | comma }}원</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+    <section class="content input_wrap mgauto800" *ngIf="subs.length > 0">
+        <div>
+            <h3>함께 결제한 객실</h3>
+        </div>
+        <div class="sub_title" *ngFor="let item of subs">
+            <div class="page_desc">
+                <span class="title title_baseInfo">{{ item.RoomNm }}</span>
+                <table class="baseInfo">
+                    <colgroup>
+                        <col style="width: 150px;">
+                    </colgroup>
+                    <tr>
+                        <td>예약번호</td>
+                        <td>{{ item.ResvNo }}</td>
+                    </tr>
+                    <tr>
+                        <td>인원</td>
+                        <td>성인 {{ item.Adult }}{{ item.Infant !== 0 ? ', 영/유아 ' + item.Infant : '' }}{{ main.Pet !== 0 ? ', 애견 ' + main.Pet : '' }}</td>
+                    </tr>
+                    <tr>
+                        <td>객실료</td>
+                        <td>{{ item.Price | comma }}원</td>
+                    </tr>
+                    <tr>
+                        <td>인원/애견추가 요금</td>
+                        <td> {{ item.AddGuestPrice | comma }}원/{{ item.AddPetPrice | comma}}원</td>
+                    </tr>
+                    <tr>
+                        <td>옵션추가</td>
+                        <td>
+                            <span *ngFor="let opt of item.options; let last = last">
+                                {{ opt.ItemNm }}({{ opt.Amount }}) <span *ngIf="!last">, </span>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>옵션추가 요금</td>
+                        <td> {{ calcOptionTotal(item.options) | comma }}원</td>
+                    </tr>
+                    <tr>
+                        <td>적용할인</td>
+                        <td>
+                            <span *ngFor="let coupon of item.coupons; let last = last">
+                                {{ coupon.Promotion }} <span *ngIf="!last">, </span>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>할인금액</td>
+                        <td>{{ calcCouponTotal(item.coupons) | comma }}원</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>

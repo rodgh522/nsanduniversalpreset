@@ -21,6 +21,8 @@ import { JoinComponent } from '@src/app/home/login/join/join.component';
 import { UnitListComponent } from '@src/app/home/unit-list/unit-list.component';
 import { InfoComponent } from '@src/app/home/personal/mypage/info/info.component';
 import { MybookingComponent } from '@src/app/home/personal/mypage/mybooking/mybooking.component';
+import { MypageComponent } from '@src/app/home/personal/mypage/mypage.component';
+import { MybookingDetailComponent } from '@src/app/home/personal/mypage/mybooking/mybooking-detail.component';
 
 /* Pipe */
 import { CustomdatePipe } from '@src/app/pipe/customdate.pipe';
@@ -30,8 +32,6 @@ import { CommaPipe } from '@src/app/pipe/comma.pipe';
 import { PaymentComponent } from '@src/app/home/payment/payment.component';
 import { CompleteComponent } from '@src/app/home/payment/complete/complete.component';
 import { SubstrPipe } from '@src/app/pipe/substr.pipe';
-import { MypageComponent } from '@src/app/home/personal/mypage/mypage.component';
-import { MybookingDetailComponent } from '@src/app/home/personal/mypage/mybooking/mybooking-detail.component';
 
 @NgModule({
   declarations: [

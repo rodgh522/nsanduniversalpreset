@@ -11,6 +11,7 @@ import { CompleteComponent } from './payment/complete/complete.component';
 import { MypageComponent } from './personal/mypage/mypage.component';
 import { InfoComponent } from './personal/mypage/info/info.component';
 import { MybookingComponent } from './personal/mypage/mybooking/mybooking.component';
+import { MybookingDetailComponent } from './personal/mypage/mybooking/mybooking-detail.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent,
@@ -24,13 +25,14 @@ const routes: Routes = [
           children: [
             { path: 'info', component: InfoComponent },
             { path: 'booking', component: MybookingComponent },
+            { path: 'reservation/:param', component: MybookingDetailComponent },
           ]
         },
         { path: 'complete/:param', component: CompleteComponent },
       ]},
   { path: 'login', component: LoginComponent },
   { path: 'join', component: JoinComponent },
-  { path: 'reservation/:param', component: MybookingComponent },
+  { path: 'reservation/:param', component: MybookingDetailComponent },
 ];
 
 @NgModule({

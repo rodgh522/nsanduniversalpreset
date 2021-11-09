@@ -206,3 +206,11 @@ export function changeFormat(list){
   });
   return result;
 }
+
+export const resvStat: any = {
+  WAIT: '예약대기',
+  COMP: '예약완료',
+  CANC: '예약취소',
+  REQS: '환불요청',
+  REFD: '환불완료'
+};

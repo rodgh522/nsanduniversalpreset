@@ -13,21 +13,22 @@
         <div class="content">
             <ul class="nm_list">
                 <!-- loop -->
-                <li class="list_body">
+                <li class="list_body" *ngFor="let item of list" (click)="goDetail(item.ResvNo)">
                     <div class="dp_td item_info">
                         <div class="item_thumb">
-                            <img src="./images/thumb/thumb1.png" alt="">
+                            <img src="{{ item.photo }}" alt="">
                         </div>
                         <div class="item_title va_top">
-                            <p class="list_sub">2021-09-02</p>
-                            <h3>충주 캠핑리조트</h3>
+                            <h3>{{ item.AcomNm }}</h3>
+                            <h4>{{ item.RoomNm }}</h4>
                             <p class="list_sub_desc mgt20">
-                                입실 <span>2021-08-16</span> ~ 퇴실 <span>2021-08-17</span>
+                                입실 <span>{{ item.CheckinDt | customdate : 'mm.dd(day)'}}</span> <br>
+                                퇴실 <span>{{ item.CheckoutDt | customdate : 'mm.dd(day)'}}</span>
                             </p>
                         </div>
                         <div class="item_state va_middle">
-                            <p>결제대기</p>
-                            <button class="print_rec_btn">[영수증 출력]</button>
+                            <p>{{ resvStat[item.ResvStat] }}</p>
+                            <!-- <button class="print_rec_btn">[영수증 출력]</button> -->
                         </div>
                     </div>
                 </li>
