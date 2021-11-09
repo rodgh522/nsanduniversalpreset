@@ -1,6 +1,6 @@
 var API_HTTP_PROTOCOL = 'http:'; //location.protocol;
 var API_SERVER_DOMAIN = 'localhost';
-var API_SERVER_PORT: string | number = '8090';
+var API_SERVER_PORT: string | number = '8080';
 
 export var CONSTANT = {
   URL : {
