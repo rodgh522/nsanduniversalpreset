@@ -24,7 +24,9 @@ export class AppComponent implements OnInit{
     }).catch(res=> {
       this.initFireBase();
     });
-    this.router.navigateByUrl('/main');
+    // this.router.navigateByUrl('/booking');
+    const param = { ResvNo: 'TTPAPM' };
+    this.router.navigate(['/reservation', JSON.stringify(param)]);
   }
 
   initFireBase(){

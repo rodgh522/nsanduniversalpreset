@@ -242,7 +242,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
     if(this.validCheck()) {
       return;
     }
-    console.dir(this.form);
     const payment = {
       PayStatus: 'SUCCESS',
       PaymentTy: this.payMethod,
@@ -265,7 +264,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
       mapcode: 'makeBooking'
     };
 
-    console.dir(param);
     this.postApi.home(param, (res)=>{
       if(res.header.status === 200) {
         const result = res.body.docs[0];

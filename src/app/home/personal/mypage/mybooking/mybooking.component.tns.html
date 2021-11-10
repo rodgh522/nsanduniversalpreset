@@ -1,1 +1,31 @@
-<Button text="mybooking works!" class="btn btn-primary"></Button>
+<GridLayout>
+    <ScrollView>
+        <StackLayout class="content-container">
+            <StackLayout class="row_0">
+                <Label text="예약조회"></Label>
+                <StackLayout class="info-container">
+                    <Label text="예약 취소/환불 안내" class="title"></Label>
+                    <Label [text]="infoMsg1" textWrap="true"></Label>
+                    <Label [text]="infoMsg2" textWrap="true"></Label>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout class="row_1">
+                <StackLayout class="resv-container" *ngFor="let item of list">
+                    <GridLayout columns="*, *" class="resv-top">
+                        <Label text="{{ resvStat[item.ResvStat] }}" col="0" class="resv-stat"></Label>
+                        <Label text="예약상세" col="1" class="resv-detail" (tap)="goDetail(item.ResvNo)"></Label>
+                    </GridLayout>
+                    <GridLayout columns="auto, *" class="resv-body">
+                        <Image src="{{ item.photo }}" stretch="aspectFill" col="0" class="resv-photo"></Image>
+                        <StackLayout col="1" class="resv-info">
+                            <Label text="{{ item.AcomNm }}" class="resv-acom"></Label>
+                            <Label text="{{ item.RoomNm }}" class="resv-room"></Label>
+                            <Label text="입실 {{ item.CheckinDt | customdate : 'mm.dd(day)'}}" class="resv-date"></Label>
+                            <Label text="퇴실 {{ item.CheckoutDt | customdate : 'mm.dd(day)'}}" class="resv-date"></Label>
+                        </StackLayout>
+                    </GridLayout>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</GridLayout>
