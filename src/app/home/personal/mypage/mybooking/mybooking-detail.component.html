@@ -112,7 +112,7 @@
             <div class="page_desc">
                 <div>
                     <span class="title title_baseInfo">{{ item.RoomNm }}</span>
-                    <span class="resv-stat">{{ resvStat[main.ResvStat] }}</span>
+                    <span class="resv-stat">{{ resvStat[item.ResvStat] }}</span>
                     <button *ngIf="item.availableCancle" class="btn-cancle" (click)="cancelBooking(item)">예약취소</button>
                 </div>
                 <table class="baseInfo">

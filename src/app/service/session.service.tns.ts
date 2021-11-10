@@ -10,7 +10,8 @@ const userInfoDefaultSet = {
   MemNm: "",
   MemId: "",
   ChCode: "",
-  Mobile: ""
+  Mobile: "",
+  Email: ''
 };
 @Injectable({
   providedIn: 'root'

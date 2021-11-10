@@ -1,1 +1,135 @@
-<Button text="mybooking-detail works!" class="btn btn-primary"></Button>
+<AbsoluteLayout [ngClass]="[toasted === 'show' ? 'show-toast' : 'hide-toast']" horizontalAlignment="center">
+    <StackLayout class="toast-bar">
+        <Label text="{{toastMsg}}"></Label>
+    </StackLayout>
+</AbsoluteLayout>
+<GridLayout>
+    <ScrollView>
+        <StackLayout class="content-container">
+            <StackLayout class="row_0">
+                <Label text="예약조회"></Label>
+                <StackLayout class="info-container">
+                    <Label text="예약 취소/환불 안내" class="title"></Label>
+                    <Label [text]="infoMsg1" textWrap="true"></Label>
+                    <Label [text]="infoMsg2" textWrap="true"></Label>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout class="row_1">
+                <StackLayout class="base-info">
+                    <Label text="{{ main.AcomNm }}" class="base-acom"></Label>
+                    <Label text="{{ main.Addr1 }}" class="base-addr"></Label>
+                    <GridLayout columns="*, *" class="base-date">
+                        <StackLayout col="0" class="base-date-checkin">
+                            <Label text="체크인"></Label>
+                            <Label text="{{ main.CheckinDt | customdate : 'mm.dd(day)' }}" class="check-date"></Label>
+                            <Label text="{{ main.CheckinTime }}"></Label>
+                        </StackLayout>
+                        <StackLayout col="1">
+                            <Label text="체크아웃"></Label>
+                            <Label text="{{ main.CheckoutDt | customdate : 'mm.dd(day)' }}" class="check-date"></Label>
+                            <Label text="{{ main.CheckoutTime }}"></Label>
+                        </StackLayout>
+                    </GridLayout>
+                    <GridLayout columns="auto, *" class="label-field">
+                        <Label col="0" text="예약자" class="field-header"></Label>
+                        <Label col="1" text="{{ main.GuestNm }}" class="field-info"></Label>
+                    </GridLayout>
+                    <GridLayout columns="auto, *" class="label-field">
+                        <Label col="0" text="연락처" class="field-header"></Label>
+                        <Label col="1" text="{{ main.Mobile }}" class="field-info"></Label>
+                    </GridLayout>
+                    <GridLayout columns="auto, *" class="label-field">
+                        <Label col="0" text="총 결제금액" class="field-header"></Label>
+                        <Label col="1" text="{{ main.OrderTotal ? main.OrderTotal : 0 | comma }}원" class="field-info"></Label>
+                    </GridLayout>
+                </StackLayout>
+                <StackLayout class="main-info">
+                    <Label text="객실정보"></Label>
+                    <StackLayout class="info-container">
+                        <GridLayout columns="auto, auto, *">
+                            <Label text="{{ main.RoomNm }}" class="info-room-name" col="0"></Label>
+                            <Label text="{{ resvStat[main.ResvStat] }}" class="info-resv-stat" col="1"></Label>
+                            <Label text="예약취소" class="btn-cancel" col="3" 
+                                *ngIf="main.availableCancle" (tap)="cancelBooking(main)"></Label>
+                        </GridLayout>
+                        <GridLayout columns="auto, *" class="label-field">
+                            <Label col="0" text="예약번호" class="field-header"></Label>
+                            <Label col="1" [text]="main.ResvNo" class="field-info"></Label>
+                        </GridLayout>
+                        <GridLayout columns="auto, *" class="label-field">
+                            <Label col="0" text="인원" class="field-header"></Label>
+                            <Label col="1" text="성인 {{ main.Adult }}{{ main.Infant !== 0 ? ', 영/유아 ' + main.Infant : '' }}{{ main.Pet !== 0 ? ', 애견 ' + main.Pet : '' }}" textWrap="true" class="field-info"></Label>
+                        </GridLayout>
+                        <GridLayout columns="auto, *" class="label-field">
+                            <Label col="0" text="객실료" class="field-header"></Label>
+                            <Label col="1" text="{{ main.Price | comma }}원" class="field-info"></Label>
+                        </GridLayout>
+                        <GridLayout columns="auto, *" class="label-field">
+                            <Label col="0" text="인원/애견추가 요금" class="field-header"></Label>
+                            <Label col="1" text="{{ main.AddGuestPrice | comma }}원/{{ main.AddPetPrice | comma}}원" class="field-info"></Label>
+                        </GridLayout>
+                        <GridLayout columns="auto, *" class="label-field">
+                            <Label col="0" text="옵션추가" class="field-header"></Label>
+                            <Label col="1" text="(1), (2)" class="field-info"></Label>
+                        </GridLayout>
+                        <GridLayout columns="auto, *" class="label-field">
+                            <Label col="0" text="옵션추가 요금" class="field-header"></Label>
+                            <Label col="1" text="{{ calcOptionTotal(main.options) | comma }}원" class="field-info"></Label>
+                        </GridLayout>
+                        <GridLayout columns="auto, *" class="label-field">
+                            <Label col="0" text="적용할인" class="field-header"></Label>
+                            <Label col="1" text="지역민" class="field-info"></Label>
+                        </GridLayout>
+                        <GridLayout columns="auto, *" class="label-field">
+                            <Label col="0" text="할인금액" class="field-header"></Label>
+                            <Label col="1" text="{{ calcCouponTotal(main.coupons) | comma }}원" class="field-info"></Label>
+                        </GridLayout>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout class="main-info" *ngIf="subs.length > 0">
+                    <Label text="함께 결제한 객실"></Label>
+                    <StackLayout class="info-container" *ngFor="let item of subs">
+                        <GridLayout columns="auto, auto, *">
+                            <Label text="{{ item.RoomNm }}" class="info-room-name" col="0"></Label>
+                            <Label text="{{ resvStat[item.ResvStat] }}" class="info-resv-stat" col="1"></Label>
+                            <Label text="예약취소" class="btn-cancel" col="3" 
+                                *ngIf="main.availableCancle" (tap)="cancelBooking(item)"></Label>
+                        </GridLayout>
+                        <GridLayout columns="auto, *" class="label-field">
+                            <Label col="0" text="예약번호" class="field-header"></Label>
+                            <Label col="1" [text]="item.ResvNo" class="field-info"></Label>
+                        </GridLayout>
+                        <GridLayout columns="auto, *" class="label-field">
+                            <Label col="0" text="인원" class="field-header"></Label>
+                            <Label col="1" text="성인 {{ item.Adult }}{{ item.Infant !== 0 ? ', 영/유아 ' + item.Infant : '' }}{{ item.Pet !== 0 ? ', 애견 ' + item.Pet : '' }}" textWrap="true" class="field-info"></Label>
+                        </GridLayout>
+                        <GridLayout columns="auto, *" class="label-field">
+                            <Label col="0" text="객실료" class="field-header"></Label>
+                            <Label col="1" text="{{ item.Price | comma }}원" class="field-info"></Label>
+                        </GridLayout>
+                        <GridLayout columns="auto, *" class="label-field">
+                            <Label col="0" text="인원/애견추가 요금" class="field-header"></Label>
+                            <Label col="1" text="{{ item.AddGuestPrice | comma }}원/{{ item.AddPetPrice | comma}}원" class="field-info"></Label>
+                        </GridLayout>
+                        <GridLayout columns="auto, *" class="label-field">
+                            <Label col="0" text="옵션추가" class="field-header"></Label>
+                            <Label col="1" text="(1), (2)" class="field-info"></Label>
+                        </GridLayout>
+                        <GridLayout columns="auto, *" class="label-field">
+                            <Label col="0" text="옵션추가 요금" class="field-header"></Label>
+                            <Label col="1" text="{{ calcOptionTotal(item.options) | comma }}원" class="field-info"></Label>
+                        </GridLayout>
+                        <GridLayout columns="auto, *" class="label-field">
+                            <Label col="0" text="적용할인" class="field-header"></Label>
+                            <Label col="1" text="지역민" class="field-info"></Label>
+                        </GridLayout>
+                        <GridLayout columns="auto, *" class="label-field">
+                            <Label col="0" text="할인금액" class="field-header"></Label>
+                            <Label col="1" text="{{ calcCouponTotal(item.coupons) | comma }}원" class="field-info"></Label>
+                        </GridLayout>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</GridLayout>

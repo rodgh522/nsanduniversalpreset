@@ -1,1 +1,45 @@
-<Button text="info works!" class="btn btn-primary"></Button>
+<GridLayout>
+    <ScrollView>
+        <StackLayout>
+            <StackLayout class="info-container">
+                <Label text="기본정보"></Label>
+                <StackLayout class="input-field">
+                    <Label text="이름"></Label>
+                    <TextField hint="이름" [(ngModel)]="user.MemNm"></TextField>
+                </StackLayout>
+                <StackLayout class="input-field">
+                    <Label text="이메일"></Label>
+                    <TextField hint="이메일" [(ngModel)]="user.Email"></TextField>
+                </StackLayout>
+                <StackLayout class="input-field">
+                    <Label text="협약사코드"></Label>
+                    <TextField hint="코드" [(ngModel)]="user.ContractCode"></TextField>
+                </StackLayout>
+                <StackLayout class="input-field">
+                    <Label text="비밀번호"></Label>
+                    <Button text="비밀번호 변경"></Button>
+                </StackLayout>
+                <StackLayout class="input-field">
+                    <Label text="전화번호"></Label>
+                    <Label text="{{ user.Mobile }}" class="text-field"></Label>
+                    <Button text="전화번호 변경"></Button>
+                </StackLayout>
+                <!-- <StackLayout class="input-field addr-field">
+                    <Label text="주소"></Label>
+                    <GridLayout columns="auto, auto">
+                        <TextField col="0" hint="우편번호" class="zipcode"></TextField>
+                        <Button text="검색" col="1" class="btn-search" (tap)="srchAddr()"></Button>
+                    </GridLayout>
+                    <GridLayout columns="*, *" class="addr-text">
+                        <Label text="주소" col="0" class="addr1"></Label>
+                        <TextField hint="상세주소" col="1"></TextField>
+                    </GridLayout>
+                </StackLayout> -->
+            </StackLayout>
+            <GridLayout columns="*, *" class="out-container">
+                <Label text="로그아웃" col="0" (tap)="signOut()"></Label>
+                <Label text="회원탈퇴" col="1"></Label>
+            </GridLayout>
+        </StackLayout>
+    </ScrollView>
+</GridLayout>

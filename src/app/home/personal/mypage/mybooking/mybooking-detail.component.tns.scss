@@ -1,1 +1,103 @@
 /* Add mobile styles for the component here.  */
+.row_0{
+    padding: 20;
+    > Label {
+        font-size: 30;
+        color: #1b3a57;
+    }
+    .info-container{
+        padding: 15;
+        border-width: 0.5;
+        border-color: #aaa;
+
+        .title{
+            font-weight: bold;
+            margin-bottom: 10;
+        }
+    }
+}
+
+.base-info{
+    padding: 20;
+    padding-top: 0;
+
+    .base-acom{
+        font-size: 20;
+        font-weight: bold;
+        color: #333;
+    }
+    .base-addr{ margin-bottom: 10;}
+    .base-straight{ color: #777;}
+    .base-date{
+        border-width: 0.5;
+        border-color: #aaa;
+        padding: 20;
+        StackLayout{
+            .check-date{
+                margin-top: 10;
+                color: #333;
+            }
+
+            &.base-date-checkin{
+                border-right-width: 0.5;
+                border-color: #aaa;
+                margin-right: 15;
+            }
+        }
+    }
+}
+
+.label-field{
+    margin-top: 10;
+    .field-header{ width: 120;}
+    .field-info{ color: #555;}
+}
+
+.main-info{
+    padding: 20;
+    > Label { font-size: 18; color: #333; margin-bottom: 3;}
+    .info-container{
+        border-width: 0.5;
+        border-color: #aaa;
+        padding: 10;
+        margin-bottom: 5;
+        .info-room-name{
+            font-size: 17;
+            color: #555;
+            margin-bottom: 5; 
+            vertical-align: middle;
+        }
+        .info-resv-stat{ vertical-align: middle; margin-left: 10;}
+        .btn-cancel{ text-align: right; margin-right: 10; color: #d22;}
+    }
+}
+@keyframes toast-show{
+    0%{opacity: 0;}
+    10% {opacity: 1;}
+    80% { opacity: 1; }
+    100% {opacity: 0;}
+}
+
+.show-toast{
+    z-index: 99;
+    opacity: 0;
+    animation-name: toast-show;
+    animation-duration: 3;
+}
+
+.hide-toast{
+    opacity: 0;
+}
+
+.toast-bar{
+    height: 40;
+    width: 300;
+    background-color: #444;
+    border-radius: 5;
+    margin-top: 10;
+    vertical-align: middle;
+    Label{
+        color: #fff;
+        text-align: center;
+    }
+}
