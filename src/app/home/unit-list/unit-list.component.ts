@@ -366,13 +366,12 @@ export class UnitListComponent implements OnInit {
 
     this.dialog.confirm(data).toPromise()
     .then((res)=> {
+      console.log(res);
       if(res) {
-        if(res === 'ok') {
           this.router.navigate(['/payment']);
-        }else {
-          rootScope.savedUrl = this.router.url;
-          this.router.navigateByUrl('/login');
-        }
+      }else {
+        rootScope.savedUrl = this.router.url;
+        this.router.navigateByUrl('/login');
       }
     });
   }
@@ -426,7 +425,6 @@ export class UnitListComponent implements OnInit {
           this.getReviewComment(this.reviewlist[i]);
         }
         this.dataloader = false;
-        console.log(this.reviewlist);
       }
     }); 
     setTimeout(()=> {
@@ -803,7 +801,6 @@ export class UnitListComponent implements OnInit {
           this.getQuestionComment(this.questionlist[i]);
         }
         this.dataloader = false;
-        console.log(this.questionlist);
       }
     }); 
     setTimeout(()=> {

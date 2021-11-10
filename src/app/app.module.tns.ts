@@ -1,5 +1,5 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
-import { NativeScriptModule } from '@nativescript/angular';
+import { NativeScriptModule, NativeScriptAnimationsModule } from '@nativescript/angular';
 
 import { AppRoutingModule } from './app-routing.module.tns';
 import { AppComponent } from './app.component.tns';
@@ -18,7 +18,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     NativeScriptModule,
     AppRoutingModule,
     HttpClientModule,
-
+    NativeScriptAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
