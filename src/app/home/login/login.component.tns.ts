@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
     member: false,
     iofo: false
   };
+  srch: any = {};
 
   constructor(
     private postApi: PostApiService,
@@ -73,6 +74,11 @@ export class LoginComponent implements OnInit {
     (error)=> {
       console.error('[Error]=> ' + error);
     });
+  }
+
+  searchBooking(){
+    const param = JSON.stringify(this.srch);
+    this.router.navigate(['/reservation', param]);
   }
 
   signOut(){

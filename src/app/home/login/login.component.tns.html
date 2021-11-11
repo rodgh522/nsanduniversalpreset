@@ -22,10 +22,10 @@
                 <Button text="로그인" class="btn-submit" (tap)="doLogin()"></Button>
             </StackLayout>
             <StackLayout *ngIf="tab === 1" class="tab_1">
-                <TextField class="input" hint="핸드폰번호"></TextField>
-                <TextField class="input" hint="예약번호"></TextField>
+                <TextField class="input" hint="예약번호" [(ngModel)]="srch.ResvNo"></TextField>
+                <TextField class="input" hint="핸드폰번호" [(ngModel)]="srch.Mobile"></TextField>
                 <Label text="일치하는 예약이 없습니다." *ngIf="valid.info" color="#f22"></Label>
-                <Button text="예약조회" class="btn-submit"></Button>
+                <Button text="예약조회" class="btn-submit" (tap)="searchBooking()"></Button>
             </StackLayout>
             <GridLayout columns="auto, auto, auto, auto, auto" horizontalAlignment="center">
                 <Label col="0" text="회원가입" (tap)="signOut()"></Label>

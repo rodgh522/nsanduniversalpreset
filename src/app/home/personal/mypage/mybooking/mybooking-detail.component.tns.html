@@ -93,7 +93,7 @@
                             <Label text="{{ item.RoomNm }}" class="info-room-name" col="0"></Label>
                             <Label text="{{ resvStat[item.ResvStat] }}" class="info-resv-stat" col="1"></Label>
                             <Label text="예약취소" class="btn-cancel" col="3" 
-                                *ngIf="main.availableCancle" (tap)="cancelBooking(item)"></Label>
+                                *ngIf="item.availableCancle" (tap)="cancelBooking(item)"></Label>
                         </GridLayout>
                         <GridLayout columns="auto, *" class="label-field">
                             <Label col="0" text="예약번호" class="field-header"></Label>
