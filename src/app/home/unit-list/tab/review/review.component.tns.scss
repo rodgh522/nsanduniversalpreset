@@ -16,16 +16,7 @@
 }
 .add-photo{
     margin-top: 5;
-    .photo-box{
-        vertical-align: middle;
-        width: 80;
-        height: 80;
-        border-width: 1;
-        border-color: #eee;
-        border-radius: 7;
-        margin-right: 15;
-        text-align: center;
-    }
+    
     .btn-submit{
         text-align: right;
         Label {
@@ -33,6 +24,42 @@
             padding: 10 35;
             background-color: #333;
             color: #fff;
+        }
+    }
+}
+.photo-box{
+    vertical-align: middle;
+    width: 80;
+    height: 80;
+    border-width: 1;
+    border-color: #eee;
+    border-radius: 7;
+    margin-right: 15;
+    text-align: center;
+    Image{ border-radius: 7; }
+}
+.reviews-container{
+    margin-top: 20;
+    > Label { font-size: 18; color: #333; border-bottom-width: 1; border-color: #aaa; padding-bottom: 10; margin-bottom: 10;}
+    .reviews-box{
+        margin-bottom: 10;
+        border-bottom-width: 0.5;
+        border-color: #aaa;
+        padding-bottom: 10;
+        .box-top{
+            margin-bottom: 15;
+            .user-name{ margin-right: 10;}
+            .reg-date{margin-right: 10;}
+            .stars{ margin-right: 10; color: #ffd27d;}
+            .btn-group-action{
+                * {
+                    margin: 0 5;
+                }
+            }
+        }
+        .content-text{
+            vertical-align: middle;
+            min-height: 50;
         }
     }
 }

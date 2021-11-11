@@ -1,26 +1,51 @@
 <GridLayout>
     <ScrollView>
         <StackLayout>
-            <GridLayout columns="auto, auto, auto, auto, auto" class="review-star">
-                <Label col="0" [ngClass]="[typing.selected === 1 ? 'selected' : '']" (tap)="typing.selected = 1" text="★"></Label>
-                <Label col="1" [ngClass]="[typing.selected === 2 ? 'selected' : '']" (tap)="typing.selected = 2" text="★★"></Label>
-                <Label col="2" [ngClass]="[typing.selected === 3 ? 'selected' : '']" (tap)="typing.selected = 3" text="★★★"></Label>
-                <Label col="3" [ngClass]="[typing.selected === 4 ? 'selected' : '']" (tap)="typing.selected = 4" text="★★★★"></Label>
-                <Label col="4" [ngClass]="[typing.selected === 5 ? 'selected' : '']" (tap)="typing.selected = 5" text="★★★★★"></Label>
-            </GridLayout>
-            <TextField hint="리뷰를 작성해 주세요." [(ngModel)]="typing.text" class="text-box"></TextField>
-            <GridLayout columns="auto, auto, *" class="add-photo">
-                <StackLayout col="0" class="photo-box" (tap)="searchPhoto()">
-                    <Label text="+사진추가"></Label>
+            <StackLayout>
+                <GridLayout columns="auto, auto, auto, auto, auto" class="review-star">
+                    <Label col="0" [ngClass]="[typing.score === 1 ? 'selected' : '']" (tap)="typing.score = 1" text="★"></Label>
+                    <Label col="1" [ngClass]="[typing.score === 2 ? 'selected' : '']" (tap)="typing.score = 2" text="★★"></Label>
+                    <Label col="2" [ngClass]="[typing.score === 3 ? 'selected' : '']" (tap)="typing.score = 3" text="★★★"></Label>
+                    <Label col="3" [ngClass]="[typing.score === 4 ? 'selected' : '']" (tap)="typing.score = 4" text="★★★★"></Label>
+                    <Label col="4" [ngClass]="[typing.score === 5 ? 'selected' : '']" (tap)="typing.score = 5" text="★★★★★"></Label>
+                </GridLayout>
+                <TextField hint="리뷰를 작성해 주세요." [(ngModel)]="typing.text" class="text-box"></TextField>
+                <GridLayout columns="auto, auto, *" class="add-photo">
+                    <StackLayout appMobileFileAttach col="0" class="photo-box" (onUploaded)="getFiles($event)">
+                        <Label text="+사진추가"></Label>
+                        <!-- <Button appMobileFileAttach text="사진추가" (onUploaded)="getFiles($event)"></Button> -->
+                    </StackLayout>
+                    <StackLayout col="1" class="photo-box" *ngIf="uploadFileList.length > 0"
+                        (tap)="openImageViewer()">
+                        <Image [src]="uploadFileList[0].link" stretch="aspectFill"></Image>
+                    </StackLayout>
+                    <StackLayout col="2" class="btn-submit" horizontalAlignment="right">
+                        <Label text="등록"></Label>
+                    </StackLayout>
+                </GridLayout>
+            </StackLayout>
+            <StackLayout class="reviews-container">
+                <Label text="리뷰"></Label>
+                <StackLayout class="reviews-box" *ngFor="let item of list">
+                    <GridLayout columns="auto, auto, auto, *" class="box-top">
+                        <Label [text]="item.RegUserNm" col="0" class="user-name"></Label>
+                        <Label text="{{ item.stars }}" col="1" class="stars"></Label>
+                        <Label text="{{ item.RegDate | customdate : 'yyyy.mm.dd' }}" col="2" class="reg-date"></Label>
+                        <GridLayout columns="auto, auto" col="3" class="btn-group-action" horizontalAlignment="right">
+                            <Label text="수정" col="0"></Label>
+                            <Label text="삭제" col="1"></Label>
+                            <Label text="답글" col="1"></Label>
+                        </GridLayout>
+                    </GridLayout>
+                    <GridLayout columns="auto, *">
+                        <StackLayout col="0" class="photo-box" *ngIf="item.uploadfileList.length > 0"
+                            (tap)="openImageViewer()">
+                            <Image [src]="item.uploadfileList[0].link" stretch="aspectFill" width="80"></Image>
+                        </StackLayout>
+                        <Label [text]="item.Contents" textWrap="true" col="1" class="content-text"></Label>
+                    </GridLayout>
                 </StackLayout>
-                <StackLayout col="1" class="photo-box">
-                    <Image [src]="path" stretch="aspectFill"></Image>
-                    <!-- <Label text="사진"></Label> -->
-                </StackLayout>
-                <StackLayout col="2" class="btn-submit" horizontalAlignment="right">
-                    <Label text="등록"></Label>
-                </StackLayout>
-            </GridLayout>
+            </StackLayout>
         </StackLayout>
     </ScrollView>
 </GridLayout>
