@@ -12,6 +12,7 @@ export class SwiperComponent implements OnInit, OnChanges, OnDestroy, AfterViewI
   @Input('imageHeight') mainHeight: string;
   @Input('thumbHeight') thumbHeight: string;
   @Input('images') images: Array<any>;
+  @Input('fileType') fileType: string;
   @ViewChild('carousel') carousel: ElementRef<Carousel>;
   
   constructor(
@@ -30,7 +31,9 @@ export class SwiperComponent implements OnInit, OnChanges, OnDestroy, AfterViewI
       setTimeout(()=> {
         this.carousel.nativeElement.refresh();
       }, 500);
-      this.images.map(a=> a.link = this.staticVariable.getFileDownloadUrl(a.PhysicalFileNm));
+      if(this.fileType !== 'temp') {
+        this.images.map(a=> a.link = this.staticVariable.getFileDownloadUrl(a.PhysicalFileNm));
+      }
     }
   }
 

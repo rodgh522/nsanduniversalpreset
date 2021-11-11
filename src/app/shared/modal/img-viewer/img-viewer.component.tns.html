@@ -1,1 +1,33 @@
-<Button text="img-viewer works!" class="btn btn-primary"></Button>
+<!-- <ModalStack class="modal-container">
+    <GridLayout>
+        <Carousel #carousel [items]="files" 
+            (pageChanged)="onSwipe($event)" 
+            showIndicator="true" indicatorColor="#000"
+            indicatorOffset="0, -10"
+            >
+            <CarouselItem *ngFor="let item of files" verticalAlignment="middle">
+                <GridLayout>
+                    <Image [src]="item.link" stretch="aspectFill"></Image>
+                </GridLayout>
+            </CarouselItem>
+        </Carousel>
+    </GridLayout>
+</ModalStack> -->
+<ModalStack class="modal-container">
+    <Button text="닫기" class="btn-close" horizontalAlignment="right" (tap)="close()"></Button>
+    <GridLayout *ngIf="files.length > 0" height="500">
+        <Carousel #carousel [items]="files" 
+            (pageChanged)="onSwipe($event)" 
+            showIndicator="true" indicatorColor="#00f"
+            indicatorOffset="0, -50"
+            >
+            <CarouselItem #box *ngFor="let item of files; let index = index" verticalAlignment="middle">
+                <GridLayout height="{{ deletable ? 450 : '' }}">
+                    <Image [src]="item.link" stretch="aspectFill" boxSizing="border-box"></Image>
+                </GridLayout>
+                <Button text="삭제" (tap)="deleteFile(index)" *ngIf="deletable"></Button>
+            </CarouselItem>
+        </Carousel>
+        <!-- <Button *ngFor="let item of files" text="{{item.link}}"></Button> -->
+    </GridLayout>
+</ModalStack>

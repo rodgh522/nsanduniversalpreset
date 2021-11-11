@@ -34,7 +34,7 @@ export function createTranslateLoader(http: HttpClient){
   declarations: [
     FileAttachComponent,
     AlertComponent, FileDropZoneDirective, FilesizePipe, ImgSingleComponent, ImgMultiComponent, SwiperComponent, ImgViewerComponent, 
-    ConfirmComponent, DatePickerComponent, ImgAttachComponent
+    ConfirmComponent, DatePickerComponent, ImgAttachComponent, 
   ],
   imports: [
     CommonModule, 
