@@ -5,6 +5,14 @@ import { NativeScriptCommonModule, NativeScriptFormsModule } from '@nativescript
 import { SharedModule } from '@src/app/shared/shared.module.tns';
 import { TNSCheckBoxModule } from '@nstudio/nativescript-checkbox/angular';
 
+/* Pipe */
+import { SidoPipe } from '@src/app/pipe/sido.pipe';
+import { CommaPipe } from '@src/app/pipe/comma.pipe';
+import { SubstrPipe } from '@src/app/pipe/substr.pipe';
+
+/* Directive */
+import { MobileFileAttachDirective } from '../directive/mobile-file-attach.directive.tns';
+
 /* Component */
 import { HomeComponent } from '@src/app/home/home.component.tns';
 import { FooterComponent } from '@src/app/home/layout/footer/footer.component.tns';
@@ -23,13 +31,16 @@ import { AccomInfoComponent } from '@src/app/home/unit-list/tab/accom-info/accom
 import { ReviewComponent } from '@src/app/home/unit-list/tab/review/review.component.tns';
 import { InquiryComponent } from '@src/app/home/unit-list/tab/inquiry/inquiry.component.tns';
 
-/* Pipe */
-import { SidoPipe } from '@src/app/pipe/sido.pipe';
-import { CommaPipe } from '@src/app/pipe/comma.pipe';
-import { SubstrPipe } from '@src/app/pipe/substr.pipe';
 
 @NgModule({
   declarations: [
+    // Pipe
+    SidoPipe, CommaPipe, SubstrPipe, 
+
+    // Directive
+    MobileFileAttachDirective, 
+
+    // Component
     HomeComponent,
     LoginComponent,
     MainComponent,
@@ -37,9 +48,8 @@ import { SubstrPipe } from '@src/app/pipe/substr.pipe';
     UnitListComponent,
     AccomListComponent, PaymentComponent, CompleteComponent, MypageComponent,
     InfoComponent, MybookingComponent, MybookingDetailComponent, 
+    AccomInfoComponent, ReviewComponent, InquiryComponent,
     
-    // Pipe
-    SidoPipe, CommaPipe, SubstrPipe, AccomInfoComponent, ReviewComponent, InquiryComponent,
   ],
   imports: [
     NativeScriptCommonModule, NativeScriptFormsModule,

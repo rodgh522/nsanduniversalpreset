@@ -42,7 +42,7 @@ import { SubstrPipe } from '@src/app/pipe/substr.pipe';
 
     /* pipe */
     CustomdatePipe,
-    SidoPipe, CommaPipe, CompleteComponent, SubstrPipe, MybookingDetailComponent, 
+    SidoPipe, CommaPipe, CompleteComponent, SubstrPipe, MybookingDetailComponent,  
   ],
   imports: [
     CommonModule,
