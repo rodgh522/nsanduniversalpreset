@@ -35,7 +35,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
   reserve = [];
   accomInfo;
   review;
-  selectedMenu = 0;
+  selectedMenu = 3;
   options = [];
   dateRange;
   isIos = isIOS;
@@ -53,6 +53,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
 
     const param = this.activateRouter.snapshot.params;
     this.srch = this.searchService.srch;
+    console.dir(this.srch);
     this.srch.AcomId = param.acomId;
   }
 

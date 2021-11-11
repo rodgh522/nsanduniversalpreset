@@ -116,13 +116,13 @@
                     </StackLayout>
                 </StackLayout>
                 <StackLayout *ngIf="selectedMenu === 1">
-                    <Label text="info"></Label>
+                    <ns-accom-info [id]="srch.AcomId"></ns-accom-info>
                 </StackLayout>
                 <StackLayout *ngIf="selectedMenu === 2">
-                    <Label text="inquire"></Label>
+                    <ns-inquiry [id]="srch.AcomId"></ns-inquiry>
                 </StackLayout>
                 <StackLayout *ngIf="selectedMenu === 3">
-                    <Label text="review"></Label>
+                    <ns-review [id]="srch.AcomId"></ns-review>
                 </StackLayout>
             </StackLayout>
         </StackLayout>
