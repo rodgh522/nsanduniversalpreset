@@ -1,0 +1,38 @@
+/* Add mobile styles for the component here.  */
+.review-star{
+    margin: 10 0;
+    * {
+        margin: 0 5;
+        padding: 5;
+        font-size: 18;
+        &.selected{color: #ffd27d;}
+    }
+}
+.text-box{
+    border-width: 1;
+    border-color: #eee;
+    height: 120;
+    font-size: 15;
+}
+.add-photo{
+    margin-top: 5;
+    .photo-box{
+        vertical-align: middle;
+        width: 80;
+        height: 80;
+        border-width: 1;
+        border-color: #eee;
+        border-radius: 7;
+        margin-right: 15;
+        text-align: center;
+    }
+    .btn-submit{
+        text-align: right;
+        Label {
+            text-align: right;
+            padding: 10 35;
+            background-color: #333;
+            color: #fff;
+        }
+    }
+}

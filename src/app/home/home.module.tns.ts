@@ -19,6 +19,9 @@ import { MypageComponent } from '@src/app/home/personal/mypage/mypage.component.
 import { InfoComponent } from '@src/app/home/personal/mypage/info/info.component.tns';
 import { MybookingComponent } from '@src/app/home/personal/mypage/mybooking/mybooking.component.tns';
 import { MybookingDetailComponent } from '@src/app/home/personal/mypage/mybooking/mybooking-detail.component.tns';
+import { AccomInfoComponent } from '@src/app/home/unit-list/tab/accom-info/accom-info.component.tns';
+import { ReviewComponent } from '@src/app/home/unit-list/tab/review/review.component.tns';
+import { InquiryComponent } from '@src/app/home/unit-list/tab/inquiry/inquiry.component.tns';
 
 /* Pipe */
 import { SidoPipe } from '@src/app/pipe/sido.pipe';
@@ -36,7 +39,7 @@ import { SubstrPipe } from '@src/app/pipe/substr.pipe';
     InfoComponent, MybookingComponent, MybookingDetailComponent, 
     
     // Pipe
-    SidoPipe, CommaPipe, SubstrPipe,
+    SidoPipe, CommaPipe, SubstrPipe, AccomInfoComponent, ReviewComponent, InquiryComponent,
   ],
   imports: [
     NativeScriptCommonModule, NativeScriptFormsModule,

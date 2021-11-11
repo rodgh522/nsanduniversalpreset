@@ -1,0 +1,26 @@
+<GridLayout>
+    <ScrollView>
+        <StackLayout>
+            <GridLayout columns="auto, auto, auto, auto, auto" class="review-star">
+                <Label col="0" [ngClass]="[typing.selected === 1 ? 'selected' : '']" (tap)="typing.selected = 1" text="★"></Label>
+                <Label col="1" [ngClass]="[typing.selected === 2 ? 'selected' : '']" (tap)="typing.selected = 2" text="★★"></Label>
+                <Label col="2" [ngClass]="[typing.selected === 3 ? 'selected' : '']" (tap)="typing.selected = 3" text="★★★"></Label>
+                <Label col="3" [ngClass]="[typing.selected === 4 ? 'selected' : '']" (tap)="typing.selected = 4" text="★★★★"></Label>
+                <Label col="4" [ngClass]="[typing.selected === 5 ? 'selected' : '']" (tap)="typing.selected = 5" text="★★★★★"></Label>
+            </GridLayout>
+            <TextField hint="리뷰를 작성해 주세요." [(ngModel)]="typing.text" class="text-box"></TextField>
+            <GridLayout columns="auto, auto, *" class="add-photo">
+                <StackLayout col="0" class="photo-box" (tap)="searchPhoto()">
+                    <Label text="+사진추가"></Label>
+                </StackLayout>
+                <StackLayout col="1" class="photo-box">
+                    <Image [src]="path" stretch="aspectFill"></Image>
+                    <!-- <Label text="사진"></Label> -->
+                </StackLayout>
+                <StackLayout col="2" class="btn-submit" horizontalAlignment="right">
+                    <Label text="등록"></Label>
+                </StackLayout>
+            </GridLayout>
+        </StackLayout>
+    </ScrollView>
+</GridLayout>
