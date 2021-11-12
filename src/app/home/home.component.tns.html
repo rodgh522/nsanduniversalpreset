@@ -4,3 +4,8 @@
         <app-footer></app-footer>
     </GridLayout>
 </GridLayout>
+<AbsoluteLayout [ngClass]="[toast.status === 'show' ? 'show-toast' : 'hide-toast']" horizontalAlignment="center">
+    <StackLayout class="toast-bar">
+        <Label text="{{ toast.msg }}"></Label>
+    </StackLayout>
+</AbsoluteLayout>

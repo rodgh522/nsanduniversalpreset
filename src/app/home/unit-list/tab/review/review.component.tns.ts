@@ -7,6 +7,7 @@ import { confirm } from '@nativescript/core';
 import { PostApiService } from '@src/app/service/post-api.service.tns';
 import { StaticVariableService } from '@src/app/global/static-variable.tns';
 import { Router } from '@angular/router';
+import { MobileToastService } from '@src/app/service/mobile-toast.service.tns';
 
 @Component({
   selector: 'ns-review',
@@ -30,6 +31,7 @@ export class ReviewComponent implements OnInit {
     private session: SessionService,
     private postApi: PostApiService,
     private staticVariable: StaticVariableService,
+    private toast: MobileToastService,
     private router: Router,
     private _ngZone: NgZone
   ) { 
@@ -108,7 +110,7 @@ export class ReviewComponent implements OnInit {
           text: ''
         };
         this.uploadFileList = [];
-
+        this.toast.setMsg('저장 되었습니다.');
         this.getReview();
       }
     });
@@ -158,6 +160,7 @@ export class ReviewComponent implements OnInit {
         };
         this.postApi.movilaUpdate(data, (res)=> {
           if (res.header.status === 200) {
+            this.toast.setMsg('삭제되었습니다');
             this.getReview();
           }
         });

@@ -2,3 +2,33 @@
     text-decoration: line-through;
     color: #aaa;
 }
+@keyframes toast-show{
+    0%{opacity: 0;}
+    10% {opacity: 1;}
+    80% { opacity: 1; }
+    100% {opacity: 0;}
+}
+
+.show-toast{
+    z-index: 99;
+    opacity: 0;
+    animation-name: toast-show;
+    animation-duration: 3;
+}
+
+.hide-toast{
+    opacity: 0;
+}
+
+.toast-bar{
+    height: 40;
+    width: 300;
+    background-color: #444;
+    border-radius: 5;
+    margin-top: 10;
+    vertical-align: middle;
+    Label{
+        color: #fff;
+        text-align: center;
+    }
+}
