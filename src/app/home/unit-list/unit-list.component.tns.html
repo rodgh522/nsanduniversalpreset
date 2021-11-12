@@ -12,7 +12,7 @@
                     <Label [ngClass]="['acom_label', selectedMenu === 0 ? 'highlight_menu' : '']" (tap)="selectedMenu = 0" row="0" col="0" text="객실/예약"></Label>
                     <Label [ngClass]="['acom_label', selectedMenu === 1 ? 'highlight_menu' : '']" (tap)="selectedMenu = 1" row="0" col="1" text="숙소정보"></Label>
                     <Label [ngClass]="['acom_label', selectedMenu === 2 ? 'highlight_menu' : '']" (tap)="selectedMenu = 2" row="0" col="2" text="객실문의"></Label>
-                    <Label [ngClass]="['acom_label', selectedMenu === 3 ? 'highlight_menu' : '']" (tap)="selectedMenu = 3" row="0" col="3" text="리뷰(0)"></Label>
+                    <Label [ngClass]="['acom_label', selectedMenu === 3 ? 'highlight_menu' : '']" (tap)="selectedMenu = 3" row="0" col="3" text="리뷰({{reviewCnt}})"></Label>
                 </GridLayout>
                 <StackLayout *ngIf="selectedMenu === 0">
                     <StackLayout class="booking_range" (tap)="openCalendar()">

@@ -6,6 +6,7 @@ import { ImgViewerComponent } from '@src/app/shared/modal/img-viewer/img-viewer.
 import { confirm } from '@nativescript/core';
 import { PostApiService } from '@src/app/service/post-api.service.tns';
 import { StaticVariableService } from '@src/app/global/static-variable.tns';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ns-review',
@@ -21,14 +22,19 @@ export class ReviewComponent implements OnInit {
   }
   uploadFileList = [];
   list = [];
+  user;
+  onEdit = true;
 
   constructor(
     private modalService: ModalDialogService,
     private session: SessionService,
     private postApi: PostApiService,
     private staticVariable: StaticVariableService,
+    private router: Router,
     private _ngZone: NgZone
-  ) { }
+  ) { 
+    this.user = this.session.user$.value;
+  }
 
   ngOnInit(): void {
     this.getReview();
@@ -47,10 +53,10 @@ export class ReviewComponent implements OnInit {
     });
   }
 
-  openImageViewer(){
+  openImageViewer(files: Array<any>, arg: number){                 // 0일경우 delete 불가, 1일 경우 delete 가능
     const param = {
-      files: this.uploadFileList,
-      deletable: true
+      files: files,
+      deletable: arg === 1 ? true : false
     }
     const config: ModalDialogOptions = {
       viewContainerRef: rootScope.vcRef,
@@ -61,7 +67,7 @@ export class ReviewComponent implements OnInit {
     then((res)=> {
       // 마지막 하나를 지울 때는 모달 밖에서 처리해야 에러 안남
       if(res && res.delete) {
-        this.uploadFileList = [];
+        files.pop();
       }
     });
   }
@@ -76,9 +82,11 @@ export class ReviewComponent implements OnInit {
       };
       confirm(data).then(res=> {
         if(res) {
-          this.sendRequest();
+          this.router.navigateByUrl('/login');
         }
       });
+    }else{
+      this.sendRequest();
     }
   }
 
@@ -90,6 +98,7 @@ export class ReviewComponent implements OnInit {
       Score: this.typing.score,
       mapcode: 'CommunityQuery.insertReview',
       uploadFileList: this.uploadFileList,
+      IdName: 'ReviewId',
       tableNm: 'review'
     };
     this.postApi.movilaInsert(param, (res)=> {
@@ -120,7 +129,6 @@ export class ReviewComponent implements OnInit {
             b.link = this.staticVariable.getFileDownloadUrl(b.PhysicalFileNm);
           });
         });
-        console.log(this.list);
       }
     }); 
   }
@@ -132,4 +140,29 @@ export class ReviewComponent implements OnInit {
     }
     return stars;
   }
+
+  reviewDel(target) {
+    const data = {
+      title: '리뷰 삭제',
+      message: '리뷰를 삭제하시겠습니까?',
+      okButtonText: '삭제',
+      cancelButtonText: '닫기'
+    };
+    confirm(data).then(res=> {
+      if(res) {
+        const data = {
+          ReviewId: target.ReviewId,
+          MemId: this.user.MemId,
+          AcomId: this.id,
+          mapcode: 'CommunityQuery.deleteReview'
+        };
+        this.postApi.movilaUpdate(data, (res)=> {
+          if (res.header.status === 200) {
+            this.getReview();
+          }
+        });
+      }
+    });
+  }
+  
 }

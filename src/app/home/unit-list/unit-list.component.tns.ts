@@ -39,6 +39,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
   options = [];
   dateRange;
   isIos = isIOS;
+  reviewCnt = 0;
   
   constructor(
     private _page: Page,
@@ -61,7 +62,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
     this.startDate = this.srch.dates[0];
     this.endDate = new Date(Date.parse(this.srch.dates[this.srch.dates.length - 1].toString()) + 1000 * 60 * 60 * 24);
     this.getData();
-    // this.http();
+    this.getReview()
   }
 
   @HostListener('unloaded')
@@ -313,6 +314,19 @@ export class UnitListComponent implements OnInit, OnDestroy {
       
     };
     this.modalService.showModal(RerenderComponent, config);
+  }
+
+  getReview(){
+    let param: any = {
+      AcomId: this.srch.AcomId,
+      mapcode: 'getReviewList'
+    };
+    
+    this.postApi.home(param, (res)=> {
+      if (res.header.status === 200) {
+        this.reviewCnt = res.body.docs[0].list.length;
+      }
+    }); 
   }
   
 }

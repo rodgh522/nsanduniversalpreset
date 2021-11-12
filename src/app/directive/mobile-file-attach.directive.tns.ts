@@ -3,6 +3,7 @@ import { ImageSource, isIOS, knownFolders, path } from '@nativescript/core';
 import { ImagePicker, create } from '@nativescript/imagepicker';
 import { StaticVariableService } from '../global/static-variable.tns';
 import { session } from '@nativescript/background-http';
+import { SessionService } from '../service/session.service.tns';
 
 @Directive({
   selector: '[appMobileFileAttach]'
@@ -17,7 +18,8 @@ export class MobileFileAttachDirective {
   session = session('image-upload');
 
   constructor(
-    private staticVariable: StaticVariableService
+    private staticVariable: StaticVariableService,
+    private sessionService: SessionService
   ) {
   }
 
@@ -90,7 +92,7 @@ export class MobileFileAttachDirective {
 
   private createNewRequest() {
     const request = {
-        url: this.staticVariable.getUrl2('/home/attach/temp/upload.do') + '?tempKey=' + '000',
+        url: this.staticVariable.getUrl2('/home/attach/temp/upload.do') + '?tempKey=' + this.sessionService.user$.value.MemId,
         method: "POST",
         headers: {
             "Content-Type": "application/octet-stream"
@@ -109,7 +111,7 @@ export class MobileFileAttachDirective {
       const links = [];
       response.responseVO.body.docs.map(each=> {
         let url: string;
-        url = this.staticVariable.getUrl2('/home/attach/temp/' + each.tmpFileKey + '/download.do?fileName=' + each.encFileName + '&tempKey=000');
+        url = this.staticVariable.getUrl2('/home/attach/temp/' + each.tmpFileKey + '/download.do?fileName=' + each.encFileName + '&tempKey=' + this.sessionService.user$.value.MemId);
         const obj: any = {};
         obj.fileName = each.fileName;
         obj.size = each.size;
