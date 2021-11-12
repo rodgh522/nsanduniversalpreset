@@ -82,7 +82,6 @@ export class InquiryComponent implements OnInit {
         this.list.forEach(a=> {
           this.getQuestionComment(a);
         });
-        console.log(this.list);
       }
     }); 
   }

@@ -1,1 +1,131 @@
-<Button text="{{id}}" class="btn btn-primary"></Button>
+<GridLayout>
+    <ScrollView>
+        <StackLayout *ngIf="info">
+            <StackLayout class="info-container">
+                <Label text="기본정보" class="info-title"></Label>
+                <GridLayout columns="auto, *" class="info-content">
+                    <Image col="0" src="~/assets/images/dot.png" class="dot-icon"></Image>
+                    <Label col="1" text="체크인 {{ info.CheckinTime }}"></Label>
+                </GridLayout>
+                <GridLayout columns="auto, *" class="info-content">
+                    <Image col="0" src="~/assets/images/dot.png" class="dot-icon"></Image>
+                    <Label col="1" text="체크아웃 {{ info.CheckoutTime }}"></Label>
+                </GridLayout>
+                <GridLayout columns="auto, *" class="info-content">
+                    <Image col="0" src="~/assets/images/dot.png" class="dot-icon"></Image>
+                    <Label col="1" text="숙소번호 {{ info.Line }}"></Label>
+                </GridLayout>
+            </StackLayout>
+            <StackLayout class="info-container">
+                <Label text="객실정보" class="info-title"></Label>
+                <StackLayout *ngIf="info.info_accom && info['info_accom'].length > 0">
+                    <GridLayout columns="auto, *" class="info-content" *ngFor="let item of info.info_accom">
+                        <Image col="0" src="~/assets/images/dot.png" class="dot-icon"></Image>
+                        <Label col="1" [text]="item.Content"></Label>
+                    </GridLayout>
+                </StackLayout>
+                <Label text="없음" *ngIf="info.info_accom && info['info_accom'].length === 0" marginLeft="15" marginTop="5"></Label>
+            </StackLayout>
+            <StackLayout class="info-container">
+                <Label text="인원추가정보" class="info-title"></Label>
+                <StackLayout *ngIf="info.info_guest && info.info_guest.length > 0">
+                    <GridLayout columns="auto, *" class="info-content" *ngFor="let item of info.info_guest">
+                        <Image col="0" src="~/assets/images/dot.png" class="dot-icon"></Image>
+                        <Label col="1" [text]="item.Content"></Label>
+                    </GridLayout>
+                </StackLayout>
+                <Label text="없음" *ngIf="info.info_guest && info['info_guest'].length === 0" marginLeft="15" marginTop="5"></Label>
+            </StackLayout>
+            <StackLayout class="info-container">
+                <Label text="주변정보" class="info-title"></Label>
+                <StackLayout *ngIf="info.info_nearby && info['info_nearby'].length > 0">
+                    <GridLayout columns="auto, *" class="info-content" *ngFor="let item of info.info_nearby">
+                        <Image col="0" src="~/assets/images/dot.png" class="dot-icon"></Image>
+                        <Label col="1" [text]="item.Content"></Label>
+                    </GridLayout>
+                </StackLayout>
+                <Label text="없음" *ngIf="info.info_nearby && info['info_nearby'].length === 0" marginLeft="15" marginTop="5"></Label>
+            </StackLayout>
+            <StackLayout class="info-container">
+                <Label text="바베큐 정보" class="info-title"></Label>
+                <StackLayout *ngIf="info.info_bbq && info['info_bbq'].length > 0">
+                    <GridLayout columns="auto, *" class="info-content" *ngFor="let item of info.info_bbq">
+                        <Image col="0" src="~/assets/images/dot.png" class="dot-icon"></Image>
+                        <Label col="1" [text]="item.Content"></Label>
+                    </GridLayout>
+                </StackLayout>
+                <Label text="없음" *ngIf="info.info_bbq && info['info_bbq'].length === 0" marginLeft="15" marginTop="5"></Label>
+            </StackLayout>
+            <StackLayout class="info-container">
+                <Label text="픽업 정보" class="info-title"></Label>
+                <StackLayout *ngIf="info.info_pickup && info['info_pickup'].length > 0">
+                    <GridLayout columns="auto, *" *ngFor="let item of info.info_pickup" class="info-content">
+                        <Image col="0" src="~/assets/images/dot.png" class="dot-icon"></Image>
+                        <Label col="1" [text]="item.Content"></Label>
+                    </GridLayout>
+                </StackLayout>
+                <Label text="없음" *ngIf="info.info_pickup && info['info_pickup'].length === 0" marginLeft="15" marginTop="5"></Label>
+            </StackLayout>
+            <StackLayout class="info-container">
+                <Label text="반려동물 정보" class="info-title"></Label>
+                <StackLayout *ngIf="info.info_pet && info['info_pet'].length > 0">
+                    <GridLayout columns="auto, *" *ngFor="let item of info.info_pet" class="info-content">
+                        <Image col="0" src="~/assets/images/dot.png" class="dot-icon"></Image>
+                        <Label col="1" [text]="item.Content"></Label>
+                    </GridLayout>
+                </StackLayout>
+                <Label text="없음" *ngIf="info.info_pet && info['info_pet'].length === 0" marginLeft="15" marginTop="5"></Label>
+            </StackLayout>
+            <StackLayout class="info-container">
+                <Label text="환불 정보" class="info-title"></Label>
+                <StackLayout *ngIf="info.info_refund && info['info_refund'].length > 0">
+                    <GridLayout columns="auto, *" *ngFor="let item of info.info_refund" class="info-content">
+                        <Image col="0" src="~/assets/images/dot.png" class="dot-icon"></Image>
+                        <Label col="1" text="숙박 {{ item.Daybefore === 0 ? '당일' : item.Daybefore + '일전'}} : {{ item.RefundRate }}% 환불"></Label>
+                    </GridLayout>
+                </StackLayout>
+                <Label text="없음" *ngIf="info.info_refund && info['info_refund'].length === 0" marginLeft="15" marginTop="5"></Label>
+            </StackLayout>
+            <StackLayout class="info-container">
+                <Label text="기타 정보" class="info-title"></Label>
+                <StackLayout *ngIf="info.info_etc && info['info_etc'].length > 0">
+                    <GridLayout columns="auto, *" *ngFor="let item of info.info_etc" class="info-content">
+                        <Image col="0" src="~/assets/images/dot.png" class="dot-icon"></Image>
+                        <Label col="1" [text]="item.Content"></Label>
+                    </GridLayout>
+                </StackLayout>
+                <Label text="없음" *ngIf="info.info_etc && info['info_etc'].length === 0" marginLeft="15" marginTop="5"></Label>
+            </StackLayout>
+            <StackLayout class="info-container">
+                <Label text="부대 시설" class="info-title"></Label>
+                <StackLayout *ngIf="info.fac_accom && info['fac_accom'].length > 0">
+                    <GridLayout columns="auto, *" class="info-content">
+                        <Image col="0" src="~/assets/images/dot.png" class="dot-icon"></Image>
+                        <Label col="1" text="{{ execStr(info.fac_accom) }}" textWrap="true"></Label>
+                    </GridLayout>
+                </StackLayout>
+                <Label text="없음" *ngIf="info.fac_accom && info['fac_accom'].length === 0" marginLeft="15" marginTop="5"></Label>
+            </StackLayout>
+            <StackLayout class="info-container">
+                <Label text="공용 시설" class="info-title"></Label>
+                <StackLayout *ngIf="info.pub_accom && info['pub_accom'].length > 0">
+                    <GridLayout columns="auto, *" class="info-content">
+                        <Image col="0" src="~/assets/images/dot.png" class="dot-icon"></Image>
+                        <Label col="1" text="{{ execStr(info.pub_accom) }}" textWrap="true"></Label>
+                    </GridLayout>
+                </StackLayout>
+                <Label text="없음" *ngIf="info.pub_accom && info['pub_accom'].length === 0" marginLeft="15" marginTop="5"></Label>
+            </StackLayout>
+            <StackLayout class="info-container">
+                <Label text="기타 시설" class="info-title"></Label>
+                <StackLayout *ngIf="info.etc_accom && info['etc_accom'].length > 0">
+                    <GridLayout columns="auto, *" class="info-content">
+                        <Image col="0" src="~/assets/images/dot.png" class="dot-icon"></Image>
+                        <Label col="1" text="{{ execStr(info.etc_accom) }}" textWrap="true"></Label>
+                    </GridLayout>
+                </StackLayout>
+                <Label text="없음" *ngIf="info.etc_accom && info['etc_accom'].length === 0" marginLeft="15" marginTop="5"></Label>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</GridLayout>

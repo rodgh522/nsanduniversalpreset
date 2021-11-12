@@ -35,7 +35,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
   reserve = [];
   accomInfo;
   review;
-  selectedMenu = 2;
+  selectedMenu = 0;
   options = [];
   dateRange;
   isIos = isIOS;
@@ -54,7 +54,6 @@ export class UnitListComponent implements OnInit, OnDestroy {
 
     const param = this.activateRouter.snapshot.params;
     this.srch = this.searchService.srch;
-    console.dir(this.srch);
     this.srch.AcomId = param.acomId;
   }
 
@@ -180,7 +179,6 @@ export class UnitListComponent implements OnInit, OnDestroy {
   }
 
   openOptionList(target){
-    console.dir(target);
     action('옵션상품', '닫기', this.options).then((res)=> {
       if(res !== '닫기') {
         this.addOption(target, res);
