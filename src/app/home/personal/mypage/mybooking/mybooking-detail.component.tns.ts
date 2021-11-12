@@ -136,4 +136,31 @@ export class MybookingDetailComponent implements OnInit {
     this.toasted = 'show';
   }
   
+  optionStr(opts){
+    if(!opts) {
+      return;
+    }
+    let result = '';
+    opts.forEach((a, i)=> {
+      result += a.ItemNm + ' ' + a.Amount;
+      if(opts.length !== i + 1) {
+        result += ', '
+      }
+    });
+    return result;
+  }
+
+  couponStr(coupons){
+    if(!coupons) {
+      return;
+    }
+    let result = '';
+    coupons.forEach((a, i)=> {
+      result += a.Promotion;
+      if(coupons.length !== i + 1) {
+        result += ', '
+      }
+    });
+    return result;
+  }
 }

@@ -40,7 +40,7 @@
                     </GridLayout>
                     <GridLayout columns="auto, *" class="label-field">
                         <Label col="0" text="총 결제금액" class="field-header"></Label>
-                        <Label col="1" text="{{ main.OrderTotal ? main.OrderTotal : 0 | comma }}원" class="field-info"></Label>
+                        <Label col="1" text="{{ (main.OrderTotal ? main.OrderTotal : 0) | comma }}원" class="field-info"></Label>
                     </GridLayout>
                 </StackLayout>
                 <StackLayout class="main-info">
@@ -65,12 +65,12 @@
                             <Label col="1" text="{{ main.Price | comma }}원" class="field-info"></Label>
                         </GridLayout>
                         <GridLayout columns="auto, *" class="label-field">
-                            <Label col="0" text="인원/애견추가 요금" class="field-header"></Label>
+                            <Label col="0" text="인원/애견추가 요금" textWrap="true" class="field-header"></Label>
                             <Label col="1" text="{{ main.AddGuestPrice | comma }}원/{{ main.AddPetPrice | comma}}원" class="field-info"></Label>
                         </GridLayout>
                         <GridLayout columns="auto, *" class="label-field">
                             <Label col="0" text="옵션추가" class="field-header"></Label>
-                            <Label col="1" text="(1), (2)" class="field-info"></Label>
+                            <Label col="1" text="{{ optionStr(main.options) }}" textWrap="true" class="field-info"></Label>
                         </GridLayout>
                         <GridLayout columns="auto, *" class="label-field">
                             <Label col="0" text="옵션추가 요금" class="field-header"></Label>
@@ -78,7 +78,7 @@
                         </GridLayout>
                         <GridLayout columns="auto, *" class="label-field">
                             <Label col="0" text="적용할인" class="field-header"></Label>
-                            <Label col="1" text="지역민" class="field-info"></Label>
+                            <Label col="1" text="{{ couponStr(main.coupons) }}" textWrap="true" class="field-info"></Label>
                         </GridLayout>
                         <GridLayout columns="auto, *" class="label-field">
                             <Label col="0" text="할인금액" class="field-header"></Label>
@@ -108,12 +108,12 @@
                             <Label col="1" text="{{ item.Price | comma }}원" class="field-info"></Label>
                         </GridLayout>
                         <GridLayout columns="auto, *" class="label-field">
-                            <Label col="0" text="인원/애견추가 요금" class="field-header"></Label>
+                            <Label col="0" text="인원/애견추가 요금" textWrap="true" class="field-header"></Label>
                             <Label col="1" text="{{ item.AddGuestPrice | comma }}원/{{ item.AddPetPrice | comma}}원" class="field-info"></Label>
                         </GridLayout>
                         <GridLayout columns="auto, *" class="label-field">
                             <Label col="0" text="옵션추가" class="field-header"></Label>
-                            <Label col="1" text="(1), (2)" class="field-info"></Label>
+                            <Label col="1" text="{{ optionStr(item.options) }}" textWrap="true" class="field-info"></Label>
                         </GridLayout>
                         <GridLayout columns="auto, *" class="label-field">
                             <Label col="0" text="옵션추가 요금" class="field-header"></Label>
@@ -121,7 +121,7 @@
                         </GridLayout>
                         <GridLayout columns="auto, *" class="label-field">
                             <Label col="0" text="적용할인" class="field-header"></Label>
-                            <Label col="1" text="지역민" class="field-info"></Label>
+                            <Label col="1" text="{{ couponStr(item.coupons) }}" textWrap="true" class="field-info"></Label>
                         </GridLayout>
                         <GridLayout columns="auto, *" class="label-field">
                             <Label col="0" text="할인금액" class="field-header"></Label>
