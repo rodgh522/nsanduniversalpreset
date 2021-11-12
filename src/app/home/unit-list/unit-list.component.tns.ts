@@ -35,7 +35,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
   reserve = [];
   accomInfo;
   review;
-  selectedMenu = 3;
+  selectedMenu = 2;
   options = [];
   dateRange;
   isIos = isIOS;

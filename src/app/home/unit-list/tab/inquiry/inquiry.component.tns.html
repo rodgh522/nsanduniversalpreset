@@ -1,1 +1,31 @@
-<Button text="inquiry works!" class="btn btn-primary"></Button>
+<GridLayout>
+    <ScrollView>
+        <StackLayout>
+            <StackLayout class="stack_0">
+                <TextField hint="문의를 작성해 주세요." [(ngModel)]="text" class="text-box"></TextField>
+                <Button text="등록" horizontalAlignment="right" class="btn-submit" (tap)="questionReg()"></Button>
+            </StackLayout>
+            <StackLayout class="stack_1">
+                <StackLayout class="reviews-box" *ngFor="let item of list">
+                    <GridLayout columns="auto, auto, auto, *" class="box-top">
+                        <Label text="{{ item.reply ? '답변 완료' : '미답변' }}" col="0"></Label>
+                        <Label [text]="item.RegUserNm" col="1" class="user-name"></Label>
+                        <Label text="{{ item.RegDate | customdate : 'yyyy.mm.dd' }}" col="2" class="reg-date"></Label>
+                        <GridLayout columns="auto, auto" col="3" class="btn-group-action" horizontalAlignment="right">
+                            <Label text="삭제" col="1" *ngIf="user && user.MemId === item.MemId" (tap)="questionDel(item)"></Label>
+                        </GridLayout>
+                    </GridLayout>
+                    <Label [text]="item.Contents" textWrap="true" class="content-text"></Label>
+                    <StackLayout *ngFor="let reply of item.reply" class="reply-container">
+                        <GridLayout columns="auto, auto, auto">
+                            <Image src="~/assets/images/re.png" stretch="aspectFill" col="0" class="icon-reply"></Image>
+                            <Label [text]="reply.URegUserNm" col="1" class="user-name"></Label>
+                            <Label text="{{ reply.RegDate | customdate : 'yyyy.mm.dd'}}" col="2" class="reg-date"></Label>
+                        </GridLayout>
+                        <Label [text]="reply.Contents" class="content-text" textWrap="true"></Label>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</GridLayout>
